@@ -1,4 +1,6 @@
-android app
+tasmota android app
+
+scan find control tasmota devices in local wifi network
 
 scan network for tasmota wifi switches devices
 
