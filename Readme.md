@@ -37,6 +37,12 @@ Volledig lokaal: geen cloud, geen account, geen MQTT-server nodig.
 </p>
 <p align="center"><sub>Links: netwerkscan · Rechts: bediening en schema's</sub></p>
 
+ <img src="Screenshot_20261010-151334.jpg" width="300" alt="">
+
+ <img src="Screenshot_20261010-151207.jpg" width="300" alt="">
+
+setting for wich ip range to scan
+
 ---
 
 ## Functies
