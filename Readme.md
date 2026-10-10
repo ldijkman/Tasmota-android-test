@@ -1,10 +1,14 @@
 tasmota android app
 
+find control timed tasmota wifi wall sockets
+
 scan find control tasmota devices in local wifi network
 
-scan network for tasmota wifi switches devices
+scan network for tasmota wifi switches wall socket devices in +/- 2 seconds
 
 control on off toggle
+
+should i add countdown off?
 
 set 2 on off timers
 
