@@ -1,3 +1,5 @@
+https://github.com/ldijkman/Tasmota-android-test/releases/download/build-24/PlafondLED.apk
+
 scan / control tasmota android app
 
 find control timed tasmota wifi wall sockets
