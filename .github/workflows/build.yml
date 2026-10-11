@@ -2,7 +2,10 @@ name: Build APK
 
 on:
   push:
-  workflow_dispatch:
+    paths:
+      - 'plafond-led-app.zip'
+      - '.github/workflows/build.yml'
+  workflow_dispatch: 
 
 permissions:
   contents: write
