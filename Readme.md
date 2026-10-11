@@ -1,4 +1,4 @@
-https://github.com/ldijkman/Tasmota-android-test/releases/download/build-24/PlafondLED.apk
+https://github.com/ldijkman/Tasmota-android-test/releases/download/build-27/PlafondLED.apk
 
 scan / control tasmota android app
 
