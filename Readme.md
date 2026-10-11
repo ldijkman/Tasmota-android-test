@@ -1,4 +1,4 @@
-tasmota android app
+scan / control tasmota android app
 
 find control timed tasmota wifi wall sockets
 
@@ -46,7 +46,9 @@ setting for wich ip range to scan
 
 <img src="Screenshot_20261011-082013_Settings.jpg" width="300" alt="">
 
-button inside app to change phones wifi connection easy
+Button inside app to change / switch  phones wifi connection easy
+
+
 ---
 
 ## Functies
