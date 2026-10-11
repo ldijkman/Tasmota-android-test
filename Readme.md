@@ -1,4 +1,4 @@
-No Ads / Free
+No Ads, no fee, Free, unlimmited, as is
 
 https://github.com/ldijkman/Tasmota-android-test/releases/download/build-34/PlafondLED.apk
 
