@@ -52,6 +52,9 @@ setting for wich ip range to scan
 
 Button inside app to change / switch  phones wifi connection easy
 
+<img src="Screenshot_20261011-202604.jpg" width="300" alt="">
+
+added sunrise sunset for active device
 
 ---
 
