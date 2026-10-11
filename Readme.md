@@ -56,6 +56,8 @@ Button inside app to change / switch  phones wifi connection easy
 
 added sunrise sunset for active device
 
+and ip link to visit the device page
+
 ---
 
 ## Functies
