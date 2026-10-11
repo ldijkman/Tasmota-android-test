@@ -143,4 +143,4 @@ Tasmota heeft geen https en hoort niet direct aan het internet te hangen.
 Gemaakt met [claude.ai](https://claude.ai) en gebouwd door GitHub Actions.
 Tasmota is een project van [Theo Arends](https://github.com/arendst/Tasmota).
 
-tasmoshelf tasmotaremota tasmotrol
+tasmoshelf tasmotaremota tasmotrol tasmotacontrol
