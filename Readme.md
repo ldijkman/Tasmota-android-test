@@ -43,6 +43,10 @@ Volledig lokaal: geen cloud, geen account, geen MQTT-server nodig.
 
 setting for wich ip range to scan
 
+
+<img src="Screenshot_20261011-082013_Settings.jpg" width="300" alt="">
+
+button inside app to change phones wifi connection easy
 ---
 
 ## Functies
