@@ -74,6 +74,13 @@ with x to remove them
 
 change friendlyname and devicename from app
 
+
+<img src="Screenshot_20261012-182930.jpg" width="300" alt="">
+
+set phone location lat lon 
+
+in tasmota device for sunrise sunset
+
 ---
 
 ## Functies
