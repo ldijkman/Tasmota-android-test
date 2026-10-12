@@ -81,9 +81,9 @@ set phone location lat lon
 
 in tasmota device for sunrise sunset
 
-Screenshot_20261012-213333.jpg
+<img src="Screenshot_20261012-213333.jpg" width="300" alt="">
 
-Screenshot_20261012-213322.jpg
+<img src="Screenshot_20261012-213322.jpg" width="300" alt="">
 
 set timezone maybe
 
