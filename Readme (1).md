@@ -1,0 +1,188 @@
+No Ads, no fee, Free, unlimited, as is
+
+no data collecting
+
+android app apk
+
+https://github.com/ldijkman/Tasmota-android-test/releases/download/build-38/PlafondLED.apk
+
+scan / control tasmota android app
+
+find control timed tasmota wifi wall sockets
+
+scan find control tasmota devices in local wifi network
+
+scan network for tasmota wifi switches wall socket devices in +/- 2 seconds
+
+control on off toggle
+
+should i add countdown off?
+
+      http://10.10.100.114/cm?cmnd=Backlog%20Power1%201%3B%20Delay%20600%3B%20Power1%200
+
+set 2 on off timers
+
+with or without suntimes
+
+on off timers are saved in tasmota switch
+
+android app made by claude.ai 
+
+and build compiled by github
+
+
+# Tasmota Android app
+
+A small, fast Android app to find and control **Tasmota switches** on your own Wi-Fi network.
+Fully local: no cloud, no account, no MQTT server needed.
+
+<p align="center">
+  <img src="Screenshot_20261009-205015.jpg" width="300" alt="Network scan: all Tasmota switches with name and IP">
+  &nbsp;&nbsp;
+  <img src="Screenshot_20261009-203512.jpg" width="300" alt="Controls and two schedules with sunset">
+</p>
+<p align="center"><sub>Left: network scan · Right: controls and schedules</sub></p>
+
+ <img src="Screenshot_20261010-151334.jpg" width="300" alt="">
+
+ <img src="Screenshot_20261010-151207.jpg" width="300" alt="">
+
+setting for which ip range to scan
+
+
+<img src="Screenshot_20261011-082013_Settings.jpg" width="300" alt="">
+
+Button inside app to change / switch the phone's wifi connection easily
+
+<img src="Screenshot_20261011-202604.jpg" width="300" alt="">
+
+added sunrise sunset for active device
+
+and ip link to visit the device page
+
+
+
+<img src="Screenshot_20261012-171735.jpg" width="300" alt="">
+
+store scan found devices
+
+with x to remove them
+
+<img src="Screenshot_20261012-173131.jpg" width="300" alt="">
+
+change friendlyname and devicename from app
+
+
+<img src="Screenshot_20261012-182930.jpg" width="300" alt="">
+
+set phone location lat lon 
+
+in tasmota device for sunrise sunset
+
+---
+
+## Features
+
+- 🔍 **Network scan**: finds all Tasmota devices on your network in a few seconds (`x.x.x.1–254`, 64 at a time).
+  For each device you see the **FriendlyName**, **DeviceName**, **topic**, **IP address** and whether it is **on or off**.
+  Found devices are saved; remove one with the **×** (after a confirmation).
+- 🌐 **Scan range**: automatic (the phone's own Wi-Fi network) or pick a common router range / enter your own,
+  e.g. `192.168.1.x`, `192.168.178.0/24` or `192.168.1.50-120`.
+- 👆 **Tap to control**: pick a switch from the list. The app remembers it.
+- 💡 **On / Off / Toggle** with live status. Only the button of the current state is highlighted.
+- 🕒 **Tasmota time**: shows the switch's clock and warns if it is off
+  (for example because of a wrong time zone or daylight saving time).
+- 🌅 **Sunrise and sunset** of the active device, plus a **Set** button that stores the phone's location
+  as `Latitude` / `Longitude` in Tasmota.
+- 📅 **Two schedules**, each with an on and an off moment:
+  - at a **fixed time**, or
+  - at **sunrise** or **sunset**, with an offset (for example *sunset − 00:30*),
+  - and switchable per day of the week.
+- 💾 Schedules are stored **in the switch itself** as Tasmota timers 1–4,
+  so they keep working when your phone is off or the app is closed.
+- ✏️ Change the **FriendlyName** and **DeviceName** of a switch from the app.
+- 📶 **Wi-Fi card**: shows the network the phone is connected to; tap it to switch networks.
+  There is also a **home screen widget** for this.
+- 🔗 Tap the **IP address** at the top to open the device's own Tasmota web page.
+- 🔒 Devices with a web password are recognised. Set the password under *Settings*.
+
+## Installing
+
+1. Go to **[Releases](../../releases)** and download `PlafondLED.apk` from the newest build.
+   *(Or open the **[Actions](../../actions)** tab, open the newest green run and download `PlafondLED-apk` under **Artifacts**.)*
+2. Open the APK on your phone. Android asks once for permission to install *"unknown apps"*.
+3. If Google Play Protect warns that the app is unknown, tap **Install anyway**. The warning appears because
+   the app is not from the Play Store, not because something wrong was found.
+
+> From version 1.1 the app uses a fixed signing key, so updates install over the old version.
+> If you are coming from version 1.0, uninstall that first.
+
+On first start the app asks for location permission. Android requires this to read the Wi-Fi network name
+and to set the phone's location in Tasmota. The location is only sent to your own switch.
+
+## One-time Tasmota setup
+
+Open the switch in your browser → **Tools → Console** and enter:
+
+```text
+Backlog Timezone 99; TimeStd 0,0,10,1,3,60; TimeDst 0,0,3,1,2,120
+Backlog Latitude 52.70; Longitude 5.29
+```
+
+- The **first line** sets Central European time with automatic summer/winter time. Without it, the timers switch an hour off.
+- The **second line** sets your location, which is needed for sunrise and sunset. Fill in your own coordinates,
+  or use the **Set** button in the app.
+
+**Tip:** give your switches a fixed IP address outside your router's DHCP range, so the app can always find them:
+
+```text
+Backlog IPAddress1 10.10.100.200; IPAddress2 10.10.100.1; IPAddress3 255.255.255.0; IPAddress4 10.10.100.1; Restart 1
+```
+
+## How does it work?
+
+The controls are a regular HTML page running inside the app (an Android WebView).
+A web page in a browser is not allowed to read Tasmota's responses because of **CORS**, and the standard Tasmota build does not have the `CORS` command.
+This app therefore makes the HTTP requests itself in Java, outside the browser. That way status, time, timers and the scan simply work.
+
+All communication goes through the Tasmota HTTP API, for example:
+
+```text
+http://<ip>/cm?cmnd=Power%20TOGGLE
+http://<ip>/cm?cmnd=Status
+http://<ip>/cm?cmnd=Timer1%20{"Enable":1,"Mode":2,"Time":"-00:30","Days":"1111111","Repeat":1,"Output":1,"Action":1}
+```
+
+## Building and customising
+
+The complete Android project is in **`plafond-led-app.zip`**. When the zip is updated, GitHub Actions automatically builds a new APK
+(see [`.github/workflows`](.github/workflows)).
+
+| File in the zip | Contents |
+|---|---|
+| `app/src/main/assets/index.html` | The control page (HTML/CSS/JS) |
+| `app/src/main/java/.../MainActivity.java` | WebView, HTTP requests, network scan and location |
+| `app/src/main/java/.../WifiWidget.java` | The Wi-Fi home screen widget |
+| `app/build.gradle` | Version number and signing |
+
+Want to change something? Unzip, edit the file, zip it again and upload it. GitHub then builds a new APK.
+
+## Using it away from home
+
+The app works on your **own Wi-Fi network**. To use it while away, use a **VPN to your home**,
+such as [Tailscale](https://tailscale.com) or WireGuard on your router. Do **not** open ports to your Tasmota devices:
+Tasmota has no https and should not be directly connected to the internet.
+
+## Known limitations
+
+- The scan covers one `/24` network at a time (for example `10.10.100.x`).
+- Android does not let normal apps switch Wi-Fi by themselves; the Wi-Fi card and widget open Android's Wi-Fi panel instead.
+- The app controls relay 1 (`Power`). Devices with multiple relays are not yet shown per channel.
+- Tasmota over HTTP only. OpenBeken and ESPHome are not recognised.
+
+---
+
+Made with [claude.ai](https://claude.ai) and built by GitHub Actions.
+Tasmota is a project by [Theo Arends](https://github.com/arendst/Tasmota).
+
+tasmoshelf, tasmotaremota, tasmotrol, tasmotacontrol, tasmobile HTTP, tasmofinder.
