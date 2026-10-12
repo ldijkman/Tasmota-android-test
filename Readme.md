@@ -62,6 +62,14 @@ added sunrise sunset for active device
 
 and ip link to visit the device page
 
+
+
+<img src="Screenshot_20261012-171735.jpg" width="300" alt="">
+
+store scan found devices
+
+with x to remove them
+
 ---
 
 ## Functies
