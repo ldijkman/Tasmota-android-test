@@ -4,6 +4,8 @@ no data collecting
 
 android app apk
 
+changed dutch to englisch
+
 https://github.com/ldijkman/Tasmota-android-test/releases/download/build-38/PlafondLED.apk
 
 scan / control tasmota android app
