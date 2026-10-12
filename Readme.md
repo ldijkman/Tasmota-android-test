@@ -70,6 +70,10 @@ store scan found devices
 
 with x to remove them
 
+<img src="Screenshot_20261012-173131.jpg" width="300" alt="">
+
+change friendlyname and devicename from app
+
 ---
 
 ## Functies
