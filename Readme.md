@@ -198,4 +198,17 @@ Tasmota has no https and should not be directly connected to the internet.
 Made with [claude.ai](https://claude.ai) and built by GitHub Actions.
 Tasmota is a project by [Theo Arends](https://github.com/arendst/Tasmota).
 
-tasmoshelf, tasmotaremota, tasmotrol, tasmotacontrol, tasmobile HTTP, tasmofinder.
+---
+other android tasmota apps
+
+tasmoshelf tasmo shelf, 
+
+tasmotaremota tasmota remota, 
+
+tasmotrol tasmotrol, 
+
+tasmotacontrol tasmo control,
+
+tasmobile HTTP tas mobile HTTP, 
+
+tasmofinder tasmo finder.
