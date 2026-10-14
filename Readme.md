@@ -90,8 +90,18 @@ set timezone maybe
 <img src="Screenshot_20261013-165929.jpg" width="300" alt="">
 
 toggle in scan/search result
+
+<img src="Screenshot_20261014-164709.jpg" width="300" alt="">
+
+drag drop order scan search results
+
+and auto save store sort order
+
+
 <img src="" width="300" alt="">
 
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
 ---
 
 ## Features
