@@ -30,7 +30,7 @@ simple android app apk
 
 changed dutch to englisch
 
-Version 2.3 · 14 October 2026
+## Version 14 October 2026
 
 https://github.com/ldijkman/Tasmota-android-test/releases/download/build-42/PlafondLED.apk
 
