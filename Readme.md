@@ -2,7 +2,29 @@ No Ads, no fee, Free, unlimited, as is
 
 no data collecting
 
-android app apk
+simple android app apk
+
+no account, no login, no cloud
+
+works local in your own wifi network
+
+no internet needed after install
+
+no MQTT server or Home Assistant needed
+
+no tracking, no analytics
+
+location is only sent to your own tasmota switch
+
+settings and found devices stay on your phone
+
+open source, all code in the zip
+
+small app, starts fast
+
+android 7.0 or newer
+
+simple android app apk
 
 changed dutch to englisch
 
