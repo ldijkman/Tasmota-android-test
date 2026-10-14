@@ -90,7 +90,7 @@ set timezone maybe
 <img src="Screenshot_20261013-165929.jpg" width="300" alt="">
 
 toggle in scan/search result
-
+<img src="" width="300" alt="">
 
 ---
 
