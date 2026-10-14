@@ -234,7 +234,7 @@ Made with [claude.ai](https://claude.ai) and built by GitHub Actions.
 Tasmota is a project by [Theo Arends](https://github.com/arendst/Tasmota).
 
 ---
-other android tasmota apps
+other better android tasmota apps
 ---
 
 tasmoshelf tasmo shelf, 
