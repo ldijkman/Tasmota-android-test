@@ -97,8 +97,9 @@ drag drop order scan search results
 
 and auto save store sort order
 
+<img src="Screenshot_20261014-165907.jpg" width="300" alt="">
 
-<img src="" width="300" alt="">
+drag to order
 
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
