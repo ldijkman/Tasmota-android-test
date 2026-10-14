@@ -200,6 +200,7 @@ Tasmota is a project by [Theo Arends](https://github.com/arendst/Tasmota).
 
 ---
 other android tasmota apps
+---
 
 tasmoshelf tasmo shelf, 
 
