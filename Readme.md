@@ -206,7 +206,7 @@ tasmoshelf tasmo shelf,
 
 tasmotaremota tasmota remota, 
 
-tasmotrol tasmotrol, 
+tasmotrol tasmo trol, 
 
 tasmotacontrol tasmo control,
 
