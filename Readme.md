@@ -1,4 +1,4 @@
-# Tasmota Scanner / Controller
+# Android Tasmota Scanner / Controller App
 
 No Ads, no fee, Free, unlimited, as is
 
