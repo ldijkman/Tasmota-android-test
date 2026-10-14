@@ -1,3 +1,5 @@
+# Tasmota Scanner / Controller
+
 No Ads, no fee, Free, unlimited, as is
 
 no data collecting
