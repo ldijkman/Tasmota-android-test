@@ -6,7 +6,7 @@ android app apk
 
 changed dutch to englisch
 
-https://github.com/ldijkman/Tasmota-android-test/releases/download/build-40/PlafondLED.apk
+https://github.com/ldijkman/Tasmota-android-test/releases/download/build-41/PlafondLED.apk
 
 scan / control tasmota android app
 
