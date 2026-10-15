@@ -127,7 +127,11 @@ and auto save store sort order
 
 drag to order
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261015-172317.jpg" width="300" alt="">
+
+create labels groups to drag into
+
+
 <img src="" width="300" alt="">
 ---
 
