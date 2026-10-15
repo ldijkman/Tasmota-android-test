@@ -32,7 +32,7 @@ changed dutch to englisch
 
 ## Version 15 October 2026
 
-https://github.com/ldijkman/Tasmota-android-test/releases/download/build-44/PlafondLED.apk
+https://github.com/ldijkman/Tasmota-android-test/releases/download/build-45/PlafondLED.apk
 
 scan / control tasmota android app
 
@@ -135,6 +135,14 @@ bit strange silly to do this in search results
 
 
 <img src="" width="300" alt="">
+<img src="" width="300" alt="">
+
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
+
 ---
 
 ## Features
