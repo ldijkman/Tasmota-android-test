@@ -134,7 +134,10 @@ create labels groups to drag into
 bit strange silly to do this in search results
 
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261015-192401.jpg" width="300" alt="">
+
+ < > minimize maximize group to labeltext or full view
+
 <img src="" width="300" alt="">
 
 <img src="" width="300" alt="">
