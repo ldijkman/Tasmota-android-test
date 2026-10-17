@@ -40,7 +40,7 @@ changed dutch to englisch
 
 ## Build date 17 October 2026
 
-https://github.com/ldijkman/Tasmota-android-test/releases/download/build-46/PlafondLED.apk
+https://github.com/ldijkman/Tasmota-android-test/releases/download/build-47/PlafondLED.apk
 
 scan / control tasmota android app
 
