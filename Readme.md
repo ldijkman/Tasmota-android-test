@@ -37,9 +37,15 @@ simple android app apk
 
 changed dutch to englisch
 
+---
+
 ## Build date 17 October 2026
 
 https://github.com/ldijkman/Tasmota-android-test/releases/download/build-48/PlafondLED.apk
+
+![Tap Toch installeren](toch-installeren-flash.gif).
+
+---
 
 scan / control tasmota android app
 
