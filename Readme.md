@@ -65,7 +65,7 @@ should i add countdown off?
 
       http://10.10.100.114/cm?cmnd=Backlog%20Power1%201%3B%20Delay%20600%3B%20Power1%200
 
-set 2 on off timers
+set 8 on off timers
 
 with or without suntimes
 
