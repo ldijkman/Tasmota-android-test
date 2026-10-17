@@ -1,8 +1,7 @@
 # Android Tasmota Scanner / Controller App
 
 ---
-
-preview online non functional demo
+preview online simulated demo
 
 https://ldijkman.github.io/Tasmota-android-test/
 
