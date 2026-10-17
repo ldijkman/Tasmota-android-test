@@ -1,5 +1,13 @@
 # Android Tasmota Scanner / Controller App
 
+---
+
+preview online non functional demo
+
+https://ldijkman.github.io/Tasmota-android-test/
+
+---
+
 No Ads, no fee, Free, unlimited, as is
 
 no data collecting
