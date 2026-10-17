@@ -300,3 +300,6 @@ iotorero atomtech tasmota
 https://s.click.aliexpress.com/e/_Ew39xxk
 
 https://www.athom.tech/blank-1/EU-plug
+
+
+<img src="Screenshot_20261017-165930_Chrome.jpg" width="300" alt="">
