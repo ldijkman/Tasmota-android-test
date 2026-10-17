@@ -290,3 +290,5 @@ homeswitch tasmota control home switch
 ---
 
 iotorero atomtech tasmota
+
+<img src="Screenshot_20261017-151453_AliExpress.jpg" width="300" alt="">
