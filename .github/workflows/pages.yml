@@ -1,0 +1,47 @@
+name: Deploy web demo
+
+# Publishes the app's own index.html (from plafond-led-app.zip) to GitHub Pages,
+# with demo/demo-bridge.js standing in for the Android bridge.
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'plafond-led-app.zip'
+      - 'demo/**'
+      - '.github/workflows/pages.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build demo site
+        run: |
+          unzip -o -q plafond-led-app.zip
+          mkdir -p _site
+          cp demo/demo-bridge.js _site/
+          # Load the fake bridge before the page's own script
+          sed '0,/<script>/s//<script src="demo-bridge.js"><\/script>\n<script>/' \
+            plafond-led-app/app/src/main/assets/index.html > _site/index.html
+          grep -q 'demo-bridge.js' _site/index.html
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+      - id: deployment
+        uses: actions/deploy-pages@v4
