@@ -45,6 +45,10 @@ https://github.com/ldijkman/Tasmota-android-test/releases/download/build-53/Plaf
 
 ![Tap Toch installeren](toch-installeren-flash.gif).
 
+install anyway maybe in english
+
+
+grok.com can also build apk from plafond-led-app.zip
 ---
 
 scan / control tasmota android app
