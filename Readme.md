@@ -282,3 +282,7 @@ tasmobile HTTP tas mobile HTTP,
 tasmofinder tasmo finder.
 
 homeswitch tasmota control home switch
+
+---
+
+iotorero atomtech tasmota
