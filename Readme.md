@@ -299,6 +299,8 @@ iotorero atomtech tasmota
 
 <img src="Screenshot_20261017-151453_AliExpress.jpg" width="300" alt="">
 
+https://www.google.com/search?q=aliexpress+iotorero+tasmota+eu+plug
+
 https://www.athom.tech/blank-1/EU-plug
 
 
