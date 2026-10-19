@@ -298,7 +298,11 @@ tasmoshelf tasmo shelf,
 
 tasmotaremota tasmota remota, 
 
+
 tasmotrol tasmo trol, 
+ -https://play.google.com/store/apps/details?id=de.bluetrigger.tasmotrol
+
+
 
 tasmotacontrol tasmo control,
 
