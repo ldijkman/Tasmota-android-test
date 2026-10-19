@@ -166,7 +166,9 @@ bit strange silly to do this in search results
 
  < > minimize maximize group to labeltext or full view
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261019-172020.jpg" width="300" alt="">
+
+wifi signal, time up, edit, switch group and more changes 
 
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
