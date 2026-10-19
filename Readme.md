@@ -174,6 +174,8 @@ wifi signal, time up, edit, switch group and more changes
 
 upto 8 on/off timers that live on tasmota
 
+graphic timeline vieuw
+
 floating top right hamburger menu
 
 
