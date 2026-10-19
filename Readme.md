@@ -31,6 +31,8 @@ open source, all code in the zip
 
 small app, starts fast
 
+small download / small install size
+
 android 7.0 or newer
 
 simple android app apk
