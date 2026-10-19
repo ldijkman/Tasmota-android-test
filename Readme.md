@@ -170,7 +170,13 @@ bit strange silly to do this in search results
 
 wifi signal, time up, edit, switch group and more changes 
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261019-191637.jpg" width="300" alt="">
+
+upto 8 on/off timers that live on tasmota
+
+floating top right hamburger menu
+
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
