@@ -309,6 +309,9 @@ tasmotrol tasmo trol,
 
 tasmotacontrol tasmo control,
 
+tasmotaremota tadmota remota
+ - https://play.google.com/store/apps/details?id=com.robtech.tasmotaremota
+
 tasmobile HTTP tas mobile HTTP, 
 
 tasmofinder tasmo finder.
