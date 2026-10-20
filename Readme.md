@@ -321,8 +321,7 @@ homeswitch tasmota control home switch
 --
 
 TasmoTastic tasmota control Tasmo Tastic
-
-https://play.google.com/store/apps/details?id=com.unbox_digital_print.tasmotastic
+ - https://play.google.com/store/apps/details?id=com.unbox_digital_print.tasmotastic
 
 ---
 
