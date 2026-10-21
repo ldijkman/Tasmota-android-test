@@ -311,9 +311,6 @@ other better android tasmota apps (Cripple & Pay)
 
 tasmoshelf tasmo shelf, 
 
-tasmotaremota tasmota remota, 
-
-
 tasmotrol tasmo trol, 
  -https://play.google.com/store/apps/details?id=de.bluetrigger.tasmotrol
 
@@ -321,10 +318,11 @@ tasmotrol tasmo trol,
 
 tasmotacontrol tasmo control,
 
-tasmotaremota tadmota remota
+tasmotaremota tasmota remota
  - https://play.google.com/store/apps/details?id=com.robtech.tasmotaremota
 
 tasmobile HTTP tas mobile HTTP, 
+ - https://play.google.com/store/apps/details?id=com.robtech.tasremv2
 
 tasmofinder tasmo finder.
 
