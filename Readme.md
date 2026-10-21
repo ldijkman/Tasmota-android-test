@@ -327,6 +327,7 @@ tasmobile HTTP tas mobile HTTP,
 tasmofinder tasmo finder.
 
 homeswitch tasmota control home switch
+ - https://play.google.com/store/apps/details?id=com.jamminc.my_tasmota
 
 --
 
