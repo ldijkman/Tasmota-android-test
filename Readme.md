@@ -317,6 +317,7 @@ tasmotrol tasmo trol,
 
 
 tasmotacontrol tasmo control,
+ - https://play.google.com/store/apps/details?id=de.grings_software.TasmotaControl
 
 tasmotaremota tasmota remota
  - https://play.google.com/store/apps/details?id=com.robtech.tasmotaremota
