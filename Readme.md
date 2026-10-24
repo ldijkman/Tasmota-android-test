@@ -198,7 +198,11 @@ opens schedules view for that device
 
 now possible to copy schedule from another device
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261024-190354.jpg" width="300" alt="">
+
+added a button to generate tiles view
+
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
