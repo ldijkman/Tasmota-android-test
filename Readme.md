@@ -207,7 +207,10 @@ added a button to generate tiles view
 changed tiles
 
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261025-143633.jpg" width="300" alt="">
+
+in device edit choose icon to use for tiles
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
