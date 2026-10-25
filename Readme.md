@@ -202,8 +202,11 @@ now possible to copy schedule from another device
 
 added a button to generate tiles view
 
+<img src="Screenshot_20261025-080634.jpg" width="300" alt="">
 
-<img src="" width="300" alt="">
+changed tiles
+
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
