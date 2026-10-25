@@ -211,7 +211,11 @@ changed tiles
 
 in device edit choose icon to use for tiles
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261025-194011.jpg" width="300" alt="">
+
+some icons 
+
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 
