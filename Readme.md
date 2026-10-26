@@ -48,6 +48,8 @@ changed dutch to englisch
 
 ## Build date 26 October 2026
 
+added widgets to control a device from android homescreen
+
 ### Changed name in android Tasmota Scan & Control
 
 https://github.com/ldijkman/Tasmota-android-test/releases/download/build-95/PlafondLED.apk
@@ -217,10 +219,20 @@ in device edit choose icon to use for tiles
 
 some icons 
 
+added widgets control a device from android homescreen
+
+<img src="Screenshot_20261026-183040_One UI Home.jpg" width="300" alt="">
+
+added widgets control a device from android homescreen
+
+<img src="Screenshot_20261026-182902.jpg" width="300" alt="">
+
+
+added widgets control a device from android homescreen
 
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
-
+<img src="" width="300" alt="">
 
 ---
 
