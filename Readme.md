@@ -50,7 +50,7 @@ changed dutch to englisch
 
 ### Changed name in android Tasmota Scan & Control
 
-https://github.com/ldijkman/Tasmota-android-test/releases/download/build-94/PlafondLED.apk
+https://github.com/ldijkman/Tasmota-android-test/releases/download/build-95/PlafondLED.apk
 
 ![Tap Toch installeren](toch-installeren-flash.gif).
 
