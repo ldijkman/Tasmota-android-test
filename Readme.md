@@ -220,15 +220,22 @@ in device edit choose icon to use for tiles
 some icons 
 
 added widgets control a device from android homescreen
+ - touch and hold main app icon until popup
+ - then widgets, first widget is wifi changer, choose second
 
 <img src="Screenshot_20261026-183040_One UI Home.jpg" width="300" alt="">
 
 added widgets control a device from android homescreen
+ - touch and hold main app icon until popup
+ - then widgets, first widget is wifi changer, choose second
 
 <img src="Screenshot_20261026-182902.jpg" width="300" alt="">
 
 
 added widgets control a device from android homescreen
+ - touch and hold main app icon until popup
+ - then widgets, first widget is wifi changer, choose second
+
 
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
