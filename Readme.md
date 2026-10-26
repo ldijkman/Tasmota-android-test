@@ -46,9 +46,11 @@ changed dutch to englisch
 
 # APK Android App
 
-## Build date 25 October 2026
+## Build date 26 October 2026
 
-https://github.com/ldijkman/Tasmota-android-test/releases/download/build-92/PlafondLED.apk
+### Changed name in android Tasmota Scan & Control
+
+https://github.com/ldijkman/Tasmota-android-test/releases/download/build-93/PlafondLED.apk
 
 ![Tap Toch installeren](toch-installeren-flash.gif).
 
