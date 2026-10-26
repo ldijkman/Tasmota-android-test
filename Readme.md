@@ -237,9 +237,16 @@ added widgets control a device from android homescreen
  - then widgets, first widget is wifi changer, choose second
 
 
+<img src="Screenshot_20261026-185117_One UI Home.jpg" width="300" alt="">
+
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
+
 
 ---
 
