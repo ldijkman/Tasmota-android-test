@@ -240,7 +240,12 @@ added widgets control a device from android homescreen
 <img src="Screenshot_20261026-185117_One UI Home.jpg" width="300" alt="">
 
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261027-165442_Chrome.jpg" width="300" alt="">
+
+text show on cards toggle 
+opens a window
+where you can set what to show hide
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
