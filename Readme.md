@@ -48,10 +48,6 @@ changed dutch to englisch
 
 ## Build date 27 October 2026
 
-added widgets to control a device from android homescreen
-
-### Changed name in android Tasmota Scan & Control
-
 https://github.com/ldijkman/Tasmota-android-test/releases/download/build-101/PlafondLED.apk
 
 ![Tap Toch installeren](toch-installeren-flash.gif).
