@@ -1,4 +1,4 @@
-# Android Tasmota Scanner / Controller App
+# Simple Android Tasmota Scanner / Controller App
 
 ---
 
