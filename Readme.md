@@ -252,7 +252,10 @@ show energy if device has it
 changes icons 
 
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261028-181522.jpg" width="300" alt="">
+
+changes icons
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
