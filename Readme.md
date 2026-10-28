@@ -247,10 +247,21 @@ where you can set what to show hide
 show energy if device has it
 
 
+<img src="Screenshot_20261028-181040.jpg" width="300" alt="">
+
+changes icons 
+
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
+
 
 
 ---
