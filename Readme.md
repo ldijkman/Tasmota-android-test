@@ -46,9 +46,9 @@ changed dutch to englisch
 
 # APK Android App
 
-## Build date 29 October 2026 109
+## Build date 29 October 2026 110
 
-https://github.com/ldijkman/Tasmota-android-test/releases/download/build-109/PlafondLED.apk
+https://github.com/ldijkman/Tasmota-android-test/releases/download/build-110/PlafondLED.apk
 
 ![Tap Toch installeren](toch-installeren-flash.gif).
 
@@ -260,7 +260,10 @@ changes icons
 
 schedules sunrise sunset visual graphical above timeline bar
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261029-195221.jpg" width="300" alt="">
+
+added scenes and scenes widget
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
