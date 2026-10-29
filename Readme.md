@@ -283,11 +283,20 @@ option to reorder drag scene buttons
 
 scenes widgets
 
+<img src="Screenshot_20261029-210509_Chrome.jpg" width="300" alt="">
+
+widgets install changed preview cards
+
+
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 
-
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
 
 ---
 
