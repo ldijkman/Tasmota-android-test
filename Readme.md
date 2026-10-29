@@ -264,7 +264,15 @@ schedules sunrise sunset visual graphical above timeline bar
 
 added scenes and scenes widget
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261029-201120.jpg" width="300" alt="">
+
+added scenes to tiles screen
+
+hold to edit scene
+
+note you can swipe scenes left right 
+
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
