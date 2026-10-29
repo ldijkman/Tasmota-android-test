@@ -275,9 +275,14 @@ note you can swipe scenes left right
 
 <img src="Screenshot_20261029-202500.jpg" width="300" alt="">
 
+order of the scenes
+
 option to reorder drag scene buttons
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261029-202951_One UI Home.jpg" width="300" alt="">
+
+scenes widgets
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
