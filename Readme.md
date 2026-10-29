@@ -46,9 +46,9 @@ changed dutch to englisch
 
 # APK Android App
 
-## Build date 29 October 2026 110
+## Build date 29 October 2026 111
 
-https://github.com/ldijkman/Tasmota-android-test/releases/download/build-110/PlafondLED.apk
+https://github.com/ldijkman/Tasmota-android-test/releases/download/build-111/PlafondLED.apk
 
 ![Tap Toch installeren](toch-installeren-flash.gif).
 
