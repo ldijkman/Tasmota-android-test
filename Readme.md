@@ -34,7 +34,7 @@ open source, all code in the zip
 
 small app, starts fast
 
-small download / small install size +/-60Kb ?
+small download / small install size +/-100Kb ?
 
 android 7.0 or newer
 
