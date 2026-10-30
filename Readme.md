@@ -288,7 +288,14 @@ scenes widgets
 widgets install changed preview cards
 
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261030-060403_One UI Home.jpg" width="300" alt="">
+
+widgets direct from android home screen
+ - wifi changer
+ - scenes switch
+ - switch switch
+ - group switch
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
