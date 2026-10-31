@@ -297,7 +297,10 @@ widgets direct from android home screen
  - switch switch
  - group switch
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261031-070958.jpg" width="300" alt="">
+
+schedules view for today
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
