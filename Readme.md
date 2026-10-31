@@ -306,7 +306,12 @@ schedules view for today
 scenes switch on off multiple
 
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261031-073743.jpg" width="300" alt="">
+
+more icons
+
+
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 
