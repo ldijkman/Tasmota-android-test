@@ -138,7 +138,8 @@
     const main = document.querySelector('main');
     if (main) main.insertAdjacentHTML('afterbegin',
       '<div class="card" style="border-color:var(--ok, #2a7);">' +
-      '<b>Demo</b> — simulated switches, nothing is sent to a real network. ' +
+      '<b>Demo</b> — simulated switches, nothing is sent to a real network. ' +                               
+      '<b>some options only show in the app with real devices. ' +
       'Tap <i>Scan network</i> to find them. The protected one uses password <code>demo</code>. ' +
       '<a href="https://github.com/ldijkman/Tasmota-android-test/releases/latest">Get the Android app</a></div>');
   });
