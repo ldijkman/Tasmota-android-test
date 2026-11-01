@@ -313,11 +313,25 @@ scenes switch on off multiple
 
 more icons
 
+pulsetime auto off in ?? minutes
+
+<img src="Screenshot_20261101-113021.jpg" width="300" alt="">
+<img src="" width="300" alt="">
+
+pulsetime auto off in ?? minutes
+
+<img src="Screenshot_20261101-113147.jpg" width="300" alt="">
+
+pulsetime auto off in ?? minutes
+
 
 
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
-
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
+<img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 
