@@ -328,6 +328,8 @@ pulsetime auto off in ?? minutes
 
 pulsetime fan on for 2 minutes countdown on tiles
 
+also counts down when started with the hardware switch on the device / wall socket
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
