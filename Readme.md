@@ -331,7 +331,7 @@ also counts down when started with the hardware switch on the device / wall sock
 
 bathroom fan widget countdown to off on android homescreen
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261101-172547.jpg" width="300" alt="">
 
 touch deviceicon or group labelname for 2 seconds to open edit
 
