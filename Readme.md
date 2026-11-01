@@ -324,9 +324,10 @@ pulsetime auto off in ?? minutes
 
 pulsetime auto off in ?? minutes
 
+<img src="Screenshot_20261101-113931.jpg" width="300" alt="">
 
+pulsetime fan on for 2 minutes countdown on tiles
 
-<img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
