@@ -35,6 +35,13 @@ jobs:
       - name: Rename APK
         run: cp plafond-led-app/app/build/outputs/apk/debug/app-debug.apk PlafondLED.apk
 
+      # Versie uit build.gradle, zodat de knop "Check for update" in de app kan vergelijken
+      - name: Read version
+        id: ver
+        run: |
+          echo "name=$(grep -oP "versionName '\K[^']+" plafond-led-app/app/build.gradle)" >> "$GITHUB_OUTPUT"
+          echo "code=$(grep -oP 'versionCode \K[0-9]+' plafond-led-app/app/build.gradle)" >> "$GITHUB_OUTPUT"
+
       - uses: actions/upload-artifact@v4
         with:
           name: PlafondLED-apk
@@ -43,6 +50,9 @@ jobs:
       - uses: softprops/action-gh-release@v2
         with:
           tag_name: build-${{ github.run_number }}
-          name: Plafond LED (build ${{ github.run_number }})
+          name: Tasmota Scan & Control ${{ steps.ver.outputs.name }} (build ${{ github.run_number }})
+          body: |
+            Tasmota Scan & Control ${{ steps.ver.outputs.name }}
+            versionCode: ${{ steps.ver.outputs.code }}
           files: PlafondLED.apk
           make_latest: true
