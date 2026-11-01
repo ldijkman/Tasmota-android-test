@@ -335,7 +335,10 @@ bathroom fan widget countdown to off on android homescreen
 
 touch deviceicon or group labelname for 2 seconds to open edit
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261101-194608.jpg" width="300" alt="">
+
+hourglass on icon to let user know device has offdelay pulsetime
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
