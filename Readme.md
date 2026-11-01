@@ -51,6 +51,9 @@ changed dutch to englisch
 
 https://github.com/ldijkman/Tasmota-android-test/releases/download/build-129/PlafondLED.apk
 
+
+https://github.com/ldijkman/Tasmota-android-test/releases/
+
 ![Tap Toch installeren](toch-installeren-flash.gif).
 
 install anyway maybe in english
