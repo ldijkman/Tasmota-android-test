@@ -327,7 +327,10 @@ pulsetime fan on for 2 minutes countdown on tiles
 
 also counts down when started with the hardware switch on the device / wall socket
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261101-120519_One UI Home.jpg" width="300" alt="">
+
+bathroom fan widget countdown to off on android homescreen
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
