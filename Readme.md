@@ -48,6 +48,8 @@ changed dutch to englisch
 # APK Android App
 
 ## 13.2 145 Build date 3 november 2026 
+ - maybe does multi relais devices now
+ - new card for each relais
 
 https://github.com/ldijkman/Tasmota-android-test/releases/
 
