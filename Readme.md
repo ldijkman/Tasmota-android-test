@@ -71,13 +71,11 @@ find control timed tasmota wifi wall sockets
 
 scan find control tasmota devices in local wifi network
 
-scan network for tasmota wifi switches wall socket devices in +/- 2 seconds
+scan network for tasmota wifi switches wall socket devices in 10 seconds
 
 control on off toggle
 
-should i add countdown off?
-
-      http://10.10.100.114/cm?cmnd=Backlog%20Power1%201%3B%20Delay%20600%3B%20Power1%200
+countdown to off offdelay
 
 set 8 on off timers
 
