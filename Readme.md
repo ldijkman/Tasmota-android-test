@@ -350,7 +350,10 @@ new card for each relais
 
 possible to easy see show off delay auto off setting
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261103-203033.jpg" width="300" alt="">
+
+4 relais type 4 cards
+
 <img src="" width="300" alt="">
 
 ---
