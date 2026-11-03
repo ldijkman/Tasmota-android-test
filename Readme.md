@@ -47,7 +47,7 @@ changed dutch to englisch
 
 # APK Android App
 
-## 12.7 141 Build date 3 november 2026 
+## 12.8 142 Build date 3 november 2026 
 
 https://github.com/ldijkman/Tasmota-android-test/releases/
 
