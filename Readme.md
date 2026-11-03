@@ -341,7 +341,13 @@ touch deviceicon or group labelname for 2 seconds to open edit
 
 hourglass on icon to let user know device has offdelay pulsetime
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261103-182438.jpg" width="300" alt="">
+
+maybe does multi relais devices now
+
+new card for each relais
+
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
