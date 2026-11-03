@@ -348,7 +348,10 @@ maybe does multi relais devices now
 new card for each relais
 
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261103-184226.jpg" width="300" alt="">
+
+possible to easy see show off delay auto off setting
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 
