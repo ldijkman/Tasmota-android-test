@@ -1,6 +1,7 @@
 Tasmota OverKill.
 # Simple Android Tasmota Scanner / Controller App
 
+Tasmota Switch App
 ---
 
 # Demo
