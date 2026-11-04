@@ -355,7 +355,7 @@ possible to easy see show off delay auto off setting
 
 4 relais type 4 cards
 
-<img src="Screenshot_20261104-165105.jpg" width="300" alt="">
+<img src="Screenshot_20261104-165623.jpg" width="300" alt="">
 
 if device offdelay timer is set it is possible in schedules to set 2 on times
 
