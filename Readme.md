@@ -359,7 +359,14 @@ possible to easy see show off delay auto off setting
 
 
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261108-115738_AnyDesk.jpg" width="300" alt="">
+
+remote control android phone to android phone 
+
+with anydesk.com teamviewer alike
+
+
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
