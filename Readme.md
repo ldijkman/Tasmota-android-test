@@ -48,7 +48,7 @@ changed dutch to englisch
 
 # APK Android App
 
-## 13.7 150 Build date 8 november 2026 
+## 13.8 151 Build date 13 november 2026 
  - maybe does multi relais devices now
  - new card for each relais
 
