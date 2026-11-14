@@ -532,3 +532,42 @@ https://www.athom.tech/blank-1/EU-plug
 
 
 <img src="Screenshot_20261017-165930_Chrome.jpg" width="300" alt="">
+
+---
+
+# What the app can do (version 14.5)
+
+A free Android app to find and control Tasmota switches on your home Wi-Fi.
+No cloud, no account, no ads. The app talks directly to your devices.
+
+**Find and control**
+- Scan the network and list every Tasmota device
+- Switch on and off with one tap, including devices with several relays
+- Recognises a switch by its MAC address, so it keeps its settings when the router gives it a new IP address
+- Works with password-protected devices
+
+**Organise**
+- Groups with their own name and colour, and one switch for the whole group
+- An icon and an "on" colour per switch
+- Tiles screen with large buttons
+- Scenes: set several switches at once with one tap
+
+**Schedules and timers**
+- Up to 8 schedules per switch, at fixed times or at sunrise and sunset
+- Schedules are stored in the Tasmota itself, so they run without the phone
+- Auto-off after a set time, with a live countdown
+- "Today" timeline of everything that will switch
+- Copy schedules from one switch to another
+
+**Energy**
+- Power, use today and cost for switches with an energy meter
+
+**On your home screen**
+- Widgets for a switch, a group, a scene and Wi-Fi status
+
+**Extras**
+- Share setup: send groups, icons, colours and scenes to another phone or tablet, or keep the file as a backup
+- Themes: Auto, Light, Dark and Blue
+- Choose which details each switch shows
+- Tips screen that explains the hold and drag gestures
+- Updates itself from the GitHub releases
