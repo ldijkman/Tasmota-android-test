@@ -48,7 +48,7 @@ changed dutch to englisch
 
 # APK Android App
 
-## 14.4 Build date 13 november 2026 
+## 14.5 Build date 14 november 2026 
  - maybe does multi relais devices now
  - new card for each relais
 
@@ -372,7 +372,10 @@ with anydesk.com teamviewer alike
 choose your own icon on color
 
 
-<img src="" width="300" alt="">
+<img src="Screenshot_20261114-080430.jpg" width="300" alt="">
+
+hamburger menu modes themes colors
+
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
 <img src="" width="300" alt="">
