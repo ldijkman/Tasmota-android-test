@@ -6,7 +6,7 @@ Away from home that normally does not work, because your phone cannot reach your
 [Tailscale](https://tailscale.com) solves this. It makes a private, encrypted connection between your phone and your home network.
 The app then works outside exactly as it does at home.
 
-Tested with app version 14.6 on a Ziggo cable connection: it works.
+Tested with app versions 14.6 and 14.7 on a Ziggo cable connection: it works.
 
 ## Why this way
 
@@ -79,6 +79,19 @@ On a phone the page is cramped. If you cannot find the ⋯ menu, turn the phone 
 3. Open Tasmota Scan & Control and tap a switch.
 
 If the switch reacts, everything works.
+
+## Switch Tailscale on and off from the app
+
+From version 14.7 the app has a **Tailscale card** under the Wi-Fi card. It only appears when the Tailscale app is installed on the phone.
+
+![Tailscale card in the app: off, on, and when Tailscale does not react](Screenshots/tailscale-card.png)
+
+- **Status:** shows **Off**, or **On** with your Tailscale address (100.x.x.x).
+- **Switch:** turns Tailscale on or off without leaving the app. After switching, the app refreshes your switches.
+- **Tap the card** to open the Tailscale app itself.
+- **If Tailscale does not react,** the card says so. Tap the card and switch Tailscale on there.
+
+So away from home it is two taps: open the app, switch Tailscale on.
 
 ## Using it
 

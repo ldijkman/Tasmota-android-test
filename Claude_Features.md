@@ -63,6 +63,11 @@ For switches with an energy meter:
 - **Scene widget:** runs a scene.
 - **Wi-Fi widget:** shows the Wi-Fi network and opens the Wi-Fi settings.
 
+## Outside your home
+
+- **Tailscale card:** when the Tailscale app is installed, a card under the Wi-Fi card shows whether Tailscale is on and switches it on or off.
+- **Guide:** [remote control with Tailscale](tailscale.md) explains the setup with a spare Android phone at home.
+
 ## Share and back up
 
 - **Share setup:** send switches, groups, scenes, icons, colours and display options to another phone or tablet with the Android share screen.
