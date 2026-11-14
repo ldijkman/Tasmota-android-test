@@ -477,6 +477,7 @@ Other apps, some of them paid or with limits in the free version:
 - TasmoFinder
 - [Home Switch (Tasmota control)](https://play.google.com/store/apps/details?id=com.jamminc.my_tasmota)
 - [TasmoTastic](https://play.google.com/store/apps/details?id=com.unbox_digital_print.tasmotastic)
+- [TasmoHub](https://github.com/adelomer12/tasmo-hub): free and open source, for Android and iPhone, also supports OpenBeken
 
 ---
 
