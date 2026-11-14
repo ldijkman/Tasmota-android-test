@@ -35,7 +35,7 @@ No cloud, no account, no ads. *Tasmota OverKill.*
 - Recognises a switch by its MAC address, so it keeps its settings when the router gives it a new IP address
 - Works with password-protected devices
 - Change the FriendlyName and DeviceName from the app
-- Lamps: brightness slider, warm/cool white, colour and presets for dimmable Tasmota lamps (not yet tested on a real lamp)
+- Lamps: brightness slider, warm/cool white, colour and presets for dimmable Tasmota lamps
 
 **Organise**
 - Groups with a name and colour, with one switch for the whole group
@@ -381,6 +381,10 @@ Bathroom fan widget counting down to off
 
 Brightness on the card, the percentage on the tiles, and the light window with white, colour and presets (made with test lamps).
 
+<img src="Screenshots/Screenshot_20261114-174300.jpg" width="300" alt="Light window on a real device: brightness, colour and presets">
+
+The light window on a real device: a Sonoff Basic R4 set up in Tasmota as a colour light, with its status LED as the "lamp". Tap the percentage button with the sliders icon to open it.
+
 ### Remote control
 
 <img src="Screenshots/Screenshot_20261108-115738_AnyDesk.jpg" width="300" alt="Controlling a phone at home from another phone with AnyDesk. Tailscale turned out more reliable, see the guide below">
@@ -455,7 +459,7 @@ To change something: unzip, edit, zip again and upload. GitHub then builds a new
 - The scan covers one `/24` network at a time (for example `10.10.100.x`).
 - Android does not let normal apps switch Wi-Fi by themselves; the Wi-Fi card and widget open Android's Wi-Fi panel instead.
 - Tasmota over HTTP only. OpenBeken and ESPHome are not recognised.
-- Lamp controls (brightness, white, colour) are new and not yet tested on a real lamp. Lamps on relay 2 or higher get no lamp controls.
+- Lamp controls are new. Brightness and colour were tested on a Sonoff Basic R4 set up as a colour light, not yet on a real bulb or LED strip; warm/cool white has not been tested. Lamps on relay 2 or higher get no lamp controls.
 
 ---
 

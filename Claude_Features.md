@@ -33,10 +33,10 @@ This overview describes version 14.5.
 
 ## Lamps
 
-For dimmable Tasmota lamps (new in 15.0, not yet tested on a real lamp):
+For dimmable Tasmota lamps (new in 15.0; brightness and colour tested on a Sonoff Basic R4 set up as a colour light):
 
 - **Brightness slider** on the card, and the percentage on the tiles.
-- **Light window:** tap the percentage for brightness, warm/cool white, colour and presets (Bright, Reading, Evening, Night).
+- **Light window:** tap the percentage button (sliders icon) for brightness, warm/cool white, colour and presets (Bright, Reading, Evening, Night).
 - Only the controls a lamp supports are shown; plugs and switches stay on/off.
 
 ## Tiles and scenes
