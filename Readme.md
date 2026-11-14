@@ -12,6 +12,8 @@ https://ldijkman.github.io/Tasmota-android-test/
 
 ---
 
+<img src="https://repository-images.githubusercontent.com/1412220716/e892f8d7-0928-46ce-88f9-2f4b1ca21af6">
+
 No Ads, no fee, Free, unlimited, as is
 
 no data collecting
