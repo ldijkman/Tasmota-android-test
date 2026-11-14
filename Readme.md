@@ -537,6 +537,16 @@ https://www.athom.tech/blank-1/EU-plug
 
 ---
 
+# Use it outside your home
+
+The app works on your own Wi-Fi. To control your switches when you are away, without opening anything on your modem:
+
+**[Step-by-step guide: remote control with Tailscale](tailscale.md)**
+
+A spare Android phone that stays at home passes the traffic on. Tested on a Ziggo connection.
+
+---
+
 # What the app can do (version 14.5)
 
 A free Android app to find and control Tasmota switches on your home Wi-Fi.
