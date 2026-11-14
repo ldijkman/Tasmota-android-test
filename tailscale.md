@@ -15,6 +15,11 @@ Tested with app version 14.6 on a Ziggo cable connection: it works.
 - **Nothing changes in the app or in Tasmota.** Same addresses, same schedules, same widgets.
 - **Free for home use** on Tailscale's personal plan.
 
+### Compared with a remote-screen app
+
+Before this I tried AnyDesk, taking over the screen of a phone at home. That gave me connection problems, and you work on a small copy of another phone's screen.
+With Tailscale the app runs on your own phone and has worked reliably for me.
+
 ## What you need
 
 - A spare Android phone or tablet that **stays at home**, on Wi-Fi and on the charger. It passes the traffic on to your switches. This guide calls it the *home phone*.
