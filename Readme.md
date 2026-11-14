@@ -54,7 +54,7 @@ changed dutch to englisch
 
 https://github.com/ldijkman/Tasmota-android-test/releases/
 
-![Tap Toch installeren](toch-installeren-flash.gif).
+![Tap Toch installeren](Screenshots/toch-installeren-flash.gif).
 
 install anyway maybe in english
 
@@ -95,24 +95,24 @@ A small, fast Android app to find and control **Tasmota switches** on your own W
 Fully local: no cloud, no account, no MQTT server needed.
 
 <p align="center">
-  <img src="Screenshot_20261009-205015.jpg" width="300" alt="Network scan: all Tasmota switches with name and IP">
+  <img src="Screenshots/Screenshot_20261009-205015.jpg" width="300" alt="Network scan: all Tasmota switches with name and IP">
   &nbsp;&nbsp;
-  <img src="Screenshot_20261009-203512.jpg" width="300" alt="Controls and two schedules with sunset">
+  <img src="Screenshots/Screenshot_20261009-203512.jpg" width="300" alt="Controls and two schedules with sunset">
 </p>
 <p align="center"><sub>Left: network scan · Right: controls and schedules</sub></p>
 
- <img src="Screenshot_20261010-151334.jpg" width="300" alt="">
+ <img src="Screenshots/Screenshot_20261010-151334.jpg" width="300" alt="">
 
- <img src="Screenshot_20261010-151207.jpg" width="300" alt="">
+ <img src="Screenshots/Screenshot_20261010-151207.jpg" width="300" alt="">
 
 setting for which ip range to scan
 
 
-<img src="Screenshot_20261011-082013_Settings.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261011-082013_Settings.jpg" width="300" alt="">
 
 Button inside app to change / switch the phone's wifi connection easily
 
-<img src="Screenshot_20261011-202604.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261011-202604.jpg" width="300" alt="">
 
 added sunrise sunset for active device
 
@@ -120,59 +120,59 @@ and ip link to visit the device page
 
 
 
-<img src="Screenshot_20261012-171735.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261012-171735.jpg" width="300" alt="">
 
 store scan found devices
 
 with x to remove them
 
-<img src="Screenshot_20261012-173131.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261012-173131.jpg" width="300" alt="">
 
 change friendlyname and devicename from app
 
 
-<img src="Screenshot_20261012-182930.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261012-182930.jpg" width="300" alt="">
 
 set phone location lat lon 
 
 in tasmota device for sunrise sunset
 
-<img src="Screenshot_20261012-213333.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261012-213333.jpg" width="300" alt="">
 
-<img src="Screenshot_20261012-213322.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261012-213322.jpg" width="300" alt="">
 
 set timezone maybe
 
-<img src="Screenshot_20261013-165929.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261013-165929.jpg" width="300" alt="">
 
 toggle in scan/search result
 
-<img src="Screenshot_20261014-164709.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261014-164709.jpg" width="300" alt="">
 
 drag drop order scan search results
 
 and auto save store sort order
 
-<img src="Screenshot_20261014-165907.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261014-165907.jpg" width="300" alt="">
 
 drag to order
 
-<img src="Screenshot_20261015-172317.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261015-172317.jpg" width="300" alt="">
 
 create labels groups to drag into
 
 bit strange silly to do this in search results
 
 
-<img src="Screenshot_20261015-192401.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261015-192401.jpg" width="300" alt="">
 
  < > minimize maximize group to labeltext or full view
 
-<img src="Screenshot_20261019-172020.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261019-172020.jpg" width="300" alt="">
 
 wifi signal, time up, edit, switch group and more changes 
 
-<img src="Screenshot_20261019-191637.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261019-191637.jpg" width="300" alt="">
 
 upto 8 on/off timers that live on tasmota
 
@@ -181,18 +181,18 @@ graphic timeline preview
 floating top right hamburger menu
 
 
-<img src="Screenshot_20261019-200153.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261019-200153.jpg" width="300" alt="">
 
 Hamburger about
 
-<img src="Screenshot_20261021-173920.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261021-173920.jpg" width="300" alt="">
 
 group label edit to choose a color
 
-<img src="Screenshot_20261021-174241.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261021-174241.jpg" width="300" alt="">
 
 
-<img src="Screenshot_20261024-082456.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261024-082456.jpg" width="300" alt="">
 
 added a clock schedules link to found devices
 
@@ -200,20 +200,20 @@ opens schedules view for that device
 
 now possible to copy schedule from another device
 
-<img src="Screenshot_20261024-190354.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261024-190354.jpg" width="300" alt="">
 
 added a button to generate tiles view
 
-<img src="Screenshot_20261025-080634.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261025-080634.jpg" width="300" alt="">
 
 changed tiles
 
 
-<img src="Screenshot_20261025-144023.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261025-144023.jpg" width="300" alt="">
 
 in device edit choose icon to use for tiles
 
-<img src="Screenshot_20261025-194011.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261025-194011.jpg" width="300" alt="">
 
 some icons 
 
@@ -221,13 +221,13 @@ added widgets control a device from android homescreen
  - touch and hold main app icon until popup
  - then widgets, first widget is wifi changer, choose second
 
-<img src="Screenshot_20261026-183040_One UI Home.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261026-183040_One_UI_Home.jpg" width="300" alt="">
 
 added widgets control a device from android homescreen
  - touch and hold main app icon until popup
  - then widgets, first widget is wifi changer, choose second
 
-<img src="Screenshot_20261026-182902.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261026-182902.jpg" width="300" alt="">
 
 
 added widgets control a device from android homescreen
@@ -235,38 +235,38 @@ added widgets control a device from android homescreen
  - then widgets, first widget is wifi changer, choose second
 
 
-<img src="Screenshot_20261026-185117_One UI Home.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261026-185117_One_UI_Home.jpg" width="300" alt="">
 
 
-<img src="Screenshot_20261027-165442_Chrome.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261027-165442_Chrome.jpg" width="300" alt="">
 
 text show on cards toggle 
 opens a window
 where you can set what to show hide
 
-<img src="Screenshot_20261028-173105.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261028-173105.jpg" width="300" alt="">
 
 show energy if device has it
 
 
-<img src="Screenshot_20261028-181040.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261028-181040.jpg" width="300" alt="">
 
 changes icons 
 
 
-<img src="Screenshot_20261028-181522.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261028-181522.jpg" width="300" alt="">
 
 changes icons
 
-<img src="Screenshot_20261028-182639_Chrome.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261028-182639_Chrome.jpg" width="300" alt="">
 
 schedules sunrise sunset visual graphical above timeline bar
 
-<img src="Screenshot_20261029-195221.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261029-195221.jpg" width="300" alt="">
 
 added scenes and scenes widget
 
-<img src="Screenshot_20261029-201120.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261029-201120.jpg" width="300" alt="">
 
 added scenes to tiles screen
 
@@ -275,22 +275,22 @@ hold to edit scene
 note you can swipe scenes left right 
 
 
-<img src="Screenshot_20261029-202500.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261029-202500.jpg" width="300" alt="">
 
 order of the scenes
 
 option to reorder drag scene buttons
 
-<img src="Screenshot_20261029-202951_One UI Home.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261029-202951_One_UI_Home.jpg" width="300" alt="">
 
 scenes widgets
 
-<img src="Screenshot_20261029-210509_Chrome.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261029-210509_Chrome.jpg" width="300" alt="">
 
 widgets install changed preview cards
 
 
-<img src="Screenshot_20261030-060403_One UI Home.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261030-060403_One_UI_Home.jpg" width="300" alt="">
 
 widgets direct from android home screen
  - wifi changer
@@ -298,60 +298,60 @@ widgets direct from android home screen
  - switch switch
  - group switch
 
-<img src="Screenshot_20261031-070958.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261031-070958.jpg" width="300" alt="">
 
 schedules view for today
 
-<img src="Screenshot_20261031-071322.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261031-071322.jpg" width="300" alt="">
 
 scenes switch on off multiple
 
 
-<img src="Screenshot_20261031-073743.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261031-073743.jpg" width="300" alt="">
 
 more icons
 
 pulsetime auto off in ?? minutes
 
-<img src="Screenshot_20261101-113021.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261101-113021.jpg" width="300" alt="">
 <img src="" width="300" alt="">
 
 pulsetime auto off in ?? minutes
 
-<img src="Screenshot_20261101-113147.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261101-113147.jpg" width="300" alt="">
 
 pulsetime auto off in ?? minutes
 
-<img src="Screenshot_20261101-113931.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261101-113931.jpg" width="300" alt="">
 
 pulsetime fan on for 2 minutes countdown on tiles
 
 also counts down when started with the hardware switch on the device / wall socket
 
-<img src="Screenshot_20261101-120519_One UI Home.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261101-120519_One_UI_Home.jpg" width="300" alt="">
 
 bathroom fan widget countdown to off on android homescreen
 
-<img src="Screenshot_20261101-172547.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261101-172547.jpg" width="300" alt="">
 
 touch deviceicon or group labelname for 2 seconds to open edit
 
-<img src="Screenshot_20261101-194608.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261101-194608.jpg" width="300" alt="">
 
 hourglass on icon to let user know device has offdelay pulsetime
 
-<img src="Screenshot_20261103-182438.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261103-182438.jpg" width="300" alt="">
 
 maybe does multi relais devices now
 
 new card for each relais
 
 
-<img src="Screenshot_20261103-184226.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261103-184226.jpg" width="300" alt="">
 
 possible to easy see show off delay auto off setting
 
-<img src="Screenshot_20261103-203033.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261103-203033.jpg" width="300" alt="">
 
 4 relais type 4 cards
 
@@ -359,7 +359,7 @@ possible to easy see show off delay auto off setting
 
 
 
-<img src="Screenshot_20261108-115738_AnyDesk.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261108-115738_AnyDesk.jpg" width="300" alt="">
 
 remote control android phone to android phone 
 
@@ -367,12 +367,12 @@ with anydesk.com teamviewer alike
 
 
 
-<img src="Screenshot_20261113-182952.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261113-182952.jpg" width="300" alt="">
 
 choose your own icon on color
 
 
-<img src="Screenshot_20261114-080430.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261114-080430.jpg" width="300" alt="">
 
 hamburger menu modes themes colors
 
@@ -524,14 +524,14 @@ TasmoTastic tasmota control Tasmo Tastic
 
 iotorero atomtech tasmota
 
-<img src="Screenshot_20261017-151453_AliExpress.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261017-151453_AliExpress.jpg" width="300" alt="">
 
 https://www.google.com/search?q=aliexpress+iotorero+tasmota+eu+plug
 
 https://www.athom.tech/blank-1/EU-plug
 
 
-<img src="Screenshot_20261017-165930_Chrome.jpg" width="300" alt="">
+<img src="Screenshots/Screenshot_20261017-165930_Chrome.jpg" width="300" alt="">
 
 ---
 
