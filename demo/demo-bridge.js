@@ -140,7 +140,7 @@
       '<div class="card" style="border-color:var(--ok, #2a7);">' +
       '<br><br><b>Demo</b> — simulated switches, nothing is sent to a real network. <br>' +                               
       '<b>Some options only show in the app with real Tasmota devices. <br>' +
-      'Tap <i>Scan network</i> to find Tasmota Devices. <br>The protected one uses password <code>demo</code>. <br>' +
+      'in App Tap <i>Scan network</i> to find Tasmota Devices. <br>The protected one uses password <code>demo</code>. <br>' +
       '<a href="https://github.com/ldijkman/Tasmota-android-test/releases/latest">Get the Android app</a></div>');
   });
 })();
