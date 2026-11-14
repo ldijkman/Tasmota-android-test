@@ -27,7 +27,7 @@ No cloud, no account, no ads. *Tasmota OverKill.*
 
 ---
 
-## What it can do (version 14.9)
+## What it can do (version 15.0)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -35,6 +35,7 @@ No cloud, no account, no ads. *Tasmota OverKill.*
 - Recognises a switch by its MAC address, so it keeps its settings when the router gives it a new IP address
 - Works with password-protected devices
 - Change the FriendlyName and DeviceName from the app
+- Lamps: brightness slider, warm/cool white, colour and presets for dimmable Tasmota lamps (not yet tested on a real lamp)
 
 **Organise**
 - Groups with a name and colour, with one switch for the whole group
@@ -374,6 +375,12 @@ Bathroom fan widget counting down to off
 
 
 
+### Lamps
+
+<img src="Screenshots/brightness-15.0.png" width="600" alt="Brightness slider on the card, percentage on the tiles, and the light window">
+
+Brightness on the card, the percentage on the tiles, and the light window with white, colour and presets (made with test lamps).
+
 ### Remote control
 
 <img src="Screenshots/Screenshot_20261108-115738_AnyDesk.jpg" width="300" alt="Controlling a phone at home from another phone with AnyDesk. Tailscale turned out more reliable, see the guide below">
@@ -448,7 +455,7 @@ To change something: unzip, edit, zip again and upload. GitHub then builds a new
 - The scan covers one `/24` network at a time (for example `10.10.100.x`).
 - Android does not let normal apps switch Wi-Fi by themselves; the Wi-Fi card and widget open Android's Wi-Fi panel instead.
 - Tasmota over HTTP only. OpenBeken and ESPHome are not recognised.
-- Brightness and colour of Tasmota lamps are not supported yet, only on and off.
+- Lamp controls (brightness, white, colour) are new and not yet tested on a real lamp. Lamps on relay 2 or higher get no lamp controls.
 
 ---
 

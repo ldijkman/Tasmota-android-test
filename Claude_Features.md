@@ -31,6 +31,14 @@ This overview describes version 14.5.
 - **On colour:** choose the colour a switch shows when it is on, from a palette or with a colour picker.
 - **Show or hide details:** choose which lines each switch shows: device name, IP address, MAC address, next schedule, auto-off, energy, time and sun times, Wi-Fi signal and uptime.
 
+## Lamps
+
+For dimmable Tasmota lamps (new in 15.0, not yet tested on a real lamp):
+
+- **Brightness slider** on the card, and the percentage on the tiles.
+- **Light window:** tap the percentage for brightness, warm/cool white, colour and presets (Bright, Reading, Evening, Night).
+- Only the controls a lamp supports are shown; plugs and switches stay on/off.
+
 ## Tiles and scenes
 
 - **Tiles screen:** large buttons per group, made for quick switching.
