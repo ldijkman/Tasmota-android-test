@@ -9,6 +9,20 @@
   const clearDemo = () => { try { Object.keys(localStorage).filter(k => k.startsWith('tas_')).forEach(k => localStorage.removeItem(k)); } catch (e) {} };
   try { if (sessionStorage.getItem('demo_reset')) { sessionStorage.removeItem('demo_reset'); clearDemo(); } } catch (e) {}
 
+  // First start of the demo (also after "Reset demo"): example switches with icons and on colours
+  try {
+    if (!localStorage.getItem('tas_devs')) {
+      const D = (ip, friendly, name, icon, oncolor) => ({ ip: '10.10.100.' + ip, friendly, name, icon, oncolor });
+      localStorage.setItem('tas_devs', JSON.stringify([
+        D(114, 'Plafond LED', 'plafond-led', 'ceiling', '#ffffff'),
+        D(115, 'Kitchen', 'keuken', 'spot', '#ffd27a'),
+        D(120, 'Garden lights', 'tuin', 'tree', '#3ccf6e'),
+        D(131, 'Desk lamp', 'bureau', 'desk', '#b48cff')
+      ]));
+      localStorage.setItem('tas_devs_ordered', '1');
+    }
+  } catch (e) {}
+
   const SUBNET = '10.10.100.';
   const devices = {
     '10.10.100.114': dev('plafond-led', 'Plafond LED', true),
