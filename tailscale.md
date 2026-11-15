@@ -110,6 +110,27 @@ So away from home it is two taps: open the app, switch Tailscale on.
 > Otherwise the scan searches the wrong network and finds nothing.
 - **Speed:** switching takes a little longer than at home, because the traffic goes through the home phone.
 
+## What if Ziggo gives my modem a new IP address?
+
+Nothing changes. Tailscale does not use your home address on the internet.
+
+- Both phones connect *out* to Tailscale's servers, and those servers tell them how to reach each other.
+- When Ziggo gives your modem a new public IP address, the home phone briefly loses its connection, reconnects by itself and reports its route again. That usually takes seconds to a minute.
+- If the phones cannot connect directly, Tailscale passes the traffic through its own relay servers. A bit slower, but it still works.
+
+So there is no dynamic DNS, no fixed IP address and no setting to update. That is one of the advantages over port forwarding or a VPN in the router, where a new public IP address can break the connection.
+
+### When you do have to change something
+
+Only when the address range *inside* your home changes. That is a different thing, for example after the modem is reset to factory settings and your network changes from `10.10.100.x` to `192.168.178.x`. Then:
+
+1. Update the **subnet route** in Tailscale on the home phone, and approve it again in the [admin page](https://login.tailscale.com/admin/machines).
+2. Set the scan range in the app to the new range and scan once. The app recognises your switches by their MAC address, so names, groups and schedules stay.
+
+### After a power cut or modem restart
+
+The home phone has to get back on Wi-Fi and Tailscale has to start again. That normally happens by itself, as long as battery use for Tailscale on the home phone is set to **Unrestricted**.
+
 ## If it does not work
 
 | What you see | What to check |
