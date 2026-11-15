@@ -8,6 +8,12 @@ The app then works outside exactly as it does at home.
 
 Tested with app versions 14.6 and 14.7 on my internet provider's modem (a Ziggo cable connection): it works.
 
+> [!TIP]
+> ### 📲 [Install Tailscale from Google Play](https://play.google.com/store/apps/details?id=com.tailscale.ipn)
+> Install it on **both** phones: the one that stays at home, and the one you carry with you.
+>
+> [![Get Tailscale on Google Play](https://img.shields.io/badge/Google_Play-Install_Tailscale-34A853?style=for-the-badge&logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.tailscale.ipn)
+
 ## Why this way
 
 - **Nothing changes on the modem or router.** No port forwarding, and it does not matter if your provider's modem has no VPN server (a Ziggo modem, for example, has none).
@@ -40,7 +46,7 @@ Your switches have addresses that start with the same three numbers.
 
 ## Step 2: set up the home phone
 
-1. Install **Tailscale** from the Play Store and sign in.
+1. Install **Tailscale** from [Google Play](https://play.google.com/store/apps/details?id=com.tailscale.ipn) and sign in.
 2. Tap your avatar (top right) and open **Settings**.
 3. Choose **Subnet routing**, then **Add route**.
 4. Enter the range from step 1, for example `192.168.1.0/24`, and tap **OK**.
@@ -69,7 +75,7 @@ On a phone the page is cramped. If you cannot find the ⋯ menu, turn the phone 
 
 ## Step 4: set up your phone
 
-1. Install **Tailscale** and sign in with the **same account**.
+1. Install **Tailscale** from [Google Play](https://play.google.com/store/apps/details?id=com.tailscale.ipn) and sign in with the **same account**.
 2. That is all. Switch Tailscale on when you are away from home.
 
 ## Step 5: test it
