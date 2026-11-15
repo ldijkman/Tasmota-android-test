@@ -1,5 +1,15 @@
 # Control your Tasmota switches from outside your home with Tailscale
 
+---
+
+old android/tablet home on charger act as tailscale vpn server
+
+for android phone elsewhere dat acts like it is in your own home
+
+so can find control the tasmota switches from anywhere
+
+---
+
 Tasmota Scan & Control talks directly to the switches on your own Wi-Fi.
 Away from home that normally does not work, because your phone cannot reach your home network.
 
