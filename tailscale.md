@@ -10,7 +10,7 @@ Tested with app versions 14.6 and 14.7 on a Ziggo cable connection: it works.
 
 ## Why this way
 
-- **Nothing changes on the modem or router.** No port forwarding, and it does not matter that a Ziggo modem has no VPN server.
+- **Nothing changes on the modem or router.** No port forwarding, and it does not matter if your provider's modem has no VPN server (a Ziggo modem, for example, has none).
 - **Nothing is opened to the internet.** Only devices signed in to your own Tailscale account can reach your switches.
 - **Nothing changes in the app or in Tasmota.** Same addresses, same schedules, same widgets.
 - **Free for home use** on Tailscale's personal plan.
@@ -110,12 +110,12 @@ So away from home it is two taps: open the app, switch Tailscale on.
 > Otherwise the scan searches the wrong network and finds nothing.
 - **Speed:** switching takes a little longer than at home, because the traffic goes through the home phone.
 
-## What if Ziggo gives my modem a new IP address?
+## What if my internet provider gives my modem a new IP address?
 
 Nothing changes. Tailscale does not use your home address on the internet.
 
 - Both phones connect *out* to Tailscale's servers, and those servers tell them how to reach each other.
-- When Ziggo gives your modem a new public IP address, the home phone briefly loses its connection, reconnects by itself and reports its route again. That usually takes seconds to a minute.
+- When your internet provider gives your modem a new public IP address, the home phone briefly loses its connection, reconnects by itself and reports its route again. That usually takes seconds to a minute.
 - If the phones cannot connect directly, Tailscale passes the traffic through its own relay servers. A bit slower, but it still works.
 
 So there is no dynamic DNS, no fixed IP address and no setting to update. That is one of the advantages over port forwarding or a VPN in the router, where a new public IP address can break the connection.
