@@ -30,7 +30,7 @@
     '10.10.100.115': dev('keuken', 'Kitchen', false),
     '10.10.100.120': dev('tuin', 'Garden lights', false),
     '10.10.100.131': dev('bureau', 'Desk lamp', true),
-    '10.10.100.140': { protected: true }            // switch with a web password
+    '10.10.100.140': Object.assign(dev('garage', 'Garage', false), { protected: true })   // switch with web password "demo"
   };
 
   function dev(name, friendly, on) {
@@ -121,7 +121,6 @@
       if (!d) return reply(id, false, `java.net.SocketTimeoutException: failed to connect to /${u.hostname}`, 1500);
       if (d.protected && u.searchParams.get('password') !== 'demo')
         return reply(id, false, 'HTTP 401 {"WARNING":"Need user=<username>&password=<password>"}');
-      if (d.protected) return reply(id, true, JSON.stringify({ POWER: 'OFF' }));
       reply(id, true, JSON.stringify(command(d, u.searchParams.get('cmnd') || '')));
     },
     scan(id) { this.scanRange('', id); },
