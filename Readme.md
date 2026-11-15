@@ -17,6 +17,7 @@ No cloud, no account, no ads.
 ## Why this app
 
 - Free, no ads, no fee, use it as you like
+- No limits: as many switches, groups, scenes and widgets as you like (only schedules are limited by Tasmota: up to 8 per switch)
 - No account, no login, no cloud
 - No data collection, no tracking, no analytics
 - Works locally on your own Wi-Fi; no internet needed after installing
