@@ -136,10 +136,21 @@ The home phone has to get back on Wi-Fi and Tailscale has to start again. That n
 | What you see | What to check |
 | --- | --- |
 | Switches show "not reachable" | Is Tailscale on, on both phones? Is the home phone on Wi-Fi? |
+| Tailscale says On, but no switches are found | The home phone is asleep or off the charger. See the warning below. |
 | It worked, then stopped after a while | Android put Tailscale to sleep on the home phone. Set its battery use to Unrestricted and keep it on the charger. |
 | It never worked | Was the route approved in step 3? Does the range match your home network from step 1? |
 | It works on mobile data but not on someone else's Wi-Fi | That network may use the same address range as your home. Try mobile data there. |
 | It stopped after some months | Tailscale asks devices to sign in again from time to time. Open Tailscale on the home phone and sign in. In the admin page you can switch off key expiry for the home phone. |
+
+> [!WARNING]
+> **Keep the home phone on the charger.** Off the charger, with the screen off, Android puts the phone into a deep power-saving sleep. Tailscale on your own phone still says **On** and seems to connect, but the home phone no longer passes traffic on, so the app finds **no switches**.
+>
+> - Keep the home phone on the charger. This is the real fix: Tailscale says running a subnet router on a phone uses a lot of battery and is meant for devices on power.
+> - Set battery use for Tailscale to **Unrestricted**: Settings → Apps → Tailscale → Battery.
+> - On Samsung, also add Tailscale to **Never sleeping apps**: Settings → Battery → Background usage limits.
+> - The [admin page](https://login.tailscale.com/admin/machines) shows whether the home phone is connected, or when it was last seen.
+>
+> These settings help, but on battery Android may still pause Tailscale after a while.
 
 > [!WARNING]
 > **Sign-in expires after some months.** Tailscale asks devices to sign in again from time to time. When that happens on the home phone, remote control stops until you open Tailscale on the home phone and sign in.
