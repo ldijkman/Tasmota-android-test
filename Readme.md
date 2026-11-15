@@ -422,6 +422,15 @@ The app works on your own Wi-Fi. To use it while away, connect your phone to you
 
 **[Step-by-step guide: remote control with Tailscale](tailscale.md)**: a spare Android phone that stays at home passes the traffic on. No changes to your modem are needed. Tested on a Ziggo connection.
 
+With the Tailscale app installed, a **Tailscale card** appears under the Wi-Fi card to switch the connection on and off.
+
+<img src="Screenshots/Screenshot_20261115-064307.jpg" width="300" alt="The app away from home: Tailscale card switched on, scan range set to the home range 10.10.100.x">
+
+> [!CAUTION]
+> **Scanning away from home:** the app scans the network your phone is on, not your home network.
+> Before you tap **Scan network**, tap the range next to *Tasmota switches* and set it to **your home range**, for example **10.10.100.x**.
+> Otherwise the scan searches the wrong network and finds nothing.
+
 Do **not** open ports on your router to your Tasmota devices. Tasmota has no HTTPS and should not be directly reachable from the internet.
 
 ---

@@ -82,9 +82,14 @@ If the switch reacts, everything works.
 
 ## Switch Tailscale on and off from the app
 
-From version 14.7 the app has a **Tailscale card** under the Wi-Fi card. It only appears when the Tailscale app is installed on the phone.
+From version 14.7 the app has a **Tailscale card** under the Wi-Fi card.
+**The card only appears when the Tailscale app is installed on the phone.**
 
 ![Tailscale card in the app: off, on, and when Tailscale does not react](Screenshots/tailscale-card.png)
+
+On a real phone, away from home on another Wi-Fi network, with Tailscale on and the scan range set to the home network:
+
+<img src="Screenshots/Screenshot_20261115-064307.jpg" width="300" alt="The app away from home: Tailscale card switched on, scan range set to the home range 10.10.100.x">
 
 - **Status:** shows **Off**, or **On** with your Tailscale address (100.x.x.x).
 - **Switch:** turns Tailscale on or off without leaving the app. After switching, the app refreshes your switches.
@@ -97,7 +102,12 @@ So away from home it is two taps: open the app, switch Tailscale on.
 
 - **Away from home:** switch Tailscale on, then use the app as usual. Switches, tiles, scenes, schedules and widgets all work.
 - **At home:** you can leave Tailscale on or switch it off.
-- **Scan network** is meant for use at home. Away from home, use the switches you saved earlier.
+- **Scan network** away from home works only with the right range, see the warning below. Your saved switches work without scanning.
+
+> [!CAUTION]
+> **Scanning away from home:** the app scans the network your phone is on, not your home network.
+> Before you tap **Scan network**, tap the range next to *Tasmota switches* and set it to **your home range**, for example **10.10.100.x**.
+> Otherwise the scan searches the wrong network and finds nothing.
 - **Speed:** switching takes a little longer than at home, because the traffic goes through the home phone.
 
 ## If it does not work
