@@ -141,6 +141,10 @@ The home phone has to get back on Wi-Fi and Tailscale has to start again. That n
 | It works on mobile data but not on someone else's Wi-Fi | That network may use the same address range as your home. Try mobile data there. |
 | It stopped after some months | Tailscale asks devices to sign in again from time to time. Open Tailscale on the home phone and sign in. In the admin page you can switch off key expiry for the home phone. |
 
+> [!WARNING]
+> **Sign-in expires after some months.** Tailscale asks devices to sign in again from time to time. When that happens on the home phone, remote control stops until you open Tailscale on the home phone and sign in.
+> To avoid this, switch off key expiry for the home phone: in the [admin page](https://login.tailscale.com/admin/machines), tap the **⋯** menu on the home phone's row and choose **Disable key expiry**.
+
 ## Good to know
 
 - **Who can reach your switches:** only devices signed in to your Tailscale account. Family members can get access by signing in with that account, or by being invited to your Tailscale network.
