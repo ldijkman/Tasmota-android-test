@@ -34,6 +34,15 @@ With Tailscale the app runs on your own phone and has worked reliably for me.
 
 An Android TV box, a Raspberry Pi, a NAS or a PC that is always on can do the job of the home phone too.
 
+### Idea: a wall-mounted control panel that is also the home phone
+
+A phone or tablet mounted on the wall, always on the charger, is a perfect *home phone*. Run **Tasmota Scan & Control** on it as a control panel for the whole house, for example on the **Tiles** screen, and let the same device run Tailscale in the background. It then does two jobs at once:
+
+- a wall panel to switch everything at home, and
+- the connection that lets your own phone reach the switches from outside.
+
+Tasmota Scan & Control is **not needed** on the home phone for Tailscale to work. Only the Tailscale app is. The wall panel is just a nice way to make use of a device that has to stay on anyway.
+
 ## Step 1: find your home network range
 
 You need the address range of your home network, written like `192.168.1.0/24`.
