@@ -12,13 +12,14 @@
   // First start of the demo (also after "Reset demo"): example switches with icons and on colours
   try {
     if (!localStorage.getItem('tas_devs')) {
-      const D = (ip, friendly, name, icon, oncolor) => ({ ip: '10.10.100.' + ip, friendly, name, icon, oncolor });
+      const D = (ip, friendly, name, icon, oncolor, group) => Object.assign({ ip: '10.10.100.' + ip, friendly, name, icon, oncolor }, group ? { group } : {});
       localStorage.setItem('tas_devs', JSON.stringify([
-        D(114, 'Plafond LED', 'plafond-led', 'ceiling', '#ffffff'),
+        D(114, 'Plafond LED', 'plafond-led', 'ceiling', '#ffffff', 'living'),
+        D(131, 'Desk lamp', 'bureau', 'desk', '#b48cff', 'living'),
         D(115, 'Kitchen', 'keuken', 'spot', '#ffd27a'),
-        D(120, 'Garden lights', 'tuin', 'tree', '#3ccf6e'),
-        D(131, 'Desk lamp', 'bureau', 'desk', '#b48cff')
+        D(120, 'Garden lights', 'tuin', 'tree', '#3ccf6e')
       ]));
+      localStorage.setItem('tas_groups', JSON.stringify([{ id: 'living', name: 'Living', color: '#3ccf6e' }]));
       localStorage.setItem('tas_devs_ordered', '1');
     }
   } catch (e) {}
