@@ -467,7 +467,8 @@ To change something: unzip, edit, zip again and upload. GitHub then builds a new
 
 - The scan covers one `/24` network at a time (for example `10.10.100.x`).
 - Android does not let normal apps switch Wi-Fi by themselves; the Wi-Fi card and widget open Android's Wi-Fi panel instead.
-- Tasmota over HTTP only. OpenBeken and ESPHome are not recognised.
+- Made for Tasmota over HTTP. ESPHome is not supported.
+- **OpenBeken may partly work** (not tested). OpenBeken accepts many of the same commands as Tasmota, so scanning, on/off, groups, scenes, tiles and widgets will probably work. **Schedules do not work on OpenBeken**: it has its own schedule system instead of Tasmota's timers. Auto-off, energy, sunrise/sunset and lamp controls may also not work.
 - Lamp controls are new. Brightness and colour were tested on a Sonoff Basic R4 set up as a colour light, not yet on a real bulb or LED strip; warm/cool white has not been tested. Lamps on relay 2 or higher get no lamp controls.
 
 ---
