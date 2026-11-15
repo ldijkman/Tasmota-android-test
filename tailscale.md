@@ -151,6 +151,13 @@ The home phone has to get back on Wi-Fi and Tailscale has to start again. That n
 > - The [admin page](https://login.tailscale.com/admin/machines) shows whether the home phone is connected, or when it was last seen.
 >
 > These settings help, but on battery Android may still pause Tailscale after a while.
+>
+> **Worried about the battery of a phone that is always charging?** Let the phone limit the charge instead of unplugging it. Most recent phones can stop at about 80–85% while staying on the charger:
+>
+> - **Samsung:** Settings → Battery → **Battery protection** (on older versions: *Protect battery*). *Maximum* stops at 80%.
+> - **Pixel and others:** look for *Charging optimization* or *Limit to 80%* under Battery.
+>
+> The names differ per brand and Android version. Putting the charger on a Tasmota switch with charging periods is not a good alternative: between the periods the home phone falls asleep and remote control stops.
 
 > [!WARNING]
 > **Sign-in expires after some months.** Tailscale asks devices to sign in again from time to time. When that happens on the home phone, remote control stops until you open Tailscale on the home phone and sign in.
