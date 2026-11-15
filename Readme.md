@@ -5,6 +5,8 @@
 **A free Android app to find and control Tasmota switches on your own Wi-Fi.**
 No cloud, no account, no ads, no limits. 
 
+Free as is
+
 <img src="https://raw.githubusercontent.com/ldijkman/Tasmota-android-test/refs/heads/main/Screenshots/Android_scan_control_app.png" alt="Tasmota Scan & Control: main screen, tiles and schedules">
 
 - **Download:** [latest APK from Releases](https://github.com/ldijkman/Tasmota-android-test/releases/latest)
