@@ -5,6 +5,10 @@
 (function () {
   'use strict';
 
+  // After "Reset demo": clear once more before the page starts (the page saves a few things while it closes)
+  const clearDemo = () => { try { Object.keys(localStorage).filter(k => k.startsWith('tas_')).forEach(k => localStorage.removeItem(k)); } catch (e) {} };
+  try { if (sessionStorage.getItem('demo_reset')) { sessionStorage.removeItem('demo_reset'); clearDemo(); } } catch (e) {}
+
   const SUBNET = '10.10.100.';
   const devices = {
     '10.10.100.114': dev('plafond-led', 'Plafond LED', true),
@@ -141,6 +145,21 @@
       '<br><br><b>Demo</b> — simulated switches, nothing is sent to a real network. <br>' +                               
       '<b>Some options only show in the app with real Tasmota devices. <br>' +
       'in App Tap <i>Scan network</i> to find Tasmota Devices. <br>The protected one uses password <code>demo</code>. <br>' +
-      '<a href="https://github.com/ldijkman/Tasmota-android-test/releases/latest">Get the Android app</a></div>');
+      '<a href="https://github.com/ldijkman/Tasmota-android-test/releases/latest">Get the Android app</a>' +
+      '<br><button type="button" class="b-tog" style="margin-top:10px" onclick="demoReset()">Reset demo</button></div>');
+    // also in the hamburger menu
+    const menu = document.getElementById('menu');
+    if (menu) menu.insertAdjacentHTML('beforeend',
+      '<button role="menuitem" onclick="demoReset()">' +
+      '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>' +
+      'Reset demo</button>');
   });
+
+  // Forget everything the demo saved in this browser (only this app's own settings, keys starting with "tas_")
+  window.demoReset = function () {
+    if (!confirm('Reset the demo?\n\nThis forgets all switches, groups, scenes, icons and settings you changed in this demo.')) return;
+    clearDemo();
+    try { sessionStorage.clear(); sessionStorage.setItem('demo_reset', '1'); } catch (e) {}
+    location.reload();
+  };
 })();
