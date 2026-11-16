@@ -32,7 +32,7 @@ Free as is
 
 ---
 
-## What it can do (version 17.0)
+## What it can do (version 17.1)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -67,7 +67,7 @@ Free as is
 **Extras**
 - Share setup: send groups, icons, colours and scenes to another phone or tablet, or save the file as a backup
 - Themes: Auto, Light, Dark, Blue, Black (OLED), Forest and Night warm. The Android bars at the top and bottom take the theme colour
-- Wall panel (kiosk) mode: keep the screen on, dim after a few minutes, full screen without Android bars, pin the app so it cannot be left by swiping
+- Wall panel (kiosk) mode: keep the screen on, dim after a few minutes, full screen without Android bars, and a "swipe again to exit" message so the app is not left by accident
 - Tailscale card and widget to switch your remote connection on and off
 - Tips screen that explains the hold and drag gestures
 - Updates itself from GitHub with **Check update**
@@ -452,7 +452,7 @@ Put a spare phone or tablet on the wall as a fixed control panel. Everything is 
 | **Dim after** | Dims the screen after 1, 2, 5, 10 or 30 minutes without a touch (or never). |
 | **Dim to** | How dark it gets: 5%, 10%, 20%, 30% or 50%. Picking a value shows a 2-second preview. |
 | **Full screen** | Hides the Android status bar and the 3-button bar. Swipe in from the top or bottom edge to see them for a moment. |
-| **Pin app** | Uses Android's app pinning: swipes and Home do nothing. To leave, hold **Back** and **Recents** together (with swipe gestures: swipe up and hold). |
+| **Back / swipe to exit** | The first Back (or back swipe from the side) shows *Swipe or press Back again to exit*. Only a second one within 3 seconds closes the app. |
 
 The first tap on a dimmed screen only wakes it up. It does not switch anything, so you cannot switch a light by accident.
 
@@ -461,7 +461,7 @@ The first tap on a dimmed screen only wakes it up. It does not switch anything, 
 
 Good to know:
 - Keep the phone on the charger. To protect the battery, see the charger tips in the [Tailscale guide](tailscale.md).
-- If **Pin app** does nothing, turn on app pinning in the Android Settings first (Samsung calls it *Pin windows* or *Pin app*; search for "pin" in Settings). There you can also choose to ask for your PIN before unpinning.
+- For a panel that nobody may leave, Android's own **App pinning** can help (search for "pin" in Settings). Leaving then needs Back and Recents held together, optionally with your PIN.
 - OLED screens can slowly burn in when the same image stays lit for months. Dimming and the Black theme reduce that.
 
 ---
