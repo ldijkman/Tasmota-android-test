@@ -32,7 +32,7 @@ Free as is
 
 ---
 
-## What it can do (version 15.0)
+## What it can do (version 16.8)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -66,7 +66,8 @@ Free as is
 
 **Extras**
 - Share setup: send groups, icons, colours and scenes to another phone or tablet, or save the file as a backup
-- Themes: Auto, Light, Dark and Blue
+- Themes: Auto, Light, Dark, Blue, Black (OLED), Forest and Night warm. The Android bars at the top and bottom take the theme colour
+- Wall panel (kiosk) mode: keep the screen on, dim after a few minutes, full screen without Android bars
 - Tailscale card and widget to switch your remote connection on and off
 - Tips screen that explains the hold and drag gestures
 - Updates itself from GitHub with **Check update**
@@ -437,6 +438,30 @@ With the Tailscale app installed, a **Tailscale card** appears under the Wi-Fi c
 > Otherwise the scan searches the wrong network and finds nothing.
 
 Do **not** open ports on your router to your Tasmota devices. Tasmota has no HTTPS and should not be directly reachable from the internet.
+
+---
+
+## Wall panel (kiosk mode)
+
+Put a spare phone or tablet on the wall as a fixed control panel. Everything is in the hamburger menu:
+
+| Setting | What it does |
+|---|---|
+| **Theme** | Pick **Black (OLED)**: on an OLED screen black pixels are off, which saves power and gives no glow in a dark room. |
+| **Keep screen on** | The screen stays on while the app is open. Leave the app and the phone's normal timeout applies again. |
+| **Dim after** | Dims the screen after 1, 2, 5, 10 or 30 minutes without a touch (or never). |
+| **Dim to** | How dark it gets: 5%, 10%, 20%, 30% or 50%. Picking a value shows a 2-second preview. |
+| **Full screen** | Hides the Android status bar and the 3-button bar. Swipe in from the top or bottom edge to see them for a moment. |
+
+The first tap on a dimmed screen only wakes it up. It does not switch anything, so you cannot switch a light by accident.
+
+> [!TIP]
+> **A wall panel is also a good Tailscale server.** It stays at home, on the charger and awake, so you can reach your switches from outside. See the [Tailscale guide](tailscale.md).
+
+Good to know:
+- Keep the phone on the charger. To protect the battery, see the charger tips in the [Tailscale guide](tailscale.md).
+- To stop others from leaving the app, use Android's **App pinning** (Samsung calls it *Pin windows* or *Pin app*; the easiest way to find it is to search for "pin" in Settings).
+- OLED screens can slowly burn in when the same image stays lit for months. Dimming and the Black theme reduce that.
 
 ---
 
