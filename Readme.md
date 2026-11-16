@@ -35,7 +35,7 @@ Free as is
 
 ---
 
-## What it can do (version 18.0)
+## What it can do (version 18.1)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -420,7 +420,10 @@ Set up a brand-new or reset Tasmota device straight from the app, without the br
 6. The app finds the device on your network and sets its name and location (for sunrise and sunset). Then try **Test: switch on / off**, or pick an icon, colour and group.
 
 > [!TIP]
-> **Device not in the list?** Press its button 6 times quickly. Tasmota resets its Wi-Fi settings and opens its own tasmota-… network again. Wait about 30 seconds, then tap **Search again**.
+> **Device not in the list?** Press its button 6 times quickly. Tasmota opens its own tasmota-… network again and keeps its settings. Wait about 30 seconds, then tap **Search again**.
+
+> [!WARNING]
+> **Still not there?** Hold the button for **40 seconds**. This is a full reset: the device also loses its name, timers and all other settings. If it was already in your list, choose **Keep** afterwards and the app gives it its name back; the timers you need to set again.
 
 Good to know:
 - Tasmota only works on **2.4 GHz** Wi-Fi. The app warns you if your network looks 5 GHz only.
