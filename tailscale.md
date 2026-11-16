@@ -16,6 +16,10 @@ Away from home that normally does not work, because your phone cannot reach your
 [Tailscale](https://tailscale.com) solves this. It makes a private, encrypted connection between your phone and your home network.
 The app then works outside exactly as it does at home.
 
+<a href="https://ldijkman.github.io/Tasmota-android-test/tasmota-tailscale.mp4"><img src="demo/tasmota-tailscale-poster.jpg" width="260" alt="Watch the video: remote control with Tailscale, 2 minutes with sound"></a>
+
+**Watch:** [video: how it works and how to set it up, 2 minutes with sound](https://ldijkman.github.io/Tasmota-android-test/tasmota-tailscale.mp4)
+
 Tested with app versions 14.6 and 14.7 on my internet provider's modem (a Ziggo cable connection): it works.
 
 > [!TIP]

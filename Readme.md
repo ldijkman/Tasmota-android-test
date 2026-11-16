@@ -35,7 +35,7 @@ Free as is
 
 ---
 
-## What it can do (version 18.3)
+## What it can do (version 18.4)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -468,6 +468,10 @@ Since version 14.2 the app also follows a switch by its MAC address when its IP 
 ## Use it away from home
 
 The app works on your own Wi-Fi. To use it while away, connect your phone to your home network with a VPN.
+
+<a href="https://ldijkman.github.io/Tasmota-android-test/tasmota-tailscale.mp4"><img src="demo/tasmota-tailscale-poster.jpg" width="260" alt="Watch the video: remote control with Tailscale, 2 minutes with sound"></a>
+
+**Watch:** [video: remote control with Tailscale, 2 minutes with sound](https://ldijkman.github.io/Tasmota-android-test/tasmota-tailscale.mp4)
 
 **[Step-by-step guide: remote control with Tailscale](tailscale.md)**: a spare Android phone that stays at home passes the traffic on. No changes to your modem are needed. Tested on a Ziggo connection.
 
