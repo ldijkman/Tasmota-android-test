@@ -9,6 +9,9 @@ Free as is
 
 <img src="https://raw.githubusercontent.com/ldijkman/Tasmota-android-test/refs/heads/main/Screenshots/Android_scan_control_app.png" alt="Tasmota Scan & Control: main screen, tiles and schedules">
 
+<a href="https://ldijkman.github.io/Tasmota-android-test/tasmota-demo.mp4"><img src="demo/tasmota-demo-poster.jpg" width="260" alt="Watch the demo video: 1 minute, with sound"></a>
+
+- **Watch:** [demo video, 1 minute with sound](https://ldijkman.github.io/Tasmota-android-test/tasmota-demo.mp4)
 - **Download:** [latest APK from Releases](https://github.com/ldijkman/Tasmota-android-test/releases/latest)
 - **Try it in your browser:** [online demo with simulated devices](https://ldijkman.github.io/Tasmota-android-test/)
 - **Full feature list:** [Claude_Features.md](Claude_Features.md)
