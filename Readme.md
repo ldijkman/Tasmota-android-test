@@ -32,7 +32,7 @@ Free as is
 
 ---
 
-## What it can do (version 17.1)
+## What it can do (version 17.2)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -67,7 +67,7 @@ Free as is
 **Extras**
 - Share setup: send groups, icons, colours and scenes to another phone or tablet, or save the file as a backup
 - Themes: Auto, Light, Dark, Blue, Black (OLED), Forest and Night warm. The Android bars at the top and bottom take the theme colour
-- Wall panel (kiosk) mode: keep the screen on, dim after a few minutes, full screen without Android bars, and a "swipe again to exit" message so the app is not left by accident
+- Wall panel (kiosk) mode: keep the screen on, dim after a few minutes, full screen without Android bars, a "swipe again to exit" message, and the option to make the app the phone's home screen
 - Tailscale card and widget to switch your remote connection on and off
 - Tips screen that explains the hold and drag gestures
 - Updates itself from GitHub with **Check update**
@@ -452,7 +452,8 @@ Put a spare phone or tablet on the wall as a fixed control panel. Everything is 
 | **Dim after** | Dims the screen after 1, 2, 5, 10 or 30 minutes without a touch (or never). |
 | **Dim to** | How dark it gets: 5%, 10%, 20%, 30% or 50%. Picking a value shows a 2-second preview. |
 | **Full screen** | Hides the Android status bar and the 3-button bar. Swipe in from the top or bottom edge to see them for a moment. |
-| **Back / swipe to exit** | The first Back (or back swipe from the side) shows *Swipe or press Back again to exit*. Only a second one within 3 seconds closes the app. |
+| **Home screen app** | Makes the app the phone's home screen: the **Home** button always brings you back to it. Tap the switch, then pick *Tasmota Scan & Control* in the Android screen that opens. To undo, tap it again and pick your old home app. |
+| **Back / swipe to exit** | The first Back (or back swipe from the side) shows *Swipe or press Back again to exit*. Only a second one within 3 seconds closes the app. When the app is the home screen, Back never leaves it. |
 
 The first tap on a dimmed screen only wakes it up. It does not switch anything, so you cannot switch a light by accident.
 
