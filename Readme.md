@@ -58,6 +58,7 @@ Free as is
 - Stored in the Tasmota itself, so they keep running when the phone is off
 - Timeline preview, and a "Today" view of everything that will switch
 - Copy schedules from one switch to another
+- **Watch:** [video: timers with sunrise and sunset, 1 minute with sound](https://ldijkman.github.io/Tasmota-android-test/tasmota-timers.mp4)
 - Auto-off after a set time (Tasmota PulseTime) with a live countdown, also when switched on with the button on the device
 
 **Energy**
@@ -220,6 +221,10 @@ Themes in the hamburger menu: Auto, Light, Dark, Blue
 
 
 ### Schedules
+
+<a href="https://ldijkman.github.io/Tasmota-android-test/tasmota-timers.mp4"><img src="demo/tasmota-timers-poster.jpg" width="260" alt="Watch the video: timers with sunrise and sunset, 1 minute with sound"></a>
+
+**Watch:** [how to set timers with sunrise and sunset, 1 minute with sound](https://ldijkman.github.io/Tasmota-android-test/tasmota-timers.mp4)
 
 <img src="Screenshots/Screenshot_20261019-191637.jpg" width="300" alt="Up to 8 on/off schedules stored in the Tasmota itself, with a timeline preview; floating hamburger menu">
 
