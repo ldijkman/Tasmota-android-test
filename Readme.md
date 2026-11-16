@@ -35,7 +35,7 @@ Free as is
 
 ---
 
-## What it can do (version 17.6)
+## What it can do (version 17.7)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -407,6 +407,10 @@ Controlling a phone at home from another phone with AnyDesk. Tailscale turned ou
 ## Add a new device
 
 Set up a brand-new or reset Tasmota device straight from the app, without the browser and without 192.168.4.1.
+
+<a href="https://ldijkman.github.io/Tasmota-android-test/tasmota-add-device.mp4"><img src="demo/tasmota-add-device-poster.jpg" width="260" alt="Watch the video: add a new device, 1 minute with sound"></a>
+
+**Watch:** [video of the whole procedure, 1 minute with sound](https://ldijkman.github.io/Tasmota-android-test/tasmota-add-device.mp4)
 
 1. Plug in the new device. A new or reset Tasmota device starts its own Wi-Fi network called **tasmota-…**
 2. In the app: hamburger menu → **Add new device**. The app lists the nearby tasmota-… networks.
