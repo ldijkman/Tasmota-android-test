@@ -94,6 +94,7 @@ The route does not work until you approve it.
 2. Find the home phone in the **Machines** list. It has a small **Subnets** label.
 3. Tap the **⋯** menu on that row and choose **Edit route settings**.
 4. Tick the box for your range, for example `192.168.1.0/24`, and tap **Save**.
+5. Tap the **⋯** menu on the same row again and choose **Disable key expiry**. Otherwise the home phone has to sign in again after some months, and remote control stops until it does.
 
 On a phone the page is cramped. If you cannot find the ⋯ menu, turn the phone sideways or choose **Desktop site** in the browser menu.
 
