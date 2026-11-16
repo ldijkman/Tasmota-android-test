@@ -35,7 +35,7 @@ Free as is
 
 ---
 
-## What it can do (version 17.9)
+## What it can do (version 18.0)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -426,6 +426,7 @@ Good to know:
 - Tasmota only works on **2.4 GHz** Wi-Fi. The app warns you if your network looks 5 GHz only.
 - Needs Android 10 or newer.
 - If the automatic connection fails, the app offers **Connect by hand**: connect to the tasmota-… network in Android's Wi-Fi settings yourself, and the app does the rest.
+- **Reset a device that is already in your list?** The app recognises it by its MAC address (part of it is in the tasmota-… name) and shows *already in your list*. After setup you choose: **Keep** the existing card (same name, icon, group and scenes), or **Add as new device** (a fresh card with the new name; it is taken out of groups and scenes).
 - Wrong Wi-Fi password? The device opens its own tasmota-… network again after a minute; run **Add new device** once more.
 
 ---
