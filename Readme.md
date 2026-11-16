@@ -35,7 +35,7 @@ Free as is
 
 ---
 
-## What it can do (version 17.3)
+## What it can do (version 17.6)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -401,6 +401,28 @@ The light window on a real device: a Sonoff Basic R4 set up in Tasmota as a colo
 
 Controlling a phone at home from another phone with AnyDesk. Tailscale turned out more reliable, see the guide below
 
+
+---
+
+## Add a new device
+
+Set up a brand-new or reset Tasmota device straight from the app, without the browser and without 192.168.4.1.
+
+1. Plug in the new device. A new or reset Tasmota device starts its own Wi-Fi network called **tasmota-…**
+2. In the app: hamburger menu → **Add new device**. The app lists the nearby tasmota-… networks.
+3. Pick the device, enter your home Wi-Fi name and password, and optionally a name (for example *Garden lights*).
+4. Tap **Connect device**, then tap **Connect** when Android asks to join the tasmota-… network.
+5. The app sends your Wi-Fi details, your phone goes back to your own Wi-Fi, and the device restarts and joins it.
+6. The app finds the device on your network and sets its name and location (for sunrise and sunset). Then try **Test: switch on / off**, or pick an icon, colour and group.
+
+> [!TIP]
+> **Device not in the list?** Press its button 6 times quickly. Tasmota resets its Wi-Fi settings and opens its own tasmota-… network again. Wait about 30 seconds, then tap **Search again**.
+
+Good to know:
+- Tasmota only works on **2.4 GHz** Wi-Fi. The app warns you if your network looks 5 GHz only.
+- Needs Android 10 or newer.
+- If the automatic connection fails, the app offers **Connect by hand**: connect to the tasmota-… network in Android's Wi-Fi settings yourself, and the app does the rest.
+- Wrong Wi-Fi password? The device opens its own tasmota-… network again after a minute; run **Add new device** once more.
 
 ---
 
