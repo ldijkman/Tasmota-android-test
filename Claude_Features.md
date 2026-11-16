@@ -3,7 +3,7 @@
 A free, open-source Android app for finding and controlling Tasmota Wi-Fi switches
 (smart plugs, sockets and relays running the Tasmota firmware).
 
-This overview describes version 14.5.
+This overview describes version 17.2.
 
 ## In short
 
@@ -75,6 +75,20 @@ For switches with an energy meter:
 
 - **Tailscale card:** when the Tailscale app is installed, a card under the Wi-Fi card shows whether Tailscale is on and switches it on or off.
 - **Guide:** [remote control with Tailscale](tailscale.md) explains the setup with a spare Android phone at home.
+- **Tailscale widget:** switch Tailscale on or off from the home screen.
+
+## Wall panel (kiosk mode)
+
+Turn a spare phone or tablet into a fixed control panel on the wall. All settings are in the hamburger menu.
+
+- **Keep screen on:** the screen stays lit while the app is open.
+- **Dim after:** dims after 1, 2, 5, 10 or 30 minutes without a touch, or never.
+- **Dim to:** how dark it gets, from 5% to 50%, with a 2-second preview.
+- **Tap to wake:** the first tap on a dimmed screen only wakes it up, so no light is switched by accident.
+- **Full screen:** hides the Android status bar and the button bar.
+- **Home screen app:** makes the app the phone's home screen, so the Home button always brings you back to it. Easy to undo.
+- **Back to exit:** the first Back shows *Swipe or press Back again to exit*; only a second one closes the app.
+- **Good Tailscale server:** a wall panel stays at home, on the charger and awake, which is exactly what the Tailscale setup needs.
 
 ## Share and back up
 
@@ -85,18 +99,22 @@ For switches with an energy meter:
 
 ## Look and feel
 
-- **Themes:** Auto (follows the phone), Light, Dark and Blue.
+- **Themes:** Auto (follows the phone), Light, Dark, Blue, Black (OLED), Forest and Night warm, picked with colour swatches in the menu.
+- **Black (OLED):** pure black, so OLED screens use almost no power and do not glow in a dark room.
+- **Night warm:** no blue light, for a bedroom or bedside table.
+- **Android bars** at the top and bottom take the colour of the theme.
 - **Tips screen:** explains the gestures that are easy to miss, such as holding an icon for two seconds to edit a switch.
 
 ## Updates
 
 - **Check update:** the app looks at the GitHub releases, then downloads and installs a newer version from inside the app.
+- **Play Protect:** while Google Play Protect checks the update, a message with a counter explains what happens and which choices Android will offer (*Scan app* or *Install without scanning*).
 
 ## Download
 
 - Latest APK: [Releases](https://github.com/ldijkman/Tasmota-android-test/releases/latest)
-- Browser demo: <https://ldijkman.github.io/Tasmota-android-test/>
+- Browser demo: <https://ldijkman.github.io/Tasmota-android-test/>: try the app with pretend switches, including one with a web password (password `demo`). **Reset demo** starts it fresh.
 
 ## About
 
-The app was made with help from Claude and is built automatically by GitHub Actions.
+The app was made together by ldijkman and Claude: ldijkman came up with the ideas and tested everything on real switches and phones, Claude wrote much of the code. It is built automatically by GitHub Actions.
