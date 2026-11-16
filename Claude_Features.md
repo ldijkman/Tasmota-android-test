@@ -3,7 +3,7 @@
 A free, open-source Android app for finding and controlling Tasmota Wi-Fi switches
 (smart plugs, sockets and relays running the Tasmota firmware).
 
-This overview describes version 17.2.
+This overview describes version 17.3.
 
 ## In short
 
@@ -76,6 +76,17 @@ For switches with an energy meter:
 - **Tailscale card:** when the Tailscale app is installed, a card under the Wi-Fi card shows whether Tailscale is on and switches it on or off.
 - **Guide:** [remote control with Tailscale](tailscale.md) explains the setup with a spare Android phone at home.
 - **Tailscale widget:** switch Tailscale on or off from the home screen.
+
+## Add a new device
+
+Menu → **Add new device** sets up a brand-new or reset Tasmota device without the browser:
+
+1. The app lists nearby **tasmota-…** Wi-Fi networks (a new or reset device makes its own).
+2. Pick one, enter your home Wi-Fi and password, and optionally a name. The app warns when a network is 5 GHz only, because Tasmota needs 2.4 GHz.
+3. The phone connects to the device for a moment (Android asks you to confirm), sends your Wi-Fi details, and goes back to your own Wi-Fi.
+4. The app finds the device on your network, sets its name and location (for sunrise and sunset), and offers a quick on/off test.
+
+Needs Android 10 or newer; on older phones the app explains how to do it by hand.
 
 ## Wall panel (kiosk mode)
 

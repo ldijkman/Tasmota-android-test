@@ -35,7 +35,7 @@ Free as is
 
 ---
 
-## What it can do (version 17.2)
+## What it can do (version 17.3)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -69,6 +69,7 @@ Free as is
 
 **Extras**
 - Share setup: send groups, icons, colours and scenes to another phone or tablet, or save the file as a backup
+- Add a brand-new or reset Tasmota device from the menu: the app gives it your home Wi-Fi and finds it (Android 10+)
 - Themes: Auto, Light, Dark, Blue, Black (OLED), Forest and Night warm. The Android bars at the top and bottom take the theme colour
 - Wall panel (kiosk) mode: keep the screen on, dim after a few minutes, full screen without Android bars, a "swipe again to exit" message, and the option to make the app the phone's home screen
 - Tailscale card and widget to switch your remote connection on and off
