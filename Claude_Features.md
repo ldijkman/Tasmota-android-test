@@ -118,7 +118,7 @@ Turn a spare phone or tablet into a fixed control panel on the wall. All setting
 
 ## Updates
 
-- **Check update:** the app looks at the GitHub releases, then downloads and installs a newer version from inside the app.
+- **Check for update** (bottom of the main screen): the app looks at the GitHub releases, then downloads and installs a newer version from inside the app.
 - **Play Protect:** while Google Play Protect checks the update, a message with a counter explains what happens and which choices Android will offer (*Scan app* or *Install without scanning*).
 
 ## Download

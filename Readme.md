@@ -90,7 +90,7 @@ Free as is
 
 On first start the app asks for location permission. Android needs this to show the Wi-Fi network name, and the app uses it to send your location to your own switches for sunrise and sunset.
 
-Later versions install from inside the app: **menu → Check update**.
+Later versions install from inside the app: scroll to the bottom of the main screen and tap **Check for update**.
 
 ---
 
