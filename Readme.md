@@ -35,7 +35,7 @@ Free as is
 
 ---
 
-## What it can do (version 18.4)
+## What it can do (version 18.5)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -50,7 +50,7 @@ Free as is
 - Drag to change the order or to move switches between groups
 - An icon and an "on" colour per switch, from the built-in icons or 7,000+ icons online ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-icons.mp4))
 - Tiles screen with large buttons
-- Scenes: switch several devices at once with one tap
+- Scenes: switch several devices at once with one tap ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-scenes.mp4))
 - Choose which details each card shows (IP, MAC, next schedule, energy and more)
 
 **Schedules and timers**
@@ -287,6 +287,10 @@ New icons
 
 More icons
 
+
+<a href="https://ldijkman.github.io/Tasmota-android-test/tasmota-scenes.mp4"><img src="demo/tasmota-scenes-poster.jpg" width="260" alt="Watch the video: make a scene, 1 minute with sound"></a>
+
+**Watch:** [how to make and run a scene, 1 minute with sound](https://ldijkman.github.io/Tasmota-android-test/tasmota-scenes.mp4)
 
 <img src="Screenshots/Screenshot_20261029-195221.jpg" width="300" alt="Scenes, and a scene widget">
 
