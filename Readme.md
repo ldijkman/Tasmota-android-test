@@ -36,7 +36,7 @@ Free as is
 
 ---
 
-## What it can do (version 18.8)
+## What it can do (version 18.9)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -431,7 +431,7 @@ Set up a brand-new or reset Tasmota device straight from the app, without the br
 3. Pick the device. Your current Wi-Fi is selected; tap it to choose another nearby network (for example a separate network for smart devices), or **Other network…** for a hidden one. Enter its password, and optionally a name (for example *Garden lights*).
 4. Tap **Connect device**, then tap **Connect** when Android asks to join the tasmota-… network.
 5. The app sends your Wi-Fi details, your phone goes back to your own Wi-Fi, and the device restarts and joins it.
-6. The app finds the device on your network and sets its name and location (for sunrise and sunset). Then try **Test: switch on / off**, or pick an icon, colour and group.
+6. The app finds the device on your network and sets its name and location (for sunrise and sunset). Then try it with the **on/off switch** in the window, or pick an icon, colour and group.
 
 > [!TIP]
 > **Device not in the list?** Press its button 6 times quickly. Tasmota opens its own tasmota-… network again and keeps its settings. Wait about 30 seconds, then tap **Search again**.
