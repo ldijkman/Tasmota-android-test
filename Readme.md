@@ -36,7 +36,7 @@ Free as is
 
 ---
 
-## What it can do (version 18.9)
+## What it can do (version 19.0)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
