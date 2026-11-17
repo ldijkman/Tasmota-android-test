@@ -124,7 +124,7 @@ Turn a spare phone or tablet into a fixed control panel on the wall. All setting
 ## Download
 
 - Latest APK: [Releases](https://github.com/ldijkman/Tasmota-android-test/releases/latest)
-- Browser demo: <https://ldijkman.github.io/Tasmota-android-test/>: try the app with pretend switches, including one with a web password (password `demo`). **Reset demo** starts it fresh.
+- Browser demo: <https://ldijkman.github.io/Tasmota-android-test/demo/>: try the app with pretend switches, including one with a web password (password `demo`). **Reset demo** starts it fresh.
 
 ## About
 

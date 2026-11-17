@@ -13,7 +13,8 @@ Free as is
 
 - **Watch:** [demo video, 1 minute with sound](https://ldijkman.github.io/Tasmota-android-test/tasmota-demo.mp4)
 - **Download:** [latest APK from Releases](https://github.com/ldijkman/Tasmota-android-test/releases/latest)
-- **Try it in your browser:** [online demo with simulated devices](https://ldijkman.github.io/Tasmota-android-test/)
+- **Website:** [ldijkman.github.io/Tasmota-android-test](https://ldijkman.github.io/Tasmota-android-test/)
+- **Try it in your browser:** [online demo with simulated devices](https://ldijkman.github.io/Tasmota-android-test/demo/)
 - **Full feature list:** [Claude_Features.md](Claude_Features.md)
 - **Use it away from home:** [Tailscale guide](tailscale.md)
 

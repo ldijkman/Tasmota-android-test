@@ -1,13 +1,16 @@
 name: Deploy web demo
 
-# Publishes the app's own index.html (from plafond-led-app.zip) to GitHub Pages,
-# with demo/demo-bridge.js standing in for the Android bridge.
+# Publishes the website to GitHub Pages:
+#   /        front page (site/)
+#   /demo/   the app's own index.html (from plafond-led-app.zip), with demo/demo-bridge.js standing in for the Android bridge
+#   /*.mp4   the videos (these addresses are linked from the app, so they stay at the root)
 on:
   push:
     branches: [main]
     paths:
       - 'plafond-led-app.zip'
       - 'demo/**'
+      - 'site/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
 
@@ -32,14 +35,16 @@ jobs:
       - name: Build demo site
         run: |
           unzip -o -q plafond-led-app.zip
-          mkdir -p _site
-          cp demo/demo-bridge.js _site/
+          mkdir -p _site/demo
+          cp -r site/. _site/
+          cp demo/demo-bridge.js _site/demo/
           cp demo/tasmota-demo.mp4 demo/tasmota-demo-poster.jpg demo/tasmota-add-device.mp4 demo/tasmota-timers.mp4 demo/tasmota-icons.mp4 demo/tasmota-tailscale.mp4 demo/tasmota-scenes.mp4 _site/   # demo video, plays straight from the site
           # Load the fake bridge before the page's own script.
           # The ?v=<commit> tag makes browsers fetch the new script after every update (no stale cache).
           sed "0,/<script>/s//<script src=\"demo-bridge.js?v=${GITHUB_SHA::7}\"><\/script>\n<script>/" \
-            plafond-led-app/app/src/main/assets/index.html > _site/index.html
-          grep -q 'demo-bridge.js' _site/index.html
+            plafond-led-app/app/src/main/assets/index.html > _site/demo/index.html
+          grep -q 'demo-bridge.js' _site/demo/index.html
+          test -f _site/index.html
 
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
