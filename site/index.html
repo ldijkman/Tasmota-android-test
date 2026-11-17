@@ -130,12 +130,12 @@ nav ul a:hover{color:#fff}
 .vids{padding:100px 0;background:#0b1120;border-block:1.5px solid var(--line)}
 .vgrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px;margin-top:44px}
 .vcard{all:unset;cursor:pointer;display:block}
-.vcard .fr{position:relative;border-radius:16px;overflow:hidden;border:1.5px solid var(--line);aspect-ratio:4/5;background:#000}
-.vcard img{width:100%;height:100%;object-fit:cover;opacity:.8;transition:opacity .3s}
+.vcard .fr{display:block;position:relative;border-radius:16px;overflow:hidden;border:1.5px solid var(--line);aspect-ratio:4/5;background:#000}
+.vcard .fr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.8;transition:opacity .3s}
 .vcard .pl{position:absolute;left:12px;bottom:12px;width:44px;height:44px;border-radius:50%;background:var(--amber);display:grid;place-items:center}
 .vcard .pl svg{width:18px;height:18px;margin-left:3px}
 .vcard b{display:block;margin-top:12px;font:700 1.02rem var(--display);color:#fff}
-.vcard span{color:var(--muted);font-size:.92rem}
+.vcard .len{display:block;color:var(--muted);font-size:.92rem}
 .vcard:hover img,.vcard:focus-visible img{opacity:1}
 .vcard:focus-visible{outline:3px solid var(--amber);outline-offset:4px;border-radius:16px}
 @media (max-width:1000px){.vgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
@@ -309,12 +309,12 @@ footer a{color:var(--muted)}
     <h2 id="vid-h">See how it works.</h2>
     <p class="lead" style="margin-top:14px">Short videos with spoken explanation, filmed in the live demo.</p>
     <div class="vgrid">
-      <button class="vcard" data-v="tasmota-demo.mp4"><span class="fr"><img src="img/poster-demo.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>The app in a minute</b><span>1 min</span></button>
-      <button class="vcard" data-v="tasmota-add-device.mp4"><span class="fr"><img src="img/poster-add-device.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Add a new device</b><span>1 min</span></button>
-      <button class="vcard" data-v="tasmota-timers.mp4"><span class="fr"><img src="img/poster-timers.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Timers with sunrise and sunset</b><span>1 min</span></button>
-      <button class="vcard" data-v="tasmota-scenes.mp4"><span class="fr"><img src="img/poster-scenes.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Make a scene</b><span>1 min</span></button>
-      <button class="vcard" data-v="tasmota-icons.mp4"><span class="fr"><img src="img/poster-icons.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Change icon and colour</b><span>1 min</span></button>
-      <button class="vcard" data-v="tasmota-tailscale.mp4"><span class="fr"><img src="img/poster-tailscale.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Remote control with Tailscale</b><span>2 min</span></button>
+      <button class="vcard" data-v="tasmota-demo.mp4"><span class="fr"><img src="img/poster-demo.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>The app in a minute</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="tasmota-add-device.mp4"><span class="fr"><img src="img/poster-add-device.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Add a new device</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="tasmota-timers.mp4"><span class="fr"><img src="img/poster-timers.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Timers with sunrise and sunset</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="tasmota-scenes.mp4"><span class="fr"><img src="img/poster-scenes.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Make a scene</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="tasmota-icons.mp4"><span class="fr"><img src="img/poster-icons.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Change icon and colour</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="tasmota-tailscale.mp4"><span class="fr"><img src="img/poster-tailscale.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Remote control with Tailscale</b><span class="len">2 min</span></button>
     </div>
   </div>
 </section>
