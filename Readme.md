@@ -36,7 +36,7 @@ Free as is
 
 ---
 
-## What it can do (version 19.1)
+## What it can do (version 19.2)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -436,8 +436,12 @@ Set up a brand-new or reset Tasmota device straight from the app, without the br
 > [!TIP]
 > **Device not in the list?** Press its button 6 times quickly. Tasmota opens its own tasmota-… network again and keeps its settings. Wait about 30 seconds, then tap **Search again**.
 
-> [!WARNING]
-> **Still not there?** Hold the button for **40 seconds**. This is a full reset: the device also loses its name, timers and all other settings. If it was already in your list, choose **Keep** afterwards and the app gives it its name back; the timers you need to set again.
+> [!CAUTION]
+> **Last resort: hold the button for 40 seconds.** This is a full reset to the firmware defaults. The device loses its name, timers and settings, and usually also its **template** (GPIO setup): with standard Tasmota it then works as a plain Sonoff Basic until you set the template again.
+>
+> **Before you do this,** open the device's web page, go to **Console**, type `Template` and copy the answer. After the reset, paste it back with `Template <the copied text>` followed by `Module 0`.
+>
+> If the device was already in your list, choose **Keep** afterwards: the app gives it its name back. Timers you need to set again.
 
 Good to know:
 - Before you start: phone on the Wi-Fi the device should join, **mobile data off**, and **Tailscale off**. The app shows this as a short checklist.
