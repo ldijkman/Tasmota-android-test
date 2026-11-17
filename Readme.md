@@ -36,7 +36,7 @@ Free as is
 
 ---
 
-## What it can do (version 19.5)
+## What it can do (version 19.6)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -49,7 +49,7 @@ Free as is
 **Organise**
 - Groups with a name and colour, with one switch for the whole group
 - Drag to change the order or to move switches between groups
-- An icon and an "on" colour per switch, from the built-in icons or 7,000+ icons online ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-icons.mp4))
+- An icon and an "on" colour per switch, from the built-in icons (now with farm and pet animals: chicken, rooster, horse, cow, dog, cat, rabbit, duck and more) or 7,000+ icons online ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-icons.mp4))
 - Tiles screen with large buttons
 - Scenes: switch several devices at once with one tap ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-scenes.mp4))
 - Choose which details each card shows (IP, MAC, next schedule, energy and more)
@@ -593,3 +593,5 @@ Other apps, some of them paid or with limits in the free version:
 
 Made with [claude.ai](https://claude.ai) (Grok can also build the APK from the zip) and built by GitHub Actions.
 Tasmota is a project by [Theo Arends](https://github.com/arendst/Tasmota).
+
+Animal icons: some come from [Game-icons.net](https://game-icons.net) by Lorc and Delapouite (CC BY 3.0) and [Healthicons](https://healthicons.org) (MIT); the rest are [Material Design Icons](https://pictogrammers.com) (Apache 2.0).
