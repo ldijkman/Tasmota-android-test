@@ -36,7 +36,7 @@ Free as is
 
 ---
 
-## What it can do (version 19.0)
+## What it can do (version 19.1)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -440,6 +440,7 @@ Set up a brand-new or reset Tasmota device straight from the app, without the br
 > **Still not there?** Hold the button for **40 seconds**. This is a full reset: the device also loses its name, timers and all other settings. If it was already in your list, choose **Keep** afterwards and the app gives it its name back; the timers you need to set again.
 
 Good to know:
+- Before you start: phone on the Wi-Fi the device should join, **mobile data off**, and **Tailscale off**. The app shows this as a short checklist.
 - Tasmota only works on **2.4 GHz** Wi-Fi. The app warns you if your network looks 5 GHz only.
 - Needs Android 10 or newer.
 - If the automatic connection fails, the app offers **Connect by hand**: connect to the tasmota-… network in Android's Wi-Fi settings yourself, and the app does the rest.
