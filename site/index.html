@@ -189,6 +189,7 @@ dialog button{background:none;border:1.5px solid #3a4a70;color:#fff;border-radiu
 .yours{padding:110px 0;text-align:left;background:radial-gradient(ellipse 60% 80% at 0% 50%,rgba(85,70,127,.28),transparent 70%)}
 .yours h2{font-size:clamp(2.3rem,5.4vw,4rem);max-width:16ch}
 .yours .lead{margin-top:22px;font-size:1.25rem;max-width:56ch}
+.yours .lead+.lead{margin-top:14px}
 
 /* faq */
 .faq{padding:40px 0 110px}
@@ -379,7 +380,8 @@ footer a{color:var(--muted)}
 <section class="yours" aria-labelledby="yours-h">
   <div class="wrap">
     <h2 id="yours-h">Your switches stay yours.</h2>
-    <p class="lead">The app talks straight to your devices over your own Wi-Fi. There is no account to make, no server in between, no ads and no tracking. The source code is on GitHub for anyone to read.</p>
+    <p class="lead">The app talks straight to your devices over your own Wi-Fi. There is no account to make, no server in between, no ads and no tracking.</p>
+    <p class="lead">The source code is on GitHub for anyone to read, and GitHub builds the app you download from exactly that source. What you can read is what you install.</p>
   </div>
 </section>
 
@@ -391,7 +393,7 @@ footer a{color:var(--muted)}
       <details><summary>Which devices work?</summary><p>Any device that runs Tasmota firmware: Sonoff, Athom and other plugs, relays, wall switches, lamps and LED strips with an ESP8266 or ESP32 chip. Devices with their original firmware, such as eWeLink or Tuya, need Tasmota installed first.</p></details>
       <details><summary>Does my lamp go via a server in China?</summary><p>No, your lamp stays home. When you tap a switch, the signal travels a few metres over your own Wi-Fi, straight from your phone to the switch. Many smart home apps first send it to a cloud server, sometimes on the other side of the world, and then back again, just to switch on the lamp right next to you. With this app, the trip to the lamp is shorter than the trip to the fridge.</p></details>
       <details><summary>Which phones can run it?</summary><p>Android 7 or newer. Adding a brand-new device from the app needs Android 10 or newer. There is no iPhone version, but you can try the live demo in any browser.</p></details>
-      <details><summary>Android warns about installing it. Is it safe?</summary><p>The app is not in the Play Store, so Google Play Protect has not seen it before. You can let Play Protect scan it first, or install without scanning. The full source code is public on GitHub.</p></details>
+      <details><summary>Android warns about installing it. Is it safe?</summary><p>The app is not in the Play Store, so Google Play Protect has not seen it before. You can let Play Protect scan it first, or install without scanning. The full source code is public on GitHub, and GitHub itself builds the download from that source.</p></details>
       <details><summary>Does it work with OpenBeken or Shelly?</summary><p>OpenBeken devices partly work: switching does, schedules do not. Shelly devices work when they run Tasmota firmware.</p></details>
       <details><summary>Why does it ask for my location?</summary><p>For sunrise and sunset times, which the app sends to your switches. Android also needs location permission before an app can see nearby Wi-Fi names. Your location only goes to your own switches.</p></details>
       <details><summary>How do I get updates?</summary><p>Scroll to the bottom of the main screen and tap Check for update. The app downloads the newest version from GitHub and installs it.</p></details>
