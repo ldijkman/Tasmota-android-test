@@ -198,7 +198,10 @@ summary{cursor:pointer;font:700 1.12rem var(--display);color:#fff;list-style:non
 summary::-webkit-details-marker{display:none}
 summary::after{content:"+";color:var(--amber);font-size:1.4rem;line-height:1;transition:transform .25s}
 details[open] summary::after{transform:rotate(45deg)}
-details p{color:var(--muted);margin-top:12px;max-width:62ch}
+details p{color:var(--muted);margin-top:12px;max-width:62ch;text-wrap:pretty}
+details p+p{margin-top:8px}
+.don{display:inline-block;margin-top:4px;padding:9px 16px;border-radius:12px;border:1.5px solid var(--amber);color:var(--light);font-weight:700;text-decoration:none}
+.don:hover{background:rgba(240,166,48,.12)}
 @media (max-width:900px){.faq .wrap{grid-template-columns:1fr;gap:28px}}
 
 /* last call + footer */
@@ -391,7 +394,7 @@ footer a{color:var(--muted)}
       <details><summary>Does it work with OpenBeken or Shelly?</summary><p>OpenBeken devices partly work: switching does, schedules do not. Shelly devices work when they run Tasmota firmware.</p></details>
       <details><summary>Why does it ask for my location?</summary><p>For sunrise and sunset times, which the app sends to your switches. Android also needs location permission before an app can see nearby Wi-Fi names. Your location only goes to your own switches.</p></details>
       <details><summary>How do I get updates?</summary><p>Open the menu and tap Check update. The app downloads the newest version from GitHub and installs it.</p></details>
-      <details><summary>What does it cost?</summary><p>Nothing. No ads, no in-app purchases, no subscription. If you like the app, a small donation is appreciated: <a href="https://paypal.me/ldijkman" rel="noopener">donate via PayPal</a>. You can also find Donate in the app's menu.</p></details>
+      <details><summary>What does it cost?</summary><p>Nothing. No ads, no in-app purchases, no subscription.</p><p>If you like the app, a small donation is appreciated.</p><p><a class="don" href="https://paypal.me/ldijkman" rel="noopener">Donate via PayPal</a></p><p>You can also find Donate in the app's menu.</p></details>
     </div>
   </div>
 </section>
