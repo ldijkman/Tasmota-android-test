@@ -7,7 +7,7 @@ No cloud, no account, no ads, no limits.
 
 Free as is
 
-<img src="https://raw.githubusercontent.com/ldijkman/Tasmota-android-test/refs/heads/main/Screenshots/Android_scan_control_app.png" alt="Tasmota Scan & Control: main screen, tiles and schedules">
+<img src="https://raw.githubusercontent.com/ldijkman/Tasmota-android-test/refs/heads/main/Screenshots/tasmota-scan-control-android-app.png" alt="Tasmota Scan & Control: main screen, tiles and schedules">
 
 <a href="https://ldijkman.github.io/Tasmota-android-test/tasmota-demo.mp4"><img src="demo/tasmota-demo-poster.jpg" width="260" alt="Watch the demo video: 1 minute, with sound"></a>
 
@@ -85,7 +85,7 @@ Free as is
 2. Open it on your phone. Android asks once for permission to install apps from this source.
 3. If Google Play Protect warns that the app is unknown, tap **Install anyway**. The warning appears because the app is not from the Play Store, not because something is wrong with it.
 
-![Tap Install anyway](Screenshots/toch-installeren-flash.gif)
+![Tap Install anyway](Screenshots/tasmota-play-protect-install-anyway.gif)
 
 On first start the app asks for location permission. Android needs this to show the Wi-Fi network name, and the app uses it to send your location to your own switches for sunrise and sunset.
 
@@ -99,35 +99,35 @@ These pictures show how the app grew, from the first version to now. Some show o
 
 ### Scan and find
 
-<img src="Screenshots/Screenshot_20261009-205015.jpg" width="300" alt="Network scan: all Tasmota switches with name and IP">
+<img src="Screenshots/tasmota-network-scan-results.jpg" width="300" alt="Network scan: all Tasmota switches with name and IP">
 
 Network scan: all Tasmota switches with name and IP
 
 
-<img src="Screenshots/Screenshot_20261009-203512.jpg" width="300" alt="Controls and two schedules with sunset (early version)">
+<img src="Screenshots/tasmota-controls-sunset-schedules-early.jpg" width="300" alt="Controls and two schedules with sunset (early version)">
 
 Controls and two schedules with sunset (early version)
 
 
-<img src="Screenshots/Screenshot_20261010-151334.jpg" width="300" alt="Screenshot">
+<img src="Screenshots/tasmota-scan-range-by-router.jpg" width="300" alt="Choose the IP range to scan from a list of common routers: KPN, Ziggo, FRITZ!Box, TP-Link, ASUS and more">
 
 
-<img src="Screenshots/Screenshot_20261010-151207.jpg" width="300" alt="Setting for which IP range to scan">
+<img src="Screenshots/tasmota-scan-ip-range-setting.jpg" width="300" alt="Setting for which IP range to scan">
 
 Setting for which IP range to scan
 
 
-<img src="Screenshots/Screenshot_20261011-082013_Settings.jpg" width="300" alt="Button to switch the phone's Wi-Fi network easily">
+<img src="Screenshots/tasmota-switch-phone-wifi-network.jpg" width="300" alt="Button to switch the phone's Wi-Fi network easily">
 
 Button to switch the phone's Wi-Fi network easily
 
 
-<img src="Screenshots/Screenshot_20261012-171735.jpg" width="300" alt="Found devices are stored; remove one with ×">
+<img src="Screenshots/tasmota-saved-devices-remove.jpg" width="300" alt="Found devices are stored; remove one with ×">
 
 Found devices are stored; remove one with ×
 
 
-<img src="Screenshots/Screenshot_20261013-165929.jpg" width="300" alt="Switch on and off straight from the scan results">
+<img src="Screenshots/tasmota-switch-from-scan-results.jpg" width="300" alt="Switch on and off straight from the scan results">
 
 Switch on and off straight from the scan results
 
@@ -135,25 +135,25 @@ Switch on and off straight from the scan results
 
 ### Device settings
 
-<img src="Screenshots/Screenshot_20261011-202604.jpg" width="300" alt="Sunrise and sunset for the active device, and a link to the device's own web page">
+<img src="Screenshots/tasmota-sunrise-sunset-device-webpage.jpg" width="300" alt="Sunrise and sunset for the active device, and a link to the device's own web page">
 
 Sunrise and sunset for the active device, and a link to the device's own web page
 
 
-<img src="Screenshots/Screenshot_20261012-173131.jpg" width="300" alt="Change the FriendlyName and DeviceName from the app">
+<img src="Screenshots/tasmota-friendlyname-devicename.jpg" width="300" alt="Change the FriendlyName and DeviceName from the app">
 
 Change the FriendlyName and DeviceName from the app
 
 
-<img src="Screenshots/Screenshot_20261012-182930.jpg" width="300" alt="Send the phone's location (lat/lon) to the Tasmota device for sunrise and sunset">
+<img src="Screenshots/tasmota-send-location-sunrise-sunset.jpg" width="300" alt="Send the phone's location (lat/lon) to the Tasmota device for sunrise and sunset">
 
 Send the phone's location (lat/lon) to the Tasmota device for sunrise and sunset
 
 
-<img src="Screenshots/Screenshot_20261012-213333.jpg" width="300" alt="Screenshot">
+<img src="Screenshots/tasmota-time-zone-list.jpg" width="300" alt="Time zone list: Central Europe, UK, Eastern Europe, US and Australia">
 
 
-<img src="Screenshots/Screenshot_20261012-213322.jpg" width="300" alt="Set the time zone">
+<img src="Screenshots/tasmota-set-time-zone.jpg" width="300" alt="Set the time zone">
 
 Set the time zone
 
@@ -161,60 +161,60 @@ Set the time zone
 
 ### Organise: order, groups and colours
 
-<img src="Screenshots/Screenshot_20261014-164709.jpg" width="300" alt="Drag to change the order; the order is saved">
+<img src="Screenshots/tasmota-drag-to-reorder-switches.jpg" width="300" alt="Drag to change the order; the order is saved">
 
 Drag to change the order; the order is saved
 
 
-<img src="Screenshots/Screenshot_20261014-165907.jpg" width="300" alt="Drag to order">
+<img src="Screenshots/tasmota-drag-to-order.jpg" width="300" alt="Drag to order">
 
 Drag to order
 
 
-<img src="Screenshots/Screenshot_20261015-172317.jpg" width="300" alt="Create groups (labels) and drag switches into them">
+<img src="Screenshots/tasmota-create-groups.jpg" width="300" alt="Create groups (labels) and drag switches into them">
 
 Create groups (labels) and drag switches into them
 
 
-<img src="Screenshots/Screenshot_20261015-192401.jpg" width="300" alt="Fold a group in or out">
+<img src="Screenshots/tasmota-fold-group.jpg" width="300" alt="Fold a group in or out">
 
 Fold a group in or out
 
 
-<img src="Screenshots/Screenshot_20261019-172020.jpg" width="300" alt="Wi-Fi signal, uptime, edit button and a switch for the whole group">
+<img src="Screenshots/tasmota-wifi-signal-uptime-group-switch.jpg" width="300" alt="Wi-Fi signal, uptime, edit button and a switch for the whole group">
 
 Wi-Fi signal, uptime, edit button and a switch for the whole group
 
 
-<img src="Screenshots/Screenshot_20261021-173920.jpg" width="300" alt="Edit a group label to choose a colour">
+<img src="Screenshots/tasmota-group-label-colour.jpg" width="300" alt="Edit a group label to choose a colour">
 
 Edit a group label to choose a colour
 
 
-<img src="Screenshots/Screenshot_20261021-174241.jpg" width="300" alt="Screenshot">
+<img src="Screenshots/tasmota-coloured-groups-details.jpg" width="300" alt="Coloured groups with switches, IP address, Wi-Fi signal, uptime and next schedule">
 
 
-<img src="Screenshots/Screenshot_20261019-200153.jpg" width="300" alt="About, in the hamburger menu">
+<img src="Screenshots/tasmota-about-hamburger-menu.jpg" width="300" alt="About, in the hamburger menu">
 
 About, in the hamburger menu
 
 
-<img src="Screenshots/Screenshot_20261027-165442_Chrome.jpg" width="300" alt="Choose which details the cards show">
+<img src="Screenshots/tasmota-card-details-choice.jpg" width="300" alt="Choose which details the cards show">
 
 Choose which details the cards show
 
 
-<img src="Screenshots/Screenshot_20261101-172547.jpg" width="300" alt="Hold a device icon or group name for 2 seconds to edit it">
+<img src="Screenshots/tasmota-hold-to-edit.jpg" width="300" alt="Hold a device icon or group name for 2 seconds to edit it">
 
 Hold a device icon or group name for 2 seconds to edit it
 
 
-<img src="Screenshots/Screenshot_20261113-182952.jpg" width="300" alt="Choose your own on colour per icon">
+<img src="Screenshots/tasmota-own-on-colour-per-icon.jpg" width="300" alt="Choose your own on colour per icon">
 
 Choose your own "on" colour per icon
 
 
-<img src="Screenshots/Screenshot_20261114-080430.jpg" width="300" alt="Themes in the hamburger menu: Auto, Light, Dark, Blue">
+<img src="Screenshots/tasmota-themes-menu.jpg" width="300" alt="Themes in the hamburger menu: Auto, Light, Dark, Blue">
 
 Themes in the hamburger menu: Auto, Light, Dark, Blue
 
@@ -226,22 +226,22 @@ Themes in the hamburger menu: Auto, Light, Dark, Blue
 
 **Watch:** [how to set timers with sunrise and sunset, 1 minute with sound](https://ldijkman.github.io/Tasmota-android-test/tasmota-timers.mp4)
 
-<img src="Screenshots/Screenshot_20261019-191637.jpg" width="300" alt="Up to 8 on/off schedules stored in the Tasmota itself, with a timeline preview; floating hamburger menu">
+<img src="Screenshots/tasmota-8-schedules-timeline.jpg" width="300" alt="Up to 8 on/off schedules stored in the Tasmota itself, with a timeline preview; floating hamburger menu">
 
 Up to 8 on/off schedules stored in the Tasmota itself, with a timeline preview; floating hamburger menu
 
 
-<img src="Screenshots/Screenshot_20261024-082456.jpg" width="300" alt="Clock button on each device opens its schedules; copy schedules from another device">
+<img src="Screenshots/tasmota-schedules-clock-copy.jpg" width="300" alt="Clock button on each device opens its schedules; copy schedules from another device">
 
 Clock button on each device opens its schedules; copy schedules from another device
 
 
-<img src="Screenshots/Screenshot_20261028-182639_Chrome.jpg" width="300" alt="Sunrise and sunset shown above the timeline bar">
+<img src="Screenshots/tasmota-sunrise-sunset-timeline.jpg" width="300" alt="Sunrise and sunset shown above the timeline bar">
 
 Sunrise and sunset shown above the timeline bar
 
 
-<img src="Screenshots/Screenshot_20261031-070958.jpg" width="300" alt="Today: everything that will switch today">
+<img src="Screenshots/tasmota-today-overview.jpg" width="300" alt="Today: everything that will switch today">
 
 Today: everything that will switch today
 
@@ -253,37 +253,37 @@ Today: everything that will switch today
 
 **Watch:** [how to change a switch's icon and on colour, 1 minute with sound](https://ldijkman.github.io/Tasmota-android-test/tasmota-icons.mp4)
 
-<img src="Screenshots/Screenshot_20261024-190354.jpg" width="300" alt="Tiles screen">
+<img src="Screenshots/tasmota-tiles-screen.jpg" width="300" alt="Tiles screen">
 
 Tiles screen
 
 
-<img src="Screenshots/Screenshot_20261025-080634.jpg" width="300" alt="Tiles screen, new look">
+<img src="Screenshots/tasmota-tiles-screen-new-look.jpg" width="300" alt="Tiles screen, new look">
 
 Tiles screen, new look
 
 
-<img src="Screenshots/Screenshot_20261025-144023.jpg" width="300" alt="Choose an icon per device">
+<img src="Screenshots/tasmota-choose-icon.jpg" width="300" alt="Choose an icon per device">
 
 Choose an icon per device
 
 
-<img src="Screenshots/Screenshot_20261025-194011.jpg" width="300" alt="Some of the icons">
+<img src="Screenshots/tasmota-icon-set.jpg" width="300" alt="Some of the icons">
 
 Some of the icons
 
 
-<img src="Screenshots/Screenshot_20261028-181040.jpg" width="300" alt="New icons">
+<img src="Screenshots/tasmota-new-icons-1.jpg" width="300" alt="New icons">
 
 New icons
 
 
-<img src="Screenshots/Screenshot_20261028-181522.jpg" width="300" alt="New icons">
+<img src="Screenshots/tasmota-new-icons-2.jpg" width="300" alt="New icons">
 
 New icons
 
 
-<img src="Screenshots/Screenshot_20261031-073743.jpg" width="300" alt="More icons">
+<img src="Screenshots/tasmota-more-icons.jpg" width="300" alt="More icons">
 
 More icons
 
@@ -292,22 +292,22 @@ More icons
 
 **Watch:** [how to make and run a scene, 1 minute with sound](https://ldijkman.github.io/Tasmota-android-test/tasmota-scenes.mp4)
 
-<img src="Screenshots/Screenshot_20261029-195221.jpg" width="300" alt="Scenes, and a scene widget">
+<img src="Screenshots/tasmota-scenes-and-scene-widget.jpg" width="300" alt="Scenes, and a scene widget">
 
 Scenes, and a scene widget
 
 
-<img src="Screenshots/Screenshot_20261029-201120.jpg" width="300" alt="Scenes on the Tiles screen; hold a scene to edit it, swipe scenes left and right">
+<img src="Screenshots/tasmota-scenes-on-tiles.jpg" width="300" alt="Scenes on the Tiles screen; hold a scene to edit it, swipe scenes left and right">
 
 Scenes on the Tiles screen; hold a scene to edit it, swipe scenes left and right
 
 
-<img src="Screenshots/Screenshot_20261029-202500.jpg" width="300" alt="Change the order of the scenes by dragging">
+<img src="Screenshots/tasmota-scenes-order.jpg" width="300" alt="Change the order of the scenes by dragging">
 
 Change the order of the scenes by dragging
 
 
-<img src="Screenshots/Screenshot_20261031-071322.jpg" width="300" alt="A scene switches several devices on or off at once">
+<img src="Screenshots/tasmota-scene-editor.jpg" width="300" alt="A scene switches several devices on or off at once">
 
 A scene switches several devices on or off at once
 
@@ -315,7 +315,7 @@ A scene switches several devices on or off at once
 
 ### Energy
 
-<img src="Screenshots/Screenshot_20261028-173105.jpg" width="300" alt="Energy use is shown when a device has a meter">
+<img src="Screenshots/tasmota-energy-use.jpg" width="300" alt="Energy use is shown when a device has a meter">
 
 Energy use is shown when a device has a meter
 
@@ -323,27 +323,27 @@ Energy use is shown when a device has a meter
 
 ### Auto-off (PulseTime)
 
-<img src="Screenshots/Screenshot_20261101-113021.jpg" width="300" alt="Auto-off after a set number of minutes">
+<img src="Screenshots/tasmota-auto-off-minutes.jpg" width="300" alt="Auto-off after a set number of minutes">
 
 Auto-off after a set number of minutes
 
 
-<img src="Screenshots/Screenshot_20261101-113147.jpg" width="300" alt="Auto-off setting">
+<img src="Screenshots/tasmota-auto-off-setting.jpg" width="300" alt="Auto-off setting">
 
 Auto-off setting
 
 
-<img src="Screenshots/Screenshot_20261101-113931.jpg" width="300" alt="Bathroom fan on for 2 minutes, counting down on the tiles. Also counts down when switched on with the button on the device">
+<img src="Screenshots/tasmota-auto-off-countdown-tiles.jpg" width="300" alt="Bathroom fan on for 2 minutes, counting down on the tiles. Also counts down when switched on with the button on the device">
 
 Bathroom fan on for 2 minutes, counting down on the tiles. Also counts down when switched on with the button on the device
 
 
-<img src="Screenshots/Screenshot_20261101-194608.jpg" width="300" alt="Hourglass on the icon: this device has auto-off">
+<img src="Screenshots/tasmota-auto-off-hourglass-icon.jpg" width="300" alt="Hourglass on the icon: this device has auto-off">
 
 Hourglass on the icon: this device has auto-off
 
 
-<img src="Screenshots/Screenshot_20261103-184226.jpg" width="300" alt="The auto-off setting shown on the card">
+<img src="Screenshots/tasmota-auto-off-on-card.jpg" width="300" alt="The auto-off setting shown on the card">
 
 The auto-off setting shown on the card
 
@@ -351,12 +351,12 @@ The auto-off setting shown on the card
 
 ### Devices with several relays
 
-<img src="Screenshots/Screenshot_20261103-182438.jpg" width="300" alt="A separate card for each relay">
+<img src="Screenshots/tasmota-card-per-relay.jpg" width="300" alt="A separate card for each relay">
 
 A separate card for each relay
 
 
-<img src="Screenshots/Screenshot_20261103-203033.jpg" width="300" alt="A device with 4 relays: 4 cards">
+<img src="Screenshots/tasmota-4-relay-device.jpg" width="300" alt="A device with 4 relays: 4 cards">
 
 A device with 4 relays: 4 cards
 
@@ -364,35 +364,35 @@ A device with 4 relays: 4 cards
 
 ### Home screen widgets
 
-<img src="Screenshots/Screenshot_20261026-183040_One_UI_Home.jpg" width="300" alt="Widgets: hold the app icon until the menu opens, then choose Widgets">
+<img src="Screenshots/tasmota-widgets-open-menu.jpg" width="300" alt="Widgets: hold the app icon until the menu opens, then choose Widgets">
 
 Widgets: hold the app icon until the menu opens, then choose Widgets
 
 
-<img src="Screenshots/Screenshot_20261026-182902.jpg" width="300" alt="Adding a switch widget">
+<img src="Screenshots/tasmota-add-switch-widget.jpg" width="300" alt="Adding a switch widget">
 
 Adding a switch widget
 
 
-<img src="Screenshots/Screenshot_20261026-185117_One_UI_Home.jpg" width="300" alt="Screenshot">
+<img src="Screenshots/tasmota-home-screen-widgets.jpg" width="300" alt="Android home screen with a Wi-Fi widget and switch widgets">
 
 
-<img src="Screenshots/Screenshot_20261029-202951_One_UI_Home.jpg" width="300" alt="Scene widgets">
+<img src="Screenshots/tasmota-scene-widgets.jpg" width="300" alt="Scene widgets">
 
 Scene widgets
 
 
-<img src="Screenshots/Screenshot_20261029-210509_Chrome.jpg" width="300" alt="New preview pictures in the widget list">
+<img src="Screenshots/tasmota-widget-previews.jpg" width="300" alt="New preview pictures in the widget list">
 
 New preview pictures in the widget list
 
 
-<img src="Screenshots/Screenshot_20261030-060403_One_UI_Home.jpg" width="300" alt="Widgets for Wi-Fi, scenes, switches and groups">
+<img src="Screenshots/tasmota-widgets-wifi-scenes-switches-groups.jpg" width="300" alt="Widgets for Wi-Fi, scenes, switches and groups">
 
 Widgets for Wi-Fi, scenes, switches and groups
 
 
-<img src="Screenshots/Screenshot_20261101-120519_One_UI_Home.jpg" width="300" alt="Bathroom fan widget counting down to off">
+<img src="Screenshots/tasmota-widget-auto-off-countdown.jpg" width="300" alt="Bathroom fan widget counting down to off">
 
 Bathroom fan widget counting down to off
 
@@ -400,17 +400,17 @@ Bathroom fan widget counting down to off
 
 ### Lamps
 
-<img src="Screenshots/brightness-15.0.png" width="600" alt="Brightness slider on the card, percentage on the tiles, and the light window">
+<img src="Screenshots/tasmota-brightness-dimmer-lamp.png" width="600" alt="Brightness slider on the card, percentage on the tiles, and the light window">
 
 Brightness on the card, the percentage on the tiles, and the light window with white, colour and presets (made with test lamps).
 
-<img src="Screenshots/Screenshot_20261114-174300.jpg" width="300" alt="Light window on a real device: brightness, colour and presets">
+<img src="Screenshots/tasmota-light-window-colour-brightness.jpg" width="300" alt="Light window on a real device: brightness, colour and presets">
 
 The light window on a real device: a Sonoff Basic R4 set up in Tasmota as a colour light, with its status LED as the "lamp". Tap the percentage button with the sliders icon to open it.
 
 ### Remote control
 
-<img src="Screenshots/Screenshot_20261108-115738_AnyDesk.jpg" width="300" alt="Controlling a phone at home from another phone with AnyDesk. Tailscale turned out more reliable, see the guide below">
+<img src="Screenshots/tasmota-remote-control-anydesk.jpg" width="300" alt="Controlling a phone at home from another phone with AnyDesk. Tailscale turned out more reliable, see the guide below">
 
 Controlling a phone at home from another phone with AnyDesk. Tailscale turned out more reliable, see the guide below
 
@@ -481,7 +481,7 @@ The app works on your own Wi-Fi. To use it while away, connect your phone to you
 
 With the Tailscale app installed, a **Tailscale card** appears under the Wi-Fi card to switch the connection on and off.
 
-<img src="Screenshots/Screenshot_20261115-064307.jpg" width="300" alt="The app away from home: Tailscale card switched on, scan range set to the home range 10.10.100.x">
+<img src="Screenshots/tasmota-tailscale-away-from-home.jpg" width="300" alt="The app away from home: Tailscale card switched on, scan range set to the home range 10.10.100.x">
 
 > [!CAUTION]
 > **Scanning away from home:** the app scans the network your phone is on, not your home network.
@@ -560,9 +560,9 @@ To change something: unzip, edit, zip again and upload. GitHub then builds a new
 
 Plugs that come with Tasmota already installed, for example from Athom, or *iotorero* plugs on AliExpress:
 
-<img src="Screenshots/Screenshot_20261017-151453_AliExpress.jpg" width="300" alt="iotorero Tasmota EU plug on AliExpress">
+<img src="Screenshots/tasmota-iotorero-eu-plug.jpg" width="300" alt="iotorero Tasmota EU plug on AliExpress">
 
-<img src="Screenshots/Screenshot_20261017-165930_Chrome.jpg" width="300" alt="Athom EU plug">
+<img src="Screenshots/tasmota-athom-eu-plug.jpg" width="300" alt="Athom EU plug">
 
 - https://www.athom.tech/blank-1/EU-plug
 - https://www.google.com/search?q=aliexpress+iotorero+tasmota+eu+plug
