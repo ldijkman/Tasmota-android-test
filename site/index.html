@@ -109,12 +109,32 @@ nav ul a:hover{color:#fff}
 .day .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
 .day p+p{margin-top:16px}
 .day .lead{margin-top:20px}
-.bar{background:#0b1120;border:1.5px solid var(--line);border-radius:22px;padding:26px 24px 20px}
-.bar h3{margin-bottom:4px}
-.bar .when{color:var(--muted);font-size:.95rem;margin-bottom:22px}
-.bar svg{width:100%;height:auto;overflow:visible}
-.bar .legend{display:flex;flex-wrap:wrap;gap:8px 22px;margin-top:18px;color:var(--muted);font-size:.95rem}
-.bar .legend i{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:7px;vertical-align:-1px}
+.bar{background:#0b1120;border:1.5px solid var(--line);border-radius:22px;padding:22px 22px 8px}
+.bh{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 14px;margin-bottom:14px}
+.bh span{color:var(--muted);font-size:.95rem;font-variant-numeric:tabular-nums}
+.sc{background:#141e33;border:1.5px solid var(--line);border-radius:16px;padding:16px 16px 14px;margin-bottom:14px}
+.sc-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.sc-h b{font:700 1.05rem var(--display);color:#fff}
+.sc-h .act{font-size:.9rem;color:var(--muted);display:flex;align-items:center;gap:7px}
+.sc-h .act::before{content:"✓";display:grid;place-items:center;width:18px;height:18px;border-radius:4px;background:#3b82f6;color:#fff;font-size:.75rem;font-weight:700}
+.sun{height:5px;border-radius:3px;margin-bottom:4px;background:linear-gradient(90deg,#22355f 29.93%,#f2cf5b 33.40%,#f2cf5b 69.58%,#22355f 73.06%)}
+.trk{position:relative;height:20px;border-radius:4px;background:#2a3757;overflow:hidden}
+.trk .on{position:absolute;top:0;bottom:0;background:var(--amber);box-shadow:0 0 12px rgba(240,166,48,.55)}
+.trk i{position:absolute;top:0;bottom:0;width:1px;background:rgba(160,170,190,.35)}
+.rul{position:relative;height:7px;margin-top:3px}
+.rul i{position:absolute;top:0;width:1px;height:3px;margin-left:-.5px;background:var(--muted);opacity:.5}
+.rul i.mj{height:7px;opacity:.95}
+.rul i:first-child{margin-left:0}.rul i:last-child{margin-left:-1px}
+.hrs{position:relative;height:18px;margin-top:2px;font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.hrs span{position:absolute;top:0;transform:translateX(-50%)}
+.hrs span:first-child{transform:none}.hrs span:last-child{transform:translateX(-100%)}
+.lbl{position:relative;height:24px;margin-top:4px}
+.lbl .l{position:absolute;white-space:nowrap;font-size:.95rem;font-weight:700;font-variant-numeric:tabular-nums}
+.lbl .on{color:var(--amber)}.lbl .off{color:var(--muted)}
+.sum{font-size:.9rem;color:var(--muted);margin-top:2px}
+.days{display:flex;gap:6px;margin-top:12px}
+.days .d{flex:1;text-align:center;padding:7px 0;border-radius:8px;font-size:.88rem;font-weight:700;color:var(--muted);border:1.5px solid var(--line)}
+.days .d.on{background:var(--amber);border-color:var(--amber);color:#2a1700}
 @media (max-width:900px){.day .wrap{grid-template-columns:1fr}}
 
 /* features */
@@ -250,31 +270,28 @@ footer a{color:var(--muted)}
       <p class="lead">Each switch holds up to 8 on/off schedules. Use a fixed time, or sunrise and sunset with an offset, and pick the days.</p>
     </div>
     <figure class="bar" aria-labelledby="bar-cap" style="margin:0">
-      <h3>Garden lights</h3>
-      <p class="when" id="bar-cap">On at 06:30 until sunrise on weekdays. On 15 minutes before sunset until 23:00 every day.</p>
-      <svg viewBox="0 0 480 110" role="img" aria-label="A 24 hour bar. The garden lights are on from 06:30 to sunrise at 07:41, and from 16:47 to 23:00. Sunset is at 17:02.">
-        <defs>
-          <linearGradient id="sky" x1="0" x2="1">
-            <stop offset="0" stop-color="#151d33"/><stop offset=".29" stop-color="#151d33"/>
-            <stop offset=".34" stop-color="#55467f"/><stop offset=".40" stop-color="#8ea0c7"/>
-            <stop offset=".64" stop-color="#8ea0c7"/><stop offset=".70" stop-color="#7c4d6d"/>
-            <stop offset=".76" stop-color="#151d33"/><stop offset="1" stop-color="#151d33"/>
-          </linearGradient>
-        </defs>
-        <rect x="0" y="40" width="480" height="30" rx="8" fill="url(#sky)"/>
-        <rect x="130" y="40" width="23.7" height="30" fill="#f0a630"/>
-        <rect x="335.7" y="40" width="124.3" height="30" fill="#f0a630"/>
-        <g fill="#e8e4da" font-family="Atkinson, sans-serif" font-size="13">
-          <text x="153.7" y="26" text-anchor="middle">☀ 07:41</text>
-          <text x="340.7" y="26" text-anchor="middle">17:02 ☾</text>
-        </g>
-        <line x1="153.7" y1="32" x2="153.7" y2="78" stroke="#e8e4da" stroke-width="1.5" stroke-dasharray="3 3"/>
-        <line x1="340.7" y1="32" x2="340.7" y2="78" stroke="#e8e4da" stroke-width="1.5" stroke-dasharray="3 3"/>
-        <g fill="#a3abbd" font-family="Atkinson, sans-serif" font-size="12">
-          <text x="0" y="98">0</text><text x="120" y="98" text-anchor="middle">6</text><text x="240" y="98" text-anchor="middle">12</text><text x="360" y="98" text-anchor="middle">18</text><text x="480" y="98" text-anchor="end">24</text>
-        </g>
-      </svg>
-      <div class="legend"><span><i style="background:#f0a630"></i>Switch on</span><span><i style="background:#8ea0c7"></i>Daylight</span><span><i style="background:#151d33;border:1px solid #3a4560"></i>Night</span></div>
+      <div class="bh"><h3>Garden lights</h3><span>☀↑ 07:41&nbsp;&nbsp; ☀↓ 17:02</span></div>
+      <p class="sr" id="bar-cap">Two schedules of the garden lights. Schedule 1: on at 06:30, off at sunrise 07:41, on weekdays. Schedule 2: on 15 minutes before sunset at 16:47, off at 23:00, every day.</p>
+      <div class="sc">
+        <div class="sc-h"><b>Schedule 1</b><span class="act">active</span></div>
+        <div class="sun" aria-hidden="true"></div>
+        <div class="trk" aria-hidden="true"><span class="on" style="left:27.08%;width:4.93%"></span><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i></div>
+        <div class="rul" aria-hidden="true"><i class="mj" style="left:0.000%"></i><i class="" style="left:4.167%"></i><i class="" style="left:8.333%"></i><i class="" style="left:12.500%"></i><i class="" style="left:16.667%"></i><i class="" style="left:20.833%"></i><i class="mj" style="left:25.000%"></i><i class="" style="left:29.167%"></i><i class="" style="left:33.333%"></i><i class="" style="left:37.500%"></i><i class="" style="left:41.667%"></i><i class="" style="left:45.833%"></i><i class="mj" style="left:50.000%"></i><i class="" style="left:54.167%"></i><i class="" style="left:58.333%"></i><i class="" style="left:62.500%"></i><i class="" style="left:66.667%"></i><i class="" style="left:70.833%"></i><i class="mj" style="left:75.000%"></i><i class="" style="left:79.167%"></i><i class="" style="left:83.333%"></i><i class="" style="left:87.500%"></i><i class="" style="left:91.667%"></i><i class="" style="left:95.833%"></i><i class="mj" style="left:100.000%"></i></div>
+        <div class="hrs" aria-hidden="true"><span style="left:0.000%">0</span><span style="left:25.000%">6</span><span style="left:50.000%">12</span><span style="left:75.000%">18</span><span style="left:100.000%">24</span></div>
+        <div class="lbl"><span class="l on" style="left:34%;transform:translateX(calc(-100% - 6px))">On 06:30</span><span class="l off" style="left:34%;transform:translateX(6px)">Off 07:41 ☀↑</span></div>
+        <p class="sum">On for 1 h 11 min a day</p>
+        <div class="days"><span class="d on">Mo</span><span class="d on">Tu</span><span class="d on">We</span><span class="d on">Th</span><span class="d on">Fr</span><span class="d">Sa</span><span class="d">Su</span></div>
+      </div>
+      <div class="sc">
+        <div class="sc-h"><b>Schedule 2</b><span class="act">active</span></div>
+        <div class="sun" aria-hidden="true"></div>
+        <div class="trk" aria-hidden="true"><span class="on" style="left:69.93%;width:25.90%"></span><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i></div>
+        <div class="rul" aria-hidden="true"><i class="mj" style="left:0.000%"></i><i class="" style="left:4.167%"></i><i class="" style="left:8.333%"></i><i class="" style="left:12.500%"></i><i class="" style="left:16.667%"></i><i class="" style="left:20.833%"></i><i class="mj" style="left:25.000%"></i><i class="" style="left:29.167%"></i><i class="" style="left:33.333%"></i><i class="" style="left:37.500%"></i><i class="" style="left:41.667%"></i><i class="" style="left:45.833%"></i><i class="mj" style="left:50.000%"></i><i class="" style="left:54.167%"></i><i class="" style="left:58.333%"></i><i class="" style="left:62.500%"></i><i class="" style="left:66.667%"></i><i class="" style="left:70.833%"></i><i class="mj" style="left:75.000%"></i><i class="" style="left:79.167%"></i><i class="" style="left:83.333%"></i><i class="" style="left:87.500%"></i><i class="" style="left:91.667%"></i><i class="" style="left:95.833%"></i><i class="mj" style="left:100.000%"></i></div>
+        <div class="hrs" aria-hidden="true"><span style="left:0.000%">0</span><span style="left:25.000%">6</span><span style="left:50.000%">12</span><span style="left:75.000%">18</span><span style="left:100.000%">24</span></div>
+        <div class="lbl"><span class="l on" style="left:66%;transform:translateX(calc(-100% - 6px))">On 16:47 ☀↓</span><span class="l off" style="left:66%;transform:translateX(6px)">Off 23:00</span></div>
+        <p class="sum">On for 6 h 13 min a day</p>
+        <div class="days"><span class="d on">Mo</span><span class="d on">Tu</span><span class="d on">We</span><span class="d on">Th</span><span class="d on">Fr</span><span class="d on">Sa</span><span class="d on">Su</span></div>
+      </div>
     </figure>
   </div>
 </section>
