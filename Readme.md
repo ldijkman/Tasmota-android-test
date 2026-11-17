@@ -36,7 +36,7 @@ Free as is
 
 ---
 
-## What it can do (version 19.6)
+## What it can do (version 19.7)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -73,7 +73,7 @@ Free as is
 - Share setup: send groups, icons, colours and scenes to another phone or tablet, or save the file as a backup
 - Add a brand-new or reset Tasmota device from the menu: the app gives it your home Wi-Fi and finds it (Android 10+)
 - Themes: Auto, Light, Dark, Blue, Black (OLED), Forest and Night warm. The Android bars at the top and bottom take the theme colour
-- Wall panel (kiosk) mode: keep the screen on, dim after a few minutes, full screen without Android bars, a "swipe again to exit" message, and the option to make the app the phone's home screen
+- Wall panel (kiosk) mode: keep the screen on, dim after a few minutes, full screen without Android bars, a "swipe again to exit" message, and the option to make the app the phone's home screen ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-wall-panel.mp4))
 - Tailscale card and widget to switch your remote connection on and off
 - Tips screen that explains the hold and drag gestures
 - Updates itself from GitHub with **Check update**
@@ -500,7 +500,11 @@ Do **not** open ports on your router to your Tasmota devices. Tasmota has no HTT
 
 ## Wall panel (kiosk mode)
 
-Put a spare phone or tablet on the wall as a fixed control panel. Everything is in the hamburger menu:
+<a href="https://ldijkman.github.io/Tasmota-android-test/tasmota-wall-panel.mp4"><img src="demo/tasmota-wall-panel-poster.jpg" width="260" alt="Watch the video: an old phone or tablet as a wall panel, and as Tailscale VPN server, 1.5 minutes with sound"></a>
+
+**Watch:** [an old phone or tablet as a wall panel, and as Tailscale VPN server, 1.5 minutes with sound](https://ldijkman.github.io/Tasmota-android-test/tasmota-wall-panel.mp4)
+
+Put a spare phone or tablet on the wall as a fixed control panel. Any old Android phone or tablet (Android 7 or newer) will do: it only needs your Wi-Fi, no SIM card. Everything is in the hamburger menu:
 
 | Setting | What it does |
 |---|---|
