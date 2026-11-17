@@ -36,7 +36,7 @@ Free as is
 
 ---
 
-## What it can do (version 19.7)
+## What it can do (version 19.8)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -47,7 +47,7 @@ Free as is
 - Lamps: brightness slider, warm/cool white, colour and presets for dimmable Tasmota lamps
 
 **Organise**
-- Groups with a name and colour, with one switch for the whole group
+- Groups with a name and colour, with one switch for the whole group ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-groups.mp4))
 - Drag to change the order or to move switches between groups
 - An icon and an "on" colour per switch, from the built-in icons (now with farm and pet animals: chicken, rooster, horse, cow, dog, cat, rabbit, duck and more) or 7,000+ icons online ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-icons.mp4))
 - Tiles screen with large buttons
@@ -161,6 +161,10 @@ Set the time zone
 
 
 ### Organise: order, groups and colours
+
+<a href="https://ldijkman.github.io/Tasmota-android-test/tasmota-groups.mp4"><img src="demo/tasmota-groups-poster.jpg" width="260" alt="Watch the video: groups, dragging switches, show details, and removing a switch, 1.5 minutes with sound"></a>
+
+**Watch:** [make a group, drag switches into it, choose what the cards show, and remove a switch, 1.5 minutes with sound](https://ldijkman.github.io/Tasmota-android-test/tasmota-groups.mp4)
 
 <img src="Screenshots/tasmota-drag-to-reorder-switches.jpg" width="300" alt="Drag to change the order; the order is saved">
 
