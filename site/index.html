@@ -443,13 +443,13 @@ lamp.addEventListener('click', () => {
   touched = true; demoTimers.forEach(clearTimeout); demoTimers = [];
   setLit(!document.body.classList.contains('lit'));
 });
-// Eén keer per bezoek: zodra de schakelaar in beeld komt, twee keer vanzelf aan en uit
+// Eén keer per bezoek: zodra de schakelaar in beeld komt, vier keer vanzelf aan en uit
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window){
   const io = new IntersectionObserver(es => {
     if (!es.some(e => e.isIntersecting)) return;
     io.disconnect();
     if (touched) return;
-    [[600, true], [1500, false], [2300, true], [3200, false]].forEach(([t, on]) =>
+    [[600, true], [1500, false], [2300, true], [3200, false], [4000, true], [4900, false], [5700, true], [6600, false]].forEach(([t, on]) =>
       demoTimers.push(setTimeout(() => { if (!touched) setLit(on); }, t)));
   }, {threshold: .7});
   io.observe(lamp);
