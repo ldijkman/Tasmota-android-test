@@ -83,6 +83,7 @@ nav ul a:hover{color:#fff}
 .btn small{font-weight:400;opacity:.75;font-size:.85rem;white-space:nowrap}
 .btn svg{width:20px;height:20px}
 .promise{margin-top:22px;color:var(--muted);font-size:1rem}
+#dlcount{margin-top:4px}
 
 .stage{position:relative;height:640px;pointer-events:none}
 .pendant{position:absolute;left:50%;top:-40px;width:150px;transform:translateX(-50%);z-index:2}
@@ -253,6 +254,7 @@ footer a{color:var(--muted)}
         <a class="btn" href="demo/">Try the live demo</a>
       </div>
       <p class="promise">No cloud, no account, no ads, no device limit. Free and open source.</p>
+      <p class="promise" id="dlcount" hidden></p>
     </div>
 
     <div class="stage" aria-hidden="true">
@@ -461,6 +463,24 @@ document.querySelectorAll('.vcard').forEach(b => b.addEventListener('click', () 
 }));
 dlg.addEventListener('close', () => { pv.pause(); pv.removeAttribute('src'); pv.load(); });
 dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+// Teller: hoe vaak de app gedownload is (som van alle releases, live uit de openbare GitHub-cijfers; niets wordt bijgehouden)
+(async () => {
+  try {
+    let total = 0;
+    for (let page = 1; page <= 5; page++){
+      const r = await fetch(`https://api.github.com/repos/ldijkman/Tasmota-android-test/releases?per_page=100&page=${page}`);
+      if (!r.ok) return;
+      const list = await r.json();
+      list.forEach(rel => (rel.assets || []).forEach(a => { if (/\.apk$/i.test(a.name)) total += a.download_count || 0; }));
+      if (list.length < 100) break;
+    }
+    if (total > 0){
+      const el = document.getElementById('dlcount');
+      el.textContent = 'Downloaded ' + total.toLocaleString('en') + ' times so far.';
+      el.hidden = false;
+    }
+  } catch(e){}
+})();
 // Versienummer van de nieuwste release
 fetch('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/latest')
   .then(r => r.ok ? r.json() : null).then(j => {
