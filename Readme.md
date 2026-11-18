@@ -36,7 +36,7 @@ Free as is
 
 ---
 
-## What it can do (version 19.9)
+## What it can do (version 20.0)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -48,7 +48,7 @@ Free as is
 
 **Organise**
 - Groups with a name and colour, with one switch for the whole group ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-groups.mp4))
-- Drag to change the order or to move switches between groups; drag a whole group to change the order of the groups
+- Drag to change the order or to move switches between groups; drag a whole group to change the order of the groups (the group ⋮⋮ can be hidden in "Show details" options)
 - An icon and an "on" colour per switch, from the built-in icons (now with farm and pet animals: chicken, rooster, horse, cow, dog, cat, rabbit, duck and more) or 7,000+ icons online ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-icons.mp4))
 - Tiles screen with large buttons
 - Scenes: switch several devices at once with one tap ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-scenes.mp4))
