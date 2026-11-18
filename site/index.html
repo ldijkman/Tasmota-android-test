@@ -571,14 +571,25 @@ document.getElementById('pNext').addEventListener('click', () => playAt(vi + 1))
 dlg.addEventListener('keydown', e => { if (e.key === 'ArrowLeft' && e.target !== pv) playAt(vi - 1); if (e.key === 'ArrowRight' && e.target !== pv) playAt(vi + 1); });
 dlg.addEventListener('close', () => { pv.pause(); pv.removeAttribute('src'); pv.load(); });
 dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+// GitHub-vragen onthouden (15 min), en bij een weigering (limiet 60 per uur) het laatst bekende antwoord tonen
+async function ghJson(url){
+  const key = 'gh:' + url; let c = null;
+  try { c = JSON.parse(localStorage.getItem(key) || 'null'); } catch(e){}
+  if (c && Date.now() - c.t < 15 * 60e3) return c.d;
+  try {
+    const r = await fetch(url); if (!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    try { localStorage.setItem(key, JSON.stringify({t: Date.now(), d})); } catch(e){}
+    return d;
+  } catch(e){ return c ? c.d : null; }
+}
 // Teller: hoe vaak de app gedownload is (som van alle releases, live uit de openbare GitHub-cijfers; niets wordt bijgehouden)
 (async () => {
   try {
     let total = 0;
     for (let page = 1; page <= 5; page++){
-      const r = await fetch(`https://api.github.com/repos/ldijkman/Tasmota-android-test/releases?per_page=100&page=${page}`);
-      if (!r.ok) return;
-      const list = await r.json();
+      const list = await ghJson(`https://api.github.com/repos/ldijkman/Tasmota-android-test/releases?per_page=100&page=${page}`);
+      if (!Array.isArray(list)) return;
       list.forEach(rel => (rel.assets || []).forEach(a => { if (/\.apk$/i.test(a.name)) total += a.download_count || 0; }));
       if (list.length < 100) break;
     }
@@ -590,14 +601,12 @@ dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
   } catch(e){}
 })();
 // Aantal sterren op GitHub
-fetch('https://api.github.com/repos/ldijkman/Tasmota-android-test')
-  .then(r => r.ok ? r.json() : null).then(j => {
+ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test').then(j => {
     if (!j || !j.stargazers_count) return;
     const el = document.getElementById('starN'); el.textContent = j.stargazers_count.toLocaleString('en') + ' ★'; el.hidden = false;
   }).catch(() => {});
 // Versienummer van de nieuwste release
-fetch('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/latest')
-  .then(r => r.ok ? r.json() : null).then(j => {
+ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/latest').then(j => {
     if (!j) return;
     const m = String(j.name || '').match(/(\d+\.\d+)/), a = (j.assets || []).find(x => /\.apk$/i.test(x.name));
     if (m) document.querySelectorAll('.dlv').forEach(el => el.textContent = 'version ' + m[1] + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : ''));
