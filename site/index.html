@@ -238,12 +238,12 @@ footer a{color:var(--muted)}
 .star p{margin:0;color:var(--muted);font-size:1rem;max-width:44ch}
 .star p b{color:var(--ink)}
 .star small{margin-left:4px}
-.diy{display:grid;grid-template-columns:minmax(0,280px) minmax(0,1fr);gap:24px;align-items:center;margin-top:40px}
-.diy img{width:100%;height:auto;aspect-ratio:1;background:#fff;border-radius:18px;border:1.5px solid var(--line);padding:14px;box-sizing:border-box}
-.diy h3{font:600 1.35rem/1.25 var(--display);margin:0 0 10px}
+.diy{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:24px;align-items:center;margin-top:40px}
+.diy img{width:100%;height:auto;background:#fff;border-radius:18px;border:1.5px solid var(--line);padding:10px;box-sizing:border-box}
+.diy h3{font:600 1.35rem/1.25 var(--display);margin:0 0 16px}
 .diy p{color:var(--muted);margin:0 0 12px;max-width:52ch}
 .diy .warn{color:#f3b75a;font-size:.95rem}
-@media (max-width:640px){.diy{grid-template-columns:1fr}.diy img{max-width:280px}}
+@media (max-width:640px){.diy{grid-template-columns:1fr}.diy img{max-width:none}}
 </style>
 </head>
 <body>
@@ -436,11 +436,9 @@ footer a{color:var(--muted)}
       <a class="pl" href="https://www.google.com/search?q=aliexpress+iotorero+tasmota+eu+plug" rel="noopener"><img src="img/plug-iotorero.jpg" alt="IoTorero Tasmota EU plug" width="424" height="425" loading="lazy"><b>IoTorero Tasmota EU plug</b><span>on AliExpress</span></a>
     </div>
     <div class="diy">
-      <img src="img/diy-switch.svg" alt="An inline Wi-Fi switch module, like a Sonoff Basic R4" width="400" height="400" loading="lazy">
+      <img src="img/sonoff-basic-r4.jpg" alt="Sonoff Basic R4 Wi-Fi switch" width="640" height="424" loading="lazy">
       <div>
         <h3>Nerds like me flash Tasmota themselves.</h3>
-        <p>Cheap inline switches like the Sonoff Basic R4 can get Tasmota too. Open it, connect a USB-to-serial adapter, and flash it from your browser with the official Tasmota web installer (Chrome or Edge on a computer). After that, the app finds it like any other Tasmota switch.</p>
-        <p class="warn">Only flash a device that is unplugged from mains power. Never connect it to 230 V while it is open.</p>
         <a class="btn" href="https://tasmota.github.io/install/" rel="noopener">Open the Tasmota web installer</a>
       </div>
     </div>
