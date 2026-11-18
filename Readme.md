@@ -36,7 +36,7 @@ Free as is
 
 ---
 
-## What it can do (version 20.5)
+## What it can do (version 20.6)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -54,6 +54,7 @@ Free as is
 - Scenes: switch several devices at once with one tap ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-scenes.mp4))
 - Choose which details each card shows (IP, MAC, next schedule, energy, sensors and more)
 - Tap the IP address on a card to open the device's own Tasmota web page
+- Open the app from the website with the "Open the app" button (Android), or with links like `tasmotascan://scenes` and `tasmotascan://tiles`
 
 **Schedules and timers**
 - Up to 8 on/off schedules per switch, at fixed times or at sunrise and sunset with an offset

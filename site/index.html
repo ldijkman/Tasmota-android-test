@@ -291,6 +291,7 @@ footer a{color:var(--muted)}
         <a class="btn main" id="dl" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 3h2v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17zM5 19h14v2H5z"/></svg>
           <span>Download for Android <small class="dlv" id="dlv"></small></span></a>
+        <a class="btn openapp" href="intent://open#Intent;scheme=tasmotascan;package=nl.dijkman.plafondled;S.browser_fallback_url=https%3A%2F%2Fgithub.com%2Fldijkman%2FTasmota-android-test%2Freleases%2Flatest%2Fdownload%2FPlafondLED.apk;end" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"/></svg>Open the app</a>
         <a class="btn" href="demo/">Try the live demo</a>
       </div>
       <p class="promise">No cloud, no account, no ads, no device limit. Free and open source.</p>
@@ -512,6 +513,7 @@ footer a{color:var(--muted)}
     <div class="cta" style="margin-top:0">
       <a class="btn main" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 3h2v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17zM5 19h14v2H5z"/></svg>
         <span>Download for Android <small class="dlv"></small></span></a>
+      <a class="btn openapp" href="intent://open#Intent;scheme=tasmotascan;package=nl.dijkman.plafondled;S.browser_fallback_url=https%3A%2F%2Fgithub.com%2Fldijkman%2FTasmota-android-test%2Freleases%2Flatest%2Fdownload%2FPlafondLED.apk;end" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"/></svg>Open the app</a>
       <a class="btn" href="demo/">Try the live demo</a>
     </div>
     <p class="promise dlcount" hidden></p>
@@ -575,6 +577,8 @@ document.getElementById('pNext').addEventListener('click', () => playAt(vi + 1))
 dlg.addEventListener('keydown', e => { if (e.key === 'ArrowLeft' && e.target !== pv) playAt(vi - 1); if (e.key === 'ArrowRight' && e.target !== pv) playAt(vi + 1); });
 dlg.addEventListener('close', () => { pv.pause(); pv.removeAttribute('src'); pv.load(); });
 dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+// "Open the app" alleen op Android (opent de app als die er is, anders de download)
+if (/Android/i.test(navigator.userAgent)) document.querySelectorAll('.openapp').forEach(a => a.hidden = false);
 // GitHub-vragen onthouden (15 min), en bij een weigering (limiet 60 per uur) het laatst bekende antwoord tonen
 async function ghJson(url){
   const key = 'gh:' + url; let c = null;
