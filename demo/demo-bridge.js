@@ -64,7 +64,12 @@
   }
 
   // Answer one Tasmota command the way real firmware does
+  // Auto-off (PulseTime1): 1-111 = tenths of a second, 112+ = seconds + 100
+  const pulseSec = v => { v = +v || 0; return v > 111 ? v - 100 : v / 10; };
+  const secPulse = s => s <= 0 ? 0 : s <= 11.1 ? Math.round(s * 10) : Math.round(s) + 100;
+  function checkPulse(d) { if (d.offAt && Date.now() >= d.offAt) { d.on = false; d.offAt = null; } }
   function command(d, cmnd) {
+    checkPulse(d);
     const m = cmnd.match(/^(\S+)\s*(.*)$/s) || [];
     const key = (m[1] || '').toLowerCase(), arg = (m[2] || '').trim();
     const power = () => ({ POWER: d.on ? 'ON' : 'OFF' });
@@ -74,6 +79,7 @@
       if (a === 'on' || a === '1') d.on = true;
       else if (a === 'off' || a === '0') d.on = false;
       else if (a === 'toggle' || a === '2') d.on = !d.on;
+      d.offAt = d.on && d.pulse ? Date.now() + d.pulse * 1000 : null;   // every "on" starts the auto-off again
       return power();
     }
     if (key === 'status') {
@@ -97,6 +103,11 @@
       return status(d);
     }
     if (key === 'time') return { Time: localIso() };
+    if (key === 'pulsetime1' || key === 'pulsetime') {
+      if (arg !== '') { d.pulse = pulseSec(arg); d.offAt = d.on && d.pulse ? Date.now() + d.pulse * 1000 : null; }
+      const rem = d.offAt ? Math.max(0, (d.offAt - Date.now()) / 1000) : 0;
+      return { PulseTime1: { Set: secPulse(d.pulse || 0), Remaining: secPulse(rem) } };
+    }
     if (key === 'timers') return Object.assign({ Timers: 'ON' }, d.timers);
     const tm = key.match(/^timer(\d+)$/);
     if (tm) {
@@ -126,6 +137,9 @@
     const from = m[4] ? +m[4] : 1, to = m[5] ? +m[5] : (m[4] ? +m[4] : 254);
     return ip.startsWith(pre) && last >= from && last <= to;
   }
+
+  // for recordings: make a running auto-off end in a few seconds
+  window.__demoPulseSoon = (ip, sec) => { const d = devices[ip]; if (d && d.offAt) d.offAt = Date.now() + sec * 1000; };
 
   window.Tasmota = {
     get(url, id) {

@@ -38,7 +38,7 @@ jobs:
           mkdir -p _site/demo
           cp -r site/. _site/
           cp demo/demo-bridge.js _site/demo/
-          cp demo/tasmota-demo.mp4 demo/tasmota-demo-poster.jpg demo/tasmota-add-device.mp4 demo/tasmota-timers.mp4 demo/tasmota-icons.mp4 demo/tasmota-tailscale.mp4 demo/tasmota-scenes.mp4 demo/tasmota-wall-panel.mp4 demo/tasmota-groups.mp4 demo/tasmota-install.mp4 demo/tasmota-arrange-scenes.mp4 _site/   # demo video, plays straight from the site
+          cp demo/tasmota-demo.mp4 demo/tasmota-demo-poster.jpg demo/tasmota-add-device.mp4 demo/tasmota-timers.mp4 demo/tasmota-icons.mp4 demo/tasmota-tailscale.mp4 demo/tasmota-scenes.mp4 demo/tasmota-wall-panel.mp4 demo/tasmota-groups.mp4 demo/tasmota-install.mp4 demo/tasmota-arrange-scenes.mp4 demo/tasmota-auto-off.mp4 _site/   # demo video, plays straight from the site
           # Load the fake bridge before the page's own script.
           # The ?v=<commit> tag makes browsers fetch the new script after every update (no stale cache).
           sed "0,/<script>/s//<script src=\"demo-bridge.js?v=${GITHUB_SHA::7}\"><\/script>\n<script>/" \
