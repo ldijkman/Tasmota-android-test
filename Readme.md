@@ -36,7 +36,7 @@ Free as is
 
 ---
 
-## What it can do (version 20.2)
+## What it can do (version 20.3)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -317,7 +317,7 @@ Scenes on the Tiles screen; hold a scene to edit it, swipe scenes left and right
 
 <img src="Screenshots/tasmota-scenes-order.jpg" width="300" alt="Change the order of the scenes by dragging">
 
-Change the order of the scenes by dragging
+Arrange the scenes: tap ✥ Arrange on the Scenes screen and drag each scene to any spot on the 2-wide grid. Empty spaces are allowed, so you can keep day scenes left and night scenes right
 
 
 <img src="Screenshots/tasmota-scene-editor.jpg" width="300" alt="A scene switches several devices on or off at once">
