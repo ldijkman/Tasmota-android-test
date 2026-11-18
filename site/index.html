@@ -84,6 +84,7 @@ nav ul a:hover{color:#fff}
 .btn svg{width:20px;height:20px}
 .promise{margin-top:22px;color:var(--muted);font-size:1rem}
 #dlcount{margin-top:4px}
+.last .dlcount{margin-top:16px}
 
 .stage{position:relative;height:640px;pointer-events:none}
 .pendant{position:absolute;left:50%;top:-40px;width:150px;transform:translateX(-50%);z-index:2}
@@ -267,11 +268,11 @@ footer a{color:var(--muted)}
       <div class="cta">
         <a class="btn main" id="dl" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 3h2v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17zM5 19h14v2H5z"/></svg>
-          <span>Download for Android <small id="dlv"></small></span></a>
+          <span>Download for Android <small class="dlv" id="dlv"></small></span></a>
         <a class="btn" href="demo/">Try the live demo</a>
       </div>
       <p class="promise">No cloud, no account, no ads, no device limit. Free and open source.</p>
-      <p class="promise" id="dlcount" hidden></p>
+      <p class="promise dlcount" id="dlcount" hidden></p>
     </div>
 
     <div class="stage" aria-hidden="true">
@@ -458,9 +459,11 @@ footer a{color:var(--muted)}
   <div class="wrap"><div class="box">
     <h2 id="last-h">Try it on your own switches tonight.</h2>
     <div class="cta" style="margin-top:0">
-      <a class="btn main" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 3h2v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17zM5 19h14v2H5z"/></svg>Download for Android</a>
+      <a class="btn main" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 3h2v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17zM5 19h14v2H5z"/></svg>
+        <span>Download for Android <small class="dlv"></small></span></a>
       <a class="btn" href="demo/">Try the live demo</a>
     </div>
+    <p class="promise dlcount" hidden></p>
     <div class="star">
       <a class="btn" href="https://github.com/ldijkman/Tasmota-android-test" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--amber)" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>Star it on GitHub<small id="starN" hidden></small></a>
       <p>Like the app? Tap <b>Star</b> at the top of the GitHub page. It's free, and it helps other people find the app.</p>
@@ -525,9 +528,9 @@ dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
       if (list.length < 100) break;
     }
     if (total > 0){
-      const el = document.getElementById('dlcount');
-      el.textContent = 'Downloaded ' + total.toLocaleString('en') + ' times so far.';
-      el.hidden = false;
+      document.querySelectorAll('.dlcount').forEach(el => {
+        el.textContent = 'Downloaded ' + total.toLocaleString('en') + ' times so far.';
+        el.hidden = false; });
     }
   } catch(e){}
 })();
@@ -542,7 +545,7 @@ fetch('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/lates
   .then(r => r.ok ? r.json() : null).then(j => {
     if (!j) return;
     const m = String(j.name || '').match(/(\d+\.\d+)/), a = (j.assets || []).find(x => /\.apk$/i.test(x.name));
-    if (m) document.getElementById('dlv').textContent = 'version ' + m[1] + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : '');
+    if (m) document.querySelectorAll('.dlv').forEach(el => el.textContent = 'version ' + m[1] + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : ''));
   }).catch(() => {});
 </script>
 </body>
