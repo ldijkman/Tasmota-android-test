@@ -2,7 +2,8 @@
 
 # Tasmota Scan & Control
 
-https://ldijkman.github.io/Tasmota-android-test/
+website
+ - https://ldijkman.github.io/Tasmota-android-test/
 
 **A free Android app to find and control Tasmota switches on your own Wi-Fi.**
 No cloud, no account, no ads, no limits. 
