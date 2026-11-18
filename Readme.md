@@ -615,3 +615,10 @@ Made with [claude.ai](https://claude.ai) (Grok can also build the APK from the z
 Tasmota is a project by [Theo Arends](https://github.com/arendst/Tasmota).
 
 Animal icons: some come from [Game-icons.net](https://game-icons.net) by Lorc and Delapouite (CC BY 3.0) and [Healthicons](https://healthicons.org) (MIT); the rest are [Material Design Icons](https://pictogrammers.com) (Apache 2.0).
+
+## License
+
+Tasmota Scan & Control is free software, licensed under the [GNU General Public License v3.0](LICENSE) (GPL-3.0).
+You may use, study, share and change it. If you share a changed version, it must stay open source under the same license.
+
+Made by Dirk Lubèrth Dijkman, together with Claude Opus 5.5.
