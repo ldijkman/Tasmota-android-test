@@ -41,5 +41,6 @@ Features:
 - [Make a scene](https://ldijkman.github.io/Tasmota-android-test/tasmota-scenes.mp4)
 - [Old phone or tablet as wall panel and Tailscale VPN server](https://ldijkman.github.io/Tasmota-android-test/tasmota-wall-panel.mp4)
 - [Groups, drag switches, show details, remove a switch](https://ldijkman.github.io/Tasmota-android-test/tasmota-groups.mp4)
+- [Install the app and the first scan](https://ldijkman.github.io/Tasmota-android-test/tasmota-install.mp4)
 - [Change icon and colour](https://ldijkman.github.io/Tasmota-android-test/tasmota-icons.mp4)
 - [Remote control with Tailscale](https://ldijkman.github.io/Tasmota-android-test/tasmota-tailscale.mp4)

@@ -82,6 +82,10 @@ Free as is
 
 ## Install
 
+<a href="https://ldijkman.github.io/Tasmota-android-test/tasmota-install.mp4"><img src="demo/tasmota-install-poster.jpg" width="260" alt="Watch the video: install the app and do the first scan, 1.5 minutes with sound"></a>
+
+**Watch:** [install the app, Play Protect, and the first scan, 1.5 minutes with sound](https://ldijkman.github.io/Tasmota-android-test/tasmota-install.mp4)
+
 1. Download `PlafondLED.apk` from the [latest release](https://github.com/ldijkman/Tasmota-android-test/releases/latest).
 2. Open it on your phone. Android asks once for permission to install apps from this source.
 3. If Google Play Protect warns that the app is unknown, tap **Install anyway**. The warning appears because the app is not from the Play Store, not because something is wrong with it.
