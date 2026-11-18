@@ -247,6 +247,14 @@ footer a{color:var(--muted)}
 .diy p{color:var(--muted);margin:0 0 12px;max-width:52ch}
 .diy .warn{color:#f3b75a;font-size:.95rem}
 @media (max-width:640px){.diy{grid-template-columns:1fr}.diy img{max-width:none}}
+.simple{padding:8px 0 40px}
+.simple h2{font-size:clamp(1.7rem,4vw,2.4rem)}
+.simple-list{list-style:none;padding:0;margin:26px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:22px 24px}
+.simple-list li{display:flex;gap:14px;align-items:flex-start}
+.simple-list svg{flex:none;width:40px;height:40px;padding:8px;border-radius:12px;background:#1a2440;color:var(--amber)}
+.simple-list b{display:block;color:var(--ink);font-size:1.05rem;margin-bottom:3px}
+.simple-list span{color:var(--muted);font-size:1rem;line-height:1.5}
+.hero{padding-bottom:40px}
 </style>
 </head>
 <body>
@@ -296,6 +304,19 @@ footer a{color:var(--muted)}
       <div class="cone"></div>
       <div class="phone"><img src="img/tasmota-tiles.jpg" alt="" width="540" height="1170"></div>
     </div>
+  </div>
+</section>
+
+<section class="simple" aria-labelledby="simple-h">
+  <div class="wrap">
+    <h2 id="simple-h">What is this about?</h2>
+    <ol class="simple-list">
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16,7V3H14V7H10V3H8V7H8C7,7 6,8 6,9V14.5L9.5,18V21H14.5V18L18,14.5V9C18,8 17,7 16,7Z"/></svg><span><b>Smart plugs and switches</b>Some lamps and plugs have a tiny computer inside, with Wi-Fi. On many of them runs a free program called Tasmota.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12,21L15.6,16.2C14.6,15.45 13.35,15 12,15C10.65,15 9.4,15.45 8.4,16.2L12,21M12,3C7.95,3 4.21,4.34 1.2,6.6L3,9C5.5,7.12 8.62,6 12,6C15.38,6 18.5,7.12 21,9L22.8,6.6C19.79,4.34 16.05,3 12,3M12,9C9.3,9 6.81,9.89 4.8,11.4L6.6,13.8C8.1,12.67 9.97,12 12,12C14.03,12 15.9,12.67 17.4,13.8L19.2,11.4C17.19,9.89 14.7,9 12,9Z"/></svg><span><b>They talk over your Wi-Fi</b>Just like your phone, they are connected to the Wi-Fi in your house.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/></svg><span><b>This app is the remote control</b>It finds them by itself. Tap a picture and the lamp goes on. Tap again and it goes off.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/></svg><span><b>The switch remembers</b>Tell it "on when it gets dark, off at 11". It keeps doing that, even when your phone is off.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"/></svg><span><b>It all stays at home</b>No company in between, no account, nothing sent over the internet.</span></li>
+    </ol>
   </div>
 </section>
 
