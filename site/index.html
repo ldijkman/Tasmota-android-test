@@ -230,6 +230,10 @@ footer a{color:var(--muted)}
 .talk .lead{margin-top:16px}
 .talk-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
 .talk-note{color:var(--muted);font-size:.95rem;margin-top:14px}
+.star{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:28px;padding-top:24px;border-top:1px solid #4a3818;width:100%}
+.star p{margin:0;color:var(--muted);font-size:1rem;max-width:44ch}
+.star p b{color:var(--ink)}
+.star small{margin-left:4px}
 </style>
 </head>
 <body>
@@ -455,6 +459,10 @@ footer a{color:var(--muted)}
       <a class="btn main" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 3h2v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17zM5 19h14v2H5z"/></svg>Download for Android</a>
       <a class="btn" href="demo/">Try the live demo</a>
     </div>
+    <div class="star">
+      <a class="btn" href="https://github.com/ldijkman/Tasmota-android-test" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--amber)" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>Star it on GitHub<small id="starN" hidden></small></a>
+      <p>Like the app? Tap <b>Star</b> at the top of the GitHub page. It's free, and it helps other people find the app.</p>
+    </div>
   </div></div>
 </section>
 </main>
@@ -464,6 +472,7 @@ footer a{color:var(--muted)}
     <p>Made by Dirk Lubèrth Dijkman, together with Claude Opus 5.5.</p>
     <ul>
       <li><a href="https://github.com/ldijkman/Tasmota-android-test">Source on GitHub</a></li>
+      <li><a href="https://github.com/ldijkman/Tasmota-android-test">★ Star on GitHub</a></li>
       <li><a href="https://github.com/ldijkman/Tasmota-android-test/releases">All versions</a></li>
       <li><a href="https://github.com/ldijkman/Tasmota-android-test/blob/main/tailscale.md">Tailscale guide</a></li>
       <li><a href="https://tasmota.github.io/docs/">About Tasmota</a></li>
@@ -520,6 +529,12 @@ dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
     }
   } catch(e){}
 })();
+// Aantal sterren op GitHub
+fetch('https://api.github.com/repos/ldijkman/Tasmota-android-test')
+  .then(r => r.ok ? r.json() : null).then(j => {
+    if (!j || !j.stargazers_count) return;
+    const el = document.getElementById('starN'); el.textContent = j.stargazers_count.toLocaleString('en') + ' ★'; el.hidden = false;
+  }).catch(() => {});
 // Versienummer van de nieuwste release
 fetch('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/latest')
   .then(r => r.ok ? r.json() : null).then(j => {
