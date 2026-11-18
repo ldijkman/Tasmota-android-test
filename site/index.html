@@ -240,13 +240,14 @@ footer a{color:var(--muted)}
 .star small{margin-left:4px}
 .diy-fact{color:var(--muted);font-size:.95rem;line-height:1.6;margin:-6px 0 16px}
 .diy-fact b{color:var(--ink)}
+.diy .diy-photo{display:block;width:100%;max-width:300px;height:auto;aspect-ratio:auto;padding:0;border:1.5px solid var(--line);border-radius:18px;margin:0 0 16px;background:none}
 .diy-note{margin:44px 0 12px;color:var(--muted);font-size:1.05rem}
 .diy{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:24px;align-items:center;margin-top:0}
 .diy img{width:100%;height:auto;background:#fff;border-radius:18px;border:1.5px solid var(--line);padding:10px;box-sizing:border-box}
 .diy h3{font:600 1.35rem/1.25 var(--display);margin:0 0 16px}
 .diy p{color:var(--muted);margin:0 0 12px;max-width:52ch}
 .diy .warn{color:#f3b75a;font-size:.95rem}
-@media (max-width:640px){.diy{grid-template-columns:1fr}.diy img{max-width:none}}
+@media (max-width:640px){.diy{grid-template-columns:1fr}.diy img,.diy .diy-photo{max-width:none}}
 .simple{padding:8px 0 40px}
 .simple h2{font-size:clamp(1.7rem,4vw,2.4rem)}
 .simple-list{list-style:none;padding:0;margin:26px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:22px 24px}
@@ -464,6 +465,7 @@ footer a{color:var(--muted)}
       <img src="img/sonoff-basic-r4.jpg" alt="Sonoff Basic R4 Wi-Fi switch" width="640" height="424" loading="lazy">
       <div>
         <h3>Nerds like me flash Tasmota themselves. 🤓</h3>
+        <img class="diy-photo" src="img/flash-sonoff-basic-r4.jpg" alt="Flashing Tasmota on a Sonoff Basic R4 (ESP32-C3) with a USB-to-serial adapter and a pogo pin clip" width="640" height="1058" loading="lazy">
         <p class="diy-fact"><b>Fun fact:</b><br>Tasmota started on Sonoff in January 2016.<br>The name means <b>T</b>heo <b>A</b>rends <b>S</b>onoff <b>M</b>QTT <b>OTA</b>.<br>Son<b>Off</b>, a switch.</p>
         <a class="btn" href="https://tasmota.github.io/install/" rel="noopener">Open the Tasmota web installer</a>
       </div>
