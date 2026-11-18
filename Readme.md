@@ -36,7 +36,7 @@ Free as is
 
 ---
 
-## What it can do (version 20.0)
+## What it can do (version 20.1)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -52,7 +52,7 @@ Free as is
 - An icon and an "on" colour per switch, from the built-in icons (now with farm and pet animals: chicken, rooster, horse, cow, dog, cat, rabbit, duck and more) or 7,000+ icons online ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-icons.mp4))
 - Tiles screen with large buttons
 - Scenes: switch several devices at once with one tap ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-scenes.mp4))
-- Choose which details each card shows (IP, MAC, next schedule, energy and more)
+- Choose which details each card shows (IP, MAC, next schedule, energy, sensors and more)
 
 **Schedules and timers**
 - Up to 8 on/off schedules per switch, at fixed times or at sunrise and sunset with an offset
@@ -64,6 +64,9 @@ Free as is
 
 **Energy**
 - Power, use today and cost for devices with an energy meter
+
+**Sensors**
+- Temperature, humidity, air pressure, light, CO2 and distance from sensors on a Tasmota device (for example AM2301, DS18B20, BME280), shown on the card and in Tiles view
 
 **Home screen widgets**
 - Switch, group, scene, Wi-Fi and Tailscale widgets

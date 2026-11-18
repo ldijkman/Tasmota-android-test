@@ -27,8 +27,8 @@
   const SUBNET = '10.10.100.';
   const devices = {
     '10.10.100.114': dev('plafond-led', 'Plafond LED', true),
-    '10.10.100.115': dev('keuken', 'Kitchen', false),
-    '10.10.100.120': dev('tuin', 'Garden lights', false),
+    '10.10.100.115': Object.assign(dev('keuken', 'Kitchen', false), { sns: { AM2301: { Temperature: 21.4, Humidity: 55 } } }),
+    '10.10.100.120': Object.assign(dev('tuin', 'Garden lights', false), { sns: { DS18B20: { Temperature: 6.3 } } }),
     '10.10.100.131': dev('bureau', 'Desk lamp', true),
     '10.10.100.140': Object.assign(dev('garage', 'Garage', false), { protected: true })   // switch with web password "demo"
   };
@@ -80,6 +80,13 @@
       if (arg === '7') {
         const s = sunTimes(d.lat, d.lon);
         return { StatusTIM: { UTC: new Date().toISOString().slice(0, 19), Local: localIso(), Timezone: 99, Sunrise: s.rise, Sunset: s.set } };
+      }
+      if (arg === '10') {
+        // sensors (temperature, humidity) with a small drift, like a real sensor
+        const sns = { Time: localIso() };
+        Object.keys(d.sns || {}).forEach(k => { const o = {}; Object.keys(d.sns[k]).forEach(f => { o[f] = +(d.sns[k][f] + (Math.random() - .5) * (f === 'Humidity' ? 2 : .2)).toFixed(1); }); sns[k] = o; });
+        if (d.sns) sns.TempUnit = 'C';
+        return { StatusSNS: sns };
       }
       return status(d);
     }
