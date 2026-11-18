@@ -36,7 +36,7 @@ Free as is
 
 ---
 
-## What it can do (version 20.6)
+## What it can do (version 20.7)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -52,7 +52,7 @@ Free as is
 - An icon and an "on" colour per switch, from the built-in icons (now with farm and pet animals: chicken, rooster, horse, cow, dog, cat, rabbit, duck and more) or 7,000+ icons online ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-icons.mp4))
 - Tiles screen with large buttons
 - Scenes: switch several devices at once with one tap ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-scenes.mp4))
-- Choose which details each card shows (IP, MAC, next schedule, energy, sensors and more)
+- Choose which details each card shows (IP, MAC, next schedule, energy, sensors, last restart reason and more)
 - Tap the IP address on a card to open the device's own Tasmota web page
 - Open the app from the website with the "Open the app" button (Android), or with links like `tasmotascan://scenes` and `tasmotascan://tiles`
 

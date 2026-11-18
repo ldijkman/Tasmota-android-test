@@ -81,6 +81,12 @@
         const s = sunTimes(d.lat, d.lon);
         return { StatusTIM: { UTC: new Date().toISOString().slice(0, 19), Local: localIso(), Timezone: 99, Sunrise: s.rise, Sunset: s.set } };
       }
+      if (arg === '1') {
+        // last restart reason and boot count, like real firmware (StatusPRM)
+        return { StatusPRM: { Baudrate: 115200, GroupTopic: 'tasmotas', OtaUrl: 'http://ota.tasmota.com/tasmota/release/tasmota.bin.gz',
+          RestartReason: d.name === 'tuin' ? 'Hardware Watchdog' : d.name === 'keuken' ? 'Software/System restart' : 'Power On',
+          BootCount: d.name === 'tuin' ? 41 : d.name === 'keuken' ? 9 : 17 } };
+      }
       if (arg === '10') {
         // sensors (temperature, humidity) with a small drift, like a real sensor
         const sns = { Time: localIso() };
