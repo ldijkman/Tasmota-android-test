@@ -226,6 +226,10 @@ footer a{color:var(--muted)}
 .pl b{font:600 1.1rem/1.3 var(--display);margin-top:10px}
 .pl span{color:var(--muted);font-size:.95rem}
 @media (max-width:560px){.pl-row{gap:14px}.pl b{font-size:1rem}}
+.talk{padding:20px 0 90px}
+.talk .lead{margin-top:16px}
+.talk-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.talk-note{color:var(--muted);font-size:.95rem;margin-top:14px}
 </style>
 </head>
 <body>
@@ -429,6 +433,18 @@ footer a{color:var(--muted)}
       <details><summary>How many switches can I add?</summary><p>As many as you like. There is no limit on switches, groups, scenes or widgets, and no paid version that unlocks more. Only Tasmota itself has a limit: up to 8 on/off schedules per switch.</p></details>
       <details><summary>What does it cost?</summary><p>Nothing. No ads, no in-app purchases, no subscription.</p><p>If you like the app, a small donation is greatly appreciated.</p><p><a class="don" href="https://paypal.me/ldijkman" rel="noopener">Donate via PayPal</a></p><p>You can also find Donate in the app's menu.</p></details>
     </div>
+  </div>
+</section>
+
+<section class="talk" id="feedback" aria-labelledby="talk-h">
+  <div class="wrap">
+    <h2 id="talk-h">Ideas, questions, feedback?</h2>
+    <p class="lead">Missing a feature, found a bug, or want to show your wall panel? Tell us in GitHub Discussions. Every idea is read, and many features in the app started as a question.</p>
+    <div class="talk-btns">
+      <a class="btn" href="https://github.com/ldijkman/Tasmota-android-test/discussions/new/choose" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2m-3 18h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"/></svg>Share an idea or ask</a>
+      <a class="btn" href="https://github.com/ldijkman/Tasmota-android-test/discussions" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2"/></svg>Read the discussions</a>
+    </div>
+    <p class="talk-note">You need a free GitHub account to post.</p>
   </div>
 </section>
 
