@@ -217,6 +217,15 @@ footer ul{display:flex;flex-wrap:wrap;gap:8px 22px;list-style:none;margin:0;padd
 footer a{color:var(--muted)}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+.plugs{padding:90px 0}
+.plugs .lead{margin-top:16px}
+.pl-row{display:grid;grid-template-columns:repeat(2,minmax(0,280px));gap:24px;margin-top:28px}
+.pl{display:flex;flex-direction:column;gap:4px;color:var(--ink);text-decoration:none}
+.pl img{width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:#fff;border-radius:18px;border:1.5px solid var(--line);padding:14px;box-sizing:border-box;transition:border-color .2s}
+.pl:hover img{border-color:var(--amber)}
+.pl b{font:600 1.1rem/1.3 var(--display);margin-top:10px}
+.pl span{color:var(--muted);font-size:.95rem}
+@media (max-width:560px){.pl-row{gap:14px}.pl b{font-size:1rem}}
 </style>
 </head>
 <body>
@@ -390,6 +399,17 @@ footer a{color:var(--muted)}
     <h2 id="yours-h">Your switches stay yours.</h2>
     <p class="lead">The app talks straight to your devices over your own Wi-Fi. There is no account to make, no server in between, no ads and no tracking.</p>
     <p class="lead">The source code is on GitHub for anyone to read, and GitHub builds the app you download from exactly that source.</p>
+  </div>
+</section>
+
+<section class="plugs" id="plugs" aria-labelledby="plugs-h">
+  <div class="wrap">
+    <h2 id="plugs-h">Plugs with Tasmota already on them.</h2>
+    <p class="lead">No soldering and no flashing: these EU plugs come with Tasmota installed and measure their energy use. Plug in, add them with the app, done.</p>
+    <div class="pl-row">
+      <a class="pl" href="https://www.athom.tech/blank-1/EU-plug" rel="noopener"><img src="img/plug-athom.jpg" alt="Athom Tasmota EU plug" width="457" height="409" loading="lazy"><b>Athom Tasmota EU plug</b><span>athom.tech</span></a>
+      <a class="pl" href="https://www.google.com/search?q=aliexpress+iotorero+tasmota+eu+plug" rel="noopener"><img src="img/plug-iotorero.jpg" alt="IoTorero Tasmota EU plug" width="424" height="425" loading="lazy"><b>IoTorero Tasmota EU plug</b><span>on AliExpress</span></a>
+    </div>
   </div>
 </section>
 
