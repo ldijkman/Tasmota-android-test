@@ -128,6 +128,16 @@
   }
 
   // Same callback format as the Java bridge: __tasCb(id, ok, base64(utf8 text))
+  // A Shelly Plus 1PM (Gen2 RPC API) in the demo: found by the scan, switched on and off
+  const shellies = { [SUBNET + '150']: { on: false, app: 'Plus1PM', id: 'shellyplus1pm-a8032ab1c2d4', mac: 'A8032AB1C2D4' } };
+  function shellyApi(sh, u) {
+    const p = u.pathname;
+    if (p === '/shelly') return { name: null, id: sh.id, mac: sh.mac, model: 'SNSW-001P16EU', gen: 2, fw_id: '20241011-114455/1.4.4-g6d2a586', ver: '1.4.4', app: sh.app, auth_en: false };
+    if (p === '/rpc/Switch.GetStatus') return { id: 0, source: 'init', output: sh.on, apower: sh.on ? 18.2 : 0, voltage: 231.4, temperature: { tC: 41.2 } };
+    if (p === '/rpc/Switch.Set') { const was = sh.on; sh.on = u.searchParams.get('on') === 'true'; return { was_on: was }; }
+    if (p === '/rpc/Switch.Toggle') { const was = sh.on; sh.on = !sh.on; return { was_on: was }; }
+    return { code: 404, message: 'No handler for ' + p };
+  }
   function reply(id, ok, text, delay) {
     const b64 = btoa(unescape(encodeURIComponent(text)));
     setTimeout(() => window.__tasCb && window.__tasCb(id, ok, b64), delay == null ? 150 + Math.random() * 250 : delay);
@@ -149,6 +159,8 @@
   window.Tasmota = {
     get(url, id) {
       let u; try { u = new URL(url, 'http://' + SUBNET + '114/'); } catch (e) { return reply(id, false, 'java.net.MalformedURLException'); }
+      const sh = shellies[u.hostname];
+      if (sh) return reply(id, true, JSON.stringify(shellyApi(sh, u)));
       const d = devices[u.hostname];
       if (!d) return reply(id, false, `java.net.SocketTimeoutException: failed to connect to /${u.hostname}`, 1500);
       if (d.protected && u.searchParams.get('password') !== 'demo')
@@ -162,7 +174,10 @@
       const found = ips.filter(ip => inRange(range, ip)).map(ip => {
         const d = devices[ip];
         return d.protected ? { ip, protected: true } : { ip, name: d.name, topic: d.topic, friendly: d.friendly, power: d.on ? '1' : '0' };
-      });
+      }).concat(Object.keys(shellies).filter(ip => inRange(range, ip)).map(ip => {
+        const sh = shellies[ip];
+        return { ip, kind: 'shelly', gen: 2, protected: false, model: sh.app, name: sh.id, friendly: '', mac: sh.mac.replace(/(..)(?!$)/g, '$1:') };
+      }));
       const r = (range || '').trim();
       reply(id, true, JSON.stringify({ subnet: r && r !== 'auto' ? r : SUBNET + '0/24', devices: found }), 1800);
     },
