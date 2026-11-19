@@ -132,11 +132,16 @@
   const shellies = { [SUBNET + '150']: { on: false, app: 'Plus1PM', id: 'shellyplus1pm-a8032ab1c2d4', mac: 'A8032AB1C2D4' } };
   function shellyApi(sh, u) {
     const p = u.pathname;
+    if (sh.offAt && Date.now() / 1000 >= sh.offAt) { sh.on = false; sh.offAt = null; }   // auto-off reached
+    const startTimer = () => { sh.offAt = sh.on && sh.autoOff ? Date.now() / 1000 + sh.autoOff : null; sh.started = sh.offAt ? Date.now() / 1000 : null; };
+    if (p === '/rpc/Switch.GetConfig') return { id: 0, name: null, auto_on: false, auto_off: !!sh.autoOff, auto_off_delay: sh.autoOff || 60 };
+    if (p === '/rpc/Switch.SetConfig') { try { const c = JSON.parse(u.searchParams.get('config') || '{}'); sh.autoOff = c.auto_off ? +c.auto_off_delay || 0 : 0; } catch (e) {} startTimer(); return { restart_required: false }; }
     if (p === '/rpc/Sys.SetConfig') { try { const c = JSON.parse(u.searchParams.get('config') || '{}'); if (c.device && 'name' in c.device) sh.name = c.device.name; } catch (e) {} return { restart_required: false }; }
     if (p === '/shelly') return { name: sh.name || null, id: sh.id, mac: sh.mac, model: 'SNSW-001P16EU', gen: 2, fw_id: '20241011-114455/1.4.4-g6d2a586', ver: '1.4.4', app: sh.app, auth_en: false };
-    if (p === '/rpc/Switch.GetStatus') return { id: 0, source: 'init', output: sh.on, apower: sh.on ? 18.2 : 0, voltage: 231.4, temperature: { tC: 41.2 } };
-    if (p === '/rpc/Switch.Set') { const was = sh.on; sh.on = u.searchParams.get('on') === 'true'; return { was_on: was }; }
-    if (p === '/rpc/Switch.Toggle') { const was = sh.on; sh.on = !sh.on; return { was_on: was }; }
+    if (p === '/rpc/Switch.GetStatus') return Object.assign({ id: 0, source: 'init', output: sh.on, apower: sh.on ? 18.2 : 0, voltage: 231.4, temperature: { tC: 41.2 } },
+      sh.offAt ? { timer_started_at: sh.started, timer_duration: sh.autoOff } : {});
+    if (p === '/rpc/Switch.Set') { const was = sh.on; sh.on = u.searchParams.get('on') === 'true'; startTimer(); return { was_on: was }; }
+    if (p === '/rpc/Switch.Toggle') { const was = sh.on; sh.on = !sh.on; startTimer(); return { was_on: was }; }
     return { code: 404, message: 'No handler for ' + p };
   }
   function reply(id, ok, text, delay) {

@@ -7,7 +7,7 @@ Key facts:
 - Platform: Android 7.0 or newer. Adding a brand-new device from the app needs Android 10 or newer. No iPhone version; a browser demo is available.
 - License: GNU GPL-3.0, source code on GitHub.
 - Price: free. No ads, no in-app purchases, no subscription, no limit on the number of devices, groups, scenes or widgets.
-- Works with any device running Tasmota firmware (ESP8266/ESP32: Sonoff, Athom, plugs, relays, wall switches, lamps, LED strips). OpenBeken partly works (switching yes, schedules no). Shelly devices work fully when they run Tasmota. New and untested on real hardware: Shelly devices with their own firmware (Gen1 and Plus/Pro/Gen3/Gen4) are found by the scan and can be switched on and off; schedules, auto-off and energy for Shelly are not supported yet.
+- Works with any device running Tasmota firmware (ESP8266/ESP32: Sonoff, Athom, plugs, relays, wall switches, lamps, LED strips). OpenBeken partly works (switching yes, schedules no). Shelly devices work fully when they run Tasmota. New and untested on real hardware: Shelly devices with their own firmware (Gen1 and Plus/Pro/Gen3/Gen4) are found by the scan, can be switched on and off, renamed, and auto-off can be set; schedules and energy for Shelly are not supported yet.
 - Local only: the app talks directly to the devices over the local Wi-Fi via Tasmota's HTTP API. No cloud server, no MQTT broker needed, no tracking.
 - Not in the Play Store: the APK is built by GitHub Actions from the public source code and downloaded from GitHub Releases. Updates install from inside the app (Check for update, at the bottom of the main screen).
 - APK size: about 200 KB.
