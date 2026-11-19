@@ -16,7 +16,7 @@ Features:
 
 - Network scan that finds all Tasmota devices (and Shelly devices) in seconds; recognises devices by MAC address when their IP changes.
 - On/off/toggle, groups (rooms), scenes (several switches with one tap), big tiles screen.
-- Scenes on a 2-wide grid with free placement and empty spaces; own colours per scene for icon, name and border.
+- Scenes on a 2-wide grid with free placement and empty spaces; own colours per scene for icon, name and border. After running a scene, the result (e.g. "3 of 3 done", or which switch was not reachable) shows on the scene tile itself.
 - Up to 8 on/off schedules per switch with fixed times or sunrise/sunset with offset, stored and run in the switch itself (they keep working with the phone off).
 - Lamps: brightness, white colour temperature, colour.
 - Auto-off after a set time (Tasmota PulseTime); also works when the physical button on the device is pressed.
