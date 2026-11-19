@@ -87,6 +87,11 @@
         const s = sunTimes(d.lat, d.lon);
         return { StatusTIM: { UTC: new Date().toISOString().slice(0, 19), Local: localIso(), Timezone: 99, Sunrise: s.rise, Sunset: s.set } };
       }
+      if (arg === '2') {
+        // firmware version and chip, like real firmware (StatusFWR)
+        return { StatusFWR: { Version: d.name === 'tuin' ? '13.4.0(release-tasmota)' : '14.3.0(release-tasmota)', BuildDateTime: '2024-10-15T10:00:00',
+          Core: '2_7_7', SDK: '2.2.2-dev(38a443e)', CpuFrequency: 80, Hardware: d.name === 'bureau' ? 'ESP32-C3' : 'ESP8285N08' } };
+      }
       if (arg === '1') {
         // last restart reason and boot count, like real firmware (StatusPRM)
         return { StatusPRM: { Baudrate: 115200, GroupTopic: 'tasmotas', OtaUrl: 'http://ota.tasmota.com/tasmota/release/tasmota.bin.gz',
