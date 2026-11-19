@@ -258,6 +258,15 @@ footer a{color:var(--muted)}
 .simple-list b{display:block;color:var(--ink);font-size:1.05rem;margin-bottom:3px}
 .simple-list span{color:var(--muted);font-size:1rem;line-height:1.5}
 .hero{padding-bottom:40px}
+.flds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:4px 0 14px}
+.flds .fl{display:block;color:var(--muted);font-size:.85rem;margin-bottom:5px}
+.flds .fb{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:10px;background:#101a33;color:var(--ink);font-size:.92rem;padding:8px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.flds .fs{justify-content:space-between}
+.flds .fs::after{content:"▾";color:var(--muted);margin-left:6px}
+.flds .fr2{display:flex;gap:6px;margin-top:6px}
+.flds .sg{flex:none;width:38px;justify-content:center}
+.flds .ft{flex:1;font-variant-numeric:tabular-nums}
+.flds .fh{display:block;color:var(--muted);font-size:.75rem;margin-top:4px}
 </style>
 </head>
 <body>
@@ -336,6 +345,7 @@ footer a{color:var(--muted)}
       <p class="sr" id="bar-cap">Two schedules of the garden lights. Schedule 1: on at 06:30, off at sunrise 07:41, on weekdays. Schedule 2: on 15 minutes before sunset at 16:47, off at 23:00, every day.</p>
       <div class="sc">
         <div class="sc-h"><b>Schedule 1</b><span class="act">active</span></div>
+        <div class="flds" aria-hidden="true"><div><span class="fl">On</span><span class="fb fs">At fixed time</span><span class="fr2"><span class="fb ft">06:30</span></span></div><div><span class="fl">Off</span><span class="fb fs">Sunrise</span><span class="fr2"><span class="fb sg">+</span><span class="fb ft">00:00</span></span><span class=fh>offset (hh:mm)</span></div></div>
         <div class="sun" aria-hidden="true"></div>
         <div class="trk" aria-hidden="true"><span class="on" style="left:27.08%;width:4.93%"></span><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i></div>
         <div class="rul" aria-hidden="true"><i class="mj" style="left:0.000%"></i><i class="" style="left:4.167%"></i><i class="" style="left:8.333%"></i><i class="" style="left:12.500%"></i><i class="" style="left:16.667%"></i><i class="" style="left:20.833%"></i><i class="mj" style="left:25.000%"></i><i class="" style="left:29.167%"></i><i class="" style="left:33.333%"></i><i class="" style="left:37.500%"></i><i class="" style="left:41.667%"></i><i class="" style="left:45.833%"></i><i class="mj" style="left:50.000%"></i><i class="" style="left:54.167%"></i><i class="" style="left:58.333%"></i><i class="" style="left:62.500%"></i><i class="" style="left:66.667%"></i><i class="" style="left:70.833%"></i><i class="mj" style="left:75.000%"></i><i class="" style="left:79.167%"></i><i class="" style="left:83.333%"></i><i class="" style="left:87.500%"></i><i class="" style="left:91.667%"></i><i class="" style="left:95.833%"></i><i class="mj" style="left:100.000%"></i></div>
@@ -346,6 +356,7 @@ footer a{color:var(--muted)}
       </div>
       <div class="sc">
         <div class="sc-h"><b>Schedule 2</b><span class="act">active</span></div>
+        <div class="flds" aria-hidden="true"><div><span class="fl">On</span><span class="fb fs">Sunset</span><span class="fr2"><span class="fb sg">−</span><span class="fb ft">00:15</span></span><span class=fh>offset (hh:mm)</span></div><div><span class="fl">Off</span><span class="fb fs">At fixed time</span><span class="fr2"><span class="fb ft">23:00</span></span></div></div>
         <div class="sun" aria-hidden="true"></div>
         <div class="trk" aria-hidden="true"><span class="on" style="left:69.93%;width:25.90%"></span><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i></div>
         <div class="rul" aria-hidden="true"><i class="mj" style="left:0.000%"></i><i class="" style="left:4.167%"></i><i class="" style="left:8.333%"></i><i class="" style="left:12.500%"></i><i class="" style="left:16.667%"></i><i class="" style="left:20.833%"></i><i class="mj" style="left:25.000%"></i><i class="" style="left:29.167%"></i><i class="" style="left:33.333%"></i><i class="" style="left:37.500%"></i><i class="" style="left:41.667%"></i><i class="" style="left:45.833%"></i><i class="mj" style="left:50.000%"></i><i class="" style="left:54.167%"></i><i class="" style="left:58.333%"></i><i class="" style="left:62.500%"></i><i class="" style="left:66.667%"></i><i class="" style="left:70.833%"></i><i class="mj" style="left:75.000%"></i><i class="" style="left:79.167%"></i><i class="" style="left:83.333%"></i><i class="" style="left:87.500%"></i><i class="" style="left:91.667%"></i><i class="" style="left:95.833%"></i><i class="mj" style="left:100.000%"></i></div>
