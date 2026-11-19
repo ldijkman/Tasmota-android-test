@@ -79,7 +79,7 @@ For switches with an energy meter:
 
 ## Add a new device
 
-Menu → **Add new device** sets up a brand-new or reset Tasmota device without the browser:
+Menu → **Add new Tasmota** sets up a brand-new or reset Tasmota device without the browser:
 
 1. The app lists nearby **tasmota-…** Wi-Fi networks (a new or reset device makes its own).
 2. Pick one, enter your home Wi-Fi and password, and optionally a name. The app warns when a network is 5 GHz only, because Tasmota needs 2.4 GHz.

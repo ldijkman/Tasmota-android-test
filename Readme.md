@@ -40,7 +40,7 @@ website
 
 ---
 
-## What it can do (version 21.7)
+## What it can do (version 21.8)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -445,7 +445,7 @@ Set up a brand-new or reset Tasmota device straight from the app, without the br
 **Watch:** [video of the whole procedure, 1 minute with sound](https://ldijkman.github.io/Tasmota-android-test/tasmota-add-device.mp4)
 
 1. Plug in the new device. A new or reset Tasmota device starts its own Wi-Fi network called **tasmota-…**
-2. In the app: hamburger menu → **Add new device**. The app lists the nearby tasmota-… networks.
+2. In the app: hamburger menu → **Add new Tasmota**. The app lists the nearby tasmota-… networks.
 3. Pick the device. Your current Wi-Fi is selected; tap it to choose another nearby network (for example a separate network for smart devices), or **Other network…** for a hidden one. Enter its password, and optionally a name (for example *Garden lights*).
 4. Tap **Connect device**, then tap **Connect** when Android asks to join the tasmota-… network.
 5. The app sends your Wi-Fi details, your phone goes back to your own Wi-Fi, and the device restarts and joins it.
@@ -467,7 +467,7 @@ Good to know:
 - Needs Android 10 or newer.
 - If the automatic connection fails, the app offers **Connect by hand**: connect to the tasmota-… network in Android's Wi-Fi settings yourself, and the app does the rest.
 - **Reset a device that is already in your list?** The app recognises it by its MAC address (part of it is in the tasmota-… name) and shows *already in your list*. After setup you choose: **Keep** the existing card (same name, icon, group and scenes), or **Add as new device** (a fresh card with the new name; it is taken out of groups and scenes).
-- Wrong Wi-Fi password? The device opens its own tasmota-… network again after a minute; run **Add new device** once more.
+- Wrong Wi-Fi password? The device opens its own tasmota-… network again after a minute; run **Add new Tasmota** once more.
 
 ---
 
