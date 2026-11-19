@@ -1,29 +1,35 @@
 # Tasmota Scan & Control
 
-> Free, open-source Android app to find, switch and schedule Tasmota Wi-Fi switches, plugs and lamps on your own network. No cloud, no account, no ads, no device limit. Made by Dirk Lubèrth Dijkman, together with Claude Opus 5.5.
+> Free, open-source (GPL-3.0) Android app to find, switch and schedule Tasmota Wi-Fi switches, plugs and lamps on your own network. No cloud, no account, no ads, no device limit. Made by Dirk Lubèrth Dijkman, together with Claude Opus 5.5.
 
 Key facts:
 
 - Platform: Android 7.0 or newer. Adding a brand-new device from the app needs Android 10 or newer. No iPhone version; a browser demo is available.
+- License: GNU GPL-3.0, source code on GitHub.
 - Price: free. No ads, no in-app purchases, no subscription, no limit on the number of devices, groups, scenes or widgets.
-- Works with any device running Tasmota firmware (ESP8266/ESP32: Sonoff, Athom, plugs, relays, wall switches, lamps, LED strips). OpenBeken partly works (switching yes, schedules no). Shelly devices work when they run Tasmota.
+- Works with any device running Tasmota firmware (ESP8266/ESP32: Sonoff, Athom, plugs, relays, wall switches, lamps, LED strips). OpenBeken partly works (switching yes, schedules no). Shelly devices work fully when they run Tasmota. New and untested on real hardware: Shelly devices with their own firmware (Gen1 and Plus/Pro/Gen3/Gen4) are found by the scan and can be switched on and off; schedules, auto-off and energy for Shelly are not supported yet.
 - Local only: the app talks directly to the devices over the local Wi-Fi via Tasmota's HTTP API. No cloud server, no MQTT broker needed, no tracking.
 - Not in the Play Store: the APK is built by GitHub Actions from the public source code and downloaded from GitHub Releases. Updates install from inside the app (Check for update, at the bottom of the main screen).
 - APK size: about 200 KB.
 
 Features:
 
-- Network scan that finds all Tasmota devices in seconds; recognises devices by MAC address when their IP changes.
+- Network scan that finds all Tasmota devices (and Shelly devices) in seconds; recognises devices by MAC address when their IP changes.
 - On/off/toggle, groups (rooms), scenes (several switches with one tap), big tiles screen.
+- Scenes on a 2-wide grid with free placement and empty spaces; own colours per scene for icon, name and border.
 - Up to 8 on/off schedules per switch with fixed times or sunrise/sunset with offset, stored and run in the switch itself (they keep working with the phone off).
 - Lamps: brightness, white colour temperature, colour.
 - Auto-off after a set time (Tasmota PulseTime); also works when the physical button on the device is pressed.
 - Energy use (watts) for plugs with a power meter.
+- Sensor values on the card: temperature, humidity, air pressure, light, CO2, distance (e.g. AM2301, DS18B20, BME280).
+- Per card, optional: Wi-Fi signal and uptime, last restart reason (crashes shown in orange), Tasmota version and chip. Tap the IP address to open the device's own Tasmota web page.
+- Drag to reorder switches and whole groups.
 - Home screen widgets for switches, groups, scenes, Wi-Fi and Tailscale.
 - Add a new or reset Tasmota device: the app gives it the home Wi-Fi without using the browser.
 - Wall panel (kiosk) mode for a spare phone or tablet: keep screen on, dim after a set time, full screen, use as home screen app, black OLED theme.
 - Remote control from anywhere with Tailscale (a phone or tablet at home acts as subnet router; no ports opened on the router).
-- Seven themes, share setup to another phone, own icons and colours.
+- Seven themes, share setup to another phone, own icons and colours, built-in farm and pet animal icons.
+- Open the app from a web page with tasmotascan:// links (tasmotascan://open, ://scenes, ://tiles).
 
 ## Links
 
