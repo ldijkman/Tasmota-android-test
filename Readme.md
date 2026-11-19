@@ -40,7 +40,7 @@ website
 
 ---
 
-## What it can do (version 21.2)
+## What it can do (version 21.3)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
@@ -58,7 +58,7 @@ website
 - Scenes: switch several devices at once with one tap ([video](https://ldijkman.github.io/Tasmota-android-test/tasmota-scenes.mp4))
 - Choose which details each card shows (IP, MAC, next schedule, energy, sensors, last restart reason, Tasmota version and more)
 - Tap the IP address on a card to open the device's own Tasmota web page
-- **New, first step:** Shelly switches (Gen1 and Plus/Pro/Gen3/Gen4) are found by the scan and can be switched on and off, mixed with Tasmota in groups, scenes and Tiles. Schedules, auto-off and energy for Shelly come later.
+- **New, first step:** Shelly switches (Gen1 and Plus/Pro/Gen3/Gen4) are found by the scan, can be switched on and off and renamed, mixed with Tasmota in groups, scenes and Tiles. Schedules, auto-off and energy for Shelly come later.
 - Open the app from the website with the "Open the app" button (Android), or with links like `tasmotascan://scenes` and `tasmotascan://tiles`
 
 **Schedules and timers**
