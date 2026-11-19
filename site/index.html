@@ -277,6 +277,13 @@ footer a{color:var(--muted)}
 .easy .ez{margin:14px 0 0;color:var(--amber);font:600 1.15rem/1.3 var(--display)}
 .fun{text-align:center;margin:28px 0 8px;font-size:.9rem}
 .fun a{color:var(--muted)}
+#ytd{padding:0;border:0;background:#000;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0}
+#ytd::backdrop{background:#000}
+#ytBox{display:flex;flex-direction:column;width:100%;height:100%;background:#000}
+.ytbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px}
+.ytbar a{color:#cfd6e6;font-size:.9rem}
+.ytframe{flex:1;display:flex;align-items:center;justify-content:center}
+.ytframe iframe{width:100%;aspect-ratio:16/9;max-height:100%;border:0}
 </style>
 </head>
 <body>
@@ -570,8 +577,14 @@ footer a{color:var(--muted)}
       <li><a href="https://tasmota.github.io/docs/">About Tasmota</a></li>
     </ul>
   </div>
-  <p class="fun"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener">2 Unlimited</a></p>
+  <p class="fun"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" id="funLink">2 Unlimited</a></p>
 </footer>
+<dialog id="ytd" aria-label="2 Unlimited video">
+  <div id="ytBox">
+    <div class="ytbar"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" target="_blank">Open on YouTube</a><button type="button" id="ytClose">Close</button></div>
+    <div class="ytframe"><iframe id="ytf" title="2 Unlimited on YouTube" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+  </div>
+</dialog>
 
 <script>
 // De lamp in de kop: aan/uit, zoals in de app
@@ -654,6 +667,21 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
     const m = String(j.name || '').match(/(\d+\.\d+)/), a = (j.assets || []).find(x => /\.apk$/i.test(x.name));
     if (m) document.querySelectorAll('.dlv').forEach(el => el.textContent = 'version ' + m[1] + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : ''));
   }).catch(() => {});
+
+// 2 Unlimited: in een eigen schermvullende speler (valt terug op YouTube als het filmpje niet ingesloten mag worden)
+(() => {
+  const a = document.getElementById('funLink'), d = document.getElementById('ytd'), f = document.getElementById('ytf'), box = document.getElementById('ytBox');
+  if (!a || !d || !d.showModal) return;
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    f.src = 'https://www.youtube-nocookie.com/embed/r6FVk2k4qsM?autoplay=1&rel=0&playsinline=1';
+    d.showModal();
+    try { (box.requestFullscreen || box.webkitRequestFullscreen).call(box).catch(() => {}); } catch (_) {}
+  });
+  const close = () => { f.src = 'about:blank'; try { if (document.fullscreenElement) document.exitFullscreen(); } catch (_) {} d.close(); };
+  document.getElementById('ytClose').addEventListener('click', close);
+  d.addEventListener('cancel', e => { e.preventDefault(); close(); });
+})();
 </script>
 </body>
 </html>
