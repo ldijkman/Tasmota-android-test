@@ -194,7 +194,8 @@ T = [
 ('The card: Gen3 badge, IP, auto-off and signal.', 'Die Karte: Gen3-Abzeichen, IP, Auto-Aus und Signal.'),
 ("Tap the IP for the Shelly's own page.", 'Tippe auf die IP für die eigene Seite des Shelly.'),
 ('Shelly 1 Gen3: only 42 × 37 mm, fits behind a wall switch.', 'Shelly 1 Gen3: nur 42 × 37 mm, passt hinter einen Wandschalter.'),
-('Schedules on the Shelly, with sunrise and sunset.', 'Zeitpläne auf dem Shelly, mit Sonnenauf- und -untergang.'),
+("Shelly's own page: the same schedules as robot text.", 'Die eigene Seite des Shelly: dieselben Zeitpläne als Robotertext.'),
+('The same schedules in this app: clear cards and a timeline.', 'Dieselben Zeitpläne in dieser App: klare Karten und eine Zeitleiste.'),
 ('<p class="diy-fact sh-fact"><b>Fun fact:</b><br>Shelly was started by two Bulgarians,<br>Dimitar Dimitrov and Svetlin Todorov, in Sofia.<br>The first Shellys came out in 2018.<br>More than 30 million have been sold since.<br>In 2026 Schneider Electric offered<br>€1.2 billion for the company.</p>', '<p class="diy-fact sh-fact"><b>Fun Fact:</b><br>Shelly wurde von zwei Bulgaren gegründet,<br>Dimitar Dimitrov und Svetlin Todorov, in Sofia.<br>Die ersten Shellys kamen 2018 heraus.<br>Seitdem wurden über 30 Millionen verkauft.<br>2026 bot Schneider Electric<br>1,2 Milliarden € für die Firma.</p>'),
 # faq
 ('Questions people ask.', 'Häufige Fragen.'),
