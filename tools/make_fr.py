@@ -196,9 +196,11 @@ T = [
 ('>Open the Tasmota web installer</a>', '>Ouvrir l’installateur web Tasmota</a>'),
 ('Shellys with their own firmware partly work: switches and bulbs, on/off, brightness, white and colour, rename and auto-off.', 'Les Shelly avec leur propre firmware fonctionnent en partie\xa0: interrupteurs et ampoules, marche/arrêt, luminosité, blanc et couleur, renommage et arrêt automatique.'),
 ('<span class="sh-new">New, not yet tested on a real Shelly.</span>', '<span class="sh-new">Nouveau, pas encore testé sur un vrai Shelly.</span>'),
-('<a class="btn" href="https://www.shelly.com/products/shelly-1-gen3" rel="noopener">Shelly 1 Gen3 in the Shelly shop</a>', '<a class="btn" href="https://www.shelly.com/fr/products/shelly-1-gen3" rel="noopener">Shelly 1 Gen3 sur la boutique Shelly</a>'),
-('<a class="pl sh-pl" href="https://www.shelly.com/products/shelly-1-gen3"', '<a class="pl sh-pl" href="https://www.shelly.com/fr/products/shelly-1-gen3"'),
+('Switch behind a wall switch or in a lamp. On/off and auto-off.', 'Module derrière un interrupteur mural ou dans une lampe. Marche/arrêt et arrêt automatique.'),
+('Brightness and warm to cool white.', 'Luminosité et blanc chaud à froid.'),
+('Brightness, white and colour.', 'Luminosité, blanc et couleur.'),
 ('alt="Shelly 1 Gen3 relay module"', 'alt="Module relais Shelly 1 Gen3"'),
+('https://www.shelly.com/products/', 'https://www.shelly.com/fr/products/'),
 # faq
 ('Questions people ask.', 'Questions fréquentes.'),
 ('Something else? Ask it on <a href="https://github.com/ldijkman/Tasmota-android-test/issues">GitHub</a>.',

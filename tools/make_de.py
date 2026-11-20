@@ -189,9 +189,11 @@ T = [
 ('>Open the Tasmota web installer</a>', '>Tasmota-Web-Installer öffnen</a>'),
 ('Shellys with their own firmware partly work: switches and bulbs, on/off, brightness, white and colour, rename and auto-off.', 'Shellys mit eigener Firmware funktionieren teilweise: Schalter und Lampen, Ein/Aus, Helligkeit, Weiß und Farbe, Umbenennen und Auto-Aus.'),
 ('<span class="sh-new">New, not yet tested on a real Shelly.</span>', '<span class="sh-new">Neu, noch nicht mit einem echten Shelly getestet.</span>'),
-('<a class="btn" href="https://www.shelly.com/products/shelly-1-gen3" rel="noopener">Shelly 1 Gen3 in the Shelly shop</a>', '<a class="btn" href="https://www.shelly.com/de/products/shelly-1-gen3" rel="noopener">Shelly 1 Gen3 im Shelly-Shop</a>'),
-('<a class="pl sh-pl" href="https://www.shelly.com/products/shelly-1-gen3"', '<a class="pl sh-pl" href="https://www.shelly.com/de/products/shelly-1-gen3"'),
+('Switch behind a wall switch or in a lamp. On/off and auto-off.', 'Schalter hinter dem Wandschalter oder in der Lampe. Ein/Aus und Auto-Aus.'),
+('Brightness and warm to cool white.', 'Helligkeit und warm- bis kaltweiß.'),
+('Brightness, white and colour.', 'Helligkeit, Weiß und Farbe.'),
 ('alt="Shelly 1 Gen3 relay module"', 'alt="Shelly 1 Gen3 Relaismodul"'),
+('https://www.shelly.com/products/', 'https://www.shelly.com/de/products/'),
 # faq
 ('Questions people ask.', 'Häufige Fragen.'),
 ('Something else? Ask it on <a href="https://github.com/ldijkman/Tasmota-android-test/issues">GitHub</a>.',
