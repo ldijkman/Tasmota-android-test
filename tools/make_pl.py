@@ -404,6 +404,7 @@ T = [
  "el.textContent = 'wersja ' + m[1].replace('.', ',') + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : '')"),
 ('<a href="/Tasmota-android-test/pl/" hreflang="pl" lang="pl" aria-label="Polski" title="Polski">',
  '<a href="/Tasmota-android-test/pl/" hreflang="pl" lang="pl" aria-label="Polski" title="Polski" aria-current="page">'),
+('Christmas tree on a Shelly: temperature, firmware 2.2.0 and the auto-off countdown.', 'Choinka na Shelly: temperatura, firmware 2.2.0 i odliczanie auto-wyłączania.'),
 ]
 
 bad = []

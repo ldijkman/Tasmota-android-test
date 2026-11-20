@@ -260,6 +260,7 @@ T = [
 ("el.textContent = 'Downloaded ' + total.toLocaleString('en') + ' times so far.';", "el.textContent = 'Déjà téléchargée ' + total.toLocaleString('fr') + ' fois.';"),
 ("j.stargazers_count.toLocaleString('en')", "j.stargazers_count.toLocaleString('fr')"),
 ("el.textContent = 'version ' + m[1] + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : '')", "el.textContent = 'version ' + m[1].replace('.', ',') + (a ? ', ' + Math.round(a.size / 1024) + ' Ko' : '')"),
+('Christmas tree on a Shelly: temperature, firmware 2.2.0 and the auto-off countdown.', 'Sapin de Noël sur un Shelly\xa0: température, firmware 2.2.0 et le compte à rebours de l’arrêt automatique.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
