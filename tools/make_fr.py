@@ -85,8 +85,8 @@ T = [
 ('>Mo<', '>Lu<'), ('>Tu<', '>Ma<'), ('>We<', '>Me<'), ('>Th<', '>Je<'), ('>Fr<', '>Ve<'), ('>Sa<', '>Sa<'), ('>Su<', '>Di<'),
 # features
 ('Everything for your Tasmota and Shelly devices, in one small app.', 'Tout pour vos appareils Tasmota et Shelly, dans une petite application.'),
-('Under 200 KB, starts in a moment, and talks straight to your devices over your own Wi-Fi.',
- 'Moins de 200 Ko, démarre en un instant et parle directement à vos appareils via votre propre Wi-Fi.'),
+('Under 250 KB, starts in a moment, and talks straight to your devices over your own Wi-Fi.',
+ 'Moins de 250 Ko, démarre en un instant et parle directement à vos appareils via votre propre Wi-Fi.'),
 ('<h3>Finds them in seconds</h3><p>Scans your network and lists every Tasmota and Shelly device with its name and address. Recognises them by MAC address when their address changes.</p>', '<h3>Les trouve en quelques secondes</h3><p>Analyse votre réseau et liste chaque appareil Tasmota et Shelly avec son nom et son adresse. Les reconnaît par leur adresse MAC quand leur adresse change.</p>'),
 ('<h3>Timers with sunrise and sunset</h3><p>Up to 8 on/off schedules per switch, stored in the switch. See everything that switches today at a glance.</p>',
  '<h3>Programmations avec lever et coucher du soleil</h3><p>Jusqu’à 8 programmations marche/arrêt par interrupteur, enregistrées dans l’interrupteur. Tout ce qui s’allume ou s’éteint aujourd’hui, d’un coup d’œil.</p>'),
