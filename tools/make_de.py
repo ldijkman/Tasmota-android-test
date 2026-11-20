@@ -33,6 +33,7 @@ T = [
  '<a href="../" hreflang="en" lang="en" aria-label="English" title="English">'),
 ('<a href="de/" hreflang="de" lang="de" aria-label="Deutsch" title="Deutsch">',
  '<a href="./" hreflang="de" lang="de" aria-label="Deutsch" title="Deutsch" aria-current="page">'),
+('<a href="fr/" hreflang="fr"', '<a href="../fr/" hreflang="fr"'),
 # hero
 ('Your Tasmota switches, one tap away.', 'Deine Tasmota-Schalter, nur einen Tipp entfernt.'),
 ('A free Android app that finds every Tasmota switch, plug and lamp on your Wi-Fi in seconds. Switch them, group them, and give them timers that follow sunrise and sunset.',

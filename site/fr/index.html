@@ -1,0 +1,704 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tasmota Scan &amp; Control : application Android gratuite pour interrupteurs Tasmota</title>
+<meta name="description" content="Application Android gratuite pour les interrupteurs, prises et lampes Wi-Fi Tasmota, sans limite d’appareils. Les trouve sur votre réseau en quelques secondes. Marche/arrêt, programmations avec lever et coucher du soleil enregistrées dans l’interrupteur, groupes, scènes, widgets et mode panneau mural. Pas de cloud, pas de compte, pas de pub.">
+<link rel="canonical" href="https://ldijkman.github.io/Tasmota-android-test/fr/">
+<link rel="alternate" hreflang="en" href="https://ldijkman.github.io/Tasmota-android-test/">
+<link rel="alternate" hreflang="de" href="https://ldijkman.github.io/Tasmota-android-test/de/">
+<link rel="alternate" hreflang="fr" href="https://ldijkman.github.io/Tasmota-android-test/fr/">
+<link rel="alternate" hreflang="x-default" href="https://ldijkman.github.io/Tasmota-android-test/">
+<meta name="theme-color" content="#0e1525">
+<meta name="google-site-verification" content="tQrVo3_wPGnllO1xzqaHQz49uHlMX_vpRBAHNmBCCEM">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tasmota Scan & Control : application Android gratuite pour interrupteurs Tasmota">
+<meta property="og:description" content="Trouvez, commandez et programmez vos appareils Tasmota. Pas de cloud, pas de compte, pas de pub.">
+<meta property="og:url" content="https://ldijkman.github.io/Tasmota-android-test/fr/">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:image" content="https://ldijkman.github.io/Tasmota-android-test/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230e1525'/%3E%3Cpath d='M32 12a14 14 0 0 0-8 25.5V43h16v-5.5A14 14 0 0 0 32 12z' fill='%23f0a630'/%3E%3Crect x='25' y='46' width='14' height='5' rx='2' fill='%23f0a630'/%3E%3C/svg%3E">
+<link rel="preload" href="../fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Tasmota Scan & Control","operatingSystem":"Android 7.0 or newer","applicationCategory":"UtilitiesApplication","description":"Application Android pour trouver, commander et programmer les interrupteurs, prises et lampes Wi-Fi Tasmota sur votre propre réseau. Pas de cloud, pas de compte, pas de pub.","inLanguage":"fr","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"downloadUrl":"https://github.com/ldijkman/Tasmota-android-test/releases/latest","screenshot":"https://ldijkman.github.io/Tasmota-android-test/img/tasmota-tiles.jpg","author":{"@type":"Person","name":"Dirk Lubèrth Dijkman"}}
+</script>
+<style>
+@font-face{font-family:"Bricolage";src:url(../fonts/bricolage.woff2) format("woff2");font-weight:200 800;font-display:swap}
+@font-face{font-family:"Atkinson";src:url(../fonts/atkinson-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Atkinson";src:url(../fonts/atkinson-700.woff2) format("woff2");font-weight:700;font-display:swap}
+:root{
+  --night:#0e1525; --night2:#141e33; --line:#243150; --ink:#e8e4da; --muted:#a3abbd;
+  --amber:#f0a630; --light:#fff1d2; --dusk:#55467f;
+  --display:"Bricolage",ui-sans-serif,system-ui,sans-serif; --text:"Atkinson",ui-sans-serif,system-ui,sans-serif;
+  --w:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--night);color:var(--ink);font:400 1.125rem/1.6 var(--text);-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--light)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;color:#fff;margin:0}
+h2{font-size:clamp(2rem,4vw,2.9rem);line-height:1.05;max-width:20ch}
+h3{font-size:1.2rem;letter-spacing:-.01em;line-height:1.25}
+p{margin:0}
+.lead{color:var(--muted);font-size:1.2rem;max-width:58ch}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* nav */
+nav{position:relative;z-index:5}
+nav .wrap{display:flex;align-items:center;gap:28px;height:72px}
+.brand{display:flex;align-items:center;gap:10px;font:700 1.05rem var(--display);color:#fff;text-decoration:none;letter-spacing:-.01em}
+.brand svg{width:30px;height:30px}
+nav ul{display:flex;gap:24px;list-style:none;margin:0 0 0 auto;padding:0}
+nav ul a{color:var(--muted);text-decoration:none;font-size:1rem;white-space:nowrap}
+nav ul a:hover{color:#fff}
+@media (max-width:760px){nav ul li:not(:last-child){display:none}}
+
+/* hero: a lamp you can switch */
+.hero{position:relative;overflow:hidden;padding:40px 0 96px;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:-20% -10% 0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 55% 60% at 72% 12%,rgba(255,206,120,.30),rgba(240,166,48,.10) 45%,transparent 70%);
+  opacity:0;transition:opacity .9s ease}
+.lit .hero::before{opacity:1}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:start}
+.hero h1{font-size:clamp(2.9rem,7vw,5.6rem);line-height:.98;letter-spacing:-.035em;margin-top:56px;font-variation-settings:"opsz" 96}
+.hero .lead{margin-top:22px}
+.switch{margin-top:34px;display:flex;align-items:center;gap:18px;width:min(100%,420px);padding:16px 18px;border-radius:22px;cursor:pointer;
+  background:var(--night2);border:1.5px solid var(--line);color:var(--ink);font:inherit;text-align:left;transition:border-color .5s,background .5s,box-shadow .5s}
+.switch .ic{width:58px;height:58px;border-radius:16px;background:#1b2740;display:grid;place-items:center;flex:none;transition:background .5s}
+.switch .ic svg{width:32px;height:32px;color:#8792a8;transition:color .5s}
+.switch b{display:block;font:700 1.15rem var(--display);color:#fff}
+.switch span{color:var(--muted);font-size:1rem}
+.switch .tg{margin-left:auto;width:58px;height:34px;border-radius:17px;background:#2a3757;position:relative;flex:none;transition:background .4s}
+.switch .tg::after{content:"";position:absolute;top:4px;left:4px;width:26px;height:26px;border-radius:50%;background:#c7cdda;transition:transform .35s cubic-bezier(.5,1.6,.5,1),background .4s}
+.lit .switch{border-color:var(--amber);background:#221e1c;box-shadow:0 0 40px rgba(240,166,48,.18)}
+.lit .switch .ic{background:var(--amber)}
+.lit .switch .ic svg{color:#2a1700}
+.lit .switch .tg{background:var(--amber)}
+.lit .switch .tg::after{transform:translateX(24px);background:#2a1700}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 22px;border-radius:14px;text-decoration:none;font:700 1.05rem var(--text);border:1.5px solid var(--line);color:#fff;background:transparent}
+.btn:hover{border-color:#3a4a70}
+.btn.main{background:var(--amber);border-color:var(--amber);color:#2a1700}
+.btn.main:hover{background:#f6b64d}
+.btn small{font-weight:400;opacity:.75;font-size:.85rem;white-space:nowrap}
+.btn svg{width:20px;height:20px}
+.promise{margin-top:22px;color:var(--muted);font-size:1rem}
+#dlcount{margin-top:4px}
+.last .dlcount{margin-top:16px}
+
+.stage{position:relative;height:640px;pointer-events:none}
+.pendant{position:absolute;left:50%;top:-40px;width:150px;transform:translateX(-50%);z-index:2}
+.pendant .bulb{fill:#3a4560;transition:fill .5s}
+.lit .pendant .bulb{fill:var(--light);filter:drop-shadow(0 0 18px rgba(255,214,140,.95))}
+.cone{position:absolute;left:50%;top:92px;width:520px;height:560px;transform:translateX(-50%);z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,226,170,.42),rgba(240,166,48,.10) 60%,transparent);
+  clip-path:polygon(43% 0,57% 0,100% 100%,0 100%);opacity:0;transition:opacity .9s ease}
+.lit .cone{opacity:1}
+.phone{position:absolute;left:50%;top:150px;transform:translateX(-50%);width:270px;border-radius:38px;padding:10px;background:#05080f;
+  border:1.5px solid #2b3653;box-shadow:0 30px 80px rgba(0,0,0,.55);z-index:1}
+.phone img{border-radius:29px;filter:brightness(.55) saturate(.8);transition:filter .9s ease}
+.lit .phone img{filter:none}
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
+  .hero h1{margin-top:12px}
+  .stage{height:150px;order:-1;margin-bottom:-110px}
+  .pendant{width:120px;top:-48px}
+  .phone{display:none}
+  .cone{top:46px;width:380px;height:520px}
+}
+
+/* the day bar */
+.day{padding:110px 0;background:linear-gradient(180deg,var(--night),#111a2d)}
+.day .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.day p+p{margin-top:16px}
+.day .lead{margin-top:20px}
+.bar{background:#0b1120;border:1.5px solid var(--line);border-radius:22px;padding:22px 22px 8px}
+.bh{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 14px;margin-bottom:14px}
+.bh span{color:var(--muted);font-size:.95rem;font-variant-numeric:tabular-nums}
+.sc{background:#141e33;border:1.5px solid var(--line);border-radius:16px;padding:16px 16px 14px;margin-bottom:14px}
+.sc-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.sc-h b{font:700 1.05rem var(--display);color:#fff}
+.sc-h .act{font-size:.9rem;color:var(--muted);display:flex;align-items:center;gap:7px}
+.sc-h .act::before{content:"✓";display:grid;place-items:center;width:18px;height:18px;border-radius:4px;background:#3b82f6;color:#fff;font-size:.75rem;font-weight:700}
+.sun{height:5px;border-radius:3px;margin-bottom:4px;background:linear-gradient(90deg,#22355f 29.93%,#f2cf5b 33.40%,#f2cf5b 69.58%,#22355f 73.06%)}
+.trk{position:relative;height:20px;border-radius:4px;background:#2a3757;overflow:hidden}
+.trk .on{position:absolute;top:0;bottom:0;background:var(--amber);box-shadow:0 0 12px rgba(240,166,48,.55)}
+.trk i{position:absolute;top:0;bottom:0;width:1px;background:rgba(160,170,190,.35)}
+.rul{position:relative;height:7px;margin-top:3px}
+.rul i{position:absolute;top:0;width:1px;height:3px;margin-left:-.5px;background:var(--muted);opacity:.5}
+.rul i.mj{height:7px;opacity:.95}
+.rul i:first-child{margin-left:0}.rul i:last-child{margin-left:-1px}
+.hrs{position:relative;height:18px;margin-top:2px;font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.hrs span{position:absolute;top:0;transform:translateX(-50%)}
+.hrs span:first-child{transform:none}.hrs span:last-child{transform:translateX(-100%)}
+.lbl{position:relative;height:24px;margin-top:4px}
+.lbl .l{position:absolute;white-space:nowrap;font-size:.95rem;font-weight:700;font-variant-numeric:tabular-nums}
+.lbl .on{color:var(--amber)}.lbl .off{color:var(--muted)}
+.sum{font-size:.9rem;color:var(--muted);margin-top:2px}
+.days{display:flex;gap:6px;margin-top:12px}
+.days .d{flex:1;text-align:center;padding:7px 0;border-radius:8px;font-size:.88rem;font-weight:700;color:var(--muted);border:1.5px solid var(--line)}
+.days .d.on{background:var(--amber);border-color:var(--amber);color:#2a1700}
+@media (max-width:900px){.day .wrap{grid-template-columns:1fr}}
+
+/* features */
+.feats{padding:110px 0}
+.feats h2{margin-bottom:14px}
+.flist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:44px 64px;margin-top:56px;padding:0;list-style:none}
+.flist li{display:grid;grid-template-columns:44px 1fr;gap:4px 18px;align-content:start}
+.flist svg{grid-row:span 2;width:30px;height:30px;color:var(--amber);margin-top:2px}
+.flist p{color:var(--muted)}
+@media (max-width:760px){.flist{grid-template-columns:1fr;gap:34px}}
+
+/* videos */
+.vids{padding:100px 0;background:#0b1120;border-block:1.5px solid var(--line)}
+.vgrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px;margin-top:44px}
+.vcard{all:unset;cursor:pointer;display:block}
+.vcard .fr{display:block;position:relative;border-radius:16px;overflow:hidden;border:1.5px solid var(--line);aspect-ratio:4/5;background:#000}
+.vcard .fr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.8;transition:opacity .3s}
+.vcard .pl{position:absolute;left:12px;bottom:12px;width:44px;height:44px;border-radius:50%;background:var(--amber);display:grid;place-items:center}
+.vcard .pl svg{width:18px;height:18px;margin-left:3px}
+.vcard b{display:block;margin-top:12px;font:700 1.02rem var(--display);color:#fff}
+.vcard .len{display:block;color:var(--muted);font-size:.92rem}
+.vcard:hover img,.vcard:focus-visible img{opacity:1}
+.vcard:focus-visible{outline:3px solid var(--amber);outline-offset:4px;border-radius:16px}
+@media (max-width:1000px){.vgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.vgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+dialog{border:0;padding:0;background:transparent;max-width:min(94vw,440px)}
+dialog::backdrop{background:rgba(5,8,15,.86)}
+dialog video{width:100%;max-height:86vh;border-radius:18px;background:#000;display:block}
+dialog form.pbar{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+dialog form.pbar button{padding:8px 11px;white-space:nowrap}
+#pTitle{flex:1;min-width:0;color:#cfd6e6;font-size:.82rem;text-align:center;line-height:1.25;overflow:hidden;text-overflow:ellipsis}
+#pTitle small{display:block;color:#8a96b0;font-size:.78rem}
+dialog button{background:none;border:1.5px solid #3a4a70;color:#fff;border-radius:10px;padding:8px 14px;font:inherit;cursor:pointer}
+
+/* screenshots */
+.shots{padding:100px 0 90px}
+.strip{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:24px;padding:40px 24px 18px;margin-top:4px;scrollbar-color:#2b3653 transparent}
+.strip figure{flex:none;width:230px;margin:0;scroll-snap-align:start}
+.strip img{border-radius:22px;border:1.5px solid var(--line)}
+.strip figcaption{margin-top:12px;color:var(--muted);font-size:.95rem;line-height:1.4}
+@media (min-width:1168px){.strip{padding-left:calc((100vw - var(--w))/2 + 24px);scroll-padding-left:calc((100vw - var(--w))/2 + 24px)}}
+
+/* two stories */
+.two{padding:40px 0 110px}
+.two .wrap{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.story{border:1.5px solid var(--line);border-radius:26px;padding:34px;display:grid;grid-template-columns:1fr 150px;gap:24px;align-items:start;background:var(--night2)}
+.story p{color:var(--muted);margin-top:12px}
+.story a{display:inline-block;margin-top:16px;font-weight:700}
+.story img{border-radius:16px;border:1.5px solid var(--line)}
+@media (max-width:900px){.two .wrap{grid-template-columns:1fr}}
+@media (max-width:480px){.story{grid-template-columns:1fr}.story img{max-width:180px}}
+
+/* privacy */
+.yours{padding:110px 0;text-align:left;background:radial-gradient(ellipse 60% 80% at 0% 50%,rgba(85,70,127,.28),transparent 70%)}
+.yours h2{font-size:clamp(2.3rem,5.4vw,4rem);max-width:16ch}
+.yours .lead{margin-top:22px;font-size:1.25rem;max-width:56ch}
+.yours .lead+.lead{margin-top:14px}
+
+/* faq */
+.faq{padding:40px 0 110px}
+.faq .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px}
+details{border-bottom:1.5px solid var(--line);padding:18px 0}
+details:first-of-type{border-top:1.5px solid var(--line)}
+summary{cursor:pointer;font:700 1.12rem var(--display);color:#fff;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--amber);font-size:1.4rem;line-height:1;transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--muted);margin-top:12px;max-width:62ch;text-wrap:pretty}
+details p+p{margin-top:8px}
+.don{display:inline-block;margin-top:4px;padding:9px 16px;border-radius:12px;border:1.5px solid var(--amber);color:var(--light);font-weight:700;text-decoration:none}
+.don:hover{background:rgba(240,166,48,.12)}
+@media (max-width:900px){.faq .wrap{grid-template-columns:1fr;gap:28px}}
+
+/* last call + footer */
+.last{padding:20px 0 120px}
+.last .box{border-radius:30px;padding:56px 48px;background:linear-gradient(135deg,#2a1d08,#1a1426 70%);border:1.5px solid #4a3818;display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between}
+.last h2{max-width:18ch}
+footer{border-top:1.5px solid var(--line);padding:34px 0 50px;color:var(--muted);font-size:.98rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:14px 28px;justify-content:space-between}
+footer ul{display:flex;flex-wrap:wrap;gap:8px 22px;list-style:none;margin:0;padding:0}
+footer a{color:var(--muted)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+.plugs{padding:90px 0}
+.plugs .lead{margin-top:16px}
+.plugs .buy{font-size:.85rem;margin:16px 0 0;padding:10px 14px;border-left:3px solid var(--amber);background:#141d36;border-radius:0 12px 12px 0;color:var(--muted);max-width:640px;line-height:1.5}
+.plugs .buy b{color:var(--ink)}
+.pl-row{display:grid;grid-template-columns:repeat(2,minmax(0,280px));gap:24px;margin-top:28px}
+.pl{display:flex;flex-direction:column;gap:4px;color:var(--ink);text-decoration:none}
+.pl img{width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:#fff;border-radius:18px;border:1.5px solid var(--line);padding:14px;box-sizing:border-box;transition:border-color .2s}
+.pl:hover img{border-color:var(--amber)}
+.pl b{font:600 1.1rem/1.3 var(--display);margin-top:10px}
+.pl span{color:var(--muted);font-size:.95rem}
+@media (max-width:560px){.pl-row{gap:14px}.pl b{font-size:1rem}}
+.talk{padding:20px 0 90px}
+.talk .lead{margin-top:16px}
+.talk-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.talk-note{color:var(--muted);font-size:.95rem;margin-top:14px}
+.star{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:28px;padding-top:24px;border-top:1px solid #4a3818;width:100%}
+.star p{margin:0;color:var(--muted);font-size:1rem;max-width:44ch}
+.star p b{color:var(--ink)}
+.star small{margin-left:4px}
+.diy-fact{color:var(--muted);font-size:.95rem;line-height:1.6;margin:-6px 0 16px}
+.diy-fact b{color:var(--ink)}
+.diy .diy-photo{display:block;width:100%;max-width:300px;height:auto;aspect-ratio:auto;padding:0;border:1.5px solid var(--line);border-radius:18px;margin:0 0 6px;background:none}
+.diy-cap{color:var(--muted);font-size:.85rem;margin:0 0 18px}
+.diy-note{margin:44px 0 12px;color:var(--muted);font-size:1.05rem;line-height:1.5}
+.diy-note b{color:var(--ink);font:600 1.25rem/1.3 var(--display)}
+.diy{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:24px;align-items:center;margin-top:0}
+.diy img{width:100%;height:auto;background:#fff;border-radius:18px;border:1.5px solid var(--line);padding:10px;box-sizing:border-box}
+.diy h3{font:600 1.35rem/1.25 var(--display);margin:0 0 16px}
+.diy p{color:var(--muted);margin:0 0 12px;max-width:52ch}
+.diy .warn{color:#f3b75a;font-size:.95rem}
+@media (max-width:640px){.diy{grid-template-columns:1fr}.diy img,.diy .diy-photo{max-width:none}}
+.simple{padding:8px 0 40px}
+.simple h2{font-size:clamp(1.7rem,4vw,2.4rem)}
+.simple-list{list-style:none;padding:0;margin:26px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:22px 24px}
+.simple-list li{display:flex;gap:14px;align-items:flex-start}
+.simple-list svg{flex:none;width:40px;height:40px;padding:8px;border-radius:12px;background:#1a2440;color:var(--amber)}
+.simple-list b{display:block;color:var(--ink);font-size:1.05rem;margin-bottom:3px}
+.simple-list span{color:var(--muted);font-size:1rem;line-height:1.5}
+.simple-list .also{display:block;font-size:.85rem;margin-top:4px;opacity:.85}
+.hero{padding-bottom:40px}
+.lang{display:flex;gap:8px;margin-left:22px;flex:none}
+.lang a{display:block;line-height:0;border-radius:4px;opacity:.5;transition:opacity .2s}
+.lang a:hover,.lang a[aria-current]{opacity:1}
+.lang a[aria-current]{box-shadow:0 0 0 2px var(--amber)}
+.lang svg{width:30px;height:20px;border-radius:3px;display:block}
+@media (max-width:760px){.lang{margin-left:14px}}
+.brand{white-space:nowrap}
+@media (max-width:480px){nav ul{display:none}.lang{margin-left:auto}nav .wrap{gap:12px}}
+@media (max-width:400px){nav .wrap{gap:8px}.brand{font-size:.95rem;gap:8px}.brand svg{width:26px;height:26px}.lang{gap:6px}.lang svg{width:26px;height:18px}}
+@media (max-width:340px){.brand{font-size:.85rem}.lang svg{width:24px;height:16px}}
+
+.flds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:4px 0 14px}
+.flds .fl{display:block;color:var(--muted);font-size:.85rem;margin-bottom:5px}
+.flds .fb{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:10px;background:#101a33;color:var(--ink);font-size:.92rem;padding:8px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.flds .fs{justify-content:space-between}
+.flds .fs::after{content:"▾";color:var(--muted);margin-left:6px}
+.flds .fr2{display:flex;gap:6px;margin-top:6px}
+.flds .sg{flex:none;width:38px;justify-content:center}
+.flds .ft{flex:1;font-variant-numeric:tabular-nums}
+.flds .fh{display:block;color:var(--muted);font-size:.75rem;margin-top:4px}
+.easy{margin-top:34px;padding:20px 22px;border:1.5px solid var(--line);border-radius:18px;background:#141d36;max-width:720px}
+.easy h3{font:600 1.3rem/1.25 var(--display);margin:0 0 8px;color:var(--ink)}
+.easy p{margin:0 0 10px;color:var(--muted);line-height:1.55}
+.easy .tv{color:var(--ink)}
+.easy .ez{margin:14px 0 0;color:var(--amber);font:600 1.15rem/1.3 var(--display)}
+.fun{text-align:center;margin:28px 0 8px;font-size:.9rem}
+.fun a{color:var(--muted)}
+#ytd{padding:0;border:0;background:#000;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0}
+#ytd::backdrop{background:#000}
+#ytBox{display:flex;flex-direction:column;width:100%;height:100%;background:#000}
+.ytbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px}
+.ytbar a{color:#cfd6e6;font-size:.9rem}
+.ytframe{flex:1;display:flex;align-items:center;justify-content:center}
+.ytframe iframe{width:100%;aspect-ratio:16/9;max-height:100%;border:0}
+</style>
+</head>
+<body>
+<nav aria-label="Menu principal">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#f0a630"/><path d="M32 13a13 13 0 0 0-7.5 23.6V42h15v-5.4A13 13 0 0 0 32 13z" fill="#2a1700"/><rect x="25.5" y="45" width="13" height="5" rx="2" fill="#2a1700"/></svg>
+      Tasmota Scan &amp; Control</a>
+    <ul>
+      <li><a href="#features">Fonctions</a></li>
+      <li><a href="#videos">Vidéos</a></li>
+      <li><a href="#faq">Questions</a></li>
+      <li><a href="../demo/">Démo en direct</a></li>
+    </ul>
+    <div class="lang"><a href="../" hreflang="en" lang="en" aria-label="English" title="English"><svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><clipPath id="ukc"><path d="M30,15h30v15zv15h-30zh-30v-15zv-15h30z"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0L60,30M60,0L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0L60,30M60,0L0,30" clip-path="url(#ukc)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#fff" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></svg></a><a href="../de/" hreflang="de" lang="de" aria-label="Deutsch" title="Deutsch"><svg viewBox="0 0 5 3" preserveAspectRatio="none" aria-hidden="true"><rect width="5" height="1" fill="#000"/><rect y="1" width="5" height="1" fill="#D00"/><rect y="2" width="5" height="1" fill="#FFCE00"/></svg></a><a href="./" hreflang="fr" lang="fr" aria-label="Français" title="Français" aria-current="page"><svg viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true"><rect width="1" height="2" fill="#002654"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#CE1126"/></svg></a></div>
+  </div>
+</nav>
+
+<main id="top">
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div>
+      <h1 id="h1">Vos interrupteurs Tasmota, à portée de doigt.</h1>
+      <p class="lead">Une application Android gratuite qui trouve en quelques secondes chaque interrupteur, prise et lampe Tasmota sur votre Wi-Fi. Allumez-les, regroupez-les et programmez-les au rythme du lever et du coucher du soleil.</p>
+
+      <button type="button" class="switch" id="lamp" aria-pressed="false">
+        <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26A7 7 0 0 0 12 2zM9 20h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"/></svg></span>
+        <span><b>Salon</b><span id="lampState">Éteint. Touchez pour allumer</span></span>
+        <span class="tg" aria-hidden="true"></span>
+      </button>
+
+      <div class="cta">
+        <a class="btn main" id="dl" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 3h2v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17zM5 19h14v2H5z"/></svg>
+          <span>Télécharger pour Android <small class="dlv" id="dlv"></small></span></a>
+        <a class="btn openapp" href="intent://open#Intent;scheme=tasmotascan;package=nl.dijkman.plafondled;S.browser_fallback_url=https%3A%2F%2Fgithub.com%2Fldijkman%2FTasmota-android-test%2Freleases%2Flatest%2Fdownload%2FPlafondLED.apk;end" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"/></svg>Ouvrir l’application</a>
+        <a class="btn" href="../demo/">Essayer la démo en direct</a>
+      </div>
+      <p class="promise">Pas de cloud, pas de compte, pas de pub, pas de limite d’appareils. Gratuite et open source.<br>L’application elle-même est en anglais.</p>
+      <p class="promise dlcount" id="dlcount" hidden></p>
+    </div>
+
+    <div class="stage" aria-hidden="true">
+      <svg class="pendant" viewBox="0 0 150 140">
+        <line x1="75" y1="0" x2="75" y2="62" stroke="#3a4560" stroke-width="2"/>
+        <path d="M45 98 L58 62 H92 L105 98 Z" fill="#1d2740" stroke="#3a4560" stroke-width="2"/>
+        <circle class="bulb" cx="75" cy="104" r="11"/>
+      </svg>
+      <div class="cone"></div>
+      <div class="phone"><img src="../img/tasmota-tiles.jpg" alt="" width="540" height="1170"></div>
+    </div>
+  </div>
+</section>
+
+<section class="simple" aria-labelledby="simple-h">
+  <div class="wrap">
+    <h2 id="simple-h">De quoi s’agit-il ?</h2>
+    <ol class="simple-list">
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16,7V3H14V7H10V3H8V7H8C7,7 6,8 6,9V14.5L9.5,18V21H14.5V18L18,14.5V9C18,8 17,7 16,7Z"/></svg><span><b>Prises et interrupteurs connectés</b>Certaines lampes et prises ont un minuscule ordinateur à l’intérieur, avec du Wi-Fi. Sur beaucoup d’entre elles tourne un programme gratuit appelé Tasmota.<small class="also">Les appareils OpenBeken et Shelly fonctionnent aussi en partie (pas encore entièrement testés).</small></span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12,21L15.6,16.2C14.6,15.45 13.35,15 12,15C10.65,15 9.4,15.45 8.4,16.2L12,21M12,3C7.95,3 4.21,4.34 1.2,6.6L3,9C5.5,7.12 8.62,6 12,6C15.38,6 18.5,7.12 21,9L22.8,6.6C19.79,4.34 16.05,3 12,3M12,9C9.3,9 6.81,9.89 4.8,11.4L6.6,13.8C8.1,12.67 9.97,12 12,12C14.03,12 15.9,12.67 17.4,13.8L19.2,11.4C17.19,9.89 14.7,9 12,9Z"/></svg><span><b>Ils parlent via votre Wi-Fi</b>Comme votre téléphone, ils sont connectés au Wi-Fi de votre maison.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/></svg><span><b>Cette application est la télécommande</b>Elle les trouve toute seule. Touchez une image et la lampe s’allume. Touchez encore et elle s’éteint.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/></svg><span><b>L’interrupteur s’en souvient</b>Dites-lui « allumé à la tombée de la nuit, éteint à 23 h ». Il le fait chaque jour, même quand votre téléphone est éteint.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"/></svg><span><b>Tout reste à la maison</b>Aucune entreprise entre les deux, pas de compte, rien n’est envoyé sur Internet. Pas d’appareils morts quand une entreprise arrête le support ou fait faillite : vos interrupteurs continuent de fonctionner.</span></li>
+    </ol>
+    <div class="easy">
+      <h3>Pas besoin d’être informaticien.</h3>
+      <p>Home Assistant est puissant,<br>mais il faut un serveur, des add-ons et du YAML,<br>et beaucoup de temps pour le configurer et l’entretenir.</p>
+      <p>Ce n’est pas un remplaçant de Home Assistant,<br>mais pour ceux qui veulent une domotique simple.</p>
+      <p>Cette application n’a besoin de rien :<br>installez-la, touchez Scan, et c’est parti.</p>
+      <p class="tv">Si vous savez utiliser une télécommande,<br>vous savez utiliser cette application.</p>
+      <p class="ez">La domotique facile.</p>
+    </div>
+  </div>
+</section>
+
+<section class="day" aria-labelledby="day-h">
+  <div class="wrap">
+    <div>
+      <h2 id="day-h">Les programmations vivent dans l’interrupteur.</h2>
+      <p class="lead">Réglez-les une fois dans l’application. Ensuite l’interrupteur les exécute tout seul, même quand votre téléphone est éteint ou hors de la maison.</p>
+      <p class="lead">Chaque interrupteur garde jusqu’à 8 programmations marche/arrêt. Heure fixe, ou lever et coucher du soleil avec un décalage, et les jours de votre choix.</p>
+      <p class="lead">Un aperçu visuel simple et intuitif montre chaque programmation sur une ligne de 24 heures : la ligne jaune est la lumière du jour, du lever au coucher du soleil, et le bloc orange est le moment où l’interrupteur est allumé. Vous voyez tout de suite si ça convient.</p>
+    </div>
+    <figure class="bar" aria-labelledby="bar-cap" style="margin:0">
+      <div class="bh"><h3>Lumières du jardin</h3><span>☀↑ 07:41&nbsp;&nbsp; ☀↓ 17:02</span></div>
+      <p class="sr" id="bar-cap">Deux programmations des lumières du jardin. Programmation 1 : allumé à 06:30, éteint au lever du soleil à 07:41, en semaine. Programmation 2 : allumé 15 minutes avant le coucher du soleil à 16:47, éteint à 23:00, tous les jours.</p>
+      <div class="sc">
+        <div class="sc-h"><b>Programmation 1</b><span class="act">active</span></div>
+        <div class="flds" aria-hidden="true"><div><span class="fl">Marche</span><span class="fb fs">Heure fixe</span><span class="fr2"><span class="fb ft">06:30</span></span></div><div><span class="fl">Arrêt</span><span class="fb fs">Lever du soleil</span><span class="fr2"><span class="fb sg">+</span><span class="fb ft">00:00</span></span><span class=fh>décalage (hh:mm)</span></div></div>
+        <div class="sun" aria-hidden="true"></div>
+        <div class="trk" aria-hidden="true"><span class="on" style="left:27.08%;width:4.93%"></span><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i></div>
+        <div class="rul" aria-hidden="true"><i class="mj" style="left:0.000%"></i><i class="" style="left:4.167%"></i><i class="" style="left:8.333%"></i><i class="" style="left:12.500%"></i><i class="" style="left:16.667%"></i><i class="" style="left:20.833%"></i><i class="mj" style="left:25.000%"></i><i class="" style="left:29.167%"></i><i class="" style="left:33.333%"></i><i class="" style="left:37.500%"></i><i class="" style="left:41.667%"></i><i class="" style="left:45.833%"></i><i class="mj" style="left:50.000%"></i><i class="" style="left:54.167%"></i><i class="" style="left:58.333%"></i><i class="" style="left:62.500%"></i><i class="" style="left:66.667%"></i><i class="" style="left:70.833%"></i><i class="mj" style="left:75.000%"></i><i class="" style="left:79.167%"></i><i class="" style="left:83.333%"></i><i class="" style="left:87.500%"></i><i class="" style="left:91.667%"></i><i class="" style="left:95.833%"></i><i class="mj" style="left:100.000%"></i></div>
+        <div class="hrs" aria-hidden="true"><span style="left:0.000%">0</span><span style="left:25.000%">6</span><span style="left:50.000%">12</span><span style="left:75.000%">18</span><span style="left:100.000%">24</span></div>
+        <div class="lbl"><span class="l on" style="left:34%;transform:translateX(calc(-100% - 6px))">Marche 06:30</span><span class="l off" style="left:34%;transform:translateX(6px)">Arrêt 07:41 ☀↑</span></div>
+        <p class="sum">Allumé 1 h 11 min par jour</p>
+        <div class="days"><span class="d on">Lu</span><span class="d on">Ma</span><span class="d on">Me</span><span class="d on">Je</span><span class="d on">Ve</span><span class="d">Sa</span><span class="d">Di</span></div>
+      </div>
+      <div class="sc">
+        <div class="sc-h"><b>Programmation 2</b><span class="act">active</span></div>
+        <div class="flds" aria-hidden="true"><div><span class="fl">Marche</span><span class="fb fs">Coucher du soleil</span><span class="fr2"><span class="fb sg">−</span><span class="fb ft">00:15</span></span><span class=fh>décalage (hh:mm)</span></div><div><span class="fl">Arrêt</span><span class="fb fs">Heure fixe</span><span class="fr2"><span class="fb ft">23:00</span></span></div></div>
+        <div class="sun" aria-hidden="true"></div>
+        <div class="trk" aria-hidden="true"><span class="on" style="left:69.93%;width:25.90%"></span><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i></div>
+        <div class="rul" aria-hidden="true"><i class="mj" style="left:0.000%"></i><i class="" style="left:4.167%"></i><i class="" style="left:8.333%"></i><i class="" style="left:12.500%"></i><i class="" style="left:16.667%"></i><i class="" style="left:20.833%"></i><i class="mj" style="left:25.000%"></i><i class="" style="left:29.167%"></i><i class="" style="left:33.333%"></i><i class="" style="left:37.500%"></i><i class="" style="left:41.667%"></i><i class="" style="left:45.833%"></i><i class="mj" style="left:50.000%"></i><i class="" style="left:54.167%"></i><i class="" style="left:58.333%"></i><i class="" style="left:62.500%"></i><i class="" style="left:66.667%"></i><i class="" style="left:70.833%"></i><i class="mj" style="left:75.000%"></i><i class="" style="left:79.167%"></i><i class="" style="left:83.333%"></i><i class="" style="left:87.500%"></i><i class="" style="left:91.667%"></i><i class="" style="left:95.833%"></i><i class="mj" style="left:100.000%"></i></div>
+        <div class="hrs" aria-hidden="true"><span style="left:0.000%">0</span><span style="left:25.000%">6</span><span style="left:50.000%">12</span><span style="left:75.000%">18</span><span style="left:100.000%">24</span></div>
+        <div class="lbl"><span class="l on" style="left:66%;transform:translateX(calc(-100% - 6px))">Marche 16:47 ☀↓</span><span class="l off" style="left:66%;transform:translateX(6px)">Arrêt 23:00</span></div>
+        <p class="sum">Allumé 6 h 13 min par jour</p>
+        <div class="days"><span class="d on">Lu</span><span class="d on">Ma</span><span class="d on">Me</span><span class="d on">Je</span><span class="d on">Ve</span><span class="d on">Sa</span><span class="d on">Di</span></div>
+      </div>
+    </figure>
+  </div>
+</section>
+
+<section class="feats" id="features" aria-labelledby="feat-h">
+  <div class="wrap">
+    <h2 id="feat-h">Tout pour vos appareils Tasmota, dans une petite application.</h2>
+    <p class="lead">Moins de 200 Ko, démarre en un instant et parle directement à vos appareils via votre propre Wi-Fi.</p>
+    <ul class="flist">
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r="1.4" fill="currentColor"/></svg>
+        <h3>Les trouve en quelques secondes</h3><p>Analyse votre réseau et liste chaque appareil Tasmota avec son nom et son adresse. Les reconnaît par leur adresse MAC quand leur adresse change.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <h3>Programmations avec lever et coucher du soleil</h3><p>Jusqu’à 8 programmations marche/arrêt par interrupteur, enregistrées dans l’interrupteur. Tout ce qui s’allume ou s’éteint aujourd’hui, d’un coup d’œil.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 4h7v7H3zM14 4h7v7h-7zM3 15h7v5H3zM14 15h7v5h-7z"/></svg>
+        <h3>Groupes et scènes</h3><p>Commandez toute une pièce d’un coup, ou créez une ambiance comme Soirée cinéma d’une seule touche : certaines lampes allumées, d’autres éteintes.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4.9 1 .9 1.7V16h5.2v-.4c0-.7.3-1.3.9-1.7A6 6 0 0 0 12 3z"/></svg>
+        <h3>Lampes</h3><p>Luminosité, blanc chaud à froid et couleur pour les lampes et rubans LED Tasmota.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 7h2M13 7h2M9 11h2M13 11h2"/></svg>
+        <h3>Tuiles et widgets</h3><p>De grandes tuiles dans l’application, et interrupteurs, groupes et scènes directement sur votre écran d’accueil.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>
+        <h3>Ajouter de nouveaux appareils</h3><p>Donnez votre Wi-Fi à un appareil Tasmota neuf ou réinitialisé depuis l’application. Pas de navigateur, pas de 192.168.4.1.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 3h12M6 21h12M7 3c0 5 5 6 5 9s-5 4-5 9M17 3c0 5-5 6-5 9s5 4 5 9"/></svg>
+        <h3>Arrêt automatique</h3><p>Un interrupteur s’éteint tout seul après un temps donné, comme un ventilateur de salle de bain ou un radiateur. Cela tourne dans l’interrupteur, donc ça marche aussi quand vous appuyez sur le bouton de l’appareil. Cartes, tuiles et widgets affichent le compte à rebours.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
+        <h3>Consommation</h3><p>Les prises avec mesure de consommation affichent combien de watts elles utilisent en ce moment, sur la carte et la tuile.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 21h6M12 17v4"/></svg>
+        <h3>Panneau mural</h3><p>Transformez un vieux téléphone ou une tablette en panneau de commande : l’écran reste allumé, baisse sa luminosité tout seul et occupe tout l’écran. Il sert aussi de serveur VPN Tailscale pour commander de n’importe où.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>
+        <h3>De n’importe où</h3><p>Accédez à vos interrupteurs hors de chez vous avec le VPN Tailscale, sans ouvrir de ports sur votre box.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="vids" id="videos" aria-labelledby="vid-h">
+  <div class="wrap">
+    <h2 id="vid-h">Voyez comment ça marche.</h2>
+    <p class="lead" style="margin-top:14px">Courtes vidéos commentées (en anglais), filmées dans la démo en direct.</p>
+    <div class="vgrid">
+      <button class="vcard" data-v="../tasmota-install.mp4"><span class="fr"><img src="../img/poster-install.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Installation et première recherche</b><span class="len">1,5 min</span></button>
+      <button class="vcard" data-v="../tasmota-demo.mp4"><span class="fr"><img src="../img/poster-demo.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>L’application en une minute</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="../tasmota-add-device.mp4"><span class="fr"><img src="../img/poster-add-device.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Ajouter un nouvel appareil</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="../tasmota-timers.mp4"><span class="fr"><img src="../img/poster-timers.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Programmations avec lever et coucher du soleil</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="../tasmota-auto-off.mp4"><span class="fr"><img src="../img/poster-auto-off.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Arrêt automatique, aussi avec le bouton</b><span class="len">1,5 min</span></button>
+      <button class="vcard" data-v="../tasmota-scenes.mp4"><span class="fr"><img src="../img/poster-scenes.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Créer une scène</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="../tasmota-arrange-scenes.mp4"><span class="fr"><img src="../img/poster-arrange-scenes.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Ranger les scènes sur une grille</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="../tasmota-icons.mp4"><span class="fr"><img src="../img/poster-icons.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Changer l’icône et la couleur</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="../tasmota-tailscale.mp4"><span class="fr"><img src="../img/poster-tailscale.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Commande à distance avec le VPN Tailscale</b><span class="len">2 min</span></button>
+      <button class="vcard" data-v="../tasmota-wall-panel.mp4"><span class="fr"><img src="../img/poster-wall-panel.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Vieux téléphone ou tablette en panneau mural</b><span class="len">1,5 min</span></button>
+      <button class="vcard" data-v="../tasmota-groups.mp4"><span class="fr"><img src="../img/poster-groups.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Groupes, détails et supprimer un interrupteur</b><span class="len">1,5 min</span></button>
+    </div>
+  </div>
+</section>
+<dialog id="player" aria-label="Video">
+  <form method="dialog" class="pbar">
+    <button type="button" id="pPrev" aria-label="Vidéo précédente">‹ Préc.</button>
+    <span id="pTitle" aria-live="polite"></span>
+    <button type="button" id="pNext" aria-label="Vidéo suivante">Suiv. ›</button>
+    <button aria-label="Fermer la vidéo">Fermer</button>
+  </form>
+  <video id="pv" controls playsinline preload="none"></video>
+</dialog>
+
+<section class="shots" aria-labelledby="shot-h">
+  <div class="wrap"><h2 id="shot-h">De vrais écrans, de vrais interrupteurs.</h2></div>
+  <div class="strip" tabindex="0" aria-label="Captures d’écran, faites défiler sur le côté">
+    <figure><img src="../img/tasmota-colours.jpg" alt="Interrupteurs avec leurs icônes et couleurs, comptes à rebours d’arrêt automatique et consommation" loading="lazy" width="540" height="1170"><figcaption>Icônes et couleurs personnalisées, compte à rebours et consommation.</figcaption></figure>
+    <figure><img src="../img/tasmota-tiles-groups.jpg" alt="Écran de tuiles avec des groupes colorés et des interrupteurs allumés et éteints" loading="lazy" width="540" height="1170"><figcaption>Grandes tuiles, regroupées par pièce.</figcaption></figure>
+    <figure><img src="../img/tasmota-schedules.jpg" alt="Programmations d’un interrupteur avec une ligne du temps" loading="lazy" width="540" height="1170"><figcaption>8 programmations par interrupteur, avec une barre du jour.</figcaption></figure>
+    <figure><img src="../img/tasmota-today.jpg" alt="Vue Aujourd’hui : tout ce qui s’allume ou s’éteint aujourd’hui" loading="lazy" width="540" height="1170"><figcaption>Aujourd’hui : tout ce qui s’allume ou s’éteint.</figcaption></figure>
+    <figure><img src="../img/tasmota-scenes.jpg" alt="Écran des scènes et un widget de scène" loading="lazy" width="540" height="1170"><figcaption>Scènes, aussi en widget.</figcaption></figure>
+    <figure><img src="../img/tasmota-light.jpg" alt="Fenêtre lampe avec luminosité, couleur et préréglages" loading="lazy" width="540" height="1170"><figcaption>Luminosité et couleur pour les lampes.</figcaption></figure>
+    <figure><img src="../img/tasmota-widgets.jpg" alt="Widgets d’écran d’accueil pour Wi-Fi, scènes, interrupteurs et groupes" loading="lazy" width="540" height="1170"><figcaption>Widgets pour l’écran d’accueil.</figcaption></figure>
+    <figure><img src="../img/tasmota-themes.jpg" alt="Choix du thème dans le menu" loading="lazy" width="540" height="1170"><figcaption>Sept thèmes, dont un noir pour OLED.</figcaption></figure>
+  </div>
+</section>
+
+<section class="two" aria-label="Panneau mural et commande à distance">
+  <div class="wrap">
+    <article class="story">
+      <div><h3>Un panneau mural avec un vieux téléphone ou une tablette (mode kiosque)</h3>
+        <p>Le mode kiosque transforme un vieux téléphone ou une tablette en panneau fixe pour vos interrupteurs. L’écran reste allumé, s’assombrit après quelques minutes, les barres Android disparaissent et l’application devient l’écran d’accueil. Une touche le réveille.</p>
+        <p>C’est aussi le serveur VPN Tailscale idéal : un téléphone ou une tablette au mur reste à la maison, branché et éveillé, pour commander vos interrupteurs de n’importe où.</p>
+        <a href="https://github.com/ldijkman/Tasmota-android-test#wall-panel-kiosk-mode">Comment l’installer (en anglais)</a> &nbsp; <a href="../tasmota-wall-panel.mp4" onclick="const b=document.querySelector('.vcard[data-v=&quot;../tasmota-wall-panel.mp4&quot;]'); if (b){ event.preventDefault(); b.click(); }">Voir la vidéo (1,5 min)</a></div>
+      <img src="../img/tasmota-themes.jpg" alt="Le menu de l’application avec le choix du thème" loading="lazy" width="540" height="1170">
+    </article>
+    <article class="story">
+      <div><h3>Vos interrupteurs, de n’importe où</h3>
+        <p>Un vieux téléphone ou une tablette à la maison fait tourner le VPN Tailscale. Votre téléphone s’y connecte de n’importe où, en privé, et l’application commande comme si vous étiez chez vous.</p>
+        <a href="https://github.com/ldijkman/Tasmota-android-test/blob/main/tailscale.md">Lire le guide VPN Tailscale (en anglais)</a></div>
+      <img src="../img/tasmota-tailscale.jpg" alt="L’application hors de la maison avec la carte Tailscale activée" loading="lazy" width="540" height="1170">
+    </article>
+  </div>
+</section>
+
+<section class="yours" aria-labelledby="yours-h">
+  <div class="wrap">
+    <h2 id="yours-h">Vos interrupteurs restent à vous.</h2>
+    <p class="lead">L’application parle directement à vos appareils via votre propre Wi-Fi. Pas de compte à créer, pas de serveur entre les deux, pas de pub et pas de pistage.</p>
+    <p class="lead">Le code source est sur GitHub, lisible par tous, et GitHub construit l’application que vous téléchargez à partir de ce code exactement.</p>
+  </div>
+</section>
+
+<section class="plugs" id="plugs" aria-labelledby="plugs-h">
+  <div class="wrap">
+    <h2 id="plugs-h">Des prises avec Tasmota déjà installé.</h2>
+    <p class="lead">Sans soudure et sans flashage : ces prises EU sont livrées avec Tasmota, et certaines mesurent leur consommation. Branchez, ajoutez-les avec l’application, c’est fait.</p>
+    <p class="buy"><b>Achetez bien la version Tasmota.</b><br>Les mêmes prises sont aussi vendues avec un autre logiciel, comme Tuya, eWeLink ou ESPHome. Celles-là ont besoin de leur propre application, et celle-ci ne les trouve pas.<br>Les prises Zigbee n’utilisent pas du tout le Wi-Fi et ont besoin d’une passerelle à part.<br>Cherchez « Tasmota » dans le nom du produit.</p>
+    <div class="pl-row">
+      <a class="pl" href="https://www.athom.tech/blank-1/EU-plug" rel="noopener"><img src="../img/plug-athom.jpg" alt="Prise EU Athom Tasmota" width="457" height="409" loading="lazy"><b>Prise EU Athom Tasmota</b><span>athom.tech</span></a>
+      <a class="pl" href="https://www.google.com/search?q=aliexpress+iotorero+tasmota+eu+plug" rel="noopener"><img src="../img/plug-iotorero.jpg" alt="Prise EU IoTorero Tasmota" width="424" height="425" loading="lazy"><b>Prise EU IoTorero Tasmota</b><span>sur AliExpress</span></a>
+    </div>
+    <p class="diy-note"><b>Pour les geeks 🤓</b><br>Pas compatible directement, mais vous pouvez y flasher Tasmota.</p>
+    <div class="diy">
+      <img src="../img/sonoff-basic-r4.jpg" alt="Interrupteur Wi-Fi Sonoff Basic R4" width="640" height="424" loading="lazy">
+      <div>
+        <h3>Les geeks comme moi flashent Tasmota eux-mêmes. 🤓</h3>
+        <img class="diy-photo" src="../img/flash-sonoff-basic-r4.jpg" alt="Flashage de Tasmota sur un Sonoff Basic R4 (ESP32-C3) avec un adaptateur USB-série et une pince à pogo pins" width="640" height="1058" loading="lazy">
+        <p class="diy-cap">Remplacer le logiciel Sonoff eWeLink par Tasmota.</p>
+        <p class="diy-fact"><b>Le saviez-vous ?</b><br>Tasmota a commencé sur Sonoff en janvier 2016.<br>Le nom signifie<br><b>T</b>heo <b>A</b>rends <b>S</b>onoff <b>M</b>QTT <b>OTA</b>.<br>(Over The Air)<br>Son<b>Off</b>, un interrupteur.</p>
+        <a class="btn" href="https://tasmota.github.io/install/" rel="noopener">Ouvrir l’installateur web Tasmota</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq" aria-labelledby="faq-h">
+  <div class="wrap">
+    <div><h2 id="faq-h">Questions fréquentes.</h2>
+      <p class="lead" style="margin-top:16px">Autre chose ? Demandez sur <a href="https://github.com/ldijkman/Tasmota-android-test/issues">GitHub</a> (en français, c’est possible).</p></div>
+    <div>
+      <details><summary>Quels appareils fonctionnent ?</summary><p>Tout appareil avec le firmware Tasmota : Sonoff, Athom et autres prises, relais, interrupteurs muraux, lampes et rubans LED avec une puce ESP8266 ou ESP32. Les appareils avec leur firmware d’origine, comme eWeLink ou Tuya, doivent d’abord recevoir Tasmota.</p></details>
+      <details><summary>Ma lampe passe-t-elle par un serveur en Chine ?</summary><p>Non, votre lampe reste à la maison. Quand vous touchez un interrupteur, le signal parcourt quelques mètres sur votre propre Wi-Fi, directement de votre téléphone à l’interrupteur. Beaucoup d’applications domotiques l’envoient d’abord à un serveur cloud, parfois à l’autre bout du monde, puis le renvoient, juste pour allumer la lampe à côté de vous. Avec cette application, le trajet jusqu’à la lampe est plus court que jusqu’au frigo.</p></details>
+      <details><summary>Sur quels téléphones fonctionne-t-elle ?</summary><p>Android 7 ou plus récent. Ajouter un appareil neuf depuis l’application demande Android 10 ou plus récent. Il n’y a pas de version iPhone, mais vous pouvez essayer la démo en direct dans n’importe quel navigateur.</p></details>
+      <details><summary>Android affiche un avertissement à l’installation. Est-ce sûr ?</summary><p>L’application n’est pas sur le Play Store, donc Google Play Protect ne la connaît pas encore. Vous pouvez la faire analyser d’abord par Play Protect, ou l’installer sans analyse. Tout le code source est public sur GitHub, et GitHub construit lui-même le téléchargement à partir de ce code.</p><p><a href="../tasmota-install.mp4" onclick="const b=document.querySelector('.vcard[data-v=&quot;../tasmota-install.mp4&quot;]'); if (b){ event.preventDefault(); b.click(); }">Voir la vidéo d’installation (1,5 min)</a></p></details>
+      <details><summary>Est-ce que ça marche avec OpenBeken ou Shelly ?</summary><p>Les appareils OpenBeken fonctionnent en partie : la commande marche/arrêt oui, les programmations non. Les Shelly fonctionnent entièrement quand ils tournent sous Tasmota.</p><p><b>Nouveau et non testé :</b> l’application peut maintenant aussi trouver les Shelly avec leur propre firmware, les allumer et les éteindre, les renommer, régler leur arrêt automatique et ajouter un nouveau Shelly à votre Wi-Fi (Gen1 à Gen4). C’est un premier pas, pas encore testé sur un vrai Shelly. Les programmations et la consommation pour Shelly ne sont pas encore là.</p></details>
+      <details><summary>Pourquoi demande-t-elle ma position ?</summary><p>Pour les heures de lever et de coucher du soleil, que l’application envoie à vos interrupteurs. Android exige aussi l’autorisation de localisation avant qu’une application puisse voir les noms des Wi-Fi à proximité. Votre position ne va qu’à vos propres interrupteurs.</p></details>
+      <details><summary>Qu’est-ce qu’un VPN ?</summary><p>Un VPN (réseau privé virtuel) est une connexion privée et chiffrée entre vos propres appareils via Internet. Avec le VPN Tailscale, votre téléphone hors de chez vous se connecte à un vieux téléphone ou une tablette à la maison, comme si vous étiez sur votre Wi-Fi. Seuls vos appareils peuvent l’utiliser, et vous n’avez aucun port à ouvrir sur votre box. Tailscale est gratuit pour un usage personnel.</p><p><a href="https://github.com/ldijkman/Tasmota-android-test/blob/main/tailscale.md">Lire le guide VPN Tailscale (en anglais)</a></p></details>
+      <details><summary>Comment obtenir les mises à jour ?</summary><p>Descendez tout en bas de l’écran principal et touchez « Check for update ». L’application télécharge la dernière version depuis GitHub et l’installe.</p></details>
+      <details><summary>Combien d’interrupteurs puis-je ajouter ?</summary><p>Autant que vous voulez. Aucune limite pour les interrupteurs, groupes, scènes ou widgets, et pas de version payante qui en débloque plus. Seul Tasmota a une limite : jusqu’à 8 programmations marche/arrêt par interrupteur.</p></details>
+      <details><summary>Combien ça coûte ?</summary><p>Rien. Pas de pub, pas d’achats intégrés, pas d’abonnement.</p><p>Si l’application vous plaît, un petit don est très apprécié.</p><p><a class="don" href="https://paypal.me/ldijkman" rel="noopener">Faire un don via PayPal</a></p><p>Vous trouvez aussi « Donate » dans le menu de l’application.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="talk" id="feedback" aria-labelledby="talk-h">
+  <div class="wrap">
+    <h2 id="talk-h">Idées, questions, avis ?</h2>
+    <p class="lead">Une fonction vous manque, vous avez trouvé un bug, ou vous voulez montrer votre panneau mural ? Dites-le dans GitHub Discussions. Chaque idée est lue, et beaucoup de fonctions de l’application ont commencé par une question.</p>
+    <div class="talk-btns">
+      <a class="btn" href="https://github.com/ldijkman/Tasmota-android-test/discussions/new/choose" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2m-3 18h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"/></svg>Partager une idée ou poser une question</a>
+      <a class="btn" href="https://github.com/ldijkman/Tasmota-android-test/discussions" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2"/></svg>Lire les discussions</a>
+    </div>
+    <p class="talk-note">Il faut un compte GitHub gratuit pour écrire.</p>
+  </div>
+</section>
+
+<section class="last" aria-labelledby="last-h">
+  <div class="wrap"><div class="box">
+    <h2 id="last-h">Essayez-la ce soir sur vos propres interrupteurs.</h2>
+    <div class="cta" style="margin-top:0">
+      <a class="btn main" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 3h2v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17zM5 19h14v2H5z"/></svg>
+        <span>Télécharger pour Android <small class="dlv"></small></span></a>
+      <a class="btn openapp" href="intent://open#Intent;scheme=tasmotascan;package=nl.dijkman.plafondled;S.browser_fallback_url=https%3A%2F%2Fgithub.com%2Fldijkman%2FTasmota-android-test%2Freleases%2Flatest%2Fdownload%2FPlafondLED.apk;end" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"/></svg>Ouvrir l’application</a>
+      <a class="btn" href="../demo/">Essayer la démo en direct</a>
+    </div>
+    <p class="promise dlcount" hidden></p>
+    <div class="star">
+      <a class="btn" href="https://github.com/ldijkman/Tasmota-android-test" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--amber)" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>Mettre une étoile sur GitHub<small id="starN" hidden></small></a>
+      <p>L’application vous plaît ? Touchez <b>Star</b> en haut de la page GitHub. C’est gratuit, et ça aide d’autres personnes à la trouver.</p>
+    </div>
+  </div></div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Créée par Dirk Lubèrth Dijkman, avec Claude Opus 5.5.</p>
+    <ul>
+      <li><a href="https://github.com/ldijkman/Tasmota-android-test">Code source sur GitHub</a></li>
+      <li><a href="https://github.com/ldijkman/Tasmota-android-test/blob/main/LICENSE">Licence : GPL-3.0</a></li>
+      <li><a href="https://github.com/ldijkman/Tasmota-android-test">★ Étoile sur GitHub</a></li>
+      <li><a href="https://github.com/ldijkman/Tasmota-android-test/releases">Toutes les versions</a></li>
+      <li><a href="https://github.com/ldijkman/Tasmota-android-test/blob/main/tailscale.md">Guide Tailscale</a></li>
+      <li><a href="https://tasmota.github.io/docs/">À propos de Tasmota</a></li>
+    </ul>
+  </div>
+  <p class="fun"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" id="funLink">2 Unlimited</a></p>
+</footer>
+<dialog id="ytd" aria-label="Vidéo 2 Unlimited">
+  <div id="ytBox">
+    <div class="ytbar"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" target="_blank">Ouvrir sur YouTube</a><button type="button" id="ytClose">Fermer</button></div>
+    <div class="ytframe"><iframe id="ytf" title="2 Unlimited on YouTube" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+  </div>
+</dialog>
+
+<script>
+// De lamp in de kop: aan/uit, zoals in de app
+const lamp = document.getElementById('lamp'), st = document.getElementById('lampState');
+const setLit = on => {
+  document.body.classList.toggle('lit', on);
+  lamp.setAttribute('aria-pressed', on);
+  st.textContent = on ? 'Allumé' : 'Éteint. Touchez pour allumer';
+};
+let demoTimers = [], touched = false;
+lamp.addEventListener('click', () => {
+  touched = true; demoTimers.forEach(clearTimeout); demoTimers = [];
+  setLit(!document.body.classList.contains('lit'));
+});
+// Eén keer per bezoek: zodra de schakelaar in beeld komt, vier keer vanzelf aan en uit
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window){
+  const io = new IntersectionObserver(es => {
+    if (!es.some(e => e.isIntersecting)) return;
+    io.disconnect();
+    if (touched) return;
+    [[600, true], [1500, false], [2300, true], [3200, false], [4000, true], [4900, false], [5700, true], [6600, false]].forEach(([t, on]) =>
+      demoTimers.push(setTimeout(() => { if (!touched) setLit(on); }, t)));
+  }, {threshold: .7});
+  io.observe(lamp);
+}
+// Video's in een venster
+const dlg = document.getElementById('player'), pv = document.getElementById('pv');
+const vcards = [...document.querySelectorAll('.vcard')];
+let vi = 0;
+function playAt(i){
+  vi = (i + vcards.length) % vcards.length; const b = vcards[vi];
+  pv.src = b.dataset.v; pv.play().catch(() => {});
+  document.getElementById('pTitle').innerHTML = (b.querySelector('b') || {}).textContent.replace(/[<>&]/g, '') + `<small>${vi + 1} / ${vcards.length}</small>`;
+}
+vcards.forEach((b, i) => b.addEventListener('click', () => { dlg.showModal(); playAt(i); }));
+document.getElementById('pPrev').addEventListener('click', () => playAt(vi - 1));
+document.getElementById('pNext').addEventListener('click', () => playAt(vi + 1));
+dlg.addEventListener('keydown', e => { if (e.key === 'ArrowLeft' && e.target !== pv) playAt(vi - 1); if (e.key === 'ArrowRight' && e.target !== pv) playAt(vi + 1); });
+dlg.addEventListener('close', () => { pv.pause(); pv.removeAttribute('src'); pv.load(); });
+dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+// "Open the app" alleen op Android (opent de app als die er is, anders de download)
+if (/Android/i.test(navigator.userAgent)) document.querySelectorAll('.openapp').forEach(a => a.hidden = false);
+// GitHub-vragen onthouden (15 min), en bij een weigering (limiet 60 per uur) het laatst bekende antwoord tonen
+async function ghJson(url){
+  const key = 'gh:' + url; let c = null;
+  try { c = JSON.parse(localStorage.getItem(key) || 'null'); } catch(e){}
+  if (c && Date.now() - c.t < 15 * 60e3) return c.d;
+  try {
+    const r = await fetch(url); if (!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    try { localStorage.setItem(key, JSON.stringify({t: Date.now(), d})); } catch(e){}
+    return d;
+  } catch(e){ return c ? c.d : null; }
+}
+// Teller: hoe vaak de app gedownload is (som van alle releases, live uit de openbare GitHub-cijfers; niets wordt bijgehouden)
+(async () => {
+  try {
+    let total = 0;
+    for (let page = 1; page <= 5; page++){
+      const list = await ghJson(`https://api.github.com/repos/ldijkman/Tasmota-android-test/releases?per_page=100&page=${page}`);
+      if (!Array.isArray(list)) return;
+      list.forEach(rel => (rel.assets || []).forEach(a => { if (/\.apk$/i.test(a.name)) total += a.download_count || 0; }));
+      if (list.length < 100) break;
+    }
+    if (total > 0){
+      document.querySelectorAll('.dlcount').forEach(el => {
+        el.textContent = 'Déjà téléchargée ' + total.toLocaleString('fr') + ' fois.';
+        el.hidden = false; });
+    }
+  } catch(e){}
+})();
+// Aantal sterren op GitHub
+ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test').then(j => {
+    if (!j || !j.stargazers_count) return;
+    const el = document.getElementById('starN'); el.textContent = j.stargazers_count.toLocaleString('fr') + ' ★'; el.hidden = false;
+  }).catch(() => {});
+// Versienummer van de nieuwste release
+ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/latest').then(j => {
+    if (!j) return;
+    const m = String(j.name || '').match(/(\d+\.\d+)/), a = (j.assets || []).find(x => /\.apk$/i.test(x.name));
+    if (m) document.querySelectorAll('.dlv').forEach(el => el.textContent = 'version ' + m[1].replace('.', ',') + (a ? ', ' + Math.round(a.size / 1024) + ' Ko' : ''));
+  }).catch(() => {});
+
+// 2 Unlimited: in een eigen schermvullende speler (valt terug op YouTube als het filmpje niet ingesloten mag worden)
+(() => {
+  const a = document.getElementById('funLink'), d = document.getElementById('ytd'), f = document.getElementById('ytf'), box = document.getElementById('ytBox');
+  if (!a || !d || !d.showModal) return;
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    f.src = 'https://www.youtube-nocookie.com/embed/r6FVk2k4qsM?autoplay=1&rel=0&playsinline=1';
+    d.showModal();
+    try { (box.requestFullscreen || box.webkitRequestFullscreen).call(box).catch(() => {}); } catch (_) {}
+  });
+  const close = () => { f.src = 'about:blank'; try { if (document.fullscreenElement) document.exitFullscreen(); } catch (_) {} d.close(); };
+  document.getElementById('ytClose').addEventListener('click', close);
+  d.addEventListener('cancel', e => { e.preventDefault(); close(); });
+})();
+</script>
+</body>
+</html>
