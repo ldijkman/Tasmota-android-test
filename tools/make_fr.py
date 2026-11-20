@@ -202,6 +202,7 @@ T = [
 ("Tap the IP for the Shelly's own page.", 'Touchez l’IP pour la page du Shelly.'),
 ('Shelly 1 Gen3: only 42 × 37 mm, fits behind a wall switch.', 'Shelly 1 Gen3\xa0: seulement 42 × 37 mm, tient derrière un interrupteur mural.'),
 ('Schedules on the Shelly, with sunrise and sunset.', 'Programmations sur le Shelly, avec lever et coucher du soleil.'),
+('<p class="diy-fact sh-fact"><b>Fun fact:</b><br>Shelly was started by two Bulgarians,<br>Dimitar Dimitrov and Svetlin Todorov, in Sofia.<br>The first Shellys came out in 2018.<br>More than 30 million have been sold since.<br>In 2026 Schneider Electric offered<br>€1.2 billion for the company.</p>', '<p class="diy-fact sh-fact"><b>Le saviez-vous ?</b><br>Shelly a été fondé par deux Bulgares,<br>Dimitar Dimitrov et Svetlin Todorov, à Sofia.<br>Les premiers Shelly sont sortis en 2018.<br>Plus de 30 millions ont été vendus depuis.<br>En 2026, Schneider Electric a proposé<br>1,2 milliard € pour l’entreprise.</p>'),
 # faq
 ('Questions people ask.', 'Questions fréquentes.'),
 ('Something else? Ask it on <a href="https://github.com/ldijkman/Tasmota-android-test/issues">GitHub</a>.',
