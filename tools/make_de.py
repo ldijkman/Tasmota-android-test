@@ -199,6 +199,7 @@ T = [
 ('<p class="diy-fact sh-fact"><b>Fun fact:</b><br>Shelly was started by two Bulgarians,<br>Dimitar Dimitrov and Svetlin Todorov, in Sofia.<br>The first Shellys came out in 2018.<br>More than 30 million have been sold since.<br>In 2026 Schneider Electric offered<br>€1.2 billion for the company.</p>', '<p class="diy-fact sh-fact"><b>Fun Fact:</b><br>Shelly wurde von zwei Bulgaren gegründet,<br>Dimitar Dimitrov und Svetlin Todorov, in Sofia.<br>Die ersten Shellys kamen 2018 heraus.<br>Seitdem wurden über 30 Millionen verkauft.<br>2026 bot Schneider Electric<br>1,2 Milliarden € für die Firma.</p>'),
 ('<span class="sw-t">Swipe for more</span><span class="sw-p">Scroll sideways for more</span>', '<span class="sw-t">Wischen für mehr</span><span class="sw-p">Seitlich scrollen für mehr</span>'),
 ('img/shelly-1-gen3-specs-en.jpg', 'img/shelly-1-gen3-specs-de.jpg'),
+('Shelly 1 Gen3 in the hand: really that small.', 'Shelly 1 Gen3 in der Hand: wirklich so klein.'),
 # faq
 ('Questions people ask.', 'Häufige Fragen.'),
 ('Something else? Ask it on <a href="https://github.com/ldijkman/Tasmota-android-test/issues">GitHub</a>.',
