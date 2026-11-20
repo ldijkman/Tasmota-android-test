@@ -197,6 +197,8 @@ T = [
 ('Shellys with their own firmware partly work: scan, on/off, rename and auto-off, Gen1 to Gen4.', 'Les Shelly avec leur propre firmware fonctionnent en partie\xa0: recherche, marche/arrêt, renommage et arrêt automatique, Gen1 à Gen4.'),
 ('<span class="sh-new">New, not yet tested on a real Shelly.</span>', '<span class="sh-new">Nouveau, pas encore testé sur un vrai Shelly.</span>'),
 ('<a class="btn" href="https://www.shelly.com/products/shelly-1-gen3" rel="noopener">Shelly 1 Gen3 in the Shelly shop</a>', '<a class="btn" href="https://www.shelly.com/fr/products/shelly-1-gen3" rel="noopener">Shelly 1 Gen3 sur la boutique Shelly</a>'),
+('<a class="pl sh-pl" href="https://www.shelly.com/products/shelly-1-gen3"', '<a class="pl sh-pl" href="https://www.shelly.com/fr/products/shelly-1-gen3"'),
+('alt="Shelly 1 Gen3 relay module"', 'alt="Module relais Shelly 1 Gen3"'),
 # faq
 ('Questions people ask.', 'Questions fréquentes.'),
 ('Something else? Ask it on <a href="https://github.com/ldijkman/Tasmota-android-test/issues">GitHub</a>.',
