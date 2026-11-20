@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Tasmota Scan &amp; Control : application Android gratuite pour interrupteurs Tasmota</title>
-<meta name="description" content="Application Android gratuite pour les interrupteurs, prises et lampes Wi-Fi Tasmota, sans limite d’appareils. Les trouve sur votre réseau en quelques secondes. Marche/arrêt, programmations avec lever et coucher du soleil enregistrées dans l’interrupteur, groupes, scènes, widgets et mode panneau mural. Pas de cloud, pas de compte, pas de pub.">
+<title>Tasmota Scan &amp; Control : application Android gratuite pour interrupteurs Tasmota et Shelly</title>
+<meta name="description" content="Application Android gratuite pour les interrupteurs, prises et lampes Wi-Fi Tasmota et Shelly, sans limite d’appareils. Les trouve sur votre réseau en quelques secondes. Marche/arrêt, programmations avec lever et coucher du soleil enregistrées dans l’interrupteur, groupes, scènes, widgets et mode panneau mural. Pas de cloud, pas de compte, pas de pub.">
 <link rel="canonical" href="https://ldijkman.github.io/Tasmota-android-test/fr/">
 <link rel="alternate" hreflang="en" href="https://ldijkman.github.io/Tasmota-android-test/">
 <link rel="alternate" hreflang="de" href="https://ldijkman.github.io/Tasmota-android-test/de/">
@@ -13,8 +13,8 @@
 <meta name="theme-color" content="#0e1525">
 <meta name="google-site-verification" content="tQrVo3_wPGnllO1xzqaHQz49uHlMX_vpRBAHNmBCCEM">
 <meta property="og:type" content="website">
-<meta property="og:title" content="Tasmota Scan & Control : application Android gratuite pour interrupteurs Tasmota">
-<meta property="og:description" content="Trouvez, commandez et programmez vos appareils Tasmota. Pas de cloud, pas de compte, pas de pub.">
+<meta property="og:title" content="Tasmota Scan & Control : application Android gratuite pour interrupteurs Tasmota et Shelly">
+<meta property="og:description" content="Trouvez, commandez et programmez vos appareils Tasmota et Shelly. Pas de cloud, pas de compte, pas de pub.">
 <meta property="og:url" content="https://ldijkman.github.io/Tasmota-android-test/fr/">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:image" content="https://ldijkman.github.io/Tasmota-android-test/img/og.jpg">
@@ -22,7 +22,7 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230e1525'/%3E%3Cpath d='M32 12a14 14 0 0 0-8 25.5V43h16v-5.5A14 14 0 0 0 32 12z' fill='%23f0a630'/%3E%3Crect x='25' y='46' width='14' height='5' rx='2' fill='%23f0a630'/%3E%3C/svg%3E">
 <link rel="preload" href="../fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Tasmota Scan & Control","operatingSystem":"Android 7.0 or newer","applicationCategory":"UtilitiesApplication","description":"Application Android pour trouver, commander et programmer les interrupteurs, prises et lampes Wi-Fi Tasmota sur votre propre réseau. Pas de cloud, pas de compte, pas de pub.","inLanguage":"fr","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"downloadUrl":"https://github.com/ldijkman/Tasmota-android-test/releases/latest","screenshot":"https://ldijkman.github.io/Tasmota-android-test/img/tasmota-tiles.jpg","author":{"@type":"Person","name":"Dirk Lubèrth Dijkman"}}
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Tasmota Scan & Control","operatingSystem":"Android 7.0 or newer","applicationCategory":"UtilitiesApplication","description":"Application Android pour trouver, commander et programmer les interrupteurs, prises et lampes Wi-Fi Tasmota et Shelly sur votre propre réseau. Pas de cloud, pas de compte, pas de pub.","inLanguage":"fr","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"downloadUrl":"https://github.com/ldijkman/Tasmota-android-test/releases/latest","screenshot":"https://ldijkman.github.io/Tasmota-android-test/img/tasmota-tiles.jpg","author":{"@type":"Person","name":"Dirk Lubèrth Dijkman"}}
 </script>
 <style>
 @font-face{font-family:"Bricolage";src:url(../fonts/bricolage.woff2) format("woff2");font-weight:200 800;font-display:swap}
@@ -329,8 +329,8 @@ footer a{color:var(--muted)}
 <section class="hero" aria-labelledby="h1">
   <div class="wrap">
     <div>
-      <h1 id="h1">Vos interrupteurs Tasmota, à portée de doigt.</h1>
-      <p class="lead">Une application Android gratuite qui trouve en quelques secondes chaque interrupteur, prise et lampe Tasmota sur votre Wi-Fi. Allumez-les, regroupez-les et programmez-les au rythme du lever et du coucher du soleil.</p>
+      <h1 id="h1">Vos interrupteurs Tasmota et Shelly, à portée de doigt.</h1>
+      <p class="lead">Une application Android gratuite qui trouve en quelques secondes chaque interrupteur, prise et lampe Tasmota et Shelly sur votre Wi-Fi. Allumez-les, regroupez-les et programmez-les au rythme du lever et du coucher du soleil.</p>
 
       <button type="button" class="switch" id="lamp" aria-pressed="false">
         <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26A7 7 0 0 0 12 2zM9 20h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"/></svg></span>
@@ -345,7 +345,7 @@ footer a{color:var(--muted)}
         <a class="btn openapp" href="intent://open#Intent;scheme=tasmotascan;package=nl.dijkman.plafondled;S.browser_fallback_url=https%3A%2F%2Fgithub.com%2Fldijkman%2FTasmota-android-test%2Freleases%2Flatest%2Fdownload%2FPlafondLED.apk;end" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"/></svg>Ouvrir l’application</a>
         <a class="btn" href="../demo/">Essayer la démo en direct</a>
       </div>
-      <p class="promise">Pas de cloud, pas de compte, pas de pub, pas de limite d’appareils. Gratuite et open source.<br>L’application elle-même est en anglais.</p>
+      <p class="promise">Pas de cloud, pas de compte, pas de pub, pas de limite d’appareils. Gratuite et open source.<br>Fonctionne avec <b>Tasmota</b> et <b>Shelly</b> ; OpenBeken en partie.<br>L’application elle-même est en anglais.</p>
       <p class="promise dlcount" id="dlcount" hidden></p>
     </div>
 
@@ -365,7 +365,7 @@ footer a{color:var(--muted)}
   <div class="wrap">
     <h2 id="simple-h">De quoi s’agit-il ?</h2>
     <ol class="simple-list">
-      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16,7V3H14V7H10V3H8V7H8C7,7 6,8 6,9V14.5L9.5,18V21H14.5V18L18,14.5V9C18,8 17,7 16,7Z"/></svg><span><b>Prises et interrupteurs connectés</b>Certaines lampes et prises ont un minuscule ordinateur à l’intérieur, avec du Wi-Fi. Sur beaucoup d’entre elles tourne un programme gratuit appelé Tasmota.<small class="also">Les appareils OpenBeken et Shelly fonctionnent aussi en partie (pas encore entièrement testés).</small></span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16,7V3H14V7H10V3H8V7H8C7,7 6,8 6,9V14.5L9.5,18V21H14.5V18L18,14.5V9C18,8 17,7 16,7Z"/></svg><span><b>Prises et interrupteurs connectés</b>Certaines lampes et prises ont un minuscule ordinateur à l’intérieur, avec du Wi-Fi. Beaucoup tournent sous Tasmota, un programme gratuit, d’autres sont des Shelly avec leur propre logiciel. Cette application gère les deux.<small class="also">Les appareils OpenBeken fonctionnent aussi en partie.</small></span></li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12,21L15.6,16.2C14.6,15.45 13.35,15 12,15C10.65,15 9.4,15.45 8.4,16.2L12,21M12,3C7.95,3 4.21,4.34 1.2,6.6L3,9C5.5,7.12 8.62,6 12,6C15.38,6 18.5,7.12 21,9L22.8,6.6C19.79,4.34 16.05,3 12,3M12,9C9.3,9 6.81,9.89 4.8,11.4L6.6,13.8C8.1,12.67 9.97,12 12,12C14.03,12 15.9,12.67 17.4,13.8L19.2,11.4C17.19,9.89 14.7,9 12,9Z"/></svg><span><b>Ils parlent via votre Wi-Fi</b>Comme votre téléphone, ils sont connectés au Wi-Fi de votre maison.</span></li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/></svg><span><b>Cette application est la télécommande</b>Elle les trouve toute seule. Touchez une image et la lampe s’allume. Touchez encore et elle s’éteint.</span></li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/></svg><span><b>L’interrupteur s’en souvient</b>Dites-lui « allumé à la tombée de la nuit, éteint à 23 h ». Il le fait chaque jour, même quand votre téléphone est éteint.</span></li>
@@ -421,11 +421,11 @@ footer a{color:var(--muted)}
 
 <section class="feats" id="features" aria-labelledby="feat-h">
   <div class="wrap">
-    <h2 id="feat-h">Tout pour vos appareils Tasmota, dans une petite application.</h2>
+    <h2 id="feat-h">Tout pour vos appareils Tasmota et Shelly, dans une petite application.</h2>
     <p class="lead">Moins de 200 Ko, démarre en un instant et parle directement à vos appareils via votre propre Wi-Fi.</p>
     <ul class="flist">
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r="1.4" fill="currentColor"/></svg>
-        <h3>Les trouve en quelques secondes</h3><p>Analyse votre réseau et liste chaque appareil Tasmota avec son nom et son adresse. Les reconnaît par leur adresse MAC quand leur adresse change.</p></li>
+        <h3>Les trouve en quelques secondes</h3><p>Analyse votre réseau et liste chaque appareil Tasmota et Shelly avec son nom et son adresse. Les reconnaît par leur adresse MAC quand leur adresse change.</p></li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
         <h3>Programmations avec lever et coucher du soleil</h3><p>Jusqu’à 8 programmations marche/arrêt par interrupteur, enregistrées dans l’interrupteur. Tout ce qui s’allume ou s’éteint aujourd’hui, d’un coup d’œil.</p></li>
       <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 4h7v7H3zM14 4h7v7h-7zM3 15h7v5H3zM14 15h7v5h-7z"/></svg>
@@ -561,7 +561,7 @@ footer a{color:var(--muted)}
     <div><h2 id="faq-h">Questions fréquentes.</h2>
       <p class="lead" style="margin-top:16px">Autre chose ? Demandez sur <a href="https://github.com/ldijkman/Tasmota-android-test/issues">GitHub</a> (en français, c’est possible).</p></div>
     <div>
-      <details><summary>Quels appareils fonctionnent ?</summary><p>Tout appareil avec le firmware Tasmota : Sonoff, Athom et autres prises, relais, interrupteurs muraux, lampes et rubans LED avec une puce ESP8266 ou ESP32. Les appareils avec leur firmware d’origine, comme eWeLink ou Tuya, doivent d’abord recevoir Tasmota.</p></details>
+      <details><summary>Quels appareils fonctionnent ?</summary><p>Tout appareil avec le firmware Tasmota : Sonoff, Athom et autres prises, relais, interrupteurs muraux, lampes et rubans LED avec une puce ESP8266 ou ESP32.</p><p>Les Shelly avec leur propre firmware : à partir de Gen2 (Plus, Pro, Mini, Gen3, Gen4) avec commande, ampoules, programmations et arrêt automatique ; Gen1 en partie.</p><p>Les appareils avec un autre firmware, comme eWeLink ou Tuya, doivent d’abord recevoir Tasmota.</p></details>
       <details><summary>Ma lampe passe-t-elle par un serveur en Chine ?</summary><p>Non, votre lampe reste à la maison. Quand vous touchez un interrupteur, le signal parcourt quelques mètres sur votre propre Wi-Fi, directement de votre téléphone à l’interrupteur. Beaucoup d’applications domotiques l’envoient d’abord à un serveur cloud, parfois à l’autre bout du monde, puis le renvoient, juste pour allumer la lampe à côté de vous. Avec cette application, le trajet jusqu’à la lampe est plus court que jusqu’au frigo.</p></details>
       <details><summary>Sur quels téléphones fonctionne-t-elle ?</summary><p>Android 7 ou plus récent. Ajouter un appareil neuf depuis l’application demande Android 10 ou plus récent. Il n’y a pas de version iPhone, mais vous pouvez essayer la démo en direct dans n’importe quel navigateur.</p></details>
       <details><summary>Android affiche un avertissement à l’installation. Est-ce sûr ?</summary><p>L’application n’est pas sur le Play Store, donc Google Play Protect ne la connaît pas encore. Vous pouvez la faire analyser d’abord par Play Protect, ou l’installer sans analyse. Tout le code source est public sur GitHub, et GitHub construit lui-même le téléchargement à partir de ce code.</p><p><a href="../tasmota-install.mp4" onclick="const b=document.querySelector('.vcard[data-v=&quot;../tasmota-install.mp4&quot;]'); if (b){ event.preventDefault(); b.click(); }">Voir la vidéo d’installation (1,5 min)</a></p></details>

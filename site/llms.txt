@@ -1,6 +1,6 @@
 # Tasmota Scan & Control
 
-> Free, open-source (GPL-3.0) Android app to find, switch and schedule Tasmota Wi-Fi switches, plugs and lamps on your own network. No cloud, no account, no ads, no device limit. Made by Dirk Lubèrth Dijkman, together with Claude Opus 5.5.
+> Free, open-source (GPL-3.0) Android app to find, switch and schedule Tasmota and Shelly Wi-Fi switches, plugs and lamps on your own network. No cloud, no account, no ads, no device limit. Made by Dirk Lubèrth Dijkman, together with Claude Opus 5.5.
 
 Key facts:
 
