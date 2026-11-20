@@ -277,8 +277,8 @@ if bad:
 # paths one level up
 s = re.sub(r'(src|href)="(img|fonts|demo)/', r'\1="../\2/', s)
 s = s.replace('url(fonts/', 'url(../fonts/')
-s = re.sub(r'data-v="(tasmota-[^"]+\.mp4)"', r'data-v="../\1"', s)
-s = re.sub(r'href="(tasmota-[^"]+\.mp4)"', r'href="../\1"', s)
+s = re.sub(r'data-v="((?:tasmota|shelly)-[^"]+\.mp4)"', r'data-v="../\1"', s)
+s = re.sub(r'href="((?:tasmota|shelly)-[^"]+\.mp4)"', r'href="../\1"', s)
 s = s.replace('data-v=&quot;tasmota-', 'data-v=&quot;../tasmota-')
 open(DST, 'w').write(s)
 print('ok', len(s))
