@@ -128,20 +128,39 @@
   }
 
   // Same callback format as the Java bridge: __tasCb(id, ok, base64(utf8 text))
-  // A Shelly Plus 1PM (Gen2 RPC API) in the demo: found by the scan, switched on and off
-  const shellies = { [SUBNET + '150']: { on: false, app: 'Plus1PM', id: 'shellyplus1pm-a8032ab1c2d4', mac: 'A8032AB1C2D4' } };
+  // Shellys in the demo (Gen2+ RPC API): a Plus 1PM switch, a Duo Bulb Gen3 (white) and a Multicolor Bulb Gen3
+  const shellies = {
+    [SUBNET + '150']: { on: false, comp: 'switch', app: 'Plus1PM', model: 'SNSW-001P16EU', gen: 2, id: 'shellyplus1pm-a8032ab1c2d4', mac: 'A8032AB1C2D4' },
+    [SUBNET + '151']: { on: false, comp: 'cct', app: 'DuoBulbG3', model: 'S3BL-D010009AEU', gen: 3, id: 'shellyduobulbg3-e4b063b1a2c4', mac: 'E4B063B1A2C4', bri: 70, ct: 3000 },
+    [SUBNET + '152']: { on: false, comp: 'rgbcct', app: 'RGBCCTBulbG3', model: 'S3BL-C010007AEU', gen: 3, id: 'shellyrgbcctbulbg3-e4b063b1d7f0', mac: 'E4B063B1D7F0', bri: 80, ct: 4000, rgb: [255, 80, 0], mode: 'rgb' },
+  };
+  const NS = { switch: 'Switch', cct: 'CCT', rgbcct: 'RGBCCT' };
   function shellyApi(sh, u) {
-    const p = u.pathname;
+    const p = u.pathname, q = k => u.searchParams.get(k), js = k => { try { return JSON.parse(q(k)); } catch (e) { return q(k); } };
+    const ns = NS[sh.comp];
     if (sh.offAt && Date.now() / 1000 >= sh.offAt) { sh.on = false; sh.offAt = null; }   // auto-off reached
     const startTimer = () => { sh.offAt = sh.on && sh.autoOff ? Date.now() / 1000 + sh.autoOff : null; sh.started = sh.offAt ? Date.now() / 1000 : null; };
-    if (p === '/rpc/Switch.GetConfig') return { id: 0, name: null, auto_on: false, auto_off: !!sh.autoOff, auto_off_delay: sh.autoOff || 60 };
-    if (p === '/rpc/Switch.SetConfig') { try { const c = JSON.parse(u.searchParams.get('config') || '{}'); sh.autoOff = c.auto_off ? +c.auto_off_delay || 0 : 0; } catch (e) {} startTimer(); return { restart_required: false }; }
-    if (p === '/rpc/Sys.SetConfig') { try { const c = JSON.parse(u.searchParams.get('config') || '{}'); if (c.device && 'name' in c.device) sh.name = c.device.name; } catch (e) {} return { restart_required: false }; }
-    if (p === '/shelly') return { name: sh.name || null, id: sh.id, mac: sh.mac, model: 'SNSW-001P16EU', gen: 2, fw_id: '20241011-114455/1.4.4-g6d2a586', ver: '1.4.4', app: sh.app, auth_en: false };
-    if (p === '/rpc/Switch.GetStatus') return Object.assign({ id: 0, source: 'init', output: sh.on, apower: sh.on ? 18.2 : 0, voltage: 231.4, temperature: { tC: 41.2 } },
+    const status = () => Object.assign({ id: 0, source: 'init', output: sh.on },
+      sh.comp === 'switch' ? { apower: sh.on ? 18.2 : 0, voltage: 231.4, temperature: { tC: 41.2 } }
+        : { brightness: sh.bri, ct: sh.ct, apower: sh.on ? +(sh.bri * 0.09).toFixed(1) : 0 },
+      sh.comp === 'rgbcct' ? { mode: sh.mode, rgb: sh.rgb } : {},
       sh.offAt ? { timer_started_at: sh.started, timer_duration: sh.autoOff } : {});
-    if (p === '/rpc/Switch.Set') { const was = sh.on; sh.on = u.searchParams.get('on') === 'true'; startTimer(); return { was_on: was }; }
-    if (p === '/rpc/Switch.Toggle') { const was = sh.on; sh.on = !sh.on; startTimer(); return { was_on: was }; }
+    if (p === '/shelly') return { name: sh.name || null, id: sh.id, mac: sh.mac, model: sh.model, gen: sh.gen, fw_id: '20250924-062743/1.7.1-gd336f31', ver: '1.7.1', app: sh.app, auth_en: false };
+    if (p === '/rpc/Shelly.GetStatus') return { sys: { uptime: 86400 * 3 + 5123 }, wifi: { sta_ip: u.hostname, status: 'got ip', ssid: 'Demo-WiFi', rssi: -58 }, [sh.comp + ':0']: status() };
+    if (p === '/rpc/Sys.SetConfig') { try { const c = JSON.parse(q('config') || '{}'); if (c.device && 'name' in c.device) sh.name = c.device.name; } catch (e) {} return { restart_required: false }; }
+    if (p === `/rpc/${ns}.GetConfig`) return { id: 0, name: null, auto_on: false, auto_off: !!sh.autoOff, auto_off_delay: sh.autoOff || 60 };
+    if (p === `/rpc/${ns}.SetConfig`) { try { const c = JSON.parse(q('config') || '{}'); sh.autoOff = c.auto_off ? +c.auto_off_delay || 0 : 0; } catch (e) {} startTimer(); return { restart_required: false }; }
+    if (p === `/rpc/${ns}.GetStatus`) return status();
+    if (p === `/rpc/${ns}.Set`) {
+      const was = sh.on;
+      if (q('on') != null) sh.on = q('on') === 'true';
+      if (q('brightness') != null) sh.bri = Math.max(0, Math.min(100, +q('brightness')));
+      if (q('ct') != null) sh.ct = Math.max(2700, Math.min(6500, +q('ct')));
+      if (q('rgb') != null) sh.rgb = js('rgb');
+      if (q('mode') != null) sh.mode = js('mode');
+      startTimer(); return sh.comp === 'switch' ? { was_on: was } : null;
+    }
+    if (p === `/rpc/${ns}.Toggle`) { const was = sh.on; sh.on = !sh.on; startTimer(); return { was_on: was }; }
     return { code: 404, message: 'No handler for ' + p };
   }
   function reply(id, ok, text, delay) {
@@ -182,7 +201,7 @@
         return d.protected ? { ip, protected: true } : { ip, name: d.name, topic: d.topic, friendly: d.friendly, power: d.on ? '1' : '0' };
       }).concat(Object.keys(shellies).filter(ip => inRange(range, ip)).map(ip => {
         const sh = shellies[ip];
-        return { ip, kind: 'shelly', gen: 2, protected: false, model: sh.app, name: sh.id, friendly: sh.name || '', mac: sh.mac.replace(/(..)(?!$)/g, '$1:') };
+        return { ip, kind: 'shelly', gen: sh.gen, comp: sh.comp, protected: false, model: sh.app, name: sh.id, friendly: sh.name || '', mac: sh.mac.replace(/(..)(?!$)/g, '$1:') };
       }));
       const r = (range || '').trim();
       reply(id, true, JSON.stringify({ subnet: r && r !== 'auto' ? r : SUBNET + '0/24', devices: found }), 1800);
