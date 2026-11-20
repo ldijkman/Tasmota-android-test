@@ -34,6 +34,7 @@ Features:
 ## Links
 
 - [Website](https://ldijkman.github.io/Tasmota-android-test/): front page with features, videos and FAQ
+- [Website in German (Deutsch)](https://ldijkman.github.io/Tasmota-android-test/de/): the same front page translated; the app itself is in English
 - [Live demo](https://ldijkman.github.io/Tasmota-android-test/demo/): the real app in the browser with simulated devices
 - [Download the latest APK](https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk)
 - [Source code and readme](https://github.com/ldijkman/Tasmota-android-test)

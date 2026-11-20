@@ -6,6 +6,9 @@
 <title>Tasmota Scan &amp; Control: free Android app for Tasmota switches</title>
 <meta name="description" content="Free Android app for Tasmota Wi-Fi switches, plugs and lamps, with no device limit. Finds them on your network in seconds. On/off, timers with sunrise and sunset stored in the switch, groups, scenes, widgets and a wall panel mode. No cloud, no account, no ads.">
 <link rel="canonical" href="https://ldijkman.github.io/Tasmota-android-test/">
+<link rel="alternate" hreflang="en" href="https://ldijkman.github.io/Tasmota-android-test/">
+<link rel="alternate" hreflang="de" href="https://ldijkman.github.io/Tasmota-android-test/de/">
+<link rel="alternate" hreflang="x-default" href="https://ldijkman.github.io/Tasmota-android-test/">
 <meta name="theme-color" content="#0e1525">
 <meta name="google-site-verification" content="tQrVo3_wPGnllO1xzqaHQz49uHlMX_vpRBAHNmBCCEM">
 <meta property="og:type" content="website">
@@ -261,6 +264,15 @@ footer a{color:var(--muted)}
 .simple-list span{color:var(--muted);font-size:1rem;line-height:1.5}
 .simple-list .also{display:block;font-size:.85rem;margin-top:4px;opacity:.85}
 .hero{padding-bottom:40px}
+.lang{display:flex;gap:10px;margin-left:22px;flex:none}
+.lang a{display:block;line-height:0;border-radius:4px;opacity:.5;transition:opacity .2s}
+.lang a:hover,.lang a[aria-current]{opacity:1}
+.lang a[aria-current]{box-shadow:0 0 0 2px var(--amber)}
+.lang svg{width:30px;height:20px;border-radius:3px;display:block}
+@media (max-width:760px){.lang{margin-left:14px}}
+.brand{white-space:nowrap}
+@media (max-width:480px){nav ul{display:none}.lang{margin-left:auto}nav .wrap{gap:12px}}
+
 .flds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:4px 0 14px}
 .flds .fl{display:block;color:var(--muted);font-size:.85rem;margin-bottom:5px}
 .flds .fb{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:10px;background:#101a33;color:var(--ink);font-size:.92rem;padding:8px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -298,6 +310,7 @@ footer a{color:var(--muted)}
       <li><a href="#faq">Questions</a></li>
       <li><a href="demo/">Live demo</a></li>
     </ul>
+    <div class="lang"><a href="./" hreflang="en" lang="en" aria-label="English" title="English" aria-current="page"><svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><clipPath id="ukc"><path d="M30,15h30v15zv15h-30zh-30v-15zv-15h30z"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0L60,30M60,0L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0L60,30M60,0L0,30" clip-path="url(#ukc)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#fff" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></svg></a><a href="de/" hreflang="de" lang="de" aria-label="Deutsch" title="Deutsch"><svg viewBox="0 0 5 3" preserveAspectRatio="none" aria-hidden="true"><rect width="5" height="1" fill="#000"/><rect y="1" width="5" height="1" fill="#D00"/><rect y="2" width="5" height="1" fill="#FFCE00"/></svg></a></div>
   </div>
 </nav>
 
