@@ -264,6 +264,7 @@ T = [
 ("el.textContent = 'version ' + m[1] + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : '')", "el.textContent = 'Version ' + m[1].replace('.', ',') + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : '')"),
 ('Christmas tree on a Shelly: temperature, firmware 2.2.0 and the auto-off countdown.', 'Weihnachtsbaum an einem Shelly: Temperatur, Firmware 2.2.0 und der Auto-Aus-Countdown.'),
 ('Gimmick: a Christmas tree icon with twinkling lights, here in Tiles on the Shelly. 🎄', 'Gimmick: ein Weihnachtsbaum-Symbol mit funkelnden Lichtern, hier in den Kacheln am Shelly. 🎄'),
+('<b>Add and use a Shelly</b>', '<b>Einen Shelly hinzufügen und nutzen</b>'),
 ]
 bad = []
 for en, de in T:

@@ -51,6 +51,7 @@ Features:
 - [Make a scene](https://ldijkman.github.io/Tasmota-android-test/tasmota-scenes.mp4)
 - [Old phone or tablet as wall panel and Tailscale VPN server](https://ldijkman.github.io/Tasmota-android-test/tasmota-wall-panel.mp4)
 - [Groups, drag switches, show details, remove a switch](https://ldijkman.github.io/Tasmota-android-test/tasmota-groups.mp4)
+- [Shelly: add a Shelly, the card, firmware update and schedules](https://ldijkman.github.io/Tasmota-android-test/shelly-how-to.mp4)
 - [Install the app and the first scan](https://ldijkman.github.io/Tasmota-android-test/tasmota-install.mp4)
 - [Arrange scenes on a grid with empty spaces](https://ldijkman.github.io/Tasmota-android-test/tasmota-arrange-scenes.mp4)
 - [Auto-off: a switch that turns itself off, also with the physical button](https://ldijkman.github.io/Tasmota-android-test/tasmota-auto-off.mp4)

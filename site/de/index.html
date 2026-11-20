@@ -173,6 +173,7 @@ nav ul a:hover{color:#fff}
 dialog{border:0;padding:0;background:transparent;max-width:min(94vw,440px)}
 dialog::backdrop{background:rgba(5,8,15,.86)}
 dialog video{width:100%;max-height:86vh;border-radius:18px;background:#000;display:block}
+dialog.wide{max-width:min(94vw,1100px)}
 dialog form.pbar{display:flex;align-items:center;gap:6px;margin-bottom:8px}
 dialog form.pbar button{padding:8px 11px;white-space:nowrap}
 #pTitle{flex:1;min-width:0;color:#cfd6e6;font-size:.82rem;text-align:center;line-height:1.25;overflow:hidden;text-overflow:ellipsis}
@@ -466,6 +467,7 @@ footer a{color:var(--muted)}
     <h2 id="vid-h">So funktioniert es.</h2>
     <p class="lead" style="margin-top:14px">Kurze Videos mit gesprochener Erklärung (auf Englisch), aufgenommen in der Live-Demo.</p>
     <div class="vgrid">
+      <button class="vcard" data-v="shelly-how-to.mp4" data-wide><span class="fr"><img src="../img/poster-shelly.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Einen Shelly hinzufügen und nutzen</b><span class="len">2 Min.</span></button>
       <button class="vcard" data-v="../tasmota-install.mp4"><span class="fr"><img src="../img/poster-install.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Installieren und erster Scan</b><span class="len">1,5 Min.</span></button>
       <button class="vcard" data-v="../tasmota-demo.mp4"><span class="fr"><img src="../img/poster-demo.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Die App in einer Minute</b><span class="len">1 Min.</span></button>
       <button class="vcard" data-v="../tasmota-add-device.mp4"><span class="fr"><img src="../img/poster-add-device.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Neues Gerät hinzufügen</b><span class="len">1 Min.</span></button>
@@ -682,6 +684,7 @@ const vcards = [...document.querySelectorAll('.vcard')];
 let vi = 0;
 function playAt(i){
   vi = (i + vcards.length) % vcards.length; const b = vcards[vi];
+  dlg.classList.toggle('wide', b.hasAttribute('data-wide'));
   pv.src = b.dataset.v; pv.play().catch(() => {});
   document.getElementById('pTitle').innerHTML = (b.querySelector('b') || {}).textContent.replace(/[<>&]/g, '') + `<small>${vi + 1} / ${vcards.length}</small>`;
 }

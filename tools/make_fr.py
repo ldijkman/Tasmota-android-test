@@ -262,6 +262,7 @@ T = [
 ("el.textContent = 'version ' + m[1] + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : '')", "el.textContent = 'version ' + m[1].replace('.', ',') + (a ? ', ' + Math.round(a.size / 1024) + ' Ko' : '')"),
 ('Christmas tree on a Shelly: temperature, firmware 2.2.0 and the auto-off countdown.', 'Sapin de Noël sur un Shelly\xa0: température, firmware 2.2.0 et le compte à rebours de l’arrêt automatique.'),
 ('Gimmick: a Christmas tree icon with twinkling lights, here in Tiles on the Shelly. 🎄', 'Petit plus\xa0: une icône de sapin aux guirlandes qui scintillent, ici dans les tuiles avec le Shelly. 🎄'),
+('<b>Add and use a Shelly</b>', '<b>Ajouter et utiliser un Shelly</b>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
