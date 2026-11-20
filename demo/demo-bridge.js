@@ -135,6 +135,7 @@
     [SUBNET + '152']: { on: false, comp: 'rgbcct', app: 'RGBCCTBulbG3', model: 'S3BL-C010007AEU', gen: 3, id: 'shellyrgbcctbulbg3-e4b063b1d7f0', mac: 'E4B063B1D7F0', bri: 80, ct: 4000, rgb: [255, 80, 0], mode: 'rgb' },
   };
   const NS = { switch: 'Switch', cct: 'CCT', rgbcct: 'RGBCCT' };
+  Object.values(shellies).forEach(sh => Object.assign(sh, { kvs: {}, jobs: [], nextJob: 1, rev: 1, loc: { lat: 52.37, lon: 4.9, tz: 'Europe/Amsterdam' } }));
   function shellyApi(sh, u) {
     const p = u.pathname, q = k => u.searchParams.get(k), js = k => { try { return JSON.parse(q(k)); } catch (e) { return q(k); } };
     const ns = NS[sh.comp];
@@ -147,7 +148,17 @@
       sh.offAt ? { timer_started_at: sh.started, timer_duration: sh.autoOff } : {});
     if (p === '/shelly') return { name: sh.name || null, id: sh.id, mac: sh.mac, model: sh.model, gen: sh.gen, fw_id: '20250924-062743/1.7.1-gd336f31', ver: '1.7.1', app: sh.app, auth_en: false };
     if (p === '/rpc/Shelly.GetStatus') return { sys: { uptime: 86400 * 3 + 5123 }, wifi: { sta_ip: u.hostname, status: 'got ip', ssid: 'Demo-WiFi', rssi: -58 }, [sh.comp + ':0']: status() };
-    if (p === '/rpc/Sys.SetConfig') { try { const c = JSON.parse(q('config') || '{}'); if (c.device && 'name' in c.device) sh.name = c.device.name; } catch (e) {} return { restart_required: false }; }
+    if (p === '/rpc/Sys.SetConfig') { try { const c = JSON.parse(q('config') || '{}'); if (c.device && 'name' in c.device) sh.name = c.device.name; if (c.location) Object.assign(sh.loc, c.location); } catch (e) {} return { restart_required: false }; }
+    if (p === '/rpc/Sys.GetConfig') return { device: { name: sh.name || null, mac: sh.mac }, location: Object.assign({}, sh.loc) };
+    if (p === '/rpc/Sys.GetStatus') return { mac: sh.mac, unixtime: Math.floor(Date.now() / 1000), time: new Date().toTimeString().slice(0, 5), uptime: 86400 * 3 + 5123 };
+    // KVS and Schedule (schedules from the app are stored as jobs, like on a real Gen2+ Shelly)
+    if (p === '/rpc/KVS.Get') { const k = js('key'); return k in sh.kvs ? { etag: 'x', value: sh.kvs[k] } : { __err: 'HTTP 500 {"code":-105,"message":"Argument key not found"}' }; }
+    if (p === '/rpc/KVS.Set') { sh.kvs[js('key')] = js('value'); return { etag: 'x', rev: ++sh.rev }; }
+    if (p === '/rpc/KVS.GetMany') { const m = new RegExp('^' + String(js('match') || '*').replace(/[.]/g, '\\.').replace(/\*/g, '.*') + '$'); return { items: Object.keys(sh.kvs).filter(k => m.test(k)).map(k => ({ key: k, etag: 'x', value: sh.kvs[k] })), offset: 0, total: 0 }; }
+    if (p === '/rpc/Schedule.List') return { jobs: sh.jobs, rev: sh.rev };
+    if (p === '/rpc/Schedule.Create') { if (sh.jobs.length >= 20) return { __err: 'HTTP 500 {"code":-103,"message":"Too many jobs"}' }; const j = { id: sh.nextJob++, enable: js('enable') !== false, timespec: js('timespec'), calls: js('calls') }; sh.jobs.push(j); return { id: j.id, rev: ++sh.rev }; }
+    if (p === '/rpc/Schedule.Update') { const j = sh.jobs.find(x => x.id === +js('id')); if (!j) return { __err: 'HTTP 500 {"code":-105,"message":"Job not found"}' }; ['enable', 'timespec', 'calls'].forEach(k => { if (q(k) != null) j[k] = js(k); }); return { rev: ++sh.rev }; }
+    if (p === '/rpc/Schedule.Delete') { const i = sh.jobs.findIndex(x => x.id === +js('id')); if (i < 0) return { __err: 'HTTP 500 {"code":-105,"message":"Job not found"}' }; sh.jobs.splice(i, 1); return { rev: ++sh.rev }; }
     if (p === `/rpc/${ns}.GetConfig`) return { id: 0, name: null, auto_on: false, auto_off: !!sh.autoOff, auto_off_delay: sh.autoOff || 60 };
     if (p === `/rpc/${ns}.SetConfig`) { try { const c = JSON.parse(q('config') || '{}'); sh.autoOff = c.auto_off ? +c.auto_off_delay || 0 : 0; } catch (e) {} startTimer(); return { restart_required: false }; }
     if (p === `/rpc/${ns}.GetStatus`) return status();
@@ -185,7 +196,7 @@
     get(url, id) {
       let u; try { u = new URL(url, 'http://' + SUBNET + '114/'); } catch (e) { return reply(id, false, 'java.net.MalformedURLException'); }
       const sh = shellies[u.hostname];
-      if (sh) return reply(id, true, JSON.stringify(shellyApi(sh, u)));
+      if (sh) { const r = shellyApi(sh, u); return r && r.__err ? reply(id, false, r.__err) : reply(id, true, JSON.stringify(r)); }
       const d = devices[u.hostname];
       if (!d) return reply(id, false, `java.net.SocketTimeoutException: failed to connect to /${u.hostname}`, 1500);
       if (d.protected && u.searchParams.get('password') !== 'demo')
