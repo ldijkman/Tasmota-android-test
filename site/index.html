@@ -252,6 +252,13 @@ footer a{color:var(--muted)}
 .sh-row{grid-template-columns:repeat(3,minmax(0,200px));margin:18px 0 22px}
 .sh-btn{margin-bottom:30px}
 .sh-cap{margin:0;color:var(--ink)}
+.swipe{display:flex;align-items:center;gap:8px;margin:10px 0 0;color:var(--amber);font-size:.95rem;font-weight:600}
+.swipe .sw-p{display:none}
+@media (hover:hover) and (pointer:fine){.swipe .sw-t{display:none}.swipe .sw-p{display:inline}}
+.sw-arr{animation:swipeArr 1.4s ease-in-out infinite}
+@keyframes swipeArr{0%,100%{transform:translateX(0);opacity:1}50%{transform:translateX(9px);opacity:.55}}
+@media (prefers-reduced-motion:reduce){.sw-arr{animation:none}}
+
 .strip.sh-strip{padding:14px 2px 18px;margin:0 0 6px}
 .sh-fact{margin:0 0 36px}
 .sh-strip figure{width:200px}
@@ -478,7 +485,7 @@ footer a{color:var(--muted)}
 </dialog>
 
 <section class="shots" aria-labelledby="shot-h">
-  <div class="wrap"><h2 id="shot-h">Real screens from real switches.</h2></div>
+  <div class="wrap"><h2 id="shot-h">Real screens from real switches.</h2><p class="swipe" aria-hidden="true"><span class="sw-t">Swipe for more</span><span class="sw-p">Scroll sideways for more</span><svg class="sw-arr" viewBox="0 0 24 24" width="22" height="22"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></p></div>
   <div class="strip" tabindex="0" aria-label="Screenshots, scroll sideways">
     <figure><img src="img/tasmota-colours.jpg" alt="Switches with their own icons and on-colours, auto-off countdowns and energy use" loading="lazy" width="540" height="1170"><figcaption>Own icons and colours, auto-off countdown and energy use.</figcaption></figure>
     <figure><img src="img/tasmota-tiles-groups.jpg" alt="Tiles screen with coloured groups and switches that are on and off" loading="lazy" width="540" height="1170"><figcaption>Big tiles, grouped by room.</figcaption></figure>
@@ -534,6 +541,7 @@ footer a{color:var(--muted)}
     </div>
     <a class="btn sh-btn" href="https://www.shelly.com/" rel="noopener">Visit the Shelly shop</a>
     <p class="sh-cap"><b>First test on a real Shelly 1 Gen3</b></p>
+    <p class="swipe" aria-hidden="true"><span class="sw-t">Swipe for more</span><span class="sw-p">Scroll sideways for more</span><svg class="sw-arr" viewBox="0 0 24 24" width="22" height="22"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
     <div class="strip sh-strip" tabindex="0" aria-label="Shelly screenshots, scroll sideways">
       <figure><img src="img/shelly-1-gen3-size.jpg" alt="Shelly 1 Gen3: only 42 × 37 mm, fits behind a wall switch." loading="lazy" width="600" height="600"><figcaption>Shelly 1 Gen3: only 42 × 37 mm, fits behind a wall switch.</figcaption></figure>
       <figure><img src="img/shelly-add-1.jpg" alt="Add new Shelly finds the Shelly's own Wi-Fi." loading="lazy" width="540" height="1099"><figcaption>Add new Shelly finds the Shelly's own Wi-Fi.</figcaption></figure>

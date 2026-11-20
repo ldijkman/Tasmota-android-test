@@ -253,6 +253,13 @@ footer a{color:var(--muted)}
 .sh-row{grid-template-columns:repeat(3,minmax(0,200px));margin:18px 0 22px}
 .sh-btn{margin-bottom:30px}
 .sh-cap{margin:0;color:var(--ink)}
+.swipe{display:flex;align-items:center;gap:8px;margin:10px 0 0;color:var(--amber);font-size:.95rem;font-weight:600}
+.swipe .sw-p{display:none}
+@media (hover:hover) and (pointer:fine){.swipe .sw-t{display:none}.swipe .sw-p{display:inline}}
+.sw-arr{animation:swipeArr 1.4s ease-in-out infinite}
+@keyframes swipeArr{0%,100%{transform:translateX(0);opacity:1}50%{transform:translateX(9px);opacity:.55}}
+@media (prefers-reduced-motion:reduce){.sw-arr{animation:none}}
+
 .strip.sh-strip{padding:14px 2px 18px;margin:0 0 6px}
 .sh-fact{margin:0 0 36px}
 .sh-strip figure{width:200px}
@@ -479,7 +486,7 @@ footer a{color:var(--muted)}
 </dialog>
 
 <section class="shots" aria-labelledby="shot-h">
-  <div class="wrap"><h2 id="shot-h">Echte Bildschirme von echten Schaltern.</h2></div>
+  <div class="wrap"><h2 id="shot-h">Echte Bildschirme von echten Schaltern.</h2><p class="swipe" aria-hidden="true"><span class="sw-t">Wischen für mehr</span><span class="sw-p">Seitlich scrollen für mehr</span><svg class="sw-arr" viewBox="0 0 24 24" width="22" height="22"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></p></div>
   <div class="strip" tabindex="0" aria-label="Screenshots, seitlich scrollen">
     <figure><img src="../img/tasmota-colours.jpg" alt="Schalter mit eigenen Symbolen und Farben, Auto-Aus-Countdown und Energieverbrauch" loading="lazy" width="540" height="1170"><figcaption>Eigene Symbole und Farben, Auto-Aus-Countdown und Energieverbrauch.</figcaption></figure>
     <figure><img src="../img/tasmota-tiles-groups.jpg" alt="Kachelansicht mit farbigen Gruppen und Schaltern, die an und aus sind" loading="lazy" width="540" height="1170"><figcaption>Große Kacheln, nach Raum gruppiert.</figcaption></figure>
@@ -535,6 +542,7 @@ footer a{color:var(--muted)}
     </div>
     <a class="btn sh-btn" href="https://www.shelly.com/de/" rel="noopener">Zum Shelly-Shop</a>
     <p class="sh-cap"><b>Erster Test mit einem echten Shelly 1 Gen3</b></p>
+    <p class="swipe" aria-hidden="true"><span class="sw-t">Wischen für mehr</span><span class="sw-p">Seitlich scrollen für mehr</span><svg class="sw-arr" viewBox="0 0 24 24" width="22" height="22"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
     <div class="strip sh-strip" tabindex="0" aria-label="Shelly-Screenshots, seitlich scrollen">
       <figure><img src="../img/shelly-1-gen3-size.jpg" alt="Shelly 1 Gen3: nur 42 × 37 mm, passt hinter einen Wandschalter." loading="lazy" width="600" height="600"><figcaption>Shelly 1 Gen3: nur 42 × 37 mm, passt hinter einen Wandschalter.</figcaption></figure>
       <figure><img src="../img/shelly-add-1.jpg" alt="„Add new Shelly“ findet das eigene WLAN des Shelly." loading="lazy" width="540" height="1099"><figcaption>„Add new Shelly“ findet das eigene WLAN des Shelly.</figcaption></figure>
