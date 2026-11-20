@@ -135,7 +135,8 @@
     [SUBNET + '152']: { on: false, comp: 'rgbcct', app: 'RGBCCTBulbG3', model: 'S3BL-C010007AEU', gen: 3, id: 'shellyrgbcctbulbg3-e4b063b1d7f0', mac: 'E4B063B1D7F0', bri: 80, ct: 4000, rgb: [255, 80, 0], mode: 'rgb' },
   };
   const NS = { switch: 'Switch', cct: 'CCT', rgbcct: 'RGBCCT' };
-  Object.values(shellies).forEach(sh => Object.assign(sh, { kvs: {}, jobs: [], nextJob: 1, rev: 1, loc: { lat: 52.37, lon: 4.9, tz: 'Europe/Amsterdam' } }));
+  Object.values(shellies).forEach(sh => Object.assign(sh, { kvs: {}, jobs: [], nextJob: 1, rev: 1, ver: '1.7.1', loc: { lat: 52.37, lon: 4.9, tz: 'Europe/Amsterdam' } }));
+  shellies[SUBNET + '152'].errors = ['overtemp'];   // demo: the colour bulb shows a warning
   function shellyApi(sh, u) {
     const p = u.pathname, q = k => u.searchParams.get(k), js = k => { try { return JSON.parse(q(k)); } catch (e) { return q(k); } };
     const ns = NS[sh.comp];
@@ -143,11 +144,14 @@
     const startTimer = () => { sh.offAt = sh.on && sh.autoOff ? Date.now() / 1000 + sh.autoOff : null; sh.started = sh.offAt ? Date.now() / 1000 : null; };
     const status = () => Object.assign({ id: 0, source: 'init', output: sh.on },
       sh.comp === 'switch' ? { apower: sh.on ? 18.2 : 0, voltage: 231.4, temperature: { tC: 41.2 } }
-        : { brightness: sh.bri, ct: sh.ct, apower: sh.on ? +(sh.bri * 0.09).toFixed(1) : 0 },
+        : { brightness: sh.bri, ct: sh.ct, apower: sh.on ? +(sh.bri * 0.09).toFixed(1) : 0, temperature: { tC: sh.comp === 'cct' ? 47.5 : 52.1 } },
+      sh.errors ? { errors: sh.errors } : {},
       sh.comp === 'rgbcct' ? { mode: sh.mode, rgb: sh.rgb } : {},
       sh.offAt ? { timer_started_at: sh.started, timer_duration: sh.autoOff } : {});
     if (p === '/shelly') return { name: sh.name || null, id: sh.id, mac: sh.mac, model: sh.model, gen: sh.gen, fw_id: '20250924-062743/1.7.1-gd336f31', ver: '1.7.1', app: sh.app, auth_en: false };
-    if (p === '/rpc/Shelly.GetStatus') return { sys: { uptime: 86400 * 3 + 5123 }, wifi: { sta_ip: u.hostname, status: 'got ip', ssid: 'Demo-WiFi', rssi: -58 }, [sh.comp + ':0']: status() };
+    if (p === '/rpc/Shelly.GetDeviceInfo') return { name: sh.name || null, id: sh.id, mac: sh.mac, model: sh.model, gen: sh.gen, fw_id: '20250924-062743/' + sh.ver + '-gd336f31', ver: sh.ver, app: sh.app, auth_en: false };
+    if (p === '/rpc/Shelly.Update') { sh.updating = Date.now(); setTimeout(() => { sh.ver = '1.7.2'; sh.updating = 0; }, 4000); return null; }
+    if (p === '/rpc/Shelly.GetStatus') return { sys: { uptime: 86400 * 3 + 5123, available_updates: sh.ver === '1.7.2' ? {} : { stable: { version: '1.7.2' } } }, wifi: { sta_ip: u.hostname, status: 'got ip', ssid: 'Demo-WiFi', rssi: -58 }, [sh.comp + ':0']: status() };
     if (p === '/rpc/Sys.SetConfig') { try { const c = JSON.parse(q('config') || '{}'); if (c.device && 'name' in c.device) sh.name = c.device.name; if (c.location) Object.assign(sh.loc, c.location); } catch (e) {} return { restart_required: false }; }
     if (p === '/rpc/Sys.GetConfig') return { device: { name: sh.name || null, mac: sh.mac }, location: Object.assign({}, sh.loc) };
     if (p === '/rpc/Sys.GetStatus') return { mac: sh.mac, unixtime: Math.floor(Date.now() / 1000), time: new Date().toTimeString().slice(0, 5), uptime: 86400 * 3 + 5123 };
