@@ -201,6 +201,7 @@ T = [
 ('Brightness, white and colour.', 'Luminosité, blanc et couleur.'),
 ('alt="Shelly 1 Gen3 relay module"', 'alt="Module relais Shelly 1 Gen3"'),
 ('https://www.shelly.com/products/', 'https://www.shelly.com/fr/products/'),
+('<a class="btn sh-btn" href="https://www.shelly.com/" rel="noopener">Visit the Shelly shop</a>', '<a class="btn sh-btn" href="https://www.shelly.com/fr/" rel="noopener">Visiter la boutique Shelly</a>'),
 # faq
 ('Questions people ask.', 'Questions fréquentes.'),
 ('Something else? Ask it on <a href="https://github.com/ldijkman/Tasmota-android-test/issues">GitHub</a>.',
