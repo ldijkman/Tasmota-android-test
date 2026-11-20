@@ -202,7 +202,7 @@ T = [
 ('Found on your network. Try it.', 'In deinem Netzwerk gefunden. Ausprobieren.'),
 ('The card: Gen3 badge, IP, auto-off and signal.', 'Die Karte: Gen3-Abzeichen, IP, Auto-Aus und Signal.'),
 ("Tap the IP for the Shelly's own page.", 'Tippe auf die IP für die eigene Seite des Shelly.'),
-('The real Shelly 1 Gen3 from the test.', 'Der echte Shelly 1 Gen3 aus dem Test.'),
+('Shelly 1 Gen3: only 42 × 37 mm, fits behind a wall switch.', 'Shelly 1 Gen3: nur 42 × 37 mm, passt hinter einen Wandschalter.'),
 # faq
 ('Questions people ask.', 'Häufige Fragen.'),
 ('Something else? Ask it on <a href="https://github.com/ldijkman/Tasmota-android-test/issues">GitHub</a>.',
