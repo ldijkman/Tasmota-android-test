@@ -200,6 +200,8 @@ T = [
 ('<span class="sw-t">Swipe for more</span><span class="sw-p">Scroll sideways for more</span>', '<span class="sw-t">Wischen für mehr</span><span class="sw-p">Seitlich scrollen für mehr</span>'),
 ('img/shelly-1-gen3-specs-en.jpg', 'img/shelly-1-gen3-specs-de.jpg'),
 ('Shelly 1 Gen3 in the hand: really that small.', 'Shelly 1 Gen3 in der Hand: wirklich so klein.'),
+('<p class="diy-fact"><b>Fun fact:</b><br>Tasmota and Shelly share the same roots:<br>both started on the ESP8266,<br>a cheap Wi-Fi chip from Espressif.<br>Espressif was founded in Shanghai in 2008<br>by Teo Swee Ann from Singapore.<br>The ESP8266 came out in 2014,<br>and over 1.5 billion of their chips have been sold.</p>', '<p class="diy-fact"><b>Fun Fact:</b><br>Tasmota und Shelly haben dieselben Wurzeln:<br>Beide begannen auf dem ESP8266,<br>einem günstigen WLAN-Chip von Espressif.<br>Espressif wurde 2008 in Shanghai gegründet,<br>von Teo Swee Ann aus Singapur.<br>Der ESP8266 kam 2014 heraus,<br>und über 1,5 Milliarden ihrer Chips wurden verkauft.</p>'),
+('aria-label="Fun fact about the ESP8266"', 'aria-label="Fun Fact über den ESP8266"'),
 # faq
 ('Questions people ask.', 'Häufige Fragen.'),
 ('Something else? Ask it on <a href="https://github.com/ldijkman/Tasmota-android-test/issues">GitHub</a>.',
