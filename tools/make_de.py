@@ -57,7 +57,7 @@ T = [
  '<p>Diese App braucht nichts:<br>installieren, auf Scan tippen, schalten.</p>'),
 ('<p class="tv">If you can use a TV remote,<br>you can use this app.</p>',
  '<p class="tv">Wer eine TV-Fernbedienung bedienen kann,<br>kann auch diese App bedienen.</p>'),
-('<p class="ez">Easy home automation.</p>', '<p class="ez">Einfache Hausautomation.</p>'),
+('<p class="ez">Enjoy easy home automation!</p>', '<p class="ez">Genieße einfache Hausautomation!</p>'),
 # timers
 ('The timers live in the switch.', 'Die Zeitschaltungen wohnen im Schalter.'),
 ('Set them once in the app. After that the switch runs them by itself, even when your phone is off or out of the house.',
