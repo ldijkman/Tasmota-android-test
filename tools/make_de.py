@@ -187,6 +187,9 @@ T = [
  '<b>Fun Fact:</b><br>Tasmota begann im Januar 2016 auf Sonoff.<br>Der Name bedeutet<br>'),
 ('<br>Son<b>Off</b>, a switch.', '<br>Son<b>Off</b>, ein Schalter.'),
 ('>Open the Tasmota web installer</a>', '>Tasmota-Web-Installer öffnen</a>'),
+('Shellys with their own firmware partly work: scan, on/off, rename and auto-off, Gen1 to Gen4.', 'Shellys mit eigener Firmware funktionieren teilweise: Suchen, Ein/Aus, Umbenennen und Auto-Aus, Gen1 bis Gen4.'),
+('<span class="sh-new">New, not yet tested on a real Shelly.</span>', '<span class="sh-new">Neu, noch nicht mit einem echten Shelly getestet.</span>'),
+('<a class="btn" href="https://www.shelly.com/products/shelly-1-gen3" rel="noopener">Shelly 1 Gen3 in the Shelly shop</a>', '<a class="btn" href="https://www.shelly.com/de/products/shelly-1-gen3" rel="noopener">Shelly 1 Gen3 im Shelly-Shop</a>'),
 # faq
 ('Questions people ask.', 'Häufige Fragen.'),
 ('Something else? Ask it on <a href="https://github.com/ldijkman/Tasmota-android-test/issues">GitHub</a>.',
