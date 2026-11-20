@@ -255,6 +255,7 @@ footer a{color:var(--muted)}
 .sh-cap{margin:0;color:var(--ink)}
 .swipe{display:flex;align-items:center;gap:8px;margin:10px 0 0;color:var(--amber);font-size:.95rem;font-weight:600}
 .swipe .sw-p{display:none}
+.swipe.sw-below{margin:0 0 22px}
 @media (hover:hover) and (pointer:fine){.swipe .sw-t{display:none}.swipe .sw-p{display:inline}}
 .sw-arr{animation:swipeArr 1.4s ease-in-out infinite}
 @keyframes swipeArr{0%,100%{transform:translateX(0);opacity:1}50%{transform:translateX(9px);opacity:.55}}
@@ -497,6 +498,7 @@ footer a{color:var(--muted)}
     <figure><img src="../img/tasmota-widgets.jpg" alt="Startbildschirm-Widgets für WLAN, Szenen, Schalter und Gruppen" loading="lazy" width="540" height="1170"><figcaption>Widgets für den Startbildschirm.</figcaption></figure>
     <figure><img src="../img/tasmota-themes.jpg" alt="Design-Auswahl im Menü" loading="lazy" width="540" height="1170"><figcaption>Sieben Designs, auch Schwarz für OLED.</figcaption></figure>
   </div>
+  <div class="wrap"><p class="swipe sw-below" aria-hidden="true"><span class="sw-t">Wischen für mehr</span><span class="sw-p">Seitlich scrollen für mehr</span><svg class="sw-arr" viewBox="0 0 24 24" width="22" height="22"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></p></div>
 </section>
 
 <section class="two" aria-label="Wandpanel und Fernsteuerung">
@@ -554,6 +556,7 @@ footer a{color:var(--muted)}
       <figure><img src="../img/shelly-schedules.jpg" alt="Dieselben Zeitpläne in dieser App: klare Karten und eine Zeitleiste." loading="lazy" width="540" height="1099"><figcaption>Dieselben Zeitpläne in dieser App: klare Karten und eine Zeitleiste.</figcaption></figure>
       <figure><img src="../img/shelly-1-gen3-hand.jpg" alt="Shelly 1 Gen3 in der Hand: wirklich so klein." loading="lazy" width="540" height="1099"><figcaption>Shelly 1 Gen3 in der Hand: wirklich so klein.</figcaption></figure>
     </div>
+    <p class="swipe sw-below" aria-hidden="true"><span class="sw-t">Wischen für mehr</span><span class="sw-p">Seitlich scrollen für mehr</span><svg class="sw-arr" viewBox="0 0 24 24" width="22" height="22"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
     <p class="diy-fact sh-fact"><b>Fun Fact:</b><br>Shelly wurde von zwei Bulgaren gegründet,<br>Dimitar Dimitrov und Svetlin Todorov, in Sofia.<br>Die ersten Shellys kamen 2018 heraus.<br>Seitdem wurden über 30 Millionen verkauft.<br>2026 bot Schneider Electric<br>1,2 Milliarden € für die Firma.</p>
     <p class="diy-note"><b>Für Nerds 🤓</b><br>Nicht direkt kompatibel, aber du kannst Tasmota draufflashen.</p>
     <div class="diy">
