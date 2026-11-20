@@ -405,6 +405,7 @@ T = [
 ('<a href="/Tasmota-android-test/pl/" hreflang="pl" lang="pl" aria-label="Polski" title="Polski">',
  '<a href="/Tasmota-android-test/pl/" hreflang="pl" lang="pl" aria-label="Polski" title="Polski" aria-current="page">'),
 ('Christmas tree on a Shelly: temperature, firmware 2.2.0 and the auto-off countdown.', 'Choinka na Shelly: temperatura, firmware 2.2.0 i odliczanie auto-wyłączania.'),
+('Gimmick: a Christmas tree icon with twinkling lights, here in Tiles on the Shelly. 🎄', 'Gadżet: ikona choinki z migającymi lampkami, tu w kafelkach na Shelly. 🎄'),
 ]
 
 bad = []

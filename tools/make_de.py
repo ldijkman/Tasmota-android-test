@@ -263,6 +263,7 @@ T = [
 ("j.stargazers_count.toLocaleString('en')", "j.stargazers_count.toLocaleString('de')"),
 ("el.textContent = 'version ' + m[1] + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : '')", "el.textContent = 'Version ' + m[1].replace('.', ',') + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : '')"),
 ('Christmas tree on a Shelly: temperature, firmware 2.2.0 and the auto-off countdown.', 'Weihnachtsbaum an einem Shelly: Temperatur, Firmware 2.2.0 und der Auto-Aus-Countdown.'),
+('Gimmick: a Christmas tree icon with twinkling lights, here in Tiles on the Shelly. 🎄', 'Gimmick: ein Weihnachtsbaum-Symbol mit funkelnden Lichtern, hier in den Kacheln am Shelly. 🎄'),
 ]
 bad = []
 for en, de in T:

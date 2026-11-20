@@ -407,6 +407,7 @@ T = [
 ('<a href="/Tasmota-android-test/es/" hreflang="es" lang="es" aria-label="Español" title="Español">',
  '<a href="/Tasmota-android-test/es/" hreflang="es" lang="es" aria-label="Español" title="Español" aria-current="page">'),
 ('Christmas tree on a Shelly: temperature, firmware 2.2.0 and the auto-off countdown.', 'Árbol de Navidad en un Shelly: temperatura, firmware 2.2.0 y la cuenta atrás del apagado automático.'),
+('Gimmick: a Christmas tree icon with twinkling lights, here in Tiles on the Shelly. 🎄', 'Detalle divertido: un icono de árbol de Navidad con luces que parpadean, aquí en los mosaicos con el Shelly. 🎄'),
 ]
 
 
