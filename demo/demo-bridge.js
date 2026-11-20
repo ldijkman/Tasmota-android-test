@@ -153,7 +153,8 @@
     if (p === '/rpc/Sys.GetStatus') return { mac: sh.mac, unixtime: Math.floor(Date.now() / 1000), time: new Date().toTimeString().slice(0, 5), uptime: 86400 * 3 + 5123 };
     // KVS and Schedule (schedules from the app are stored as jobs, like on a real Gen2+ Shelly)
     if (p === '/rpc/KVS.Get') { const k = js('key'); return k in sh.kvs ? { etag: 'x', value: sh.kvs[k] } : { __err: 'HTTP 500 {"code":-105,"message":"Argument key not found"}' }; }
-    if (p === '/rpc/KVS.Set') { sh.kvs[js('key')] = js('value'); return { etag: 'x', rev: ++sh.rev }; }
+    // like Shelly firmware 1.4: a string value from a GET parameter is stored without unescaping \" inside it
+    if (p === '/rpc/KVS.Set') { const raw = String(q('value') || ''); sh.kvs[js('key')] = /^".*"$/.test(raw) ? raw.slice(1, -1) : js('value'); return { etag: 'x', rev: ++sh.rev }; }
     if (p === '/rpc/KVS.GetMany') { const m = new RegExp('^' + String(js('match') || '*').replace(/[.]/g, '\\.').replace(/\*/g, '.*') + '$'); return { items: Object.keys(sh.kvs).filter(k => m.test(k)).map(k => ({ key: k, etag: 'x', value: sh.kvs[k] })), offset: 0, total: 0 }; }
     if (p === '/rpc/Schedule.List') return { jobs: sh.jobs, rev: sh.rev };
     if (p === '/rpc/Schedule.Create') { if (sh.jobs.length >= 20) return { __err: 'HTTP 500 {"code":-103,"message":"Too many jobs"}' }; const j = { id: sh.nextJob++, enable: js('enable') !== false, timespec: js('timespec'), calls: js('calls') }; sh.jobs.push(j); return { id: j.id, rev: ++sh.rev }; }
