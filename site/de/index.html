@@ -10,6 +10,7 @@
 <link rel="alternate" hreflang="de" href="https://ldijkman.github.io/Tasmota-android-test/de/">
 <link rel="alternate" hreflang="fr" href="https://ldijkman.github.io/Tasmota-android-test/fr/">
 <link rel="alternate" hreflang="pl" href="https://ldijkman.github.io/Tasmota-android-test/pl/">
+<link rel="alternate" hreflang="es" href="https://ldijkman.github.io/Tasmota-android-test/es/">
 <link rel="alternate" hreflang="x-default" href="https://ldijkman.github.io/Tasmota-android-test/">
 <meta name="theme-color" content="#0e1525">
 <meta name="google-site-verification" content="tQrVo3_wPGnllO1xzqaHQz49uHlMX_vpRBAHNmBCCEM">
@@ -287,9 +288,23 @@ footer a{color:var(--muted)}
 .lang a:hover,.lang a[aria-current]{opacity:1}
 .lang a[aria-current]{box-shadow:0 0 0 2px var(--amber)}
 .lang svg{width:30px;height:20px;border-radius:3px;display:block}
+.lang-t{display:none}
+@media (max-width:900px){
+  nav .wrap{position:relative}
+  .lang{align-items:center;gap:4px}
+  .lang a{display:none}
+  .lang a[aria-current]{display:block;order:1}
+  .lang-t{display:block;order:2;background:none;border:0;color:var(--muted);font-size:1.05rem;line-height:1;padding:6px 2px 6px 6px;cursor:pointer}
+  .lang.open{position:absolute;right:14px;top:6px;flex-direction:column;gap:12px;padding:10px 12px 14px;background:var(--night2);border:1px solid var(--line);border-radius:14px;z-index:30;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+  .lang.open a{display:block;opacity:.85}
+  .lang.open a[aria-current]{opacity:1}
+  .lang.open .lang-t{order:-1;align-self:flex-end;padding:0 0 2px}
+  .lang.open a svg{width:30px;height:20px}
+}
+
 @media (max-width:760px){.lang{margin-left:14px}}
 .brand{white-space:nowrap}
-@media (max-width:480px){nav ul{display:none}.lang{margin-left:auto}nav .wrap{gap:12px}}
+@media (max-width:560px){nav ul{display:none}.lang{margin-left:auto}nav .wrap{gap:12px}}
 @media (max-width:400px){nav .wrap{gap:8px}.brand{font-size:.95rem;gap:8px}.brand svg{width:26px;height:26px}.lang{gap:5px}.lang svg{width:22px;height:15px}}
 @media (max-width:340px){.brand{font-size:.8rem}.brand svg{width:22px;height:22px}.lang{gap:4px}.lang svg{width:20px;height:14px}}
 
@@ -330,7 +345,7 @@ footer a{color:var(--muted)}
       <li><a href="#faq">Fragen</a></li>
       <li><a href="../demo/">Live-Demo</a></li>
     </ul>
-    <div class="lang"><a href="/Tasmota-android-test/" hreflang="en" lang="en" aria-label="English" title="English"><svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><clipPath id="ukc"><path d="M30,15h30v15zv15h-30zh-30v-15zv-15h30z"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0L60,30M60,0L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0L60,30M60,0L0,30" clip-path="url(#ukc)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#fff" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></svg></a><a href="/Tasmota-android-test/de/" hreflang="de" lang="de" aria-label="Deutsch" title="Deutsch" aria-current="page"><svg viewBox="0 0 5 3" preserveAspectRatio="none" aria-hidden="true"><rect width="5" height="1" fill="#000"/><rect y="1" width="5" height="1" fill="#D00"/><rect y="2" width="5" height="1" fill="#FFCE00"/></svg></a><a href="/Tasmota-android-test/fr/" hreflang="fr" lang="fr" aria-label="Français" title="Français"><svg viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true"><rect width="1" height="2" fill="#002654"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#CE1126"/></svg></a><a href="/Tasmota-android-test/pl/" hreflang="pl" lang="pl" aria-label="Polski" title="Polski"><svg viewBox="0 0 8 5" preserveAspectRatio="none" aria-hidden="true"><rect width="8" height="2.5" fill="#fff"/><rect y="2.5" width="8" height="2.5" fill="#DC143C"/></svg></a></div>
+    <div class="lang" id="langSel"><button type="button" class="lang-t" aria-label="Language" aria-expanded="false" onclick="var l=document.getElementById('langSel');var o=l.classList.toggle('open');this.setAttribute('aria-expanded',o)">▾</button><a href="/Tasmota-android-test/" hreflang="en" lang="en" aria-label="English" title="English"><svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><clipPath id="ukc"><path d="M30,15h30v15zv15h-30zh-30v-15zv-15h30z"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0L60,30M60,0L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0L60,30M60,0L0,30" clip-path="url(#ukc)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#fff" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></svg></a><a href="/Tasmota-android-test/de/" hreflang="de" lang="de" aria-label="Deutsch" title="Deutsch" aria-current="page"><svg viewBox="0 0 5 3" preserveAspectRatio="none" aria-hidden="true"><rect width="5" height="1" fill="#000"/><rect y="1" width="5" height="1" fill="#D00"/><rect y="2" width="5" height="1" fill="#FFCE00"/></svg></a><a href="/Tasmota-android-test/fr/" hreflang="fr" lang="fr" aria-label="Français" title="Français"><svg viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true"><rect width="1" height="2" fill="#002654"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#CE1126"/></svg></a><a href="/Tasmota-android-test/pl/" hreflang="pl" lang="pl" aria-label="Polski" title="Polski"><svg viewBox="0 0 8 5" preserveAspectRatio="none" aria-hidden="true"><rect width="8" height="2.5" fill="#fff"/><rect y="2.5" width="8" height="2.5" fill="#DC143C"/></svg></a><a href="/Tasmota-android-test/es/" hreflang="es" lang="es" aria-label="Español" title="Español"><svg viewBox="0 0 6 4" preserveAspectRatio="none" aria-hidden="true"><rect width="6" height="4" fill="#AA151B"/><rect y="1" width="6" height="2" fill="#F1BF00"/></svg></a></div>
   </div>
 </nav>
 
