@@ -2,16 +2,6 @@
 
 # Tasmota Scan & Control
 
-> [!IMPORTANT]
-> **New signing key since version 24.2 (21 November 2026).**
-> The app is now signed with a new, private key (APK key rotation).
-> - Updating: tap **Check for update** in the app as usual. On Android 9 and newer the phone moves to the new key by itself, and your switches stay.
-> - Android 7 and 8 keep working with the old key.
-> - If Android ever says "App not installed", uninstall the old app and install it again.
-> - Only download from this GitHub page.
->
-> New key SHA-256 fingerprint: `CC:CD:AD:B9:A4:93:64:70:08:91:98:5A:CC:B4:49:F7:81:3A:DF:56:78:E5:5C:C3:53:9F:08:5D:D6:18:B5:24`
-
 **A free Android app to find and control Tasmota and Shelly switches on your own Wi-Fi.**
 No cloud, no account, no ads, no limits. 
 
@@ -22,6 +12,17 @@ website
  - https://ldijkman.github.io/Tasmota-android-test/
 
 <img src="https://raw.githubusercontent.com/ldijkman/Tasmota-android-test/refs/heads/main/Screenshots/tasmota-scan-control-android-app.png" alt="Tasmota Scan & Control: main screen, tiles and schedules">
+
+> [!IMPORTANT]
+> **New signing key since version 24.2 (21 November 2026).**
+> The app is now signed with a new, private key (APK key rotation).
+> - Updating: tap **Check for update** in the app as usual. On Android 9 and newer the phone moves to the new key by itself, and your switches stay.
+> - Android 7 and 8 keep working with the old key.
+> - If Android ever says "App not installed", uninstall the old app and install it again.
+> - Only download from this GitHub page.
+>
+> New key SHA-256 fingerprint: `CC:CD:AD:B9:A4:93:64:70:08:91:98:5A:CC:B4:49:F7:81:3A:DF:56:78:E5:5C:C3:53:9F:08:5D:D6:18:B5:24`
+
 
 <a href="https://ldijkman.github.io/Tasmota-android-test/tasmota-demo.mp4"><img src="demo/tasmota-demo-poster.jpg" width="260" alt="Watch the demo video: 1 minute, with sound"></a>
 
