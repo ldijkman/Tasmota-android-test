@@ -22,6 +22,8 @@ website
 > - If Android ever says "App not installed", uninstall the old app and install it again.
 > - Only download from this GitHub page.
 >
+> - To decide in 2027: Android 7 and 8 phones still recognise the app by the old (public) key, which is not registered with Google. Either sign with the new key only (Android 7/8 users reinstall once) or leave it.
+>
 > New key SHA-256 fingerprint: `CC:CD:AD:B9:A4:93:64:70:08:91:98:5A:CC:B4:49:F7:81:3A:DF:56:78:E5:5C:C3:53:9F:08:5D:D6:18:B5:24`
 
 
