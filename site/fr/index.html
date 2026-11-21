@@ -218,6 +218,11 @@ details p+p{margin-top:8px}
 details p.fnote{color:#ff7b72;font-weight:600}
 .keynote{margin:18px 0 0;padding:12px 16px;border:2px solid var(--amber);border-radius:14px;background:rgba(240,166,48,.10);color:var(--ink);font-size:.95rem;line-height:1.5;max-width:60ch;overflow-wrap:anywhere}
 .keynote b{color:var(--amber)}
+.keynote.fold{cursor:pointer;position:relative}
+.keynote.fold:not(.open){max-height:calc(3em + 16px);padding-bottom:0;overflow:hidden}
+.keynote.fold::after{content:"▾ more";position:absolute;right:2px;bottom:2px;padding:0 14px 0 30px;color:var(--amber);font-weight:700;font-size:.9rem;line-height:1.5;background:linear-gradient(90deg,rgba(37,36,39,0),#252427 22px);border-radius:0 0 12px 0}
+.keynote.fold.open{padding-bottom:40px}
+.keynote.fold.open::after{content:"▴ less";background:none}
 .don{display:inline-block;margin-top:4px;padding:9px 16px;border-radius:12px;border:1.5px solid var(--amber);color:var(--light);font-weight:700;text-decoration:none}
 .don:hover{background:rgba(240,166,48,.12)}
 @media (max-width:900px){.faq .wrap{grid-template-columns:1fr;gap:28px}}
@@ -758,6 +763,15 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
   document.getElementById('ytClose').addEventListener('click', close);
   d.addEventListener('cancel', e => { e.preventDefault(); close(); });
 })();
+</script>
+<script>
+// Sleutel-notitie: 2 regels zichtbaar, aanraken klapt open/dicht
+document.querySelectorAll('.keynote').forEach(k => {
+  k.classList.add('fold'); k.setAttribute('role', 'button'); k.setAttribute('tabindex', '0'); k.setAttribute('aria-expanded', 'false');
+  const t = () => { const o = k.classList.toggle('open'); k.setAttribute('aria-expanded', o); };
+  k.addEventListener('click', e => { if (e.target.closest('a')) return; t(); });
+  k.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); t(); } });
+});
 </script>
 </body>
 </html>
