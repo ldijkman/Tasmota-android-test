@@ -16,6 +16,7 @@ website
 > [!IMPORTANT]
 > **New signing key since version 24.2 (21 November 2026).**
 > The app is now signed with a new, private key (APK key rotation).
+> ✅ **Registered with Google's Android developer verification** (package `nl.dijkman.plafondled`, 21 November 2026).
 > - Updating: tap **Check for update** in the app as usual. On Android 9 and newer the phone moves to the new key by itself, and your switches stay.
 > - Android 7 and 8 keep working with the old key.
 > - If Android ever says "App not installed", uninstall the old app and install it again.
