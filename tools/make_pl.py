@@ -422,6 +422,9 @@ T = [
 ('Wiring 230 V AC', 'Podłączenie 230 V AC'),
 ('1PM Gen3 and Gen4: lamp on O, switch on SW. Mains wiring? Let an electrician do it.', '1PM Gen3 i Gen4: lampa na O, włącznik na SW. Napięcie sieciowe? Zleć to elektrykowi.'),
 ('Wiring diagram Shelly 1PM at 230 V AC: lamp on O and N, wall switch between SW and L, mains L and N', 'Schemat podłączenia Shelly 1PM do 230 V AC: lampa na O i N, włącznik między SW i L, sieć L i N'),
+('Toilet fan, 230 V AC', 'Wentylator w toalecie, 230 V AC'),
+('Shelly 1 Gen3: fan on O, push button on SW. Tap for the video.', 'Shelly 1 Gen3: wentylator na O, przycisk na SW. Stuknij, aby zobaczyć film.'),
+('Wiring drawing: toilet fan on a Shelly 1 Gen3 at 230 V AC, fan on O, push button on SW', 'Schemat: wentylator w toalecie na Shelly 1 Gen3 przy 230 V AC, wentylator na O, przycisk na SW'),
 ]
 
 bad = []

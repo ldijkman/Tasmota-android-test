@@ -281,6 +281,9 @@ T = [
 ('Wiring 230 V AC', 'Anschluss 230 V AC'),
 ('1PM Gen3 and Gen4: lamp on O, switch on SW. Mains wiring? Let an electrician do it.', '1PM Gen3 und Gen4: Lampe an O, Schalter an SW. Netzspannung? Lass es einen Elektriker machen.'),
 ('Wiring diagram Shelly 1PM at 230 V AC: lamp on O and N, wall switch between SW and L, mains L and N', 'Schaltplan Shelly 1PM an 230 V AC: Lampe an O und N, Wandschalter zwischen SW und L, Netz L und N'),
+('Toilet fan, 230 V AC', 'WC-Lüfter, 230 V AC'),
+('Shelly 1 Gen3: fan on O, push button on SW. Tap for the video.', 'Shelly 1 Gen3: Lüfter an O, Taster an SW. Tippen für das Video.'),
+('Wiring drawing: toilet fan on a Shelly 1 Gen3 at 230 V AC, fan on O, push button on SW', 'Anschlussbild: WC-Lüfter an einem Shelly 1 Gen3 mit 230 V AC, Lüfter an O, Taster an SW'),
 ]
 bad = []
 for en, de in T:
