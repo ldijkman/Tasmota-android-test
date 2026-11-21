@@ -407,6 +407,7 @@ T = [
 ('Christmas tree on a Shelly: temperature, firmware 2.2.0 and the auto-off countdown.', 'Choinka na Shelly: temperatura, firmware 2.2.0 i odliczanie auto-wyłączania.'),
 ('Gimmick: a Christmas tree icon with twinkling lights, here in Tiles on the Shelly. 🎄', 'Gadżet: ikona choinki z migającymi lampkami, tu w kafelkach na Shelly. 🎄'),
 ('<b>Add and use a Shelly</b>', '<b>Dodaj i używaj Shelly</b>'),
+('<summary>Why is it not in the Play Store?</summary><p>I make this app alone, in my spare time. Getting a new app into the Play Store means paying a fee, an identity check, and first finding 12 testers who keep it installed for 14 days. That is a lot of hassle for a free hobby app. So you download it straight from GitHub instead.</p>', '<summary>Dlaczego aplikacji nie ma w Sklepie Play?</summary><p>Tworzę tę aplikację sam, w wolnym czasie. Wprowadzenie nowej aplikacji do Sklepu Play oznacza opłatę, weryfikację tożsamości i najpierw znalezienie 12 testerów, którzy trzymają ją zainstalowaną przez 14 dni. To dużo zachodu jak na darmową aplikację hobbystyczną. Dlatego pobierasz ją prosto z GitHuba.</p>'),
 ]
 
 bad = []

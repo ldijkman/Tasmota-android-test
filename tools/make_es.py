@@ -409,6 +409,7 @@ T = [
 ('Christmas tree on a Shelly: temperature, firmware 2.2.0 and the auto-off countdown.', 'Árbol de Navidad en un Shelly: temperatura, firmware 2.2.0 y la cuenta atrás del apagado automático.'),
 ('Gimmick: a Christmas tree icon with twinkling lights, here in Tiles on the Shelly. 🎄', 'Detalle divertido: un icono de árbol de Navidad con luces que parpadean, aquí en los mosaicos con el Shelly. 🎄'),
 ('<b>Add and use a Shelly</b>', '<b>Añadir y usar un Shelly</b>'),
+('<summary>Why is it not in the Play Store?</summary><p>I make this app alone, in my spare time. Getting a new app into the Play Store means paying a fee, an identity check, and first finding 12 testers who keep it installed for 14 days. That is a lot of hassle for a free hobby app. So you download it straight from GitHub instead.</p>', '<summary>¿Por qué no está en Play Store?</summary><p>Hago esta app solo, en mi tiempo libre. Publicar una app nueva en Play Store significa pagar una tasa, verificar tu identidad y, antes, encontrar 12 testers que la mantengan instalada durante 14 días. Es mucho lío para una app gratuita hecha por afición. Por eso la descargas directamente desde GitHub.</p>'),
 ]
 
 

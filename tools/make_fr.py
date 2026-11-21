@@ -263,6 +263,7 @@ T = [
 ('Christmas tree on a Shelly: temperature, firmware 2.2.0 and the auto-off countdown.', 'Sapin de Noël sur un Shelly\xa0: température, firmware 2.2.0 et le compte à rebours de l’arrêt automatique.'),
 ('Gimmick: a Christmas tree icon with twinkling lights, here in Tiles on the Shelly. 🎄', 'Petit plus\xa0: une icône de sapin aux guirlandes qui scintillent, ici dans les tuiles avec le Shelly. 🎄'),
 ('<b>Add and use a Shelly</b>', '<b>Ajouter et utiliser un Shelly</b>'),
+('<summary>Why is it not in the Play Store?</summary><p>I make this app alone, in my spare time. Getting a new app into the Play Store means paying a fee, an identity check, and first finding 12 testers who keep it installed for 14 days. That is a lot of hassle for a free hobby app. So you download it straight from GitHub instead.</p>', '<summary>Pourquoi n’est-elle pas sur le Play Store ?</summary><p>Je fais cette appli seul, sur mon temps libre. Publier une nouvelle appli sur le Play Store, c’est payer des frais, passer une vérification d’identité, et d’abord trouver 12 testeurs qui la gardent installée pendant 14 jours. C’est beaucoup de tracas pour une appli gratuite faite par passion. Vous la téléchargez donc directement depuis GitHub.</p>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

@@ -265,6 +265,7 @@ T = [
 ('Christmas tree on a Shelly: temperature, firmware 2.2.0 and the auto-off countdown.', 'Weihnachtsbaum an einem Shelly: Temperatur, Firmware 2.2.0 und der Auto-Aus-Countdown.'),
 ('Gimmick: a Christmas tree icon with twinkling lights, here in Tiles on the Shelly. 🎄', 'Gimmick: ein Weihnachtsbaum-Symbol mit funkelnden Lichtern, hier in den Kacheln am Shelly. 🎄'),
 ('<b>Add and use a Shelly</b>', '<b>Einen Shelly hinzufügen und nutzen</b>'),
+('<summary>Why is it not in the Play Store?</summary><p>I make this app alone, in my spare time. Getting a new app into the Play Store means paying a fee, an identity check, and first finding 12 testers who keep it installed for 14 days. That is a lot of hassle for a free hobby app. So you download it straight from GitHub instead.</p>', '<summary>Warum ist die App nicht im Play Store?</summary><p>Ich mache diese App allein, in meiner Freizeit. Eine neue App in den Play Store zu bringen heißt: eine Gebühr zahlen, eine Identitätsprüfung, und zuerst 12 Tester finden, die sie 14 Tage lang installiert lassen. Das ist viel Aufwand für eine kostenlose Hobby-App. Deshalb lädst du sie direkt von GitHub herunter.</p>'),
 ]
 bad = []
 for en, de in T:
