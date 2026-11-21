@@ -21,6 +21,16 @@ jobs:
         run: |
           test -n "$NEW_KEY_PASS" || { echo "Secret NEW_KEY_PASS is missing"; exit 1; }
           bash .github/signing/sign.sh in.apk signed.apk
+      - name: Public certificate of the new key (not secret)
+        env:
+          NEW_KEY_PASS: ${{ secrets.NEW_KEY_PASS }}
+        run: |
+          openssl enc -d -aes-256-cbc -pbkdf2 -iter 600000 -in .github/signing/new-key.jks.enc -out /tmp/new.jks -pass env:NEW_KEY_PASS
+          keytool -exportcert -rfc -alias tasmotascan -keystore /tmp/new.jks -storepass "$NEW_KEY_PASS"
+          keytool -exportcert -alias tasmotascan -keystore /tmp/new.jks -storepass "$NEW_KEY_PASS" -file /tmp/new.cer
+          openssl x509 -inform der -in /tmp/new.cer -pubkey -noout
+          openssl x509 -inform der -in /tmp/new.cer -noout -fingerprint -sha256
+          rm -f /tmp/new.jks
       - uses: actions/upload-artifact@v4
         with:
           name: signed-test-apk
