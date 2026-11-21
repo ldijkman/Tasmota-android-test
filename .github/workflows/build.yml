@@ -32,8 +32,13 @@ jobs:
         working-directory: plafond-led-app
         run: gradle assembleDebug --no-daemon
 
-      - name: Rename APK
-        run: cp plafond-led-app/app/build/outputs/apk/debug/app-debug.apk PlafondLED.apk
+      # Ondertekenen met sleutelrotatie: oude (publieke) sleutel -> nieuwe privesleutel (secret NEW_KEY_PASS)
+      - name: Sign APK (key rotation)
+        env:
+          NEW_KEY_PASS: ${{ secrets.NEW_KEY_PASS }}
+        run: |
+          test -n "$NEW_KEY_PASS" || { echo "Secret NEW_KEY_PASS is missing"; exit 1; }
+          bash .github/signing/sign.sh plafond-led-app/app/build/outputs/apk/debug/app-debug.apk PlafondLED.apk
 
       # Versie uit build.gradle, zodat de knop "Check for update" in de app kan vergelijken
       - name: Read version
