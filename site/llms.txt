@@ -21,7 +21,7 @@ Features:
 - Scenes on a 2-wide grid with free placement and empty spaces; own colours per scene for icon, name and border. After running a scene, the result (e.g. "3 of 3 done", or which switch was not reachable) shows on the scene tile itself.
 - Up to 8 on/off schedules per switch with fixed times or sunrise/sunset with offset, stored and run in the switch itself (they keep working with the phone off).
 - Lamps: brightness, white colour temperature, colour.
-- Auto-off after a set time (Tasmota PulseTime, Shelly auto-off); also works when the physical button on the device is pressed. Tap the auto-off line on a card ("off in 58:16" or "auto-off 30 min") to jump straight to the auto-off setting.
+- Auto-off after a set time (Tasmota PulseTime, Shelly auto-off); also works when the physical button on the device is pressed. For Shelly relays, Edit also sets the wall switch on the SW input: push button (pulse), toggle switch (each flip), switch follows (up = on) or detached. Tap the auto-off line on a card ("off in 58:16" or "auto-off 30 min") to jump straight to the auto-off setting.
 - Energy use (watts) for plugs with a power meter.
 - Sensor values on the card: temperature, humidity, air pressure, light, CO2, distance (e.g. AM2301, DS18B20, BME280).
 - Per card, optional: Wi-Fi signal and uptime, last restart reason (crashes shown in orange), Tasmota version and chip. Tap the IP address to open the device's own Tasmota web page.

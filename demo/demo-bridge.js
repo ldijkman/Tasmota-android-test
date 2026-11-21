@@ -169,8 +169,10 @@
     if (p === '/rpc/Schedule.Create') { if (sh.jobs.length >= 20) return { __err: 'HTTP 500 {"code":-103,"message":"Too many jobs"}' }; const j = { id: sh.nextJob++, enable: js('enable') !== false, timespec: js('timespec'), calls: js('calls') }; sh.jobs.push(j); return { id: j.id, rev: ++sh.rev }; }
     if (p === '/rpc/Schedule.Update') { const j = sh.jobs.find(x => x.id === +js('id')); if (!j) return { __err: 'HTTP 500 {"code":-105,"message":"Job not found"}' }; ['enable', 'timespec', 'calls'].forEach(k => { if (q(k) != null) j[k] = js(k); }); return { rev: ++sh.rev }; }
     if (p === '/rpc/Schedule.Delete') { const i = sh.jobs.findIndex(x => x.id === +js('id')); if (i < 0) return { __err: 'HTTP 500 {"code":-105,"message":"Job not found"}' }; sh.jobs.splice(i, 1); return { rev: ++sh.rev }; }
-    if (p === `/rpc/${ns}.GetConfig`) return { id: 0, name: null, auto_on: false, auto_off: !!sh.autoOff, auto_off_delay: sh.autoOff || 60 };
-    if (p === `/rpc/${ns}.SetConfig`) { try { const c = JSON.parse(q('config') || '{}'); sh.autoOff = c.auto_off ? +c.auto_off_delay || 0 : 0; } catch (e) {} startTimer(); return { restart_required: false }; }
+    if (p === `/rpc/${ns}.GetConfig`) return Object.assign({ id: 0, name: null, auto_on: false, auto_off: !!sh.autoOff, auto_off_delay: sh.autoOff || 60 }, ns === 'Switch' ? { in_mode: sh.inMode || 'follow' } : {});
+    if (p === `/rpc/${ns}.SetConfig`) { try { const c = JSON.parse(q('config') || '{}'); if ('auto_off' in c) sh.autoOff = c.auto_off ? +c.auto_off_delay || 0 : 0; if (c.in_mode) sh.inMode = c.in_mode; } catch (e) {} startTimer(); return { restart_required: false }; }
+    if (p === '/rpc/Input.GetConfig') return { id: 0, name: null, type: sh.inType || 'switch', enable: true, invert: false };
+    if (p === '/rpc/Input.SetConfig') { try { const c = JSON.parse(q('config') || '{}'); if (c.type) sh.inType = c.type; } catch (e) {} return { restart_required: false }; }
     if (p === `/rpc/${ns}.GetStatus`) return status();
     if (p === `/rpc/${ns}.Set`) {
       const was = sh.on;
