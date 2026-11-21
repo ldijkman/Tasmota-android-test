@@ -250,6 +250,7 @@ T = [
 ('<span class="len">1.5 min</span>', '<span class="len">1,5 Min.</span>'),
 ('<span class="len">1 min</span>', '<span class="len">1 Min.</span>'),
 ('<span class="len">2 min</span>', '<span class="len">2 Min.</span>'),
+('<span class="len">4 min</span>', '<span class="len">4 Min.</span>'),
 ('>Read the Tailscale VPN guide</a></div>', '>Tailscale-VPN-Anleitung lesen (Englisch)</a></div>'),
 ('<b>Athom Tasmota EU plug</b>', '<b>Athom Tasmota EU-Steckdose</b>'),
 ('alt="Athom Tasmota EU plug"', 'alt="Athom Tasmota EU-Steckdose"'),
@@ -267,6 +268,7 @@ T = [
 ('<b>Add and use a Shelly</b>', '<b>Einen Shelly hinzufügen und nutzen</b>'),
 ('<summary>Why is it not in the Play Store?</summary><p>I make this app alone, in my spare time. Getting a new app into the Play Store means paying a fee, an identity check, and first finding 12 testers who keep it installed for 14 days. That is a lot of hassle for a free hobby app. So you download it straight from GitHub instead.</p>', '<summary>Warum ist die App nicht im Play Store?</summary><p>Ich mache diese App allein, in meiner Freizeit. Eine neue App in den Play Store zu bringen heißt: eine Gebühr zahlen, eine Identitätsprüfung, und zuerst 12 Tester finden, die sie 14 Tage lang installiert lassen. Das ist viel Aufwand für eine kostenlose Hobby-App. Deshalb lädst du sie direkt von GitHub herunter.</p>'),
 ('<p class="diy-fact" style="margin-top:18px"><b>Fun fact:</b><br>The ESP8266 started as a 2-dollar Wi-Fi modem,<br>controlled with AT commands<br>from the 1980s telephone modem era.<br>Hobbyists found out it could run its own programs,<br>and Tasmota and Shelly grew from that.</p>', '<p class="diy-fact" style="margin-top:18px"><b>Fun Fact:</b><br>Der ESP8266 begann als WLAN-Modem für 2 Dollar,<br>gesteuert mit AT-Befehlen<br>aus der Zeit der Telefonmodems der 1980er.<br>Bastler entdeckten, dass er eigene Programme ausführen kann,<br>und daraus wuchsen Tasmota und Shelly.</p>'),
+('<b>The Shelly card explained</b>', '<b>Die Shelly-Karte erklärt</b>'),
 ]
 bad = []
 for en, de in T:

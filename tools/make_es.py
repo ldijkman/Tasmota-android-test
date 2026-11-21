@@ -411,6 +411,7 @@ T = [
 ('<b>Add and use a Shelly</b>', '<b>Añadir y usar un Shelly</b>'),
 ('<summary>Why is it not in the Play Store?</summary><p>I make this app alone, in my spare time. Getting a new app into the Play Store means paying a fee, an identity check, and first finding 12 testers who keep it installed for 14 days. That is a lot of hassle for a free hobby app. So you download it straight from GitHub instead.</p>', '<summary>¿Por qué no está en Play Store?</summary><p>Hago esta app solo, en mi tiempo libre. Publicar una app nueva en Play Store significa pagar una tasa, verificar tu identidad y, antes, encontrar 12 testers que la mantengan instalada durante 14 días. Es mucho lío para una app gratuita hecha por afición. Por eso la descargas directamente desde GitHub.</p>'),
 ('<p class="diy-fact" style="margin-top:18px"><b>Fun fact:</b><br>The ESP8266 started as a 2-dollar Wi-Fi modem,<br>controlled with AT commands<br>from the 1980s telephone modem era.<br>Hobbyists found out it could run its own programs,<br>and Tasmota and Shelly grew from that.</p>', '<p class="diy-fact" style="margin-top:18px"><b>Curiosidad:</b><br>El ESP8266 empezó como un módem wifi de 2 dólares,<br>controlado con comandos AT<br>de la época de los módems telefónicos de los años 80.<br>Los aficionados descubrieron que podía ejecutar sus propios programas,<br>y de ahí nacieron Tasmota y Shelly.</p>'),
+('<b>The Shelly card explained</b>', '<b>La tarjeta Shelly explicada</b>'),
 ]
 
 
