@@ -107,7 +107,7 @@ T = [
  '<h3>Von überall</h3><p>Erreiche deine Schalter von unterwegs mit Tailscale VPN, ohne Ports im Router zu öffnen.</p>'),
 # videos
 ('See how it works.', 'So funktioniert es.'),
-('A video says more than a hundred words. Short videos with spoken explanation, filmed in the live demo.', 'Ein Video sagt mehr als hundert Worte. Kurze Videos mit gesprochener Erklärung (auf Englisch), aufgenommen in der Live-Demo.'),
+('A video says more than a thousand words. Short videos with spoken explanation, filmed in the live demo.', 'Ein Video sagt mehr als tausend Worte. Kurze Videos mit gesprochener Erklärung (auf Englisch), aufgenommen in der Live-Demo.'),
 ('<b>Install and first scan</b>', '<b>Installieren und erster Scan</b>'),
 ('<b>The app in a minute</b>', '<b>Die App in einer Minute</b>'),
 ('<b>Add a new device</b>', '<b>Neues Gerät hinzufügen</b>'),
