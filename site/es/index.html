@@ -218,6 +218,12 @@ details p+p{margin-top:8px}
 details p.fnote{color:#ff7b72;font-weight:600}
 .keynote{margin:18px 0 0;padding:12px 16px;border:2px solid var(--amber);border-radius:14px;background:rgba(240,166,48,.10);color:var(--ink);font-size:.95rem;line-height:1.5;max-width:60ch;overflow-wrap:anywhere}
 .keynote b{color:var(--amber)}
+.regbadge{display:flex;align-items:center;gap:14px;margin:18px 0 0;padding:12px 18px 12px 14px;background:#141e33;border:3px solid var(--amber);border-radius:20px;color:var(--ink);font:inherit;text-align:left;cursor:pointer;max-width:100%}
+.regbadge svg{flex:none}
+.regbadge b{display:block;color:var(--amber);font-family:var(--display);font-weight:800;font-size:1.25rem;line-height:1.2}
+.regbadge .rb2{display:block;font-size:1rem;line-height:1.35}
+.regbadge small{display:block;color:var(--muted);font-size:.8rem;line-height:1.35;overflow-wrap:anywhere}
+.regbadge:focus-visible{outline:3px solid var(--light);outline-offset:3px}
 .keynote.fold{cursor:pointer;position:relative}
 .keynote.fold:not(.open){max-height:calc(3em + 16px);padding-bottom:0;overflow:hidden}
 .keynote.fold::after{content:"▾ more";position:absolute;right:2px;bottom:2px;padding:0 14px 0 30px;color:var(--amber);font-weight:700;font-size:.9rem;line-height:1.5;background:linear-gradient(90deg,rgba(37,36,39,0),#252427 22px);border-radius:0 0 12px 0}
@@ -369,6 +375,7 @@ footer a{color:var(--muted)}
       </div>
       <p class="promise">Sin nube, sin cuenta, sin anuncios, sin límite de dispositivos. Gratis y de código abierto.<br>Funciona con <b>Tasmota</b> y <b>Shelly</b>; OpenBeken en parte.<br>La app en sí está en inglés.</p>
       <p class="promise dlcount" id="dlcount" hidden></p>
+      <button type="button" class="regbadge" onclick="const k=document.querySelector('.keynote'); if(k){k.classList.add('open'); k.setAttribute('aria-expanded','true'); k.scrollIntoView({behavior:'smooth',block:'center'});}" aria-label="Desarrollador registrado: verificación de desarrolladores de Android. Toca para ver detalles."><svg viewBox="-34 -42 68 86" width="44" height="56" aria-hidden="true"><path d="M0,-40 L32,-28 L32,2 C32,22 18,34 0,42 C-18,34 -32,22 -32,2 L-32,-28 Z" fill="#f0a630"/><path d="M-14,1 L-4,12 L16,-11" fill="none" stroke="#141e33" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Desarrollador registrado</b><span class="rb2">Verificación de desarrolladores de Android</span><small>nl.dijkman.plafondled · desde el 21 nov 2026</small></span></button>
       <p class="keynote"><b>Nueva clave de firma desde la versión 24.2.</b><br>✅ Registrada en la verificación de desarrolladores de Android de Google.<br>Cada app de Android tiene una firma digital, como un sello en una carta. Android solo acepta una actualización si el sello coincide.<br>El sello antiguo estaba en el código fuente público, así que en teoría alguien podría crear una versión falsa que pareciera una actualización. El nuevo sello es privado y solo yo puedo usarlo. Además prepara la app para la verificación de desarrolladores de Google, que llega en 2027.<br>¿Actualizar? Toca Check for update en la app como siempre. Tus interruptores se mantienen. Si Android alguna vez dice «App no instalada», desinstala la app antigua y vuelve a instalarla. Descarga solo desde GitHub: github.com/ldijkman/Tasmota-android-test</p>
     </div>
 
