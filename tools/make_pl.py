@@ -425,6 +425,11 @@ T = [
 ('Toilet fan, 230 V AC', 'Wentylator w toalecie, 230 V AC'),
 ('Shelly 1 Gen3: fan on O, push button on SW. Tap for the video.', 'Shelly 1 Gen3: wentylator na O, przycisk na SW. Stuknij, aby zobaczyć film.'),
 ('Wiring drawing: toilet fan on a Shelly 1 Gen3 at 230 V AC, fan on O, push button on SW', 'Schemat: wentylator w toalecie na Shelly 1 Gen3 przy 230 V AC, wentylator na O, przycisk na SW'),
+('Shelly 1 Gen3: tested', 'Shelly 1 Gen3: przetestowany'),
+('Shelly 1PM Gen3 and Gen4: on their way', 'Shelly 1PM Gen3 i Gen4: w drodze'),
+('Shelly bulbs: on their way', 'Żarówki Shelly: w drodze'),
+('Relay with power metering.', 'Przekaźnik z pomiarem energii.'),
+('The newest generation.', 'Najnowsza generacja.'),
 ]
 
 bad = []

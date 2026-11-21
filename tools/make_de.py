@@ -284,6 +284,11 @@ T = [
 ('Toilet fan, 230 V AC', 'WC-Lüfter, 230 V AC'),
 ('Shelly 1 Gen3: fan on O, push button on SW. Tap for the video.', 'Shelly 1 Gen3: Lüfter an O, Taster an SW. Tippen für das Video.'),
 ('Wiring drawing: toilet fan on a Shelly 1 Gen3 at 230 V AC, fan on O, push button on SW', 'Anschlussbild: WC-Lüfter an einem Shelly 1 Gen3 mit 230 V AC, Lüfter an O, Taster an SW'),
+('Shelly 1 Gen3: tested', 'Shelly 1 Gen3: getestet'),
+('Shelly 1PM Gen3 and Gen4: on their way', 'Shelly 1PM Gen3 und Gen4: unterwegs'),
+('Shelly bulbs: on their way', 'Shelly-Lampen: unterwegs'),
+('Relay with power metering.', 'Relais mit Strommessung.'),
+('The newest generation.', 'Die neueste Generation.'),
 ]
 bad = []
 for en, de in T:

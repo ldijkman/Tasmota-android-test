@@ -281,6 +281,11 @@ T = [
 ('Toilet fan, 230 V AC', 'Ventilateur de WC, 230 V CA'),
 ('Shelly 1 Gen3: fan on O, push button on SW. Tap for the video.', 'Shelly 1 Gen3 : ventilateur sur O, bouton-poussoir sur SW. Touchez pour la vidéo.'),
 ('Wiring drawing: toilet fan on a Shelly 1 Gen3 at 230 V AC, fan on O, push button on SW', 'Schéma : ventilateur de WC sur un Shelly 1 Gen3 en 230 V CA, ventilateur sur O, bouton-poussoir sur SW'),
+('Shelly 1 Gen3: tested', 'Shelly 1 Gen3 : testé'),
+('Shelly 1PM Gen3 and Gen4: on their way', 'Shelly 1PM Gen3 et Gen4 : en route'),
+('Shelly bulbs: on their way', 'Ampoules Shelly : en route'),
+('Relay with power metering.', 'Relais avec mesure de consommation.'),
+('The newest generation.', 'La toute dernière génération.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
