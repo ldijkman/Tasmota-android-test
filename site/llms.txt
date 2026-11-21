@@ -60,3 +60,4 @@ Features:
 - [Remote control with Tailscale](https://ldijkman.github.io/Tasmota-android-test/tasmota-tailscale.mp4)
 - [Shelly: add a Shelly, the card, firmware update and schedules](https://ldijkman.github.io/Tasmota-android-test/shelly-how-to.mp4)
 - [The Shelly device card explained, line by line](https://ldijkman.github.io/Tasmota-android-test/shelly-device-card.mp4)
+- [Toilet fan with a Shelly: push button on the SW input, wall switch setting and auto-off](https://ldijkman.github.io/Tasmota-android-test/shelly-toilet-fan.mp4)
