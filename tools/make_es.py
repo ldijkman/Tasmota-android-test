@@ -417,6 +417,7 @@ T = [
 ('<b>Known to Google</b><span class="rb2">Registered developer · installs without the Play Protect scan on most phones</span>', '<b>Conocido por Google</b><span class="rb2">Desarrollador registrado · se instala sin el análisis de Play Protect en la mayoría de los móviles</span>'),
 ('aria-label="Known to Google: registered developer, installs without the Play Protect scan on most phones. Tap for details."', 'aria-label="Conocido por Google: desarrollador registrado, se instala sin el análisis de Play Protect en la mayoría de los móviles. Toca para ver detalles."'),
 ('<b>Toilet fan with a Shelly</b>', '<b>Ventilador del baño con un Shelly</b>'),
+('Main screen: Wi-Fi and Tailscale side by side, what switches today, and your switches by room.', 'Pantalla principal: wifi y Tailscale uno al lado del otro, lo que se enciende hoy y tus interruptores por habitación.'),
 ]
 
 

@@ -271,6 +271,7 @@ T = [
 ('<b>Known to Google</b><span class="rb2">Registered developer · installs without the Play Protect scan on most phones</span>', '<b>Connu de Google</b><span class="rb2">Développeur enregistré · s’installe sans l’analyse Play Protect sur la plupart des téléphones</span>'),
 ('aria-label="Known to Google: registered developer, installs without the Play Protect scan on most phones. Tap for details."', 'aria-label="Connu de Google : développeur enregistré, s’installe sans l’analyse Play Protect sur la plupart des téléphones. Touchez pour les détails."'),
 ('<b>Toilet fan with a Shelly</b>', '<b>Ventilateur de WC avec un Shelly</b>'),
+('Main screen: Wi-Fi and Tailscale side by side, what switches today, and your switches by room.', 'Écran principal : Wi-Fi et Tailscale côte à côte, ce qui s’allume aujourd’hui, et vos interrupteurs par pièce.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

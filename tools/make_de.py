@@ -274,6 +274,7 @@ T = [
 ('<b>Known to Google</b><span class="rb2">Registered developer · installs without the Play Protect scan on most phones</span>', '<b>Google bekannt</b><span class="rb2">Eingetragener Entwickler · Installation ohne Play-Protect-Scan auf den meisten Handys</span>'),
 ('aria-label="Known to Google: registered developer, installs without the Play Protect scan on most phones. Tap for details."', 'aria-label="Google bekannt: eingetragener Entwickler, Installation ohne Play-Protect-Scan auf den meisten Handys. Für Details tippen."'),
 ('<b>Toilet fan with a Shelly</b>', '<b>WC-Lüfter mit einem Shelly</b>'),
+('Main screen: Wi-Fi and Tailscale side by side, what switches today, and your switches by room.', 'Hauptbildschirm: WLAN und Tailscale nebeneinander, was heute schaltet, und deine Schalter nach Raum.'),
 ]
 bad = []
 for en, de in T:

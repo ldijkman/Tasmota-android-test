@@ -415,6 +415,7 @@ T = [
 ('<b>Known to Google</b><span class="rb2">Registered developer · installs without the Play Protect scan on most phones</span>', '<b>Znany Google</b><span class="rb2">Zarejestrowany deweloper · instaluje się bez skanowania Play Protect na większości telefonów</span>'),
 ('aria-label="Known to Google: registered developer, installs without the Play Protect scan on most phones. Tap for details."', 'aria-label="Znany Google: zarejestrowany deweloper, instaluje się bez skanowania Play Protect na większości telefonów. Stuknij, aby zobaczyć szczegóły."'),
 ('<b>Toilet fan with a Shelly</b>', '<b>Wentylator w toalecie z Shelly</b>'),
+('Main screen: Wi-Fi and Tailscale side by side, what switches today, and your switches by room.', 'Ekran główny: Wi-Fi i Tailscale obok siebie, co dziś się przełącza, i przełączniki według pokoi.'),
 ]
 
 bad = []
