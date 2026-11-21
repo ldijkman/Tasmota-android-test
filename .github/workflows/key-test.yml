@@ -1,0 +1,27 @@
+name: Test new signing key
+
+# Only by hand: re-signs the latest release APK with key rotation and checks it. Publishes nothing.
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Old key from the project zip
+        run: unzip -o -q plafond-led-app.zip 'plafond-led-app/app/release.keystore'
+      - name: Latest release APK
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh release download --pattern PlafondLED.apk --output in.apk
+      - name: Sign with rotation and verify
+        env:
+          NEW_KEY_PASS: ${{ secrets.NEW_KEY_PASS }}
+        run: |
+          test -n "$NEW_KEY_PASS" || { echo "Secret NEW_KEY_PASS is missing"; exit 1; }
+          bash .github/signing/sign.sh in.apk signed.apk
+      - uses: actions/upload-artifact@v4
+        with:
+          name: signed-test-apk
+          path: signed.apk
