@@ -931,7 +931,11 @@ document.querySelectorAll('.keynote').forEach(k => {
   const lang = document.documentElement.lang || 'en';
   const when = t => { const d = new Date(t); return isNaN(d) ? esc(t.split(' ')[0] || '') : d.toLocaleDateString(lang, {day: 'numeric', month: 'short', year: 'numeric'}); };
   fetch(CMT.csv, {cache: 'no-store'}).then(r => r.ok ? r.text() : Promise.reject()).then(t => {
-    const rows = parse(t).slice(1).filter(r => r[1] && r[2]);
+    // kolommen op naam zoeken, zodat zowel het Public-tabblad als het hele antwoordenblad werkt
+    const all = parse(t), h = (all[0] || []).map(x => x.trim().toLowerCase()), col = n => h.indexOf(n);
+    const cT = col('timestamp'), cN = col('name'), cC = col('comment'), cR = col('reply'), cA = col('approved');
+    const rows = all.slice(1).filter(r => r[cN] && r[cC] && (cA < 0 || String(r[cA]).trim().toLowerCase() === 'yes'))
+      .map(r => [r[cT] || '', r[cN], r[cC], cR < 0 ? '' : r[cR] || '']).reverse();
     list.innerHTML = rows.length ? rows.map(([ts, name, text, reply]) => `<div class="cmt-c"><b>${esc(name)}</b><time>${when(ts)}</time><p>${esc(text)}</p>${reply ? `<div class="cmt-r"><b>${esc(list.dataset.reply)}</b><p>${esc(reply)}</p></div>` : ''}</div>`).join('')
       : `<p class="cmt-none">${esc(list.dataset.empty)}</p>`;
   }).catch(() => { list.innerHTML = `<p class="cmt-none">${esc(list.dataset.empty)}</p>`; });
