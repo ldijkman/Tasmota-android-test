@@ -357,6 +357,7 @@ footer a{color:var(--muted)}
 
 /* zwevende downloadbalk, alleen op telefoons */
 .xtree{display:inline-block;margin-top:6px}.xtree .xl circle{animation:xmasTw 1.2s ease-in-out infinite}@keyframes xmasTw{0%,100%{opacity:1}50%{opacity:.15}}@media (prefers-reduced-motion:reduce){.xtree .xl circle{animation:none}}
+#dlbar .dlb-btn{position:relative}#dlbar .xtree.dlx{position:absolute;top:-27px;left:50%;margin:0;transform:translateX(-50%);pointer-events:none}
 #dlbar{display:none}
 @media (max-width:900px){
 #dlbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;gap:12px;justify-content:space-between;padding:1px 12px calc(1px + env(safe-area-inset-bottom,0px));background:rgba(14,21,37,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid rgba(42,53,80,.6);transform:translateY(110%);transition:transform .3s}
@@ -857,7 +858,7 @@ document.querySelectorAll('.keynote').forEach(k => {
   k.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); t(); } });
 });
 </script>
-<div id="dlbar" hidden><span class="dlb-t"><b>Shelly &amp; Tasmota</b><b>Scan &amp; Control</b><small>Kostenlos, für Android 7 und neuer</small></span><a class="dlb-btn" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk">Herunterladen<small class="dlv"></small></a></div>
+<div id="dlbar" hidden><span class="dlb-t"><b>Shelly &amp; Tasmota</b><b>Scan &amp; Control</b><small>Kostenlos, für Android 7 und neuer</small></span><a class="dlb-btn" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk">Herunterladen<small class="dlv"></small><svg class="xtree dlx" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path fill="#3fae5a" d="M10,21V18H3L8,13H5L10,8H7L12,3L17,8H14L19,13H16L21,18H14V21H10Z"/><g class="xl"><circle cx="12" cy="3.7" r="1.4" fill="#ffd23a" style="animation-delay:0s"/><circle cx="10.8" cy="6.7" r="1.2" fill="#ff4d4d" style="animation-delay:0.25s"/><circle cx="13.3" cy="7.2" r="1.2" fill="#4da6ff" style="animation-delay:0.7s"/><circle cx="9.4" cy="10.8" r="1.2" fill="#ffd23a" style="animation-delay:1s"/><circle cx="12.3" cy="11.6" r="1.2" fill="#ff5ad1" style="animation-delay:0.4s"/><circle cx="15" cy="10.6" r="1.2" fill="#ff4d4d" style="animation-delay:0.85s"/><circle cx="7.1" cy="15.9" r="1.2" fill="#4da6ff" style="animation-delay:0.55s"/><circle cx="10.4" cy="16.6" r="1.2" fill="#ffd23a" style="animation-delay:0.15s"/><circle cx="13.6" cy="16.2" r="1.2" fill="#ff5ad1" style="animation-delay:0.95s"/><circle cx="17" cy="16.8" r="1.2" fill="#ff4d4d" style="animation-delay:0.5s"/></g></svg></a></div>
 <script>
 // Zwevende downloadbalk op telefoons: verschijnt zodra de grote downloadknop bovenaan uit beeld is
 (() => {
