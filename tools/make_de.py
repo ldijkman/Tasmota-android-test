@@ -300,6 +300,7 @@ T = [
 ('Shelly plugs: on their way', 'Shelly-Stecker: unterwegs'),
 ('EU wall plug, 13 A, with power metering.', 'EU-Zwischenstecker, 13 A, mit Strommessung.'),
 ('8.5 W, 800 lm', '8,5 W, 800 lm'),
+('<b>Christmas tree on a timer</b>', '<b>Weihnachtsbaum mit Zeitschaltung</b>'),
 ]
 bad = []
 for en, de in T:

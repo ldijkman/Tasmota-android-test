@@ -443,6 +443,7 @@ T = [
 ('Shelly plugs: on their way', 'Enchufes Shelly: en camino'),
 ('EU wall plug, 13 A, with power metering.', 'Enchufe de pared UE, 13 A, con medición de consumo.'),
 ('8.5 W, 800 lm', '8,5 W, 800 lm'),
+('<b>Christmas tree on a timer</b>', '<b>Árbol de Navidad con temporizador</b>'),
 ]
 
 

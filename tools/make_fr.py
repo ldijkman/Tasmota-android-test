@@ -297,6 +297,7 @@ T = [
 ('Shelly plugs: on their way', 'Prises Shelly : en route'),
 ('EU wall plug, 13 A, with power metering.', 'Prise murale EU, 13 A, avec mesure de consommation.'),
 ('8.5 W, 800 lm', '8,5 W, 800 lm'),
+('<b>Christmas tree on a timer</b>', '<b>Sapin de Noël avec minuterie</b>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
