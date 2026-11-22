@@ -359,21 +359,20 @@ footer a{color:var(--muted)}
 .xtree{display:inline-block;margin-top:6px}.xtree .xl circle{animation:xmasTw 1.2s ease-in-out infinite}@keyframes xmasTw{0%,100%{opacity:1}50%{opacity:.15}}@media (prefers-reduced-motion:reduce){.xtree .xl circle{animation:none}}
 #dlbar .dlb-btn{position:relative}#dlbar .xtree.dlx{position:absolute;top:-27px;right:6px;margin:0;pointer-events:none}
 .wow{width:1.4em;height:1.4em;vertical-align:-.35em}
-.cmt{padding:30px 0 70px;font-size:.88rem}.cmt .wrap{max-width:720px}
-.cmt h2{font:700 clamp(1.4rem,4vw,1.8rem) var(--display);color:#fff;margin:0 0 6px}
-.cmt-in{color:var(--muted);margin:0 0 22px}
-.cmt-list{display:grid;gap:12px;margin-bottom:26px}
-.cmt-c{border:1.5px solid var(--line);border-radius:14px;padding:14px 16px}
-.cmt-c b{color:#fff}.cmt-c time,.cmt-r small{color:var(--muted);font-size:.85rem;margin-left:6px}
-.cmt-c p{color:var(--ink);margin:6px 0 0;white-space:pre-line;overflow-wrap:anywhere}
-.cmt-r{margin:12px 0 0 10px;padding-left:12px;border-left:3px solid var(--amber)}.cmt-r b{color:var(--amber)}
-.cmt-none{color:var(--muted)}
-.cmt-form{display:grid;gap:10px}
-.cmt-form input,.cmt-form textarea{padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:#0b1120;color:#fff;font:inherit}
+.cmt{padding:18px 0 36px;font-size:.8rem;line-height:1.45}.cmt .wrap{max-width:720px}
+.cmt h2{font:700 clamp(1.15rem,3.4vw,1.4rem) var(--display);color:#fff;margin:0 0 2px}
+.cmt-in{color:var(--muted);margin:0 0 12px}
+.cmt-list{display:grid;gap:8px;margin-bottom:14px}
+.cmt-c{border:1px solid var(--line);border-radius:10px;padding:8px 11px}
+.cmt-c b{color:#fff}.cmt-c time,.cmt-r small{color:var(--muted);font-size:.85em;margin-left:6px}
+.cmt-c p{color:var(--ink);margin:2px 0 0;white-space:pre-line;overflow-wrap:anywhere}
+.cmt-r{margin:6px 0 0 6px;padding-left:9px;border-left:2px solid var(--amber)}.cmt-r b{color:var(--amber)}
+.cmt-none{color:var(--muted);margin:0}
+.cmt-form{display:grid;gap:6px}
+.cmt-form input,.cmt-form textarea{padding:8px 10px;border-radius:9px;border:1px solid var(--line);background:#0b1120;color:#fff;font:inherit}
 .cmt-form input:focus,.cmt-form textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
 .cmt-en{color:var(--amber);font-weight:700;margin:0}
-.cmt-note{color:var(--muted);font-size:.85rem;margin:0}
-.cmt-send{justify-self:start;border-color:var(--amber);cursor:pointer;font-size:.95rem;padding:11px 18px}
+.cmt-send{justify-self:start;border-color:var(--amber);cursor:pointer;font-size:.85rem;padding:7px 14px;border-radius:10px}
 .cmt-msg{margin:0;color:var(--amber);min-height:1.2em}
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 #dlbar{display:none}
@@ -737,7 +736,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <label class="vh" for="cmtName">Votre nom</label>
     <input id="cmtName" maxlength="40" required placeholder="Votre nom" autocomplete="nickname">
     <label class="vh" for="cmtText">Votre question ou commentaire</label>
-    <textarea id="cmtText" maxlength="1500" required rows="4" placeholder="Votre question ou commentaire"></textarea>
+    <textarea id="cmtText" maxlength="1500" required rows="3" placeholder="Votre question ou commentaire"></textarea>
     <input id="cmtHp" class="vh" tabindex="-1" autocomplete="off" aria-hidden="true">
     <button class="btn cmt-send" type="submit">Envoyer le commentaire</button>
     <p id="cmtMsg" class="cmt-msg" role="status" data-ok="Merci ! Votre commentaire apparaîtra après vérification." data-err="Veuillez indiquer votre nom et un commentaire." data-fail="Échec de l’envoi. Veuillez réessayer plus tard."></p>
