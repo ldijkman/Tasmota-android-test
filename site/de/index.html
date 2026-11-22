@@ -342,6 +342,11 @@ footer a{color:var(--muted)}
 .fun a{color:var(--muted)}
 #ytd{padding:0;border:0;background:#000;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0}
 #ytd::backdrop{background:#000}
+#cpd{padding:0;border:0;background:#0e1525;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0}
+#cpd::backdrop{background:#000}
+#cpBox{display:flex;flex-direction:column;width:100%;height:100%}
+#cpf{flex:1;width:100%;border:0;background:#fff}
+#cpBox .ytbar button,#ytBox .ytbar button{font:inherit}
 #ytBox{display:flex;flex-direction:column;width:100%;height:100%;background:#000}
 .ytbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px}
 .ytbar a{color:#cfd6e6;font-size:.9rem}
@@ -430,7 +435,7 @@ footer a{color:var(--muted)}
       <h2 id="day-h">Die Zeitschaltungen wohnen im Schalter.</h2>
       <p class="lead">Einmal in der App einstellen. Danach schaltet der Schalter von selbst, auch wenn dein Handy aus oder außer Haus ist.</p>
       <p class="lead">Jeder Schalter speichert bis zu 8 Ein/Aus-Zeitpläne. Feste Uhrzeit oder Sonnenaufgang und Sonnenuntergang mit Versatz, dazu die Wochentage.</p>
-      <p class="lead">Eine einfache, intuitive Vorschau zeigt jeden Zeitplan auf einer 24-Stunden-Zeitleiste: Die gelbe Linie ist das Tageslicht von Sonnenaufgang bis Sonnenuntergang, der orange Block die Zeit, in der der Schalter an ist. So siehst du sofort, ob es passt. <a class="sidenote" href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener">Besessen: verschwendete Zeit beim Zeiteinstellen</a> 😉</p>
+      <p class="lead">Eine einfache, intuitive Vorschau zeigt jeden Zeitplan auf einer 24-Stunden-Zeitleiste: Die gelbe Linie ist das Tageslicht von Sonnenaufgang bis Sonnenuntergang, der orange Block die Zeit, in der der Schalter an ist. So siehst du sofort, ob es passt. <a class="sidenote" id="cpLink" href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener">Besessen: verschwendete Zeit beim Zeiteinstellen</a> 😉</p>
       <p class="lead sidenote2">Na ja, über 1 Million Nutzer der Shelly-App verschwenden mehr Zeit mit schwer einzustellenden Zeitplänen. 😉</p>
     </div>
     <figure class="bar" aria-labelledby="bar-cap" style="margin:0">
@@ -695,6 +700,12 @@ footer a{color:var(--muted)}
   </div>
   <p class="fun"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" id="funLink">2 Unlimited</a><br>OverKill</p>
 </footer>
+<dialog id="cpd" aria-label="CodePen demo">
+  <div id="cpBox">
+    <div class="ytbar"><a href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener" target="_blank">Auf CodePen öffnen</a><button type="button" id="cpClose">Schließen</button></div>
+    <iframe id="cpf" title="Time setting experiments on CodePen" loading="lazy"></iframe>
+  </div>
+</dialog>
 <dialog id="ytd" aria-label="2-Unlimited-Video">
   <div id="ytBox">
     <div class="ytbar"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" target="_blank">Auf YouTube öffnen</a><button type="button" id="ytClose">Schließen</button></div>
@@ -784,6 +795,16 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
     const m = String(j.name || '').match(/(\d+\.\d+)/), a = (j.assets || []).find(x => /\.apk$/i.test(x.name));
     if (m) document.querySelectorAll('.dlv').forEach(el => el.textContent = 'Version ' + m[1].replace('.', ',') + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : ''));
   }).catch(() => {});
+
+// CodePen-link: in een venster op deze pagina, zodat bezoekers de site niet verlaten
+(() => {
+  const a = document.getElementById('cpLink'), d = document.getElementById('cpd'), f = document.getElementById('cpf');
+  if (!a || !d || !d.showModal) return;
+  a.addEventListener('click', e => { e.preventDefault(); f.src = 'https://codepen.io/ldijkman/embed/dPXPGwo?default-tab=result&theme-id=dark'; d.showModal(); });
+  const close = () => { f.src = 'about:blank'; d.close(); };
+  document.getElementById('cpClose').addEventListener('click', close);
+  d.addEventListener('cancel', e => { e.preventDefault(); close(); });
+})();
 
 // 2 Unlimited: in een eigen schermvullende speler (valt terug op YouTube als het filmpje niet ingesloten mag worden)
 (() => {

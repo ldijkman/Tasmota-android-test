@@ -342,6 +342,11 @@ footer a{color:var(--muted)}
 .fun a{color:var(--muted)}
 #ytd{padding:0;border:0;background:#000;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0}
 #ytd::backdrop{background:#000}
+#cpd{padding:0;border:0;background:#0e1525;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0}
+#cpd::backdrop{background:#000}
+#cpBox{display:flex;flex-direction:column;width:100%;height:100%}
+#cpf{flex:1;width:100%;border:0;background:#fff}
+#cpBox .ytbar button,#ytBox .ytbar button{font:inherit}
 #ytBox{display:flex;flex-direction:column;width:100%;height:100%;background:#000}
 .ytbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px}
 .ytbar a{color:#cfd6e6;font-size:.9rem}
@@ -430,7 +435,7 @@ footer a{color:var(--muted)}
       <h2 id="day-h">Los horarios viven en el interruptor.</h2>
       <p class="lead">Ajústalos una vez en la app. Después el interruptor los ejecuta solo, aunque tu móvil esté apagado o fuera de casa.</p>
       <p class="lead">Cada interruptor guarda hasta 8 horarios de encendido/apagado. Hora fija, o amanecer y atardecer con un desfase, y los días que elijas.</p>
-      <p class="lead">Una vista previa sencilla e intuitiva muestra cada horario en una línea de 24 horas: la línea amarilla es la luz del día, del amanecer al atardecer, y el bloque naranja es cuando el interruptor está encendido. Ves enseguida si encaja. <a class="sidenote" href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener">Obsesionado: tiempo perdido ajustando horas</a> 😉</p>
+      <p class="lead">Una vista previa sencilla e intuitiva muestra cada horario en una línea de 24 horas: la línea amarilla es la luz del día, del amanecer al atardecer, y el bloque naranja es cuando el interruptor está encendido. Ves enseguida si encaja. <a class="sidenote" id="cpLink" href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener">Obsesionado: tiempo perdido ajustando horas</a> 😉</p>
       <p class="lead sidenote2">Bueno, más de un millón de usuarios de la app de Shelly pierden más tiempo con horarios difíciles de ajustar. 😉</p>
     </div>
     <figure class="bar" aria-labelledby="bar-cap" style="margin:0">
@@ -695,6 +700,12 @@ footer a{color:var(--muted)}
   </div>
   <p class="fun"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" id="funLink">2 Unlimited</a><br>OverKill</p>
 </footer>
+<dialog id="cpd" aria-label="CodePen demo">
+  <div id="cpBox">
+    <div class="ytbar"><a href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener" target="_blank">Abrir en CodePen</a><button type="button" id="cpClose">Cerrar</button></div>
+    <iframe id="cpf" title="Time setting experiments on CodePen" loading="lazy"></iframe>
+  </div>
+</dialog>
 <dialog id="ytd" aria-label="Vídeo de 2 Unlimited">
   <div id="ytBox">
     <div class="ytbar"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" target="_blank">Abrir en YouTube</a><button type="button" id="ytClose">Cerrar</button></div>
@@ -784,6 +795,16 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
     const m = String(j.name || '').match(/(\d+\.\d+)/), a = (j.assets || []).find(x => /\.apk$/i.test(x.name));
     if (m) document.querySelectorAll('.dlv').forEach(el => el.textContent = 'versión ' + m[1].replace('.', ',') + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : ''));
   }).catch(() => {});
+
+// CodePen-link: in een venster op deze pagina, zodat bezoekers de site niet verlaten
+(() => {
+  const a = document.getElementById('cpLink'), d = document.getElementById('cpd'), f = document.getElementById('cpf');
+  if (!a || !d || !d.showModal) return;
+  a.addEventListener('click', e => { e.preventDefault(); f.src = 'https://codepen.io/ldijkman/embed/dPXPGwo?default-tab=result&theme-id=dark'; d.showModal(); });
+  const close = () => { f.src = 'about:blank'; d.close(); };
+  document.getElementById('cpClose').addEventListener('click', close);
+  d.addEventListener('cancel', e => { e.preventDefault(); close(); });
+})();
 
 // 2 Unlimited: in een eigen schermvullende speler (valt terug op YouTube als het filmpje niet ingesloten mag worden)
 (() => {

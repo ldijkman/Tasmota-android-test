@@ -342,6 +342,11 @@ footer a{color:var(--muted)}
 .fun a{color:var(--muted)}
 #ytd{padding:0;border:0;background:#000;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0}
 #ytd::backdrop{background:#000}
+#cpd{padding:0;border:0;background:#0e1525;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0}
+#cpd::backdrop{background:#000}
+#cpBox{display:flex;flex-direction:column;width:100%;height:100%}
+#cpf{flex:1;width:100%;border:0;background:#fff}
+#cpBox .ytbar button,#ytBox .ytbar button{font:inherit}
 #ytBox{display:flex;flex-direction:column;width:100%;height:100%;background:#000}
 .ytbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px}
 .ytbar a{color:#cfd6e6;font-size:.9rem}
@@ -430,7 +435,7 @@ footer a{color:var(--muted)}
       <h2 id="day-h">Les programmations vivent dans l’interrupteur.</h2>
       <p class="lead">Réglez-les une fois dans l’application. Ensuite l’interrupteur les exécute tout seul, même quand votre téléphone est éteint ou hors de la maison.</p>
       <p class="lead">Chaque interrupteur garde jusqu’à 8 programmations marche/arrêt. Heure fixe, ou lever et coucher du soleil avec un décalage, et les jours de votre choix.</p>
-      <p class="lead">Un aperçu visuel simple et intuitif montre chaque programmation sur une ligne de 24 heures : la ligne jaune est la lumière du jour, du lever au coucher du soleil, et le bloc orange est le moment où l’interrupteur est allumé. Vous voyez tout de suite si ça convient. <a class="sidenote" href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener">Obsédé : du temps perdu à régler l’heure</a> 😉</p>
+      <p class="lead">Un aperçu visuel simple et intuitif montre chaque programmation sur une ligne de 24 heures : la ligne jaune est la lumière du jour, du lever au coucher du soleil, et le bloc orange est le moment où l’interrupteur est allumé. Vous voyez tout de suite si ça convient. <a class="sidenote" id="cpLink" href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener">Obsédé : du temps perdu à régler l’heure</a> 😉</p>
       <p class="lead sidenote2">Bon, plus d’1 million d’utilisateurs de l’appli Shelly perdent encore plus de temps à régler des programmations compliquées. 😉</p>
     </div>
     <figure class="bar" aria-labelledby="bar-cap" style="margin:0">
@@ -695,6 +700,12 @@ footer a{color:var(--muted)}
   </div>
   <p class="fun"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" id="funLink">2 Unlimited</a><br>OverKill</p>
 </footer>
+<dialog id="cpd" aria-label="CodePen demo">
+  <div id="cpBox">
+    <div class="ytbar"><a href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener" target="_blank">Ouvrir sur CodePen</a><button type="button" id="cpClose">Fermer</button></div>
+    <iframe id="cpf" title="Time setting experiments on CodePen" loading="lazy"></iframe>
+  </div>
+</dialog>
 <dialog id="ytd" aria-label="Vidéo 2 Unlimited">
   <div id="ytBox">
     <div class="ytbar"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" target="_blank">Ouvrir sur YouTube</a><button type="button" id="ytClose">Fermer</button></div>
@@ -784,6 +795,16 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
     const m = String(j.name || '').match(/(\d+\.\d+)/), a = (j.assets || []).find(x => /\.apk$/i.test(x.name));
     if (m) document.querySelectorAll('.dlv').forEach(el => el.textContent = 'version ' + m[1].replace('.', ',') + (a ? ', ' + Math.round(a.size / 1024) + ' Ko' : ''));
   }).catch(() => {});
+
+// CodePen-link: in een venster op deze pagina, zodat bezoekers de site niet verlaten
+(() => {
+  const a = document.getElementById('cpLink'), d = document.getElementById('cpd'), f = document.getElementById('cpf');
+  if (!a || !d || !d.showModal) return;
+  a.addEventListener('click', e => { e.preventDefault(); f.src = 'https://codepen.io/ldijkman/embed/dPXPGwo?default-tab=result&theme-id=dark'; d.showModal(); });
+  const close = () => { f.src = 'about:blank'; d.close(); };
+  document.getElementById('cpClose').addEventListener('click', close);
+  d.addEventListener('cancel', e => { e.preventDefault(); close(); });
+})();
 
 // 2 Unlimited: in een eigen schermvullende speler (valt terug op YouTube als het filmpje niet ingesloten mag worden)
 (() => {
