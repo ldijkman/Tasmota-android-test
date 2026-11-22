@@ -285,6 +285,7 @@ T = [
 ('Relay with power metering.', 'Relais avec mesure de consommation.'),
 ('The newest generation.', 'La toute dernière génération.'),
 ('>Obsessed: wasted time on time setting</a>', '>Obsédé : du temps perdu à régler l’heure</a>'),
+('<b>Shelly 1 Gen3: the tiny button</b>', '<b>Shelly 1 Gen3 : le petit bouton</b>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

@@ -431,6 +431,7 @@ T = [
 ('Relay with power metering.', 'Relé con medición de consumo.'),
 ('The newest generation.', 'La generación más nueva.'),
 ('>Obsessed: wasted time on time setting</a>', '>Obsesionado: tiempo perdido ajustando horas</a>'),
+('<b>Shelly 1 Gen3: the tiny button</b>', '<b>Shelly 1 Gen3: el botón diminuto</b>'),
 ]
 
 

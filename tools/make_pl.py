@@ -429,6 +429,7 @@ T = [
 ('Relay with power metering.', 'Przekaźnik z pomiarem energii.'),
 ('The newest generation.', 'Najnowsza generacja.'),
 ('>Obsessed: wasted time on time setting</a>', '>Obsesja: czas stracony na ustawianiu czasu</a>'),
+('<b>Shelly 1 Gen3: the tiny button</b>', '<b>Shelly 1 Gen3: mały przycisk</b>'),
 ]
 
 bad = []
