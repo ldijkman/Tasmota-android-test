@@ -217,6 +217,8 @@ details p+p{margin-top:8px}
 details p.fnote{color:#ff7b72;font-weight:600}
 .lead a.sidenote{font-size:.8em;color:var(--muted)}
 .lead.sidenote2{font-size:.8em;color:var(--muted);margin-top:1.2em}
+.copynote{margin:0}
+@media (min-width:901px){.copynote{grid-column:2;margin-top:-32px}}
 .factmore{max-width:46ch;margin:-36px 0 56px;text-align:left;color:var(--muted);font-size:.95rem}
 .factmore summary{font-size:.95rem}
 .factmore summary{cursor:pointer;text-align:center;color:var(--amber);font-weight:700;list-style:none}
@@ -456,6 +458,7 @@ footer a{color:var(--muted)}
         <div class="days"><span class="d on">Mo</span><span class="d on">Tu</span><span class="d on">We</span><span class="d on">Th</span><span class="d on">Fr</span><span class="d on">Sa</span><span class="d on">Su</span></div>
       </div>
     </figure>
+    <p class="lead copynote"><b>Copy schedules between devices:</b> set them once, then copy them to another switch. Even from a Tasmota to a Shelly, and back.</p>
   </div>
 </section>
 

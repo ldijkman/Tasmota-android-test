@@ -289,6 +289,7 @@ T = [
 ('<b>Shelly 1 Gen3: the tiny button</b>', '<b>Shelly 1 Gen3 : le petit bouton</b>'),
 ('Tasmota and Shelly side by side: a Shelly Christmas tree between Tasmota lamps, in one room.', 'Tasmota et Shelly côte à côte : un sapin Shelly entre des lampes Tasmota, dans une même pièce.'),
 ('Well, 1 million+ Shelly app users waste more time on hard-to-set schedules. 😉', 'Bon, plus d’1 million d’utilisateurs de l’appli Shelly perdent encore plus de temps à régler des programmations compliquées. 😉'),
+('<p class="lead copynote"><b>Copy schedules between devices:</b> set them once, then copy them to another switch. Even from a Tasmota to a Shelly, and back.</p>', '<p class="lead copynote"><b>Copier les programmations entre appareils :</b> réglez-les une fois, puis copiez-les vers un autre interrupteur. Même d’un Tasmota vers un Shelly, et inversement.</p>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
