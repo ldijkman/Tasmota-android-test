@@ -287,6 +287,7 @@ T = [
 ('Shelly bulbs: on their way', 'Shelly-Lampen: unterwegs'),
 ('Relay with power metering.', 'Relais mit Strommessung.'),
 ('The newest generation.', 'Die neueste Generation.'),
+('>Obsessed: wasted time on time setting</a>', '>Besessen: verschwendete Zeit beim Zeiteinstellen</a>'),
 ]
 bad = []
 for en, de in T:

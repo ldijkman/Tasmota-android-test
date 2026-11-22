@@ -428,6 +428,7 @@ T = [
 ('Shelly bulbs: on their way', 'Żarówki Shelly: w drodze'),
 ('Relay with power metering.', 'Przekaźnik z pomiarem energii.'),
 ('The newest generation.', 'Najnowsza generacja.'),
+('>Obsessed: wasted time on time setting</a>', '>Obsesja: czas stracony na ustawianiu czasu</a>'),
 ]
 
 bad = []

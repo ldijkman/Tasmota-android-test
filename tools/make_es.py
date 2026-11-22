@@ -430,6 +430,7 @@ T = [
 ('Shelly bulbs: on their way', 'Bombillas Shelly: en camino'),
 ('Relay with power metering.', 'Relé con medición de consumo.'),
 ('The newest generation.', 'La generación más nueva.'),
+('>Obsessed: wasted time on time setting</a>', '>Obsesionado: tiempo perdido ajustando horas</a>'),
 ]
 
 

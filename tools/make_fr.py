@@ -284,6 +284,7 @@ T = [
 ('Shelly bulbs: on their way', 'Ampoules Shelly : en route'),
 ('Relay with power metering.', 'Relais avec mesure de consommation.'),
 ('The newest generation.', 'La toute dernière génération.'),
+('>Obsessed: wasted time on time setting</a>', '>Obsédé : du temps perdu à régler l’heure</a>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
