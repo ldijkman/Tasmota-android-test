@@ -433,6 +433,7 @@ T = [
 ('The newest generation.', 'La generación más nueva.'),
 ('>Obsessed: wasted time on time setting</a>', '>Obsesionado: tiempo perdido ajustando horas</a>'),
 ('<b>Shelly 1 Gen3: the tiny button</b>', '<b>Shelly 1 Gen3: el botón diminuto</b>'),
+('Tasmota and Shelly side by side: a Shelly Christmas tree between Tasmota lamps, in one room.', 'Tasmota y Shelly juntos: un árbol de Navidad con Shelly entre lámparas Tasmota, en una misma habitación.'),
 ]
 
 
