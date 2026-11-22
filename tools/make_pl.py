@@ -440,6 +440,7 @@ T = [
 ('PlafondLED.apk">Download<small class="dlv">', 'PlafondLED.apk">Pobierz<small class="dlv">'),
 ('Shelly plugs: on their way', 'Gniazdka Shelly: w drodze'),
 ('EU wall plug, 13 A, with power metering.', 'Wtyczka EU, 13 A, z pomiarem energii.'),
+('8.5 W, 800 lm', '8,5 W, 800 lm'),
 ]
 
 bad = []

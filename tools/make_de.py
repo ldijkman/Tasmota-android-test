@@ -299,6 +299,7 @@ T = [
 ('PlafondLED.apk">Download<small class="dlv">', 'PlafondLED.apk">Herunterladen<small class="dlv">'),
 ('Shelly plugs: on their way', 'Shelly-Stecker: unterwegs'),
 ('EU wall plug, 13 A, with power metering.', 'EU-Zwischenstecker, 13 A, mit Strommessung.'),
+('8.5 W, 800 lm', '8,5 W, 800 lm'),
 ]
 bad = []
 for en, de in T:
