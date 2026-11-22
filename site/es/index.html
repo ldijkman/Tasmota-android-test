@@ -353,6 +353,22 @@ footer a{color:var(--muted)}
 .ytbar a{color:#cfd6e6;font-size:.9rem}
 .ytframe{flex:1;display:flex;align-items:center;justify-content:center}
 .ytframe iframe{width:100%;aspect-ratio:16/9;max-height:100%;border:0}
+
+/* zwevende downloadbalk, alleen op telefoons */
+#dlbar{display:none}
+@media (max-width:900px){
+#dlbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;gap:12px;justify-content:space-between;padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(14,21,37,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid #2a3550;transform:translateY(110%);transition:transform .3s}
+#dlbar[hidden]{display:none}
+#dlbar.show{transform:none}
+body:has(#dlbar:not([hidden])){padding-bottom:72px}
+}
+#dlbar .dlb-t{display:flex;flex-direction:column;line-height:1.25;min-width:0}
+#dlbar .dlb-t b{font-size:.92rem;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#dlbar .dlb-t small{color:var(--muted);font-size:.75rem}
+#dlbar .dlb-btn{flex:none;display:flex;flex-direction:column;align-items:center;background:var(--amber);color:#141e33;font-weight:800;text-decoration:none;padding:7px 16px;border-radius:12px;line-height:1.2}
+#dlbar .dlb-btn small{font-weight:600;font-size:.72rem;opacity:.85}
+#dlbar .dlb-btn small:empty{display:none}
+@media (prefers-reduced-motion:reduce){#dlbar{transition:none}}
 </style>
 </head>
 <body>
@@ -830,6 +846,16 @@ document.querySelectorAll('.keynote').forEach(k => {
   k.addEventListener('click', e => { if (e.target.closest('a')) return; t(); });
   k.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); t(); } });
 });
+</script>
+<div id="dlbar" hidden><span class="dlb-t"><b>Tasmota Scan &amp; Control</b><small>Gratis, para Android 7 o superior</small></span><a class="dlb-btn" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk">Descargar<small class="dlv"></small></a></div>
+<script>
+// Zwevende downloadbalk op telefoons: verschijnt zodra de grote downloadknop bovenaan uit beeld is
+(() => {
+  const b = document.getElementById('dlbar'), top = document.getElementById('dl');
+  if (!b || !top || !('IntersectionObserver' in window)) return;
+  b.hidden = false;
+  new IntersectionObserver(es => b.classList.toggle('show', !es[0].isIntersecting && es[0].boundingClientRect.top < 0)).observe(top);
+})();
 </script>
 </body>
 </html>

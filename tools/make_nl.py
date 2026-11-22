@@ -464,6 +464,8 @@ T = [
  '>Za<'),
 ('<a href="/Tasmota-android-test/nl/" hreflang="nl" lang="nl" aria-label="Nederlands" title="Nederlands">',
  '<a href="/Tasmota-android-test/nl/" hreflang="nl" lang="nl" aria-label="Nederlands" title="Nederlands" aria-current="page">'),
+('<small>Free, for Android 7 and newer</small>', '<small>Gratis, voor Android 7 en nieuwer</small>'),
+('PlafondLED.apk">Download<small class="dlv">', 'PlafondLED.apk">Downloaden<small class="dlv">'),
 ]
 bad = []
 for en, de in T:

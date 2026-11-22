@@ -295,6 +295,8 @@ T = [
 ('<p class="lead copynote"><b>Copy schedules between devices:</b> set them once, then copy them to another switch. Even from a Tasmota to a Shelly, and back.</p>', '<p class="lead copynote"><b>Zeitpläne zwischen Geräten kopieren:</b> einmal einstellen, dann auf einen anderen Schalter kopieren. Sogar von einem Tasmota auf einen Shelly und zurück.</p>'),
 ('Open on CodePen', 'Auf CodePen öffnen'),
 ('>Close</button></div>\n    <iframe id="cpf"', '>Schließen</button></div>\n    <iframe id="cpf"'),
+('<small>Free, for Android 7 and newer</small>', '<small>Kostenlos, für Android 7 und neuer</small>'),
+('PlafondLED.apk">Download<small class="dlv">', 'PlafondLED.apk">Herunterladen<small class="dlv">'),
 ]
 bad = []
 for en, de in T:

@@ -438,6 +438,8 @@ T = [
 ('<p class="lead copynote"><b>Copy schedules between devices:</b> set them once, then copy them to another switch. Even from a Tasmota to a Shelly, and back.</p>', '<p class="lead copynote"><b>Copiar horarios entre dispositivos:</b> configúralos una vez y cópialos a otro interruptor. Incluso de un Tasmota a un Shelly, y al revés.</p>'),
 ('Open on CodePen', 'Abrir en CodePen'),
 ('>Close</button></div>\n    <iframe id="cpf"', '>Cerrar</button></div>\n    <iframe id="cpf"'),
+('<small>Free, for Android 7 and newer</small>', '<small>Gratis, para Android 7 o superior</small>'),
+('PlafondLED.apk">Download<small class="dlv">', 'PlafondLED.apk">Descargar<small class="dlv">'),
 ]
 
 

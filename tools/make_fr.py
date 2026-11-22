@@ -292,6 +292,8 @@ T = [
 ('<p class="lead copynote"><b>Copy schedules between devices:</b> set them once, then copy them to another switch. Even from a Tasmota to a Shelly, and back.</p>', '<p class="lead copynote"><b>Copier les programmations entre appareils :</b> réglez-les une fois, puis copiez-les vers un autre interrupteur. Même d’un Tasmota vers un Shelly, et inversement.</p>'),
 ('Open on CodePen', 'Ouvrir sur CodePen'),
 ('>Close</button></div>\n    <iframe id="cpf"', '>Fermer</button></div>\n    <iframe id="cpf"'),
+('<small>Free, for Android 7 and newer</small>', '<small>Gratuit, pour Android 7 et plus</small>'),
+('PlafondLED.apk">Download<small class="dlv">', 'PlafondLED.apk">Télécharger<small class="dlv">'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
