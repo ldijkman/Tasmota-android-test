@@ -302,17 +302,16 @@ T = [
 ('8.5 W, 800 lm', '8,5 W, 800 lm'),
 ('<b>Christmas tree on a timer</b>', '<b>Weihnachtsbaum mit Zeitschaltung</b>'),
 ('Questions &amp; comments', 'Fragen &amp; Kommentare'),
-('No account needed. Your comment appears after a quick check.', 'Kein Konto nötig. Dein Kommentar erscheint nach einer kurzen Prüfung.'),
 ('No comments yet. Be the first!', 'Noch keine Kommentare. Sei der Erste!'),
 ('Reply from the maker', 'Antwort vom Entwickler'),
 ('Your question or comment', 'Deine Frage oder dein Kommentar'),
 ('Your name', 'Dein Name'),
-('Everyone can read approved comments. Please do not post your email address, passwords or Wi-Fi details.', 'Freigegebene Kommentare kann jeder lesen. Bitte keine E-Mail-Adresse, Passwörter oder WLAN-Daten posten.'),
 ('Send comment', 'Kommentar senden'),
 ('Thanks! Your comment appears after a check.', 'Danke! Dein Kommentar erscheint nach einer Prüfung.'),
 ('Please fill in your name and a comment.', 'Bitte gib deinen Namen und einen Kommentar ein.'),
 ('Sending failed. Please try again later.', 'Senden fehlgeschlagen. Bitte versuche es später noch einmal.'),
 ('Please write your comment in English.', 'Bitte schreibe deinen Kommentar auf Englisch.'),
+('Your comment appears after a check.', 'Dein Kommentar erscheint nach einer Prüfung.'),
 ]
 bad = []
 for en, de in T:

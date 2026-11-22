@@ -359,8 +359,8 @@ footer a{color:var(--muted)}
 .xtree{display:inline-block;margin-top:6px}.xtree .xl circle{animation:xmasTw 1.2s ease-in-out infinite}@keyframes xmasTw{0%,100%{opacity:1}50%{opacity:.15}}@media (prefers-reduced-motion:reduce){.xtree .xl circle{animation:none}}
 #dlbar .dlb-btn{position:relative}#dlbar .xtree.dlx{position:absolute;top:-27px;right:6px;margin:0;pointer-events:none}
 .wow{width:1.4em;height:1.4em;vertical-align:-.35em}
-.cmt{padding:30px 0 70px}.cmt .wrap{max-width:720px}
-.cmt h2{font:700 clamp(1.7rem,5vw,2.3rem) var(--display);color:#fff;margin:0 0 6px}
+.cmt{padding:30px 0 70px;font-size:.88rem}.cmt .wrap{max-width:720px}
+.cmt h2{font:700 clamp(1.4rem,4vw,1.8rem) var(--display);color:#fff;margin:0 0 6px}
 .cmt-in{color:var(--muted);margin:0 0 22px}
 .cmt-list{display:grid;gap:12px;margin-bottom:26px}
 .cmt-c{border:1.5px solid var(--line);border-radius:14px;padding:14px 16px}
@@ -373,7 +373,7 @@ footer a{color:var(--muted)}
 .cmt-form input:focus,.cmt-form textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
 .cmt-en{color:var(--amber);font-weight:700;margin:0}
 .cmt-note{color:var(--muted);font-size:.85rem;margin:0}
-.cmt-send{justify-self:start;border-color:var(--amber);cursor:pointer}
+.cmt-send{justify-self:start;border-color:var(--amber);cursor:pointer;font-size:.95rem;padding:11px 18px}
 .cmt-msg{margin:0;color:var(--amber);min-height:1.2em}
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 #dlbar{display:none}
@@ -730,7 +730,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 </section>
 <section id="cmt" class="cmt" hidden aria-labelledby="cmtH"><div class="wrap">
   <h2 id="cmtH">Vragen &amp; reacties</h2>
-  <p class="cmt-in">Geen account nodig. Je reactie verschijnt na een korte controle.</p>
+  <p class="cmt-in">Je reactie verschijnt na een controle.</p>
   <div id="cmtList" class="cmt-list" data-empty="Nog geen reacties. Wees de eerste!" data-reply="Antwoord van de maker"></div>
   <form id="cmtForm" class="cmt-form" novalidate>
     <p class="cmt-en">Schrijf je reactie alsjeblieft in het Engels.</p>
@@ -739,7 +739,6 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <label class="vh" for="cmtText">Je vraag of reactie</label>
     <textarea id="cmtText" maxlength="1500" required rows="4" placeholder="Je vraag of reactie"></textarea>
     <input id="cmtHp" class="vh" tabindex="-1" autocomplete="off" aria-hidden="true">
-    <p class="cmt-note">Iedereen kan goedgekeurde reacties lezen. Zet er geen e-mailadres, wachtwoorden of wifi-gegevens in.</p>
     <button class="btn cmt-send" type="submit">Reactie versturen</button>
     <p id="cmtMsg" class="cmt-msg" role="status" data-ok="Bedankt! Je reactie verschijnt na een controle." data-err="Vul je naam en een reactie in." data-fail="Versturen mislukt. Probeer het later nog eens."></p>
   </form>
