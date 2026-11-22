@@ -444,6 +444,17 @@ T = [
 ('EU wall plug, 13 A, with power metering.', 'Enchufe de pared UE, 13 A, con medición de consumo.'),
 ('8.5 W, 800 lm', '8,5 W, 800 lm'),
 ('<b>Christmas tree on a timer</b>', '<b>Árbol de Navidad con temporizador</b>'),
+('Questions &amp; comments', 'Preguntas y comentarios'),
+('No account needed. Your comment appears after a quick check.', 'No necesitas cuenta. Tu comentario aparece tras una breve revisión.'),
+('No comments yet. Be the first!', 'Aún no hay comentarios. ¡Sé el primero!'),
+('Reply from the maker', 'Respuesta del creador'),
+('Your question or comment', 'Tu pregunta o comentario'),
+('Your name', 'Tu nombre'),
+('Everyone can read approved comments. Please do not post your email address, passwords or Wi-Fi details.', 'Cualquiera puede leer los comentarios aprobados. No publiques tu correo, contraseñas ni datos de la wifi.'),
+('Send comment', 'Enviar comentario'),
+('Thanks! Your comment appears after a check.', '¡Gracias! Tu comentario aparecerá tras una revisión.'),
+('Please fill in your name and a comment.', 'Escribe tu nombre y un comentario.'),
+('Sending failed. Please try again later.', 'No se pudo enviar. Inténtalo más tarde.'),
 ]
 
 

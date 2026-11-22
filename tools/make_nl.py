@@ -470,6 +470,17 @@ T = [
 ('EU wall plug, 13 A, with power metering.', 'Tussenstekker, 13 A, met energiemeting.'),
 ('8.5 W, 800 lm', '8,5 W, 800 lm'),
 ('<b>Christmas tree on a timer</b>', '<b>Kerstboom met tijdschakeling</b>'),
+('Questions &amp; comments', 'Vragen &amp; reacties'),
+('No account needed. Your comment appears after a quick check.', 'Geen account nodig. Je reactie verschijnt na een korte controle.'),
+('No comments yet. Be the first!', 'Nog geen reacties. Wees de eerste!'),
+('Reply from the maker', 'Antwoord van de maker'),
+('Your question or comment', 'Je vraag of reactie'),
+('Your name', 'Je naam'),
+('Everyone can read approved comments. Please do not post your email address, passwords or Wi-Fi details.', 'Iedereen kan goedgekeurde reacties lezen. Zet er geen e-mailadres, wachtwoorden of wifi-gegevens in.'),
+('Send comment', 'Reactie versturen'),
+('Thanks! Your comment appears after a check.', 'Bedankt! Je reactie verschijnt na een controle.'),
+('Please fill in your name and a comment.', 'Vul je naam en een reactie in.'),
+('Sending failed. Please try again later.', 'Versturen mislukt. Probeer het later nog eens.'),
 ]
 bad = []
 for en, de in T:

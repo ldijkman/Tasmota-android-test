@@ -442,6 +442,17 @@ T = [
 ('EU wall plug, 13 A, with power metering.', 'Wtyczka EU, 13 A, z pomiarem energii.'),
 ('8.5 W, 800 lm', '8,5 W, 800 lm'),
 ('<b>Christmas tree on a timer</b>', '<b>Choinka z harmonogramem</b>'),
+('Questions &amp; comments', 'Pytania i komentarze'),
+('No account needed. Your comment appears after a quick check.', 'Konto nie jest potrzebne. Komentarz pojawi się po krótkim sprawdzeniu.'),
+('No comments yet. Be the first!', 'Brak komentarzy. Bądź pierwszy!'),
+('Reply from the maker', 'Odpowiedź twórcy'),
+('Your question or comment', 'Twoje pytanie lub komentarz'),
+('Your name', 'Twoje imię'),
+('Everyone can read approved comments. Please do not post your email address, passwords or Wi-Fi details.', 'Zatwierdzone komentarze może przeczytać każdy. Nie podawaj adresu e-mail, haseł ani danych Wi-Fi.'),
+('Send comment', 'Wyślij komentarz'),
+('Thanks! Your comment appears after a check.', 'Dziękujemy! Komentarz pojawi się po sprawdzeniu.'),
+('Please fill in your name and a comment.', 'Podaj imię i komentarz.'),
+('Sending failed. Please try again later.', 'Nie udało się wysłać. Spróbuj ponownie później.'),
 ]
 
 bad = []

@@ -298,6 +298,17 @@ T = [
 ('EU wall plug, 13 A, with power metering.', 'Prise murale EU, 13 A, avec mesure de consommation.'),
 ('8.5 W, 800 lm', '8,5 W, 800 lm'),
 ('<b>Christmas tree on a timer</b>', '<b>Sapin de Noël avec minuterie</b>'),
+('Questions &amp; comments', 'Questions &amp; commentaires'),
+('No account needed. Your comment appears after a quick check.', 'Aucun compte nécessaire. Votre commentaire apparaît après une courte vérification.'),
+('No comments yet. Be the first!', 'Pas encore de commentaires. Soyez le premier !'),
+('Reply from the maker', 'Réponse du créateur'),
+('Your question or comment', 'Votre question ou commentaire'),
+('Your name', 'Votre nom'),
+('Everyone can read approved comments. Please do not post your email address, passwords or Wi-Fi details.', 'Tout le monde peut lire les commentaires approuvés. Ne publiez pas votre adresse e-mail, vos mots de passe ou vos données Wi-Fi.'),
+('Send comment', 'Envoyer le commentaire'),
+('Thanks! Your comment appears after a check.', 'Merci ! Votre commentaire apparaîtra après vérification.'),
+('Please fill in your name and a comment.', 'Veuillez indiquer votre nom et un commentaire.'),
+('Sending failed. Please try again later.', 'Échec de l’envoi. Veuillez réessayer plus tard.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

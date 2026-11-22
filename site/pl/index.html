@@ -359,6 +359,22 @@ footer a{color:var(--muted)}
 .xtree{display:inline-block;margin-top:6px}.xtree .xl circle{animation:xmasTw 1.2s ease-in-out infinite}@keyframes xmasTw{0%,100%{opacity:1}50%{opacity:.15}}@media (prefers-reduced-motion:reduce){.xtree .xl circle{animation:none}}
 #dlbar .dlb-btn{position:relative}#dlbar .xtree.dlx{position:absolute;top:-27px;right:6px;margin:0;pointer-events:none}
 .wow{width:1.4em;height:1.4em;vertical-align:-.35em}
+.cmt{padding:30px 0 70px}.cmt .wrap{max-width:720px}
+.cmt h2{font:700 clamp(1.7rem,5vw,2.3rem) var(--display);color:#fff;margin:0 0 6px}
+.cmt-in{color:var(--muted);margin:0 0 22px}
+.cmt-list{display:grid;gap:12px;margin-bottom:26px}
+.cmt-c{border:1.5px solid var(--line);border-radius:14px;padding:14px 16px}
+.cmt-c b{color:#fff}.cmt-c time,.cmt-r small{color:var(--muted);font-size:.85rem;margin-left:6px}
+.cmt-c p{color:var(--ink);margin:6px 0 0;white-space:pre-line;overflow-wrap:anywhere}
+.cmt-r{margin:12px 0 0 10px;padding-left:12px;border-left:3px solid var(--amber)}.cmt-r b{color:var(--amber)}
+.cmt-none{color:var(--muted)}
+.cmt-form{display:grid;gap:10px}
+.cmt-form input,.cmt-form textarea{padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:#0b1120;color:#fff;font:inherit}
+.cmt-form input:focus,.cmt-form textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
+.cmt-note{color:var(--muted);font-size:.85rem;margin:0}
+.cmt-send{justify-self:start;border-color:var(--amber);cursor:pointer}
+.cmt-msg{margin:0;color:var(--amber);min-height:1.2em}
+.vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 #dlbar{display:none}
 @media (max-width:900px){
 #dlbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;gap:12px;justify-content:space-between;padding:1px 12px calc(1px + env(safe-area-inset-bottom,0px));background:rgba(14,21,37,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid rgba(42,53,80,.6);transform:translateY(110%);transition:transform .3s}
@@ -711,6 +727,21 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     </div>
   </div></div>
 </section>
+<section id="cmt" class="cmt" hidden aria-labelledby="cmtH"><div class="wrap">
+  <h2 id="cmtH">Pytania i komentarze</h2>
+  <p class="cmt-in">Konto nie jest potrzebne. Komentarz pojawi się po krótkim sprawdzeniu.</p>
+  <div id="cmtList" class="cmt-list" data-empty="Brak komentarzy. Bądź pierwszy!" data-reply="Odpowiedź twórcy"></div>
+  <form id="cmtForm" class="cmt-form" novalidate>
+    <label class="vh" for="cmtName">Twoje imię</label>
+    <input id="cmtName" maxlength="40" required placeholder="Twoje imię" autocomplete="nickname">
+    <label class="vh" for="cmtText">Twoje pytanie lub komentarz</label>
+    <textarea id="cmtText" maxlength="1500" required rows="4" placeholder="Twoje pytanie lub komentarz"></textarea>
+    <input id="cmtHp" class="vh" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <p class="cmt-note">Zatwierdzone komentarze może przeczytać każdy. Nie podawaj adresu e-mail, haseł ani danych Wi-Fi.</p>
+    <button class="btn cmt-send" type="submit">Wyślij komentarz</button>
+    <p id="cmtMsg" class="cmt-msg" role="status" data-ok="Dziękujemy! Komentarz pojawi się po sprawdzeniu." data-err="Podaj imię i komentarz." data-fail="Nie udało się wysłać. Spróbuj ponownie później."></p>
+  </form>
+</div></section>
 </main>
 
 <footer>
@@ -868,6 +899,53 @@ document.querySelectorAll('.keynote').forEach(k => {
   if (!b || !top || !('IntersectionObserver' in window)) return;
   b.hidden = false;
   new IntersectionObserver(es => b.classList.toggle('show', !es[0].isIntersecting && es[0].boundingClientRect.top < 0)).observe(top);
+})();
+</script>
+<script>
+// Reacties zonder account: versturen naar een Google Formulier, goedgekeurde reacties lezen uit een gepubliceerd Google Sheet (CSV)
+(() => {
+  const CMT = {
+    form: '',        // https://docs.google.com/forms/d/e/<ID>/formResponse
+    entryName: '',   // entry.123456789
+    entryText: '',   // entry.987654321
+    csv: ''          // https://docs.google.com/spreadsheets/d/e/<ID>/pub?gid=<GID>&single=true&output=csv
+  };
+  const sec = document.getElementById('cmt');
+  if (!sec || !CMT.form || !CMT.csv) return;
+  sec.hidden = false;
+  const list = document.getElementById('cmtList'), msg = document.getElementById('cmtMsg');
+  const esc = t => String(t).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const parse = txt => {   // kleine CSV-lezer, met aanhalingstekens en enters in velden
+    const rows = []; let row = [], f = '', q = false;
+    for (let i = 0; i < txt.length; i++) {
+      const c = txt[i];
+      if (q) { if (c === '"') { if (txt[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
+      else if (c === '"') q = true;
+      else if (c === ',') { row.push(f); f = ''; }
+      else if (c === '\n' || c === '\r') { if (c === '\r' && txt[i + 1] === '\n') i++; row.push(f); rows.push(row); row = []; f = ''; }
+      else f += c;
+    }
+    if (f || row.length) { row.push(f); rows.push(row); }
+    return rows;
+  };
+  const lang = document.documentElement.lang || 'en';
+  const when = t => { const d = new Date(t); return isNaN(d) ? esc(t.split(' ')[0] || '') : d.toLocaleDateString(lang, {day: 'numeric', month: 'short', year: 'numeric'}); };
+  fetch(CMT.csv, {cache: 'no-store'}).then(r => r.ok ? r.text() : Promise.reject()).then(t => {
+    const rows = parse(t).slice(1).filter(r => r[1] && r[2]);
+    list.innerHTML = rows.length ? rows.map(([ts, name, text, reply]) => `<div class="cmt-c"><b>${esc(name)}</b><time>${when(ts)}</time><p>${esc(text)}</p>${reply ? `<div class="cmt-r"><b>${esc(list.dataset.reply)}</b><p>${esc(reply)}</p></div>` : ''}</div>`).join('')
+      : `<p class="cmt-none">${esc(list.dataset.empty)}</p>`;
+  }).catch(() => { list.innerHTML = `<p class="cmt-none">${esc(list.dataset.empty)}</p>`; });
+  const t0 = Date.now();
+  document.getElementById('cmtForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const n = document.getElementById('cmtName'), x = document.getElementById('cmtText');
+    if (document.getElementById('cmtHp').value || Date.now() - t0 < 4000) { msg.textContent = msg.dataset.ok; return; }   // robot
+    if (!n.value.trim() || !x.value.trim()) { msg.textContent = msg.dataset.err; return; }
+    const body = new URLSearchParams(); body.set(CMT.entryName, n.value.trim()); body.set(CMT.entryText, x.value.trim());
+    const btn = e.submitter || document.querySelector('.cmt-send'); btn.disabled = true;
+    fetch(CMT.form, {method: 'POST', mode: 'no-cors', body}).then(() => { msg.textContent = msg.dataset.ok; x.value = ''; })
+      .catch(() => { msg.textContent = msg.dataset.fail; }).finally(() => { btn.disabled = false; });
+  });
 })();
 </script>
 </body>
