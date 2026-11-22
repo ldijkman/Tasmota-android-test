@@ -357,7 +357,7 @@ footer a{color:var(--muted)}
 /* zwevende downloadbalk, alleen op telefoons */
 #dlbar{display:none}
 @media (max-width:900px){
-#dlbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;gap:12px;justify-content:space-between;padding:8px 12px calc(8px + env(safe-area-inset-bottom,0px));background:rgba(14,21,37,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid #2a3550;transform:translateY(110%);transition:transform .3s}
+#dlbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;gap:12px;justify-content:space-between;padding:1px 12px calc(1px + env(safe-area-inset-bottom,0px));background:rgba(14,21,37,.95);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid #2a3550;transform:translateY(110%);transition:transform .3s}
 #dlbar[hidden]{display:none}
 #dlbar.show{transform:none}
 body:has(#dlbar:not([hidden])){padding-bottom:72px}
