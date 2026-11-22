@@ -810,7 +810,10 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test').then(j => {
 ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/latest').then(j => {
     if (!j) return;
     const m = String(j.name || '').match(/(\d+\.\d+)/), a = (j.assets || []).find(x => /\.apk$/i.test(x.name));
-    if (m) document.querySelectorAll('.dlv').forEach(el => el.textContent = 'wersja ' + m[1].replace('.', ',') + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : ''));
+    if (!m) return;
+    // pas invullen als de hele pagina er is, ook de zwevende downloadbalk onderaan
+    const go = () => document.querySelectorAll('.dlv').forEach(el => el.textContent = 'wersja ' + m[1].replace('.', ',') + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : ''));
+    document.readyState === 'loading' ? document.addEventListener('DOMContentLoaded', go) : go();
   }).catch(() => {});
 
 // CodePen-link: in een venster op deze pagina, zodat bezoekers de site niet verlaten
@@ -847,7 +850,7 @@ document.querySelectorAll('.keynote').forEach(k => {
   k.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); t(); } });
 });
 </script>
-<div id="dlbar" hidden><span class="dlb-t"><b>Tasmota Scan &amp; Control</b><small>Za darmo, dla Androida 7 i nowszych</small></span><a class="dlb-btn" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk">Pobierz<small class="dlv"></small></a></div>
+<div id="dlbar" hidden><span class="dlb-t"><b>Shelly &amp; Tasmota Scan &amp; Control</b><small>Za darmo, dla Androida 7 i nowszych</small></span><a class="dlb-btn" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk">Pobierz<small class="dlv"></small></a></div>
 <script>
 // Zwevende downloadbalk op telefoons: verschijnt zodra de grote downloadknop bovenaan uit beeld is
 (() => {
