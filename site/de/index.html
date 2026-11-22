@@ -358,6 +358,7 @@ footer a{color:var(--muted)}
 /* zwevende downloadbalk, alleen op telefoons */
 .xtree{display:inline-block;margin-top:6px}.xtree .xl circle{animation:xmasTw 1.2s ease-in-out infinite}@keyframes xmasTw{0%,100%{opacity:1}50%{opacity:.15}}@media (prefers-reduced-motion:reduce){.xtree .xl circle{animation:none}}
 #dlbar .dlb-btn{position:relative}#dlbar .xtree.dlx{position:absolute;top:-27px;right:6px;margin:0;pointer-events:none}
+.wow{width:1.4em;height:1.4em;vertical-align:-.35em}
 #dlbar{display:none}
 @media (max-width:900px){
 #dlbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;gap:12px;justify-content:space-between;padding:1px 12px calc(1px + env(safe-area-inset-bottom,0px));background:rgba(14,21,37,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid rgba(42,53,80,.6);transform:translateY(110%);transition:transform .3s}
@@ -457,7 +458,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       <p class="lead">Einmal in der App einstellen. Danach schaltet der Schalter von selbst, auch wenn dein Handy aus oder außer Haus ist.</p>
       <p class="lead">Jeder Schalter speichert bis zu 8 Ein/Aus-Zeitpläne. Feste Uhrzeit oder Sonnenaufgang und Sonnenuntergang mit Versatz, dazu die Wochentage.</p>
       <p class="lead">Eine einfache, intuitive Vorschau zeigt jeden Zeitplan auf einer 24-Stunden-Zeitleiste: Die gelbe Linie ist das Tageslicht von Sonnenaufgang bis Sonnenuntergang, der orange Block die Zeit, in der der Schalter an ist. So siehst du sofort, ob es passt. <a class="sidenote" id="cpLink" href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener">Besessen: verschwendete Zeit beim Zeiteinstellen</a> 😉</p>
-      <p class="lead sidenote2">Na ja, über 1 Million Nutzer der Shelly-App verschwenden mehr Zeit mit schwer einzustellenden Zeitplänen. 😉</p>
+      <p class="lead sidenote2">Na ja, über 1 Million Nutzer der Shelly-App verschwenden mehr Zeit mit schwer einzustellenden Zeitplänen. <img class="wow" src="../img/wow.svg" alt="😮" width="24" height="24"></p>
     </div>
     <figure class="bar" aria-labelledby="bar-cap" style="margin:0">
       <div class="bh"><h3>Gartenlicht</h3><span>☀↑ 07:41&nbsp;&nbsp; ☀↓ 17:02</span></div>

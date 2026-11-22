@@ -358,6 +358,7 @@ footer a{color:var(--muted)}
 /* zwevende downloadbalk, alleen op telefoons */
 .xtree{display:inline-block;margin-top:6px}.xtree .xl circle{animation:xmasTw 1.2s ease-in-out infinite}@keyframes xmasTw{0%,100%{opacity:1}50%{opacity:.15}}@media (prefers-reduced-motion:reduce){.xtree .xl circle{animation:none}}
 #dlbar .dlb-btn{position:relative}#dlbar .xtree.dlx{position:absolute;top:-27px;right:6px;margin:0;pointer-events:none}
+.wow{width:1.4em;height:1.4em;vertical-align:-.35em}
 #dlbar{display:none}
 @media (max-width:900px){
 #dlbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;gap:12px;justify-content:space-between;padding:1px 12px calc(1px + env(safe-area-inset-bottom,0px));background:rgba(14,21,37,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid rgba(42,53,80,.6);transform:translateY(110%);transition:transform .3s}
@@ -457,7 +458,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       <p class="lead">Ustaw je raz w aplikacji. Potem przełącznik wykonuje je sam, nawet gdy telefon jest wyłączony albo poza domem.</p>
       <p class="lead">Każdy przełącznik mieści do 8 harmonogramów włącz/wyłącz. Stała godzina albo wschód i zachód słońca z przesunięciem, do tego wybrane dni.</p>
       <p class="lead">Prosty, intuicyjny podgląd pokazuje każdy harmonogram na 24-godzinnej osi czasu: żółta linia to światło dzienne od wschodu do zachodu słońca, a pomarańczowy blok to czas, gdy przełącznik jest włączony. Od razu widzisz, czy pasuje. <a class="sidenote" id="cpLink" href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener">Obsesja: czas stracony na ustawianiu czasu</a> 😉</p>
-      <p class="lead sidenote2">No cóż, ponad milion użytkowników aplikacji Shelly traci więcej czasu na trudne do ustawienia harmonogramy. 😉</p>
+      <p class="lead sidenote2">No cóż, ponad milion użytkowników aplikacji Shelly traci więcej czasu na trudne do ustawienia harmonogramy. <img class="wow" src="../img/wow.svg" alt="😮" width="24" height="24"></p>
     </div>
     <figure class="bar" aria-labelledby="bar-cap" style="margin:0">
       <div class="bh"><h3>Światła w ogrodzie</h3><span>☀↑ 07:41&nbsp;&nbsp; ☀↓ 17:02</span></div>

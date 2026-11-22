@@ -358,6 +358,7 @@ footer a{color:var(--muted)}
 /* zwevende downloadbalk, alleen op telefoons */
 .xtree{display:inline-block;margin-top:6px}.xtree .xl circle{animation:xmasTw 1.2s ease-in-out infinite}@keyframes xmasTw{0%,100%{opacity:1}50%{opacity:.15}}@media (prefers-reduced-motion:reduce){.xtree .xl circle{animation:none}}
 #dlbar .dlb-btn{position:relative}#dlbar .xtree.dlx{position:absolute;top:-27px;right:6px;margin:0;pointer-events:none}
+.wow{width:1.4em;height:1.4em;vertical-align:-.35em}
 #dlbar{display:none}
 @media (max-width:900px){
 #dlbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;gap:12px;justify-content:space-between;padding:1px 12px calc(1px + env(safe-area-inset-bottom,0px));background:rgba(14,21,37,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid rgba(42,53,80,.6);transform:translateY(110%);transition:transform .3s}
@@ -457,7 +458,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       <p class="lead">Réglez-les une fois dans l’application. Ensuite l’interrupteur les exécute tout seul, même quand votre téléphone est éteint ou hors de la maison.</p>
       <p class="lead">Chaque interrupteur garde jusqu’à 8 programmations marche/arrêt. Heure fixe, ou lever et coucher du soleil avec un décalage, et les jours de votre choix.</p>
       <p class="lead">Un aperçu visuel simple et intuitif montre chaque programmation sur une ligne de 24 heures : la ligne jaune est la lumière du jour, du lever au coucher du soleil, et le bloc orange est le moment où l’interrupteur est allumé. Vous voyez tout de suite si ça convient. <a class="sidenote" id="cpLink" href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener">Obsédé : du temps perdu à régler l’heure</a> 😉</p>
-      <p class="lead sidenote2">Bon, plus d’1 million d’utilisateurs de l’appli Shelly perdent encore plus de temps à régler des programmations compliquées. 😉</p>
+      <p class="lead sidenote2">Bon, plus d’1 million d’utilisateurs de l’appli Shelly perdent encore plus de temps à régler des programmations compliquées. <img class="wow" src="../img/wow.svg" alt="😮" width="24" height="24"></p>
     </div>
     <figure class="bar" aria-labelledby="bar-cap" style="margin:0">
       <div class="bh"><h3>Lumières du jardin</h3><span>☀↑ 07:41&nbsp;&nbsp; ☀↓ 17:02</span></div>
