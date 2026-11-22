@@ -312,6 +312,7 @@ T = [
 ('Thanks! Your comment appears after a check.', 'Danke! Dein Kommentar erscheint nach einer Prüfung.'),
 ('Please fill in your name and a comment.', 'Bitte gib deinen Namen und einen Kommentar ein.'),
 ('Sending failed. Please try again later.', 'Senden fehlgeschlagen. Bitte versuche es später noch einmal.'),
+('Please write your comment in English.', 'Bitte schreibe deinen Kommentar auf Englisch.'),
 ]
 bad = []
 for en, de in T:

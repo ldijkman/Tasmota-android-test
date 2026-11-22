@@ -371,6 +371,7 @@ footer a{color:var(--muted)}
 .cmt-form{display:grid;gap:10px}
 .cmt-form input,.cmt-form textarea{padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:#0b1120;color:#fff;font:inherit}
 .cmt-form input:focus,.cmt-form textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
+.cmt-en{color:var(--amber);font-weight:700;margin:0}
 .cmt-note{color:var(--muted);font-size:.85rem;margin:0}
 .cmt-send{justify-self:start;border-color:var(--amber);cursor:pointer}
 .cmt-msg{margin:0;color:var(--amber);min-height:1.2em}
@@ -732,6 +733,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   <p class="cmt-in">Kein Konto nötig. Dein Kommentar erscheint nach einer kurzen Prüfung.</p>
   <div id="cmtList" class="cmt-list" data-empty="Noch keine Kommentare. Sei der Erste!" data-reply="Antwort vom Entwickler"></div>
   <form id="cmtForm" class="cmt-form" novalidate>
+    <p class="cmt-en">Bitte schreibe deinen Kommentar auf Englisch.</p>
     <label class="vh" for="cmtName">Dein Name</label>
     <input id="cmtName" maxlength="40" required placeholder="Dein Name" autocomplete="nickname">
     <label class="vh" for="cmtText">Deine Frage oder dein Kommentar</label>

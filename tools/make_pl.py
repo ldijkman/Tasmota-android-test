@@ -453,6 +453,7 @@ T = [
 ('Thanks! Your comment appears after a check.', 'Dziękujemy! Komentarz pojawi się po sprawdzeniu.'),
 ('Please fill in your name and a comment.', 'Podaj imię i komentarz.'),
 ('Sending failed. Please try again later.', 'Nie udało się wysłać. Spróbuj ponownie później.'),
+('Please write your comment in English.', 'Prosimy pisać komentarze po angielsku.'),
 ]
 
 bad = []
