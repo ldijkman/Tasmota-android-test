@@ -40,6 +40,7 @@ Features:
 - [Website in French (Français)](https://ldijkman.github.io/Tasmota-android-test/fr/): the same front page translated; the app itself is in English
 - [Website in Polish (Polski)](https://ldijkman.github.io/Tasmota-android-test/pl/): the same front page translated; the app itself is in English
 - [Website in Spanish (Español)](https://ldijkman.github.io/Tasmota-android-test/es/): the same front page translated; the app itself is in English
+- [Website in Dutch (Nederlands)](https://ldijkman.github.io/Tasmota-android-test/nl/): the same front page translated; the app itself is in English
 - [Live demo](https://ldijkman.github.io/Tasmota-android-test/demo/): the real app in the browser with simulated devices
 - [Download the latest APK](https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk)
 - [Source code and readme](https://github.com/ldijkman/Tasmota-android-test)

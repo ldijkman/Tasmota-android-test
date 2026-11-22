@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tasmota Scan &amp; Control: gratis Android-app voor Tasmota- en Shelly-schakelaars</title>
+<meta name="description" content="Gratis Android-app voor Tasmota- en Shelly-wifischakelaars, -stekkers en -lampen, zonder limiet op het aantal apparaten. Vindt ze in seconden op je netwerk. Aan/uit, timers met zonsopkomst en zonsondergang in de schakelaar zelf, groepen, scènes, widgets en een wandpaneel-modus. Geen cloud, geen account, geen reclame.">
+<link rel="canonical" href="https://ldijkman.github.io/Tasmota-android-test/nl/">
+<link rel="alternate" hreflang="en" href="https://ldijkman.github.io/Tasmota-android-test/">
+<link rel="alternate" hreflang="de" href="https://ldijkman.github.io/Tasmota-android-test/de/">
+<link rel="alternate" hreflang="fr" href="https://ldijkman.github.io/Tasmota-android-test/fr/">
+<link rel="alternate" hreflang="pl" href="https://ldijkman.github.io/Tasmota-android-test/pl/">
+<link rel="alternate" hreflang="es" href="https://ldijkman.github.io/Tasmota-android-test/es/">
+<link rel="alternate" hreflang="nl" href="https://ldijkman.github.io/Tasmota-android-test/nl/">
+<link rel="alternate" hreflang="x-default" href="https://ldijkman.github.io/Tasmota-android-test/">
+<meta name="theme-color" content="#0e1525">
+<meta name="google-site-verification" content="tQrVo3_wPGnllO1xzqaHQz49uHlMX_vpRBAHNmBCCEM">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Tasmota Scan & Control: gratis Android-app voor Tasmota- en Shelly-schakelaars">
+<meta property="og:description" content="Vind, schakel en plan je Tasmota- en Shelly-apparaten. Geen cloud, geen account, geen reclame.">
+<meta property="og:url" content="https://ldijkman.github.io/Tasmota-android-test/nl/">
+<meta property="og:locale" content="nl_NL">
+<meta property="og:image" content="https://ldijkman.github.io/Tasmota-android-test/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230e1525'/%3E%3Cpath d='M32 12a14 14 0 0 0-8 25.5V43h16v-5.5A14 14 0 0 0 32 12z' fill='%23f0a630'/%3E%3Crect x='25' y='46' width='14' height='5' rx='2' fill='%23f0a630'/%3E%3C/svg%3E">
+<link rel="preload" href="../fonts/bricolage.woff2" as="font" type="font/woff2" crossorigin>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"Tasmota Scan & Control","operatingSystem":"Android 7.0 or newer","applicationCategory":"UtilitiesApplication","description":"Android-app om Tasmota- en Shelly-wifischakelaars, -stekkers en -lampen op je eigen netwerk te vinden, te schakelen en te plannen. Geen cloud, geen account, geen reclame.","inLanguage":"nl","offers":{"@type":"Offer","price":"0","priceCurrency":"EUR"},"downloadUrl":"https://github.com/ldijkman/Tasmota-android-test/releases/latest","screenshot":"https://ldijkman.github.io/Tasmota-android-test/img/tasmota-tiles.jpg","author":{"@type":"Person","name":"Dirk Lubèrth Dijkman"}}
+</script>
+<style>
+@font-face{font-family:"Bricolage";src:url(../fonts/bricolage.woff2) format("woff2");font-weight:200 800;font-display:swap}
+@font-face{font-family:"Atkinson";src:url(../fonts/atkinson-400.woff2) format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Atkinson";src:url(../fonts/atkinson-700.woff2) format("woff2");font-weight:700;font-display:swap}
+:root{
+  --night:#0e1525; --night2:#141e33; --line:#243150; --ink:#e8e4da; --muted:#a3abbd;
+  --amber:#f0a630; --light:#fff1d2; --dusk:#55467f;
+  --display:"Bricolage",ui-sans-serif,system-ui,sans-serif; --text:"Atkinson",ui-sans-serif,system-ui,sans-serif;
+  --w:1120px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--night);color:var(--ink);font:400 1.125rem/1.6 var(--text);-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--light)}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px;border-radius:6px}
+.wrap{max-width:var(--w);margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;color:#fff;margin:0}
+h2{font-size:clamp(2rem,4vw,2.9rem);line-height:1.05;max-width:20ch}
+h3{font-size:1.2rem;letter-spacing:-.01em;line-height:1.25}
+p{margin:0}
+.lead{color:var(--muted);font-size:1.2rem;max-width:58ch}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* nav */
+nav{position:relative;z-index:5}
+nav .wrap{display:flex;align-items:center;gap:28px;height:72px}
+.brand{display:flex;align-items:center;gap:10px;font:700 1.05rem var(--display);color:#fff;text-decoration:none;letter-spacing:-.01em}
+.brand svg{width:30px;height:30px}
+nav ul{display:flex;gap:24px;list-style:none;margin:0 0 0 auto;padding:0}
+nav ul a{color:var(--muted);text-decoration:none;font-size:1rem;white-space:nowrap}
+nav ul a:hover{color:#fff}
+@media (max-width:760px){nav ul li:not(:last-child){display:none}}
+
+/* hero: a lamp you can switch */
+.hero{position:relative;overflow:hidden;padding:40px 0 96px;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:-20% -10% 0;z-index:-1;pointer-events:none;
+  background:radial-gradient(ellipse 55% 60% at 72% 12%,rgba(255,206,120,.30),rgba(240,166,48,.10) 45%,transparent 70%);
+  opacity:0;transition:opacity .9s ease}
+.lit .hero::before{opacity:1}
+.hero .wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:start}
+.hero h1{font-size:clamp(2.9rem,7vw,5.6rem);line-height:.98;letter-spacing:-.035em;margin-top:56px;font-variation-settings:"opsz" 96}
+.hero .lead{margin-top:22px}
+.switch{margin-top:34px;display:flex;align-items:center;gap:18px;width:min(100%,420px);padding:16px 18px;border-radius:22px;cursor:pointer;
+  background:var(--night2);border:1.5px solid var(--line);color:var(--ink);font:inherit;text-align:left;transition:border-color .5s,background .5s,box-shadow .5s}
+.switch .ic{width:58px;height:58px;border-radius:16px;background:#1b2740;display:grid;place-items:center;flex:none;transition:background .5s}
+.switch .ic svg{width:32px;height:32px;color:#8792a8;transition:color .5s}
+.switch b{display:block;font:700 1.15rem var(--display);color:#fff}
+.switch span{color:var(--muted);font-size:1rem}
+.switch .tg{margin-left:auto;width:58px;height:34px;border-radius:17px;background:#2a3757;position:relative;flex:none;transition:background .4s}
+.switch .tg::after{content:"";position:absolute;top:4px;left:4px;width:26px;height:26px;border-radius:50%;background:#c7cdda;transition:transform .35s cubic-bezier(.5,1.6,.5,1),background .4s}
+.lit .switch{border-color:var(--amber);background:#221e1c;box-shadow:0 0 40px rgba(240,166,48,.18)}
+.lit .switch .ic{background:var(--amber)}
+.lit .switch .ic svg{color:#2a1700}
+.lit .switch .tg{background:var(--amber)}
+.lit .switch .tg::after{transform:translateX(24px);background:#2a1700}
+.cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+.btn{display:inline-flex;align-items:center;gap:10px;padding:15px 22px;border-radius:14px;text-decoration:none;font:700 1.05rem var(--text);border:1.5px solid var(--line);color:#fff;background:transparent}
+.btn:hover{border-color:#3a4a70}
+.btn.main{background:var(--amber);border-color:var(--amber);color:#2a1700}
+.btn.main:hover{background:#f6b64d}
+.btn small{font-weight:400;opacity:.75;font-size:.85rem;white-space:nowrap}
+.btn svg{width:20px;height:20px}
+.promise{margin-top:22px;color:var(--muted);font-size:1rem}
+#dlcount{margin-top:4px}
+.last .dlcount{margin-top:16px}
+
+.stage{position:relative;height:640px;pointer-events:none}
+.pendant{position:absolute;left:50%;top:-40px;width:150px;transform:translateX(-50%);z-index:2}
+.pendant .bulb{fill:#3a4560;transition:fill .5s}
+.lit .pendant .bulb{fill:var(--light);filter:drop-shadow(0 0 18px rgba(255,214,140,.95))}
+.cone{position:absolute;left:50%;top:92px;width:520px;height:560px;transform:translateX(-50%);z-index:1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,226,170,.42),rgba(240,166,48,.10) 60%,transparent);
+  clip-path:polygon(43% 0,57% 0,100% 100%,0 100%);opacity:0;transition:opacity .9s ease}
+.lit .cone{opacity:1}
+.phone{position:absolute;left:50%;top:150px;transform:translateX(-50%);width:270px;border-radius:38px;padding:10px;background:#05080f;
+  border:1.5px solid #2b3653;box-shadow:0 30px 80px rgba(0,0,0,.55);z-index:1}
+.phone img{border-radius:29px;filter:brightness(.55) saturate(.8);transition:filter .9s ease}
+.lit .phone img{filter:none}
+@media (max-width:900px){
+  .hero .wrap{grid-template-columns:1fr}
+  .hero h1{margin-top:12px}
+  .stage{height:150px;order:-1;margin-bottom:-110px}
+  .pendant{width:120px;top:-48px}
+  .phone{display:none}
+  .cone{top:46px;width:380px;height:520px}
+}
+
+/* the day bar */
+.day{padding:110px 0;background:linear-gradient(180deg,var(--night),#111a2d)}
+.day .wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.day p+p{margin-top:16px}
+.day .lead{margin-top:20px}
+.bar{background:#0b1120;border:1.5px solid var(--line);border-radius:22px;padding:22px 22px 8px}
+.bh{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 14px;margin-bottom:14px}
+.bh span{color:var(--muted);font-size:.95rem;font-variant-numeric:tabular-nums}
+.sc{background:#141e33;border:1.5px solid var(--line);border-radius:16px;padding:16px 16px 14px;margin-bottom:14px}
+.sc-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.sc-h b{font:700 1.05rem var(--display);color:#fff}
+.sc-h .act{font-size:.9rem;color:var(--muted);display:flex;align-items:center;gap:7px}
+.sc-h .act::before{content:"✓";display:grid;place-items:center;width:18px;height:18px;border-radius:4px;background:#3b82f6;color:#fff;font-size:.75rem;font-weight:700}
+.sun{height:5px;border-radius:3px;margin-bottom:4px;background:linear-gradient(90deg,#22355f 29.93%,#f2cf5b 33.40%,#f2cf5b 69.58%,#22355f 73.06%)}
+.trk{position:relative;height:20px;border-radius:4px;background:#2a3757;overflow:hidden}
+.trk .on{position:absolute;top:0;bottom:0;background:var(--amber);box-shadow:0 0 12px rgba(240,166,48,.55)}
+.trk i{position:absolute;top:0;bottom:0;width:1px;background:rgba(160,170,190,.35)}
+.rul{position:relative;height:7px;margin-top:3px}
+.rul i{position:absolute;top:0;width:1px;height:3px;margin-left:-.5px;background:var(--muted);opacity:.5}
+.rul i.mj{height:7px;opacity:.95}
+.rul i:first-child{margin-left:0}.rul i:last-child{margin-left:-1px}
+.hrs{position:relative;height:18px;margin-top:2px;font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.hrs span{position:absolute;top:0;transform:translateX(-50%)}
+.hrs span:first-child{transform:none}.hrs span:last-child{transform:translateX(-100%)}
+.lbl{position:relative;height:24px;margin-top:4px}
+.lbl .l{position:absolute;white-space:nowrap;font-size:.95rem;font-weight:700;font-variant-numeric:tabular-nums}
+.lbl .on{color:var(--amber)}.lbl .off{color:var(--muted)}
+.sum{font-size:.9rem;color:var(--muted);margin-top:2px}
+.days{display:flex;gap:6px;margin-top:12px}
+.days .d{flex:1;text-align:center;padding:7px 0;border-radius:8px;font-size:.88rem;font-weight:700;color:var(--muted);border:1.5px solid var(--line)}
+.days .d.on{background:var(--amber);border-color:var(--amber);color:#2a1700}
+@media (max-width:900px){.day .wrap{grid-template-columns:1fr}}
+
+/* features */
+.feats{padding:110px 0}
+.feats h2{margin-bottom:14px}
+.flist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:44px 64px;margin-top:56px;padding:0;list-style:none}
+.flist li{display:grid;grid-template-columns:44px 1fr;gap:4px 18px;align-content:start}
+.flist svg{grid-row:span 2;width:30px;height:30px;color:var(--amber);margin-top:2px}
+.flist p{color:var(--muted)}
+@media (max-width:760px){.flist{grid-template-columns:1fr;gap:34px}}
+
+/* videos */
+.vids{padding:100px 0;background:#0b1120;border-block:1.5px solid var(--line)}
+.vgrid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:18px;margin-top:44px}
+.vcard{all:unset;cursor:pointer;display:block}
+.vcard .fr{display:block;position:relative;border-radius:16px;overflow:hidden;border:1.5px solid var(--line);aspect-ratio:4/5;background:#000}
+.vcard .fr img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.8;transition:opacity .3s}
+.vcard .pl{position:absolute;left:12px;bottom:12px;width:44px;height:44px;border-radius:50%;background:var(--amber);display:grid;place-items:center}
+.vcard .pl svg{width:18px;height:18px;margin-left:3px}
+.vcard b{display:block;margin-top:12px;font:700 1.02rem var(--display);color:#fff}
+.vcard .len{display:block;color:var(--muted);font-size:.92rem}
+.vcard:hover img,.vcard:focus-visible img{opacity:1}
+.vcard:focus-visible{outline:3px solid var(--amber);outline-offset:4px;border-radius:16px}
+@media (max-width:1000px){.vgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:560px){.vgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+dialog{border:0;padding:0;background:transparent;max-width:min(94vw,440px)}
+dialog::backdrop{background:rgba(5,8,15,.86)}
+dialog video{width:100%;max-height:86vh;border-radius:18px;background:#000;display:block}
+dialog.wide{max-width:min(94vw,1100px)}
+dialog form.pbar{display:flex;align-items:center;gap:6px;margin-bottom:8px}
+dialog form.pbar button{padding:8px 11px;white-space:nowrap}
+#pTitle{flex:1;min-width:0;color:#cfd6e6;font-size:.82rem;text-align:center;line-height:1.25;overflow:hidden;text-overflow:ellipsis}
+#pTitle small{display:block;color:#8a96b0;font-size:.78rem}
+dialog button{background:none;border:1.5px solid #3a4a70;color:#fff;border-radius:10px;padding:8px 14px;font:inherit;cursor:pointer}
+
+/* screenshots */
+.shots{padding:100px 0 90px}
+.strip{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:24px;padding:40px 24px 18px;margin-top:4px;scrollbar-color:#2b3653 transparent}
+.strip figure{flex:none;width:230px;margin:0;scroll-snap-align:start}
+.strip img{border-radius:22px;border:1.5px solid var(--line)}
+.strip figcaption{margin-top:12px;color:var(--muted);font-size:.95rem;line-height:1.4}
+@media (min-width:1168px){.strip{padding-left:calc((100vw - var(--w))/2 + 24px);scroll-padding-left:calc((100vw - var(--w))/2 + 24px)}}
+
+/* two stories */
+.two{padding:40px 0 110px}
+.two .wrap{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px}
+.story{border:1.5px solid var(--line);border-radius:26px;padding:34px;display:grid;grid-template-columns:1fr 150px;gap:24px;align-items:start;background:var(--night2)}
+.story p{color:var(--muted);margin-top:12px}
+.story a{display:inline-block;margin-top:16px;font-weight:700}
+.story img{border-radius:16px;border:1.5px solid var(--line)}
+@media (max-width:900px){.two .wrap{grid-template-columns:1fr}}
+@media (max-width:480px){.story{grid-template-columns:1fr}.story img{max-width:180px}}
+
+/* privacy */
+.yours{padding:110px 0;text-align:left;background:radial-gradient(ellipse 60% 80% at 0% 50%,rgba(85,70,127,.28),transparent 70%)}
+.yours h2{font-size:clamp(2.3rem,5.4vw,4rem);max-width:16ch}
+.yours .lead{margin-top:22px;font-size:1.25rem;max-width:56ch}
+.yours .lead+.lead{margin-top:14px}
+
+/* faq */
+.faq{padding:40px 0 110px}
+.faq .wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px}
+details{border-bottom:1.5px solid var(--line);padding:18px 0}
+details:first-of-type{border-top:1.5px solid var(--line)}
+summary{cursor:pointer;font:700 1.12rem var(--display);color:#fff;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";color:var(--amber);font-size:1.4rem;line-height:1;transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{color:var(--muted);margin-top:12px;max-width:62ch;text-wrap:pretty}
+details p+p{margin-top:8px}
+details p.fnote{color:#ff7b72;font-weight:600}
+.lead a.sidenote{font-size:.8em;color:var(--muted)}
+.lead.sidenote2{font-size:.8em;color:var(--muted);margin-top:1.2em}
+.copynote{margin:0}
+@media (min-width:901px){.copynote{grid-column:2;margin-top:-32px}}
+.factmore{max-width:46ch;margin:-36px 0 56px;text-align:left;color:var(--muted);font-size:.95rem}
+.factmore summary{font-size:.95rem}
+.factmore summary{cursor:pointer;text-align:center;color:var(--amber);font-weight:700;list-style:none}
+.factmore summary::-webkit-details-marker{display:none}
+.factmore ul{margin:12px 0 0;padding-left:1.2em;line-height:1.5}
+.factmore li+li{margin-top:8px}
+.factmore b{color:var(--ink)}
+.keynote{margin:18px 0 0;padding:12px 16px;border:2px solid var(--amber);border-radius:14px;background:rgba(240,166,48,.10);color:var(--ink);font-size:.95rem;line-height:1.5;max-width:60ch;overflow-wrap:anywhere}
+.keynote b{color:var(--amber)}
+.regbadge{display:flex;align-items:center;gap:9px;margin:16px auto 0;padding:7px 12px 7px 9px;width:fit-content;max-width:min(100%,250px);background:#141e33;border:2px solid var(--amber);border-radius:14px;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.regbadge svg{flex:none;width:22px;height:28px}
+.regbadge b{display:block;color:var(--amber);font-family:var(--display);font-weight:800;font-size:.9rem;line-height:1.2}
+.regbadge .rb2{display:block;font-size:.72rem;line-height:1.3}
+.regbadge:focus-visible{outline:3px solid var(--light);outline-offset:3px}
+.keynote.fold{cursor:pointer;position:relative}
+.keynote.fold:not(.open){max-height:calc(3em + 16px);padding-bottom:0;overflow:hidden}
+.keynote.fold::after{content:"▾ more";position:absolute;right:2px;bottom:2px;padding:0 14px 0 30px;color:var(--amber);font-weight:700;font-size:.9rem;line-height:1.5;background:linear-gradient(90deg,rgba(37,36,39,0),#252427 22px);border-radius:0 0 12px 0}
+.keynote.fold.open{padding-bottom:40px}
+.keynote.fold.open::after{content:"▴ less";background:none}
+.don{display:inline-block;margin-top:4px;padding:9px 16px;border-radius:12px;border:1.5px solid var(--amber);color:var(--light);font-weight:700;text-decoration:none}
+.don:hover{background:rgba(240,166,48,.12)}
+@media (max-width:900px){.faq .wrap{grid-template-columns:1fr;gap:28px}}
+
+/* last call + footer */
+.last{padding:20px 0 120px}
+.last .box{border-radius:30px;padding:56px 48px;background:linear-gradient(135deg,#2a1d08,#1a1426 70%);border:1.5px solid #4a3818;display:flex;flex-wrap:wrap;gap:28px;align-items:center;justify-content:space-between}
+.last h2{max-width:18ch}
+footer{border-top:1.5px solid var(--line);padding:34px 0 50px;color:var(--muted);font-size:.98rem}
+footer .wrap{display:flex;flex-wrap:wrap;gap:14px 28px;justify-content:space-between}
+footer ul{display:flex;flex-wrap:wrap;gap:8px 22px;list-style:none;margin:0;padding:0}
+footer a{color:var(--muted)}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+.plugs{padding:90px 0}
+.plugs .lead{margin-top:16px}
+.plugs .buy{font-size:.85rem;margin:16px 0 0;padding:10px 14px;border-left:3px solid var(--amber);background:#141d36;border-radius:0 12px 12px 0;color:var(--muted);max-width:640px;line-height:1.5}
+.plugs .buy b{color:var(--ink)}
+.pl-row{display:grid;grid-template-columns:repeat(2,minmax(0,280px));gap:24px;margin-top:28px}
+.pl{display:flex;flex-direction:column;gap:4px;color:var(--ink);text-decoration:none}
+.pl img{width:100%;height:auto;aspect-ratio:1;object-fit:contain;background:#fff;border-radius:18px;border:1.5px solid var(--line);padding:14px;box-sizing:border-box;transition:border-color .2s}
+.pl:hover img{border-color:var(--amber)}
+.pl b{font:600 1.1rem/1.3 var(--display);margin-top:10px}
+.pl span{color:var(--muted);font-size:.95rem}
+@media (max-width:560px){.pl-row{gap:14px}.pl b{font-size:1rem}}
+.talk{padding:20px 0 90px}
+.talk .lead{margin-top:16px}
+.talk-btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:26px}
+.talk-note{color:var(--muted);font-size:.95rem;margin-top:14px}
+.star{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:28px;padding-top:24px;border-top:1px solid #4a3818;width:100%}
+.star p{margin:0;color:var(--muted);font-size:1rem;max-width:44ch}
+.star p b{color:var(--ink)}
+.star small{margin-left:4px}
+.diy-fact{color:var(--muted);font-size:.95rem;line-height:1.6;margin:-6px 0 16px}
+.diy-fact b{color:var(--ink)}
+.espfact{padding:10px 0 0}
+.espfact .diy-fact{margin:0 0 56px}
+.diy .diy-photo{display:block;width:100%;max-width:300px;height:auto;aspect-ratio:auto;padding:0;border:1.5px solid var(--line);border-radius:18px;margin:0 0 6px;background:none}
+.diy-cap{color:var(--muted);font-size:.85rem;margin:0 0 18px}
+.diy-note{margin:44px 0 12px;color:var(--muted);font-size:1.05rem;line-height:1.5}
+.sh-row{grid-template-columns:repeat(3,minmax(0,200px));margin:18px 0 22px}
+.sh-grp{margin:26px 0 -6px;color:var(--amber);font-weight:700;font-size:.95rem}
+.sh-grp + .sh-row{margin-top:14px}
+.sh-btn{margin-bottom:30px}
+.sh-cap{margin:0;color:var(--ink)}
+.swipe{display:flex;align-items:center;gap:8px;margin:10px 0 0;color:#5d6a88;font-size:.9rem;font-weight:400}
+.swipe .sw-p{display:none}
+.swipe.sw-below{margin:0 0 22px}
+@media (hover:hover) and (pointer:fine){.swipe .sw-t{display:none}.swipe .sw-p{display:inline}}
+
+.strip.sh-strip{padding:14px 2px 18px;margin:0 0 6px}
+.sh-fact{margin:0 0 36px}
+.sh-strip figure{width:200px}
+@media (max-width:560px){.sh-row{gap:10px}.sh-row .pl span{font-size:.85rem}}
+.sh-new{color:#f3b75a;font-size:.95rem}
+.diy-note b{color:var(--ink);font:600 1.25rem/1.3 var(--display)}
+.diy{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:24px;align-items:center;margin-top:0}
+.diy img{width:100%;height:auto;background:#fff;border-radius:18px;border:1.5px solid var(--line);padding:10px;box-sizing:border-box}
+.diy h3{font:600 1.35rem/1.25 var(--display);margin:0 0 16px}
+.diy p{color:var(--muted);margin:0 0 12px;max-width:52ch}
+.diy .warn{color:#f3b75a;font-size:.95rem}
+@media (max-width:640px){.diy{grid-template-columns:1fr}.diy img,.diy .diy-photo{max-width:none}}
+.simple{padding:8px 0 40px}
+.simple h2{font-size:clamp(1.7rem,4vw,2.4rem)}
+.simple-list{list-style:none;padding:0;margin:26px 0 0;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:22px 24px}
+.simple-list li{display:flex;gap:14px;align-items:flex-start}
+.simple-list svg{flex:none;width:40px;height:40px;padding:8px;border-radius:12px;background:#1a2440;color:var(--amber)}
+.simple-list b{display:block;color:var(--ink);font-size:1.05rem;margin-bottom:3px}
+.simple-list span{color:var(--muted);font-size:1rem;line-height:1.5}
+.simple-list .also{display:block;font-size:.85rem;margin-top:4px;opacity:.85}
+.hero{padding-bottom:40px}
+.lang{display:flex;gap:8px;margin-left:22px;flex:none}
+.lang a{display:block;line-height:0;border-radius:4px;opacity:.5;transition:opacity .2s}
+.lang a:hover,.lang a[aria-current]{opacity:1}
+.lang a[aria-current]{box-shadow:0 0 0 2px var(--amber)}
+.lang svg{width:30px;height:20px;border-radius:3px;display:block}
+
+@media (max-width:760px){.lang{margin-left:14px}}
+.brand{white-space:nowrap}
+@media (max-width:960px){nav ul{display:none}.lang{margin-left:auto}nav .wrap{gap:12px}}
+@media (max-width:480px){.lang{gap:4px}.lang svg{width:21px;height:14px}.brand{font-size:.92rem;gap:8px}.brand svg{width:28px;height:28px}nav .wrap{gap:10px}}
+@media (max-width:400px){nav .wrap{gap:6px}.brand{font-size:.8rem;gap:6px}.brand svg{width:24px;height:24px}.lang{gap:3px}.lang svg{width:18px;height:12px}}
+@media (max-width:340px){.brand{font-size:.7rem}.brand svg{width:22px;height:22px}.lang{gap:2px}.lang svg{width:15px;height:10px}}
+
+.flds{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:4px 0 14px}
+.flds .fl{display:block;color:var(--muted);font-size:.85rem;margin-bottom:5px}
+.flds .fb{display:flex;align-items:center;border:1.5px solid var(--line);border-radius:10px;background:#101a33;color:var(--ink);font-size:.92rem;padding:8px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.flds .fs{justify-content:space-between}
+.flds .fs::after{content:"▾";color:var(--muted);margin-left:6px}
+.flds .fr2{display:flex;gap:6px;margin-top:6px}
+.flds .sg{flex:none;width:38px;justify-content:center}
+.flds .ft{flex:1;font-variant-numeric:tabular-nums}
+.flds .fh{display:block;color:var(--muted);font-size:.75rem;margin-top:4px}
+.easy{margin-top:34px;padding:20px 22px;border:1.5px solid var(--line);border-radius:18px;background:#141d36;max-width:720px}
+.easy h3{font:600 1.3rem/1.25 var(--display);margin:0 0 8px;color:var(--ink)}
+.easy p{margin:0 0 10px;color:var(--muted);line-height:1.55}
+.easy .tv{color:var(--ink)}
+.easy .ez{margin:14px 0 0;color:var(--amber);font:600 1.15rem/1.3 var(--display)}
+.fun{text-align:center;margin:28px 0 8px;font-size:.9rem}
+.fun{color:var(--muted)}
+.fun a{color:var(--muted)}
+#ytd{padding:0;border:0;background:#000;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0}
+#ytd::backdrop{background:#000}
+#cpd{padding:0;border:0;background:#0e1525;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0}
+#cpd::backdrop{background:#000}
+#cpBox{display:flex;flex-direction:column;width:100%;height:100%}
+#cpf{flex:1;width:100%;border:0;background:#fff}
+#cpBox .ytbar button,#ytBox .ytbar button{font:inherit}
+#ytBox{display:flex;flex-direction:column;width:100%;height:100%;background:#000}
+.ytbar{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px}
+.ytbar a{color:#cfd6e6;font-size:.9rem}
+.ytframe{flex:1;display:flex;align-items:center;justify-content:center}
+.ytframe iframe{width:100%;aspect-ratio:16/9;max-height:100%;border:0}
+</style>
+</head>
+<body>
+<nav aria-label="Hoofdmenu">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#f0a630"/><path d="M32 13a13 13 0 0 0-7.5 23.6V42h15v-5.4A13 13 0 0 0 32 13z" fill="#2a1700"/><rect x="25.5" y="45" width="13" height="5" rx="2" fill="#2a1700"/></svg>
+      Tasmota Scan &amp; Control</a>
+    <ul>
+      <li><a href="#features">Functies</a></li>
+      <li><a href="#videos">Videos</a></li>
+      <li><a href="#faq">Vragen</a></li>
+      <li><a href="../demo/">Live demo</a></li>
+    </ul>
+    <div class="lang"><a href="/Tasmota-android-test/" hreflang="en" lang="en" aria-label="English" title="English"><svg viewBox="0 0 60 30" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><clipPath id="ukc"><path d="M30,15h30v15zv15h-30zh-30v-15zv-15h30z"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0L60,30M60,0L0,30" stroke="#fff" stroke-width="6"/><path d="M0,0L60,30M60,0L0,30" clip-path="url(#ukc)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#fff" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></svg></a><a href="/Tasmota-android-test/de/" hreflang="de" lang="de" aria-label="Deutsch" title="Deutsch"><svg viewBox="0 0 5 3" preserveAspectRatio="none" aria-hidden="true"><rect width="5" height="1" fill="#000"/><rect y="1" width="5" height="1" fill="#D00"/><rect y="2" width="5" height="1" fill="#FFCE00"/></svg></a><a href="/Tasmota-android-test/fr/" hreflang="fr" lang="fr" aria-label="Français" title="Français"><svg viewBox="0 0 3 2" preserveAspectRatio="none" aria-hidden="true"><rect width="1" height="2" fill="#002654"/><rect x="1" width="1" height="2" fill="#fff"/><rect x="2" width="1" height="2" fill="#CE1126"/></svg></a><a href="/Tasmota-android-test/pl/" hreflang="pl" lang="pl" aria-label="Polski" title="Polski"><svg viewBox="0 0 8 5" preserveAspectRatio="none" aria-hidden="true"><rect width="8" height="2.5" fill="#fff"/><rect y="2.5" width="8" height="2.5" fill="#DC143C"/></svg></a><a href="/Tasmota-android-test/es/" hreflang="es" lang="es" aria-label="Español" title="Español"><svg viewBox="0 0 6 4" preserveAspectRatio="none" aria-hidden="true"><rect width="6" height="4" fill="#AA151B"/><rect y="1" width="6" height="2" fill="#F1BF00"/></svg></a><a href="/Tasmota-android-test/nl/" hreflang="nl" lang="nl" aria-label="Nederlands" title="Nederlands" aria-current="page"><svg viewBox="0 0 9 6" preserveAspectRatio="none" aria-hidden="true"><rect width="9" height="6" fill="#21468B"/><rect width="9" height="4" fill="#FFF"/><rect width="9" height="2" fill="#AE1C28"/></svg></a></div>
+  </div>
+</nav>
+
+<main id="top">
+<section class="hero" aria-labelledby="h1">
+  <div class="wrap">
+    <div>
+      <h1 id="h1">Je Tasmota- en Shelly-schakelaars, één tik verwijderd.</h1>
+      <p class="lead">Een gratis Android-app die elke Tasmota- en Shelly-schakelaar, -stekker en -lamp op je wifi in seconden vindt. Schakel ze, groepeer ze, en geef ze timers die meegaan met zonsopkomst en zonsondergang.</p>
+
+      <button type="button" class="switch" id="lamp" aria-pressed="false">
+        <span class="ic"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.74V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.26A7 7 0 0 0 12 2zM9 20h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"/></svg></span>
+        <span><b>Woonkamer</b><span id="lampState">Uit. Tik om aan te zetten</span></span>
+        <span class="tg" aria-hidden="true"></span>
+      </button>
+
+      <div class="cta">
+        <a class="btn main" id="dl" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 3h2v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17zM5 19h14v2H5z"/></svg>
+          <span>Download voor Android <small class="dlv" id="dlv"></small></span></a>
+        <a class="btn openapp" href="intent://open#Intent;scheme=tasmotascan;package=nl.dijkman.plafondled;S.browser_fallback_url=https%3A%2F%2Fgithub.com%2Fldijkman%2FTasmota-android-test%2Freleases%2Flatest%2Fdownload%2FPlafondLED.apk;end" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"/></svg>Open de app</a>
+        <a class="btn" href="../demo/">Probeer de live demo</a>
+      </div>
+      <p class="promise">Geen cloud, geen account, geen reclame, geen limiet op apparaten. Gratis en open source.<br>Werkt met <b>Tasmota</b> en <b>Shelly</b>; OpenBeken deels.</p>
+      <p class="promise dlcount" id="dlcount" hidden></p>
+      <button type="button" class="regbadge" onclick="const k=document.querySelector('.keynote'); if(k){k.classList.add('open'); k.setAttribute('aria-expanded','true'); k.scrollIntoView({behavior:'smooth',block:'center'});}" aria-label="Bekend bij Google: geregistreerde ontwikkelaar, installeert op de meeste telefoons zonder Play Protect-scan. Tik voor details."><svg viewBox="-34 -42 68 86" width="44" height="56" aria-hidden="true"><path d="M0,-40 L32,-28 L32,2 C32,22 18,34 0,42 C-18,34 -32,22 -32,2 L-32,-28 Z" fill="#f0a630"/><path d="M-14,1 L-4,12 L16,-11" fill="none" stroke="#141e33" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Bekend bij Google</b><span class="rb2">Geregistreerde ontwikkelaar · installeert op de meeste telefoons zonder Play Protect-scan</span></span></button>
+      <p class="keynote"><b>Nieuwe ondertekeningssleutel sinds versie 24.2.</b><br>✅ Geregistreerd bij Googles Android-ontwikkelaarsverificatie.<br>Elke Android-app heeft een digitale handtekening, zoals een zegel op een brief. Android accepteert een update alleen als het zegel klopt.<br>Het oude zegel stond in de openbare broncode, dus in theorie kon iemand een nepversie maken die eruitzag als een update. Het nieuwe zegel is privé en alleen ik kan het gebruiken. Het bereidt de app ook voor op Googles ontwikkelaarscontrole, die in 2027 komt.<br>Bijwerken? Tik zoals altijd op Check for update in de app. Je schakelaars blijven staan. Zegt Android ooit “App niet geïnstalleerd”, verwijder dan de oude app en installeer hem opnieuw. Download alleen van GitHub: github.com/ldijkman/Tasmota-android-test</p>
+    </div>
+
+    <div class="stage" aria-hidden="true">
+      <svg class="pendant" viewBox="0 0 150 140">
+        <line x1="75" y1="0" x2="75" y2="62" stroke="#3a4560" stroke-width="2"/>
+        <path d="M45 98 L58 62 H92 L105 98 Z" fill="#1d2740" stroke="#3a4560" stroke-width="2"/>
+        <circle class="bulb" cx="75" cy="104" r="11"/>
+      </svg>
+      <div class="cone"></div>
+      <div class="phone"><img src="../img/tasmota-tiles.jpg" alt="" width="540" height="1170"></div>
+    </div>
+  </div>
+</section>
+
+<section class="simple" aria-labelledby="simple-h">
+  <div class="wrap">
+    <h2 id="simple-h">Waar gaat dit over?</h2>
+    <ol class="simple-list">
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16,7V3H14V7H10V3H8V7H8C7,7 6,8 6,9V14.5L9.5,18V21H14.5V18L18,14.5V9C18,8 17,7 16,7Z"/></svg><span><b>Slimme stekkers en schakelaars</b>Sommige lampen en stekkers hebben een piepklein computertje met wifi erin. Veel daarvan draaien het gratis programma Tasmota, andere zijn Shellys met hun eigen software. Deze app werkt met allebei.<small class="also">OpenBeken-apparaten werken ook deels.</small></span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12,21L15.6,16.2C14.6,15.45 13.35,15 12,15C10.65,15 9.4,15.45 8.4,16.2L12,21M12,3C7.95,3 4.21,4.34 1.2,6.6L3,9C5.5,7.12 8.62,6 12,6C15.38,6 18.5,7.12 21,9L22.8,6.6C19.79,4.34 16.05,3 12,3M12,9C9.3,9 6.81,9.89 4.8,11.4L6.6,13.8C8.1,12.67 9.97,12 12,12C14.03,12 15.9,12.67 17.4,13.8L19.2,11.4C17.19,9.89 14.7,9 12,9Z"/></svg><span><b>Ze praten via je wifi</b>Net als je telefoon zijn ze verbonden met de wifi in je huis.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17,19H7V5H17M17,1H7C5.89,1 5,1.89 5,3V21A2,2 0 0,0 7,23H17A2,2 0 0,0 19,21V3C19,1.89 18.1,1 17,1Z"/></svg><span><b>Deze app is de afstandsbediening</b>Hij vindt ze zelf. Tik op een plaatje en de lamp gaat aan. Tik nog eens en hij gaat uit.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22C6.47,22 2,17.5 2,12A10,10 0 0,1 12,2M12.5,7V12.25L17,14.92L16.25,16.15L11,13V7H12.5Z"/></svg><span><b>De schakelaar onthoudt het</b>Zeg hem "aan als het donker wordt, uit om 11 uur". Dat blijft hij doen, ook als je telefoon uit staat.</span></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10,20V14H14V20H19V12H22L12,3L2,12H5V20H10Z"/></svg><span><b>Alles blijft thuis</b>Geen bedrijf ertussen, geen account, niets via internet. Geen dode apparaten als een bedrijf de ondersteuning stopt of failliet gaat: je schakelaars blijven werken.</span></li>
+    </ol>
+    <div class="easy">
+      <h3>Geen IT-diploma nodig.</h3>
+      <p>Home Assistant is krachtig,<br>maar je hebt een server, add-ons en YAML nodig,<br>en heel veel tijd om alles in te stellen en bij te houden.</p>
+      <p>Deze app is geen vervanging voor Home Assistant,<br>maar voor mensen die gewoon wat makkelijke domotica willen.</p>
+      <p>Deze app heeft niets nodig:<br>installeren, op Scan tikken, en schakelen.</p>
+      <p class="tv">Kun je een tv-afstandsbediening gebruiken,<br>dan kun je deze app gebruiken.</p>
+      <p class="ez">Veel plezier met makkelijke domotica!</p>
+    </div>
+  </div>
+</section>
+
+<section class="day" aria-labelledby="day-h">
+  <div class="wrap">
+    <div>
+      <h2 id="day-h">De timers zitten in de schakelaar.</h2>
+      <p class="lead">Stel ze één keer in met de app. Daarna voert de schakelaar ze zelf uit, ook als je telefoon uit staat of je niet thuis bent.</p>
+      <p class="lead">Elke schakelaar onthoudt tot 8 aan/uit-schema’s. Kies een vaste tijd, of zonsopkomst en zonsondergang met een verschuiving, en kies de dagen.</p>
+      <p class="lead">Een makkelijk, overzichtelijk voorbeeld toont elk schema op een tijdlijn van 24 uur: de gele lijn is daglicht, van zonsopkomst tot zonsondergang, en het oranje blok is wanneer de schakelaar aan is. Je ziet meteen of het klopt. <a class="sidenote" id="cpLink" href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener">Geobsedeerd: verspilde tijd aan tijd instellen</a> 😉</p>
+      <p class="lead sidenote2">Nou ja, meer dan 1 miljoen gebruikers van de Shelly-app verspillen meer tijd aan moeilijk in te stellen schema’s. 😉</p>
+    </div>
+    <figure class="bar" aria-labelledby="bar-cap" style="margin:0">
+      <div class="bh"><h3>Tuinverlichting</h3><span>☀↑ 07:41&nbsp;&nbsp; ☀↓ 17:02</span></div>
+      <p class="sr" id="bar-cap">Twee schema’s van de tuinverlichting. Schema 1: aan om 06:30, uit bij zonsopkomst om 07:41, op werkdagen. Schema 2: aan 15 minuten voor zonsondergang om 16:47, uit om 23:00, elke dag.</p>
+      <div class="sc">
+        <div class="sc-h"><b>Schema 1</b><span class="act">actief</span></div>
+        <div class="flds" aria-hidden="true"><div><span class="fl">Aan</span><span class="fb fs">Op vaste tijd</span><span class="fr2"><span class="fb ft">06:30</span></span></div><div><span class="fl">Uit</span><span class="fb fs">Zonsopkomst</span><span class="fr2"><span class="fb sg">+</span><span class="fb ft">00:00</span></span><span class=fh>verschuiving (uu:mm)</span></div></div>
+        <div class="sun" aria-hidden="true"></div>
+        <div class="trk" aria-hidden="true"><span class="on" style="left:27.08%;width:4.93%"></span><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i></div>
+        <div class="rul" aria-hidden="true"><i class="mj" style="left:0.000%"></i><i class="" style="left:4.167%"></i><i class="" style="left:8.333%"></i><i class="" style="left:12.500%"></i><i class="" style="left:16.667%"></i><i class="" style="left:20.833%"></i><i class="mj" style="left:25.000%"></i><i class="" style="left:29.167%"></i><i class="" style="left:33.333%"></i><i class="" style="left:37.500%"></i><i class="" style="left:41.667%"></i><i class="" style="left:45.833%"></i><i class="mj" style="left:50.000%"></i><i class="" style="left:54.167%"></i><i class="" style="left:58.333%"></i><i class="" style="left:62.500%"></i><i class="" style="left:66.667%"></i><i class="" style="left:70.833%"></i><i class="mj" style="left:75.000%"></i><i class="" style="left:79.167%"></i><i class="" style="left:83.333%"></i><i class="" style="left:87.500%"></i><i class="" style="left:91.667%"></i><i class="" style="left:95.833%"></i><i class="mj" style="left:100.000%"></i></div>
+        <div class="hrs" aria-hidden="true"><span style="left:0.000%">0</span><span style="left:25.000%">6</span><span style="left:50.000%">12</span><span style="left:75.000%">18</span><span style="left:100.000%">24</span></div>
+        <div class="lbl"><span class="l on" style="left:34%;transform:translateX(calc(-100% - 6px))">Aan 06:30</span><span class="l off" style="left:34%;transform:translateX(6px)">Uit 07:41 ☀↑</span></div>
+        <p class="sum">1 u 11 min per dag aan</p>
+        <div class="days"><span class="d on">Ma</span><span class="d on">Di</span><span class="d on">Wo</span><span class="d on">Do</span><span class="d on">Vr</span><span class="d">Za</span><span class="d">Zo</span></div>
+      </div>
+      <div class="sc">
+        <div class="sc-h"><b>Schema 2</b><span class="act">actief</span></div>
+        <div class="flds" aria-hidden="true"><div><span class="fl">Aan</span><span class="fb fs">Zonsondergang</span><span class="fr2"><span class="fb sg">−</span><span class="fb ft">00:15</span></span><span class=fh>verschuiving (uu:mm)</span></div><div><span class="fl">Uit</span><span class="fb fs">Op vaste tijd</span><span class="fr2"><span class="fb ft">23:00</span></span></div></div>
+        <div class="sun" aria-hidden="true"></div>
+        <div class="trk" aria-hidden="true"><span class="on" style="left:69.93%;width:25.90%"></span><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i></div>
+        <div class="rul" aria-hidden="true"><i class="mj" style="left:0.000%"></i><i class="" style="left:4.167%"></i><i class="" style="left:8.333%"></i><i class="" style="left:12.500%"></i><i class="" style="left:16.667%"></i><i class="" style="left:20.833%"></i><i class="mj" style="left:25.000%"></i><i class="" style="left:29.167%"></i><i class="" style="left:33.333%"></i><i class="" style="left:37.500%"></i><i class="" style="left:41.667%"></i><i class="" style="left:45.833%"></i><i class="mj" style="left:50.000%"></i><i class="" style="left:54.167%"></i><i class="" style="left:58.333%"></i><i class="" style="left:62.500%"></i><i class="" style="left:66.667%"></i><i class="" style="left:70.833%"></i><i class="mj" style="left:75.000%"></i><i class="" style="left:79.167%"></i><i class="" style="left:83.333%"></i><i class="" style="left:87.500%"></i><i class="" style="left:91.667%"></i><i class="" style="left:95.833%"></i><i class="mj" style="left:100.000%"></i></div>
+        <div class="hrs" aria-hidden="true"><span style="left:0.000%">0</span><span style="left:25.000%">6</span><span style="left:50.000%">12</span><span style="left:75.000%">18</span><span style="left:100.000%">24</span></div>
+        <div class="lbl"><span class="l on" style="left:66%;transform:translateX(calc(-100% - 6px))">Aan 16:47 ☀↓</span><span class="l off" style="left:66%;transform:translateX(6px)">Uit 23:00</span></div>
+        <p class="sum">6 u 13 min per dag aan</p>
+        <div class="days"><span class="d on">Ma</span><span class="d on">Di</span><span class="d on">Wo</span><span class="d on">Do</span><span class="d on">Vr</span><span class="d on">Za</span><span class="d on">Zo</span></div>
+      </div>
+    </figure>
+    <p class="lead copynote"><b>Schema’s kopiëren tussen apparaten:</b> stel ze één keer in en kopieer ze naar een andere schakelaar. Zelfs van een Tasmota naar een Shelly, en terug.</p>
+  </div>
+</section>
+
+<section class="feats" id="features" aria-labelledby="feat-h">
+  <div class="wrap">
+    <h2 id="feat-h">Alles voor je Tasmota- en Shelly-apparaten, in één kleine app.</h2>
+    <p class="lead">Kleiner dan 250 KB, start in een oogwenk, en praat direct met je apparaten via je eigen wifi.</p>
+    <ul class="flist">
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M2 8.5a15 15 0 0 1 20 0M5.5 12a10 10 0 0 1 13 0M9 15.5a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r="1.4" fill="currentColor"/></svg>
+        <h3>Vindt ze in seconden</h3><p>Scant je netwerk en toont elk Tasmota- en Shelly-apparaat met naam en adres. Herkent ze aan hun MAC-adres als hun adres verandert.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+        <h3>Timers met zonsopkomst en zonsondergang</h3><p>Tot 8 aan/uit-schema’s per schakelaar, opgeslagen in de schakelaar. Zie in één oogopslag alles wat vandaag schakelt.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M3 4h7v7H3zM14 4h7v7h-7zM3 15h7v5H3zM14 15h7v5h-7z"/></svg>
+        <h3>Groepen en scènes</h3><p>Schakel een hele kamer tegelijk, of kies een sfeer zoals Filmavond met één tik: sommige lampen aan, andere uit.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.4.9 1 .9 1.7V16h5.2v-.4c0-.7.3-1.3.9-1.7A6 6 0 0 0 12 3z"/></svg>
+        <h3>Lampen</h3><p>Helderheid, warm tot koud wit, en kleur voor Tasmota-lampen en ledstrips.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 7h2M13 7h2M9 11h2M13 11h2"/></svg>
+        <h3>Tegels en widgets</h3><p>Grote tegels in de app, en schakelaars, groepen en scènes direct op je startscherm.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M12 5v14M5 12h14"/></svg>
+        <h3>Nieuwe apparaten toevoegen</h3><p>Geef een nieuw of gereset Tasmota-apparaat je wifi vanuit de app. Geen browser, geen 192.168.4.1.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 3h12M6 21h12M7 3c0 5 5 6 5 9s-5 4-5 9M17 3c0 5-5 6-5 9s5 4 5 9"/></svg>
+        <h3>Automatisch uit</h3><p>Laat een schakelaar zichzelf uitzetten na een ingestelde tijd, zoals een badkamerventilator of een kachel. Het loopt in de schakelaar, dus het werkt ook als je op het knopje van het apparaat zelf drukt. Kaarten, tegels en widgets tellen af.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" d="M13 2L4 14h7l-1 8 9-12h-7z"/></svg>
+        <h3>Stroomverbruik</h3><p>Stekkers met een energiemeter laten zien hoeveel watt ze nu gebruiken, op de kaart en de tegel.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="2"/><path stroke="currentColor" stroke-width="2" stroke-linecap="round" d="M9 21h6M12 17v4"/></svg>
+        <h3>Wandpaneel</h3><p>Maak van een oude telefoon of tablet een bedieningspaneel: het scherm blijft aan, dimt vanzelf en vult het hele scherm. Het werkt meteen als Tailscale VPN-server voor bediening van overal.</p></li>
+      <li><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="2"/><path fill="none" stroke="currentColor" stroke-width="2" d="M3 12h18M12 3c2.5 2.6 3.8 5.6 3.8 9s-1.3 6.4-3.8 9c-2.5-2.6-3.8-5.6-3.8-9S9.5 5.6 12 3z"/></svg>
+        <h3>Van overal</h3><p>Bereik je schakelaars buiten de deur met Tailscale VPN, zonder poorten open te zetten in je router.</p></li>
+    </ul>
+  </div>
+</section>
+
+<section class="vids" id="videos" aria-labelledby="vid-h">
+  <div class="wrap">
+    <h2 id="vid-h">Zie hoe het werkt.</h2>
+    <p class="lead" style="margin-top:14px">Een video zegt meer dan duizend woorden. Korte video’s met gesproken uitleg, opgenomen in de live demo.</p>
+    <div class="vgrid">
+      <button class="vcard" data-v="../tasmota-install.mp4"><span class="fr"><img src="../img/poster-install.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Installeren en eerste scan</b><span class="len">1,5 min</span></button>
+      <button class="vcard" data-v="../tasmota-demo.mp4"><span class="fr"><img src="../img/poster-demo.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>De app in een minuut</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="../tasmota-add-device.mp4"><span class="fr"><img src="../img/poster-add-device.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Een nieuw apparaat toevoegen</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="../tasmota-timers.mp4"><span class="fr"><img src="../img/poster-timers.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Timers met zonsopkomst en zonsondergang</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="../tasmota-auto-off.mp4"><span class="fr"><img src="../img/poster-auto-off.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Automatisch uit, ook met het knopje</b><span class="len">1,5 min</span></button>
+      <button class="vcard" data-v="../tasmota-scenes.mp4"><span class="fr"><img src="../img/poster-scenes.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Een scène maken</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="../tasmota-arrange-scenes.mp4"><span class="fr"><img src="../img/poster-arrange-scenes.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Scènes in een raster schikken</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="../tasmota-icons.mp4"><span class="fr"><img src="../img/poster-icons.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Icoon en kleur veranderen</b><span class="len">1 min</span></button>
+      <button class="vcard" data-v="../tasmota-tailscale.mp4"><span class="fr"><img src="../img/poster-tailscale.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Bediening op afstand met Tailscale VPN</b><span class="len">2 min</span></button>
+      <button class="vcard" data-v="../tasmota-wall-panel.mp4"><span class="fr"><img src="../img/poster-wall-panel.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Oude telefoon of tablet als wandpaneel</b><span class="len">1,5 min</span></button>
+      <button class="vcard" data-v="../tasmota-groups.mp4"><span class="fr"><img src="../img/poster-groups.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Groepen, details en een schakelaar verwijderen</b><span class="len">1,5 min</span></button>
+      <button class="vcard" data-v="../shelly-how-to.mp4"><span class="fr"><img src="../img/poster-shelly.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Een Shelly toevoegen en gebruiken</b><span class="len">2 min</span></button>
+      <button class="vcard" data-v="../shelly-device-card.mp4"><span class="fr"><img src="../img/poster-shelly-card.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>De Shelly-kaart uitgelegd</b><span class="len">4 min</span></button>
+      <button class="vcard" data-v="../shelly-toilet-fan.mp4"><span class="fr"><img src="../img/poster-shelly-fan.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Wc-ventilator met een Shelly</b><span class="len">2 min</span></button>
+      <button class="vcard" data-v="../shelly-1-gen3-button.mp4"><span class="fr"><img src="../img/poster-shelly-button.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Shelly 1 Gen3: het piepkleine knopje</b><span class="len">2 min</span></button>
+    </div>
+  </div>
+</section>
+<dialog id="player" aria-label="Video">
+  <form method="dialog" class="pbar">
+    <button type="button" id="pPrev" aria-label="Vorige video">‹ Vorige</button>
+    <span id="pTitle" aria-live="polite"></span>
+    <button type="button" id="pNext" aria-label="Volgende video">Volgende ›</button>
+    <button aria-label="Video sluiten">Sluiten</button>
+  </form>
+  <video id="pv" controls playsinline preload="none"></video>
+</dialog>
+
+<section class="shots" aria-labelledby="shot-h">
+  <div class="wrap"><h2 id="shot-h">Echte schermen van echte schakelaars.</h2><p class="swipe" aria-hidden="true"><span class="sw-t">Veeg voor meer</span><span class="sw-p">Schuif opzij voor meer</span><svg class="sw-arr" viewBox="0 0 24 24" width="22" height="22"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></p></div>
+  <div class="strip" tabindex="0" aria-label="Schermafbeeldingen, schuif opzij">
+    <figure><img src="../img/main-tasmota-shelly-2.jpg" alt="Tasmota en Shelly naast elkaar: een Shelly-kerstboom tussen Tasmota-lampen, in één kamer." loading="lazy" width="540" height="1099"><figcaption>Tasmota en Shelly naast elkaar: een Shelly-kerstboom tussen Tasmota-lampen, in één kamer.</figcaption></figure>
+    <figure><img src="../img/main-tasmota-shelly.jpg" alt="Hoofdscherm: wifi en Tailscale naast elkaar, wat vandaag schakelt, en je schakelaars per kamer." loading="lazy" width="540" height="1099"><figcaption>Hoofdscherm: wifi en Tailscale naast elkaar, wat vandaag schakelt, en je schakelaars per kamer.</figcaption></figure>
+    <figure><img src="../img/tasmota-colours.jpg" alt="Schakelaars met eigen iconen en aan-kleuren, aftellen tot automatisch uit en stroomverbruik" loading="lazy" width="540" height="1170"><figcaption>Eigen iconen en kleuren, aftellen tot uit en stroomverbruik.</figcaption></figure>
+    <figure><img src="../img/tasmota-tiles-groups.jpg" alt="Tegelscherm met gekleurde groepen en schakelaars die aan en uit staan" loading="lazy" width="540" height="1170"><figcaption>Grote tegels, per kamer gegroepeerd.</figcaption></figure>
+    <figure><img src="../img/tasmota-schedules.jpg" alt="Schema’s van een schakelaar met een tijdlijn" loading="lazy" width="540" height="1170"><figcaption>8 schema’s per schakelaar, met een dagbalk.</figcaption></figure>
+    <figure><img src="../img/tasmota-today.jpg" alt="Overzicht vandaag: alles wat vandaag schakelt" loading="lazy" width="540" height="1170"><figcaption>Vandaag: alles wat schakelt.</figcaption></figure>
+    <figure><img src="../img/tasmota-scenes.jpg" alt="Scènescherm en een scène-widget" loading="lazy" width="540" height="1170"><figcaption>Scènes, ook als widget.</figcaption></figure>
+    <figure><img src="../img/tasmota-light.jpg" alt="Lampvenster met helderheid, kleur en voorkeuzes" loading="lazy" width="540" height="1170"><figcaption>Helderheid en kleur voor lampen.</figcaption></figure>
+    <figure><img src="../img/tasmota-widgets.jpg" alt="Widgets op het startscherm voor wifi, scènes, schakelaars en groepen" loading="lazy" width="540" height="1170"><figcaption>Widgets op het startscherm.</figcaption></figure>
+    <figure><img src="../img/tasmota-themes.jpg" alt="Themakeuze in het menu" loading="lazy" width="540" height="1170"><figcaption>Zeven thema’s, waaronder zwart voor OLED.</figcaption></figure>
+  </div>
+  <div class="wrap"><p class="swipe sw-below" aria-hidden="true"><span class="sw-t">Veeg voor meer</span><span class="sw-p">Schuif opzij voor meer</span><svg class="sw-arr" viewBox="0 0 24 24" width="22" height="22"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></p></div>
+</section>
+
+<section class="two" aria-label="Wandpaneel en bediening op afstand">
+  <div class="wrap">
+    <article class="story">
+      <div><h3>Een wandpaneel van een oude telefoon of tablet (kioskmodus)</h3>
+        <p>De kioskmodus maakt van een oude telefoon of tablet een vast paneel voor je schakelaars. Het scherm blijft aan, dimt na een paar minuten, de Android-balken verdwijnen en de app wordt het startscherm. Eén tik maakt hem wakker.</p>
+        <p>Het is ook de ideale Tailscale VPN-server: een telefoon of tablet aan de muur blijft thuis, aan de lader en wakker, zodat je je schakelaars van overal kunt bedienen.</p>
+        <a href="https://github.com/ldijkman/Tasmota-android-test#wall-panel-kiosk-mode">Zo stel je het in</a> &nbsp; <a href="../tasmota-wall-panel.mp4" onclick="const b=document.querySelector('.vcard[data-v=&quot;../tasmota-wall-panel.mp4&quot;]'); if (b){ event.preventDefault(); b.click(); }">Bekijk de video (1,5 min)</a></div>
+      <img src="../img/tasmota-themes.jpg" alt="Het menu van de app met de themakeuze" loading="lazy" width="540" height="1170">
+    </article>
+    <article class="story">
+      <div><h3>Je schakelaars, van overal</h3>
+        <p>Een oude telefoon of tablet thuis draait Tailscale VPN. Je eigen telefoon maakt daar van overal privé verbinding mee, en de app schakelt alsof je thuis bent.</p>
+        <a href="https://github.com/ldijkman/Tasmota-android-test/blob/main/tailscale.md">Lees de Tailscale VPN-handleiding</a></div>
+      <img src="../img/tasmota-tailscale-2.jpg" alt="De app buiten de deur met de Tailscale-kaart aan" loading="lazy" width="540" height="1170">
+    </article>
+  </div>
+</section>
+
+<section class="yours" aria-labelledby="yours-h">
+  <div class="wrap">
+    <h2 id="yours-h">Je schakelaars blijven van jou.</h2>
+    <p class="lead">De app praat direct met je apparaten via je eigen wifi. Je hoeft geen account te maken, er zit geen server tussen, geen reclame en geen tracking.</p>
+    <p class="lead">De broncode staat op GitHub, voor iedereen leesbaar, en GitHub bouwt de app die je downloadt van precies die broncode.</p>
+  </div>
+</section>
+
+<section class="plugs" id="plugs" aria-labelledby="plugs-h">
+  <div class="wrap">
+    <h2 id="plugs-h">Stekkers met Tasmota er al op.</h2>
+    <p class="lead">Niet solderen en niet flashen: deze EU-stekkers worden geleverd met Tasmota erop, en sommige meten hun stroomverbruik. Stekker erin, toevoegen met de app, klaar.</p>
+    <p class="buy"><b>Let op dat je de Tasmota-versie koopt.</b><br>Dezelfde stekkers worden ook verkocht met andere software, zoals Tuya, eWeLink of ESPHome. Die hebben hun eigen app nodig, en deze app kan ze niet vinden.<br>Zigbee-stekkers gebruiken helemaal geen wifi en hebben een aparte hub nodig.<br>Kijk of er "Tasmota" in de productnaam staat.</p>
+    <div class="pl-row">
+      <a class="pl" href="https://www.athom.tech/blank-1/EU-plug" rel="noopener"><img src="../img/plug-athom.jpg" alt="Athom Tasmota EU-stekker" width="457" height="409" loading="lazy"><b>Athom Tasmota EU-stekker</b><span>athom.tech</span></a>
+      <a class="pl" href="https://www.google.com/search?q=aliexpress+iotorero+tasmota+eu+plug" rel="noopener"><img src="../img/plug-iotorero.jpg" alt="IoTorero Tasmota EU-stekker" width="424" height="425" loading="lazy"><b>IoTorero Tasmota EU-stekker</b><span>op AliExpress</span></a>
+    </div>
+    <p class="diy-note"><b>Shelly</b><br>Shellys met hun eigen firmware werken deels: schakelaars en lampen, aan/uit, helderheid, wit en kleur, schema’s, hernoemen en automatisch uit.<br><span class="sh-new">Getest op een echte Shelly 1 Gen3. Lampen en andere modellen: nog niet.</span></p>
+    <p class="sh-grp">Shelly 1 Gen3: getest</p>
+    <div class="pl-row sh-row">
+      <a class="pl" href="https://www.shelly.com/nl/products/shelly-1-gen3" rel="noopener"><img src="../img/shelly-1-gen3.jpg" alt="Shelly 1 Gen3 relaismodule" width="560" height="500" loading="lazy"><b>Shelly 1 Gen3</b><span>Schakelaar achter een wandschakelaar of in een lamp. Aan/uit en automatisch uit.</span></a>
+      <a class="pl" href="../shelly-toilet-fan.mp4" rel="noopener"><img src="../img/shelly-1-gen3-fan-230v.jpg" alt="Aansluittekening: wc-ventilator op een Shelly 1 Gen3 op 230 V AC, ventilator op O, drukknop op SW" width="360" height="360" loading="lazy"><b>Wc-ventilator, 230 V AC</b><span>Shelly 1 Gen3: ventilator op O, drukknop op SW. Tik voor de video.</span></a>
+    </div>
+    <p class="sh-grp">Shelly 1PM Gen3 en Gen4: onderweg</p>
+    <div class="pl-row sh-row">
+      <a class="pl" href="https://www.shelly.com/nl/products/shelly-1pm-gen3" rel="noopener"><img src="../img/shelly-1pm-gen3.jpg" alt="Shelly 1PM Gen3 relay with power metering" width="360" height="360" loading="lazy"><b>1PM Gen3</b><span>Relais met energiemeting.</span></a>
+      <a class="pl" href="https://www.shelly.com/nl/products/shelly-1pm-gen4" rel="noopener"><img src="../img/shelly-1pm-gen4.jpg" alt="Shelly 1PM Gen4 relay with power metering" width="360" height="360" loading="lazy"><b>1PM Gen4</b><span>De nieuwste generatie.</span></a>
+      <a class="pl" href="https://www.shelly.com/nl/products/shelly-1pm-gen4" rel="noopener"><img src="../img/shelly-1pm-wiring-230v.jpg" alt="Aansluitschema Shelly 1PM op 230 V AC: lamp op O en N, wandschakelaar tussen SW en L, net L en N" width="360" height="360" loading="lazy"><b>Aansluiten 230 V AC</b><span>1PM Gen3 en Gen4: lamp op O, schakelaar op SW. Netspanning aansluiten? Laat het een elektricien doen.</span></a>
+    </div>
+    <p class="sh-grp">Shelly-lampen: onderweg</p>
+    <div class="pl-row sh-row">
+      <a class="pl" href="https://www.shelly.com/nl/products/shelly-duo-bulb-e27-gen3" rel="noopener"><img src="../img/shelly-duo-bulb-gen3.jpg" alt="Shelly Duo Bulb E27 Gen3" width="360" height="360" loading="lazy"><b>Duo Bulb Gen3</b><span>Helderheid en warm tot koud wit.</span></a>
+      <a class="pl" href="https://www.shelly.com/nl/products/shelly-multicolor-bulb-e27-gen3" rel="noopener"><img src="../img/shelly-multicolor-bulb-gen3.jpg" alt="Shelly Multicolor Bulb E27 Gen3" width="360" height="360" loading="lazy"><b>Multicolor Bulb Gen3</b><span>Helderheid, wit en kleur.</span></a>
+    </div>
+    <a class="btn sh-btn" href="https://www.shelly.com/nl/" rel="noopener">Naar de Shelly-winkel</a>
+    <p class="sh-cap"><b>Eerste test op een echte Shelly 1 Gen3</b></p>
+    <p class="swipe" aria-hidden="true"><span class="sw-t">Veeg voor meer</span><span class="sw-p">Schuif opzij voor meer</span><svg class="sw-arr" viewBox="0 0 24 24" width="22" height="22"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
+    <div class="strip sh-strip" tabindex="0" aria-label="Shelly-schermafbeeldingen, schuif opzij">
+      <figure><img src="../img/shelly-1-gen3-specs-nl.jpg" alt="Shelly 1 Gen3: maar 42 × 37 mm, past achter een wandschakelaar." loading="lazy" width="810" height="1649"><figcaption>Shelly 1 Gen3: maar 42 × 37 mm, past achter een wandschakelaar.</figcaption></figure>
+      <figure><img src="../img/shelly-add-1.jpg" alt="Nieuwe Shelly toevoegen vindt de eigen wifi van de Shelly." loading="lazy" width="540" height="1099"><figcaption>Nieuwe Shelly toevoegen vindt de eigen wifi van de Shelly.</figcaption></figure>
+      <figure><img src="../img/shelly-add-2.jpg" alt="De app geeft hem je wifi." loading="lazy" width="540" height="1099"><figcaption>De app geeft hem je wifi.</figcaption></figure>
+      <figure><img src="../img/shelly-add-3.jpg" alt="Gevonden op je netwerk. Probeer maar." loading="lazy" width="540" height="1099"><figcaption>Gevonden op je netwerk. Probeer maar.</figcaption></figure>
+      <figure><img src="../img/shelly-card.jpg" alt="De kaart: Gen3-label, IP, automatisch uit en signaal." loading="lazy" width="540" height="1099"><figcaption>De kaart: Gen3-label, IP, automatisch uit en signaal.</figcaption></figure>
+      <figure><img src="../img/shelly-card-2.jpg" alt="Kerstboom op een Shelly: temperatuur, firmware 2.2.0 en het aftellen tot automatisch uit." loading="lazy" width="540" height="1099"><figcaption>Kerstboom op een Shelly: temperatuur, firmware 2.2.0 en het aftellen tot automatisch uit.</figcaption></figure>
+      <figure><img src="../img/shelly-tiles-xmas.jpg" alt="Gimmick: een kerstboomicoon met twinkelende lichtjes, hier in Tegels op de Shelly. 🎄" loading="lazy" width="540" height="1099"><figcaption>Gimmick: een kerstboomicoon met twinkelende lichtjes, hier in Tegels op de Shelly. 🎄</figcaption></figure>
+      <figure><img src="../img/shelly-webui.jpg" alt="Tik op het IP voor de eigen pagina van de Shelly." loading="lazy" width="540" height="1099"><figcaption>Tik op het IP voor de eigen pagina van de Shelly.</figcaption></figure>
+      <figure><img src="../img/shelly-own-page.jpg" alt="De eigen pagina van de Shelly op firmware 1.4.0: moeilijk te lezen. Migraine! 🤯 Versie 2.2.0 is veel duidelijker." loading="lazy" width="540" height="1099"><figcaption>De eigen pagina van de Shelly op firmware 1.4.0: moeilijk te lezen. Migraine! 🤯 Versie 2.2.0 is veel duidelijker.</figcaption></figure>
+      <figure><img src="../img/shelly-schedules.jpg" alt="Dezelfde schema’s in deze app: duidelijke kaarten en een tijdlijn." loading="lazy" width="540" height="1099"><figcaption>Dezelfde schema’s in deze app: duidelijke kaarten en een tijdlijn.</figcaption></figure>
+      <figure><img src="../img/shelly-1-gen3-hand.jpg" alt="Shelly 1 Gen3 in de hand: echt zo klein." loading="lazy" width="540" height="1099"><figcaption>Shelly 1 Gen3 in de hand: echt zo klein.</figcaption></figure>
+    </div>
+    <p class="swipe sw-below" aria-hidden="true"><span class="sw-t">Veeg voor meer</span><span class="sw-p">Schuif opzij voor meer</span><svg class="sw-arr" viewBox="0 0 24 24" width="22" height="22"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
+    <p class="diy-fact sh-fact"><b>Leuk weetje:</b><br>Shelly is opgericht door twee Bulgaren,<br>Dimitar Dimitrov en Svetlin Todorov, in Sofia.<br>De eerste Shellys kwamen uit in 2018.<br>Er zijn er sindsdien meer dan 30 miljoen verkocht.<br>In 2026 bood Schneider Electric<br>€1,2 miljard voor het bedrijf.<br>(Kijkend naar de timers op de adminpagina<br>en de schema-JSON, vind ik<br>Tasmota het dubbele waard. 😉)<br>(Update: na firmware 2.2.0<br>op mijn Shelly 1 Gen3 is de schemapagina<br>een klein beetje begrijpelijk. 😉)</p>
+    <p class="diy-note"><b>Voor nerds 🤓</b><br>Niet direct geschikt, maar je kunt er Tasmota op flashen.</p>
+    <div class="diy">
+      <img src="../img/sonoff-basic-r4.jpg" alt="Sonoff Basic R4 wifischakelaar" width="640" height="424" loading="lazy">
+      <div>
+        <h3>Nerds zoals ik flashen Tasmota zelf. 🤓</h3>
+        <img class="diy-photo" src="../img/flash-sonoff-basic-r4.jpg" alt="Tasmota flashen op een Sonoff Basic R4 (ESP32-C3) met een USB-naar-serieel-adapter en een pogo-pin-klem" width="640" height="1058" loading="lazy">
+        <p class="diy-cap">De eWeLink-software van Sonoff vervangen door Tasmota.</p>
+        <p class="diy-fact"><b>Leuk weetje:</b><br>Tasmota begon in januari 2016 op Sonoff.<br>De naam betekent<br><b>T</b>heo <b>A</b>rends <b>S</b>onoff <b>M</b>QTT <b>OTA</b>.<br>(Over The Air)<br>Son<b>Off</b>, een schakelaar.</p>
+        <a class="btn" href="https://tasmota.github.io/install/" rel="noopener">Open de Tasmota web installer</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq" aria-labelledby="faq-h">
+  <div class="wrap">
+    <div><h2 id="faq-h">Vragen die mensen stellen.</h2>
+      <p class="lead" style="margin-top:16px">Iets anders? Vraag het op <a href="https://github.com/ldijkman/Tasmota-android-test/issues">GitHub</a>.</p></div>
+    <div>
+      <details><summary>Welke apparaten werken?</summary><p>Elk apparaat met Tasmota-firmware: Sonoff, Athom en andere stekkers, relais, wandschakelaars, lampen en ledstrips met een ESP8266- of ESP32-chip.</p><p>Shelly-apparaten met hun eigen firmware: Gen2 en nieuwer (Plus, Pro, Mini, Gen3, Gen4) met schakelen, lampen, schema’s en automatisch uit; Gen1 deels.</p><p>Apparaten met andere firmware, zoals eWeLink of Tuya, hebben eerst Tasmota nodig.</p></details>
+      <details><summary>Gaat mijn lamp via een server in China?</summary><p>Nee, je lamp blijft thuis. Als je op een schakelaar tikt, gaat het signaal een paar meter over je eigen wifi, direct van je telefoon naar de schakelaar. Veel slimme-huis-apps sturen het eerst naar een cloudserver, soms aan de andere kant van de wereld, en dan weer terug, alleen om de lamp naast je aan te zetten. Met deze app is de reis naar de lamp korter dan de reis naar de koelkast.</p></details>
+      <details><summary>Op welke telefoons werkt het?</summary><p>Android 7 of nieuwer. Een nieuw apparaat toevoegen vanuit de app vraagt Android 10 of nieuwer. Er is geen iPhone-versie, maar je kunt de live demo in elke browser proberen.</p></details>
+      <details><summary>Waarom staat hij niet in de Play Store?</summary><p>Ik maak deze app alleen, in mijn vrije tijd. Een nieuwe app in de Play Store krijgen betekent: betalen, een identiteitscontrole, en eerst 12 testers vinden die hem 14 dagen geïnstalleerd houden. Dat is veel gedoe voor een gratis hobby-app. Daarom download je hem direct van GitHub.</p></details>
+      <details><summary>Android waarschuwt bij het installeren. Is het veilig?</summary><p>De app staat niet in de Play Store, dus Google Play Protect kent hem nog niet. Je kunt Play Protect hem eerst laten scannen, of installeren zonder scan. De volledige broncode staat openbaar op GitHub, en GitHub bouwt de download zelf van die broncode. Sinds 21 november 2026 ben ik een bij Google geregistreerde ontwikkelaar, en de app is geregistreerd bij Googles Android-ontwikkelaarsverificatie. Op de meeste telefoons vraagt Android niet meer om hem te scannen.</p><p><a href="../tasmota-install.mp4" onclick="const b=document.querySelector('.vcard[data-v=&quot;../tasmota-install.mp4&quot;]'); if (b){ event.preventDefault(); b.click(); }">Bekijk de installatievideo (1,5 min)</a></p></details>
+      <details><summary>Werkt het met OpenBeken of Shelly?</summary><p>OpenBeken-apparaten werken deels: schakelen wel, schema’s niet. Shelly-apparaten werken volledig als ze Tasmota-firmware hebben.</p><p><b>Nieuw en nog niet getest:</b> de app kan nu ook Shelly-apparaten met hun eigen firmware vinden, aan- en uitzetten, helderheid, wit en kleur instellen op Shelly-lampen, ze hernoemen en hun automatisch uit instellen, en een nieuwe Shelly aan je wifi toevoegen (Gen1 tot Gen4). Getest op een echte Shelly 1 Gen3. Schema’s werken ook op Gen2 en nieuwer (dezelfde schemakaarten, met zonsopkomst en zonsondergang), opgeslagen in de Shelly zelf. Stroomverbruik voor Shelly zit er nog niet in.</p></details>
+      <details><summary>Waarom niet de Shelly-app?</summary><p>Je hoeft niet te kiezen. Beide apps kunnen op je telefoon staan en dezelfde Shelly bedienen.</p><p>De Shelly-app wordt gemaakt door Shelly zelf. Hij werkt met elke <b style="color:#ff7b72">Shelly</b>, en <b style="color:#ff7b72">alleen</b> met <b style="color:#ff7b72">Shelly</b>. Ook buiten de deur, en met Alexa of Google Home. Je hebt er een Shelly-account voor nodig.</p><p>Deze app is kleiner en simpeler. Geen account. Alles blijft thuis. Je <b style="color:var(--amber)">Tasmota- en Shelly</b>-schakelaars <b style="color:var(--amber)">staan</b> op <b style="color:var(--amber)">één</b> scherm.</p><p><b>Ze werken naast elkaar.</b> Zet de lamp aan in de ene app, en de andere app laat hem ook aan zien. Automatisch uit en schema’s staan in de Shelly zelf, dus ze blijven werken, welke app je ook gebruikte.</p><p class="fnote">Let op: deze app maakt schema’s als aan/uit-paren: één aan-tijd en één uit-tijd per schema. Schema’s die je in de Shelly-app maakt, verschijnen misschien niet in deze app, maar ze blijven werken in de Shelly.</p><p>Een goede mix: de Shelly-app om een nieuwe Shelly in te stellen, deze app voor elke dag.</p></details>
+<details><summary>Waarom vraagt hij om mijn locatie?</summary><p>Voor de tijden van zonsopkomst en zonsondergang, die de app naar je schakelaars stuurt. Android vraagt ook locatietoestemming voordat een app wifinamen in de buurt mag zien. Je locatie gaat alleen naar je eigen schakelaars.</p></details>
+      <details><summary>Wat is een VPN?</summary><p>Een VPN (virtueel privénetwerk) is een privé, versleutelde verbinding tussen je eigen apparaten via internet. Met Tailscale VPN maakt je telefoon buiten de deur verbinding met een oude telefoon of tablet thuis, alsof je op je eigen wifi zit. Alleen je eigen apparaten kunnen het gebruiken, en je hoeft geen poorten open te zetten in je router. Tailscale is gratis voor persoonlijk gebruik.</p><p><a href="https://github.com/ldijkman/Tasmota-android-test/blob/main/tailscale.md">Lees de Tailscale VPN-handleiding</a></p></details>
+      <details><summary>Hoe krijg ik updates?</summary><p>Scrol naar beneden op het hoofdscherm en tik op Check for update. De app downloadt de nieuwste versie van GitHub en installeert hem.</p></details>
+      <details><summary>Hoeveel schakelaars kan ik toevoegen?</summary><p>Zoveel als je wilt. Er is geen limiet op schakelaars, groepen, scènes of widgets, en geen betaalde versie die meer vrijgeeft. Alleen Tasmota zelf heeft een limiet: tot 8 aan/uit-schema’s per schakelaar.</p></details>
+      <details><summary>Wat kost het?</summary><p>Niets. Geen reclame, geen aankopen in de app, geen abonnement.</p><p>Vind je de app fijn, dan wordt een kleine donatie zeer gewaardeerd.</p><p><a class="don" href="https://paypal.me/ldijkman" rel="noopener">Doneer via PayPal</a></p><p>Je vindt Donate ook in het menu van de app.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="espfact" aria-label="Leuk weetje over de ESP8266">
+  <div class="wrap"><p class="diy-fact"><b>Leuk weetje:</b><br>Tasmota en Shelly hebben dezelfde wortels:<br>beide begonnen op de ESP8266,<br>een goedkope wifichip van Espressif.<br>Espressif werd in 2008 in Shanghai opgericht<br>door Teo Swee Ann uit Singapore.<br>De ESP8266 kwam uit in 2014,<br>en er zijn meer dan 1,5 miljard van hun chips verkocht.</p><p class="diy-fact" style="margin-top:18px"><b>Leuk weetje:</b><br>De ESP8266 begon als een wifimodem van 2 dollar,<br>bestuurd met AT-commando’s<br>uit het tijdperk van de telefoonmodems uit de jaren 80.<br>In het begin was de documentatie moeilijk te vinden,<br>en alleen in het Chinees.<br>Hobbyisten ontdekten dat hij eigen programma’s kon draaien,<br>en daaruit groeiden Tasmota en Shelly.</p><details class="factmore"><summary>Meer: van modem tot kleine computer</summary><ul><li><b>2014:</b> het ESP-01-bordje werd eerst gebruikt als goedkope wifi-uitbreiding voor een Arduino. De Arduino stuurde het AT-commando’s, net als een modem.</li><li><b>Eind 2014:</b> Espressif bracht een officiële SDK uit, en NodeMCU verscheen, waarmee je de ESP8266 zelf kon programmeren in de taal Lua. Dat was de eerste grote stap van “modem” naar “kleine computer”.</li><li><b>2015:</b> Ivan Grokhotkov maakte de ESP8266 Arduino-core. Vanaf toen kon je de ESP8266 direct vanuit de Arduino IDE programmeren, helemaal zonder Arduino-bordje. Daardoor werd hij razend populair.</li><li><b>Tasmota</b> is gebouwd op die ESP8266 Arduino-core, dus het groeide uit de Arduino-wereld.</li></ul></details></div>
+</section>
+
+<section class="talk" id="feedback" aria-labelledby="talk-h">
+  <div class="wrap">
+    <h2 id="talk-h">Ideeën, vragen, feedback?</h2>
+    <p class="lead">Mis je een functie, vond je een fout, of wil je je wandpaneel laten zien? Vertel het in GitHub Discussions. Elk idee wordt gelezen, en veel functies in de app begonnen als een vraag.</p>
+    <div class="talk-btns">
+      <a class="btn" href="https://github.com/ldijkman/Tasmota-android-test/discussions/new/choose" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a7 7 0 0 0-4 12.7V17a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2.3A7 7 0 0 0 12 2m-3 18h6v1a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1z"/></svg>Deel een idee of stel een vraag</a>
+      <a class="btn" href="https://github.com/ldijkman/Tasmota-android-test/discussions" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-4 4V6a2 2 0 0 1 2-2"/></svg>Lees de discussies</a>
+    </div>
+    <p class="talk-note">Je hebt een gratis GitHub-account nodig om te posten.</p>
+  </div>
+</section>
+
+<section class="last" aria-labelledby="last-h">
+  <div class="wrap"><div class="box">
+    <h2 id="last-h">Probeer het vanavond op je eigen schakelaars.</h2>
+    <div class="cta" style="margin-top:0">
+      <a class="btn main" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 3h2v10.17l3.59-3.58L18 11l-6 6-6-6 1.41-1.41L11 13.17zM5 19h14v2H5z"/></svg>
+        <span>Download voor Android <small class="dlv"></small></span></a>
+      <a class="btn openapp" href="intent://open#Intent;scheme=tasmotascan;package=nl.dijkman.plafondled;S.browser_fallback_url=https%3A%2F%2Fgithub.com%2Fldijkman%2FTasmota-android-test%2Freleases%2Flatest%2Fdownload%2FPlafondLED.apk;end" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z"/></svg>Open de app</a>
+      <a class="btn" href="../demo/">Probeer de live demo</a>
+    </div>
+    <p class="promise dlcount" hidden></p>
+    <div class="star">
+      <a class="btn" href="https://github.com/ldijkman/Tasmota-android-test" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="var(--amber)" d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>Geef een ster op GitHub<small id="starN" hidden></small></a>
+      <p>Vind je de app fijn? Tik op <b>Star</b> bovenaan de GitHub-pagina. Het is gratis, en het helpt anderen de app te vinden.</p>
+    </div>
+  </div></div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>Gemaakt door Dirk Lubèrth Dijkman, samen met Claude Opus 5.5.</p>
+    <ul>
+      <li><a href="https://github.com/ldijkman/Tasmota-android-test">Broncode op GitHub</a></li>
+      <li><a href="https://github.com/ldijkman/Tasmota-android-test/blob/main/LICENSE">Licentie: GPL-3.0</a></li>
+      <li><a href="https://github.com/ldijkman/Tasmota-android-test">★ Ster op GitHub</a></li>
+      <li><a href="https://github.com/ldijkman/Tasmota-android-test/releases">Alle versies</a></li>
+      <li><a href="https://github.com/ldijkman/Tasmota-android-test/blob/main/tailscale.md">Tailscale-handleiding</a></li>
+      <li><a href="https://tasmota.github.io/docs/">Over Tasmota</a></li>
+    </ul>
+  </div>
+  <p class="fun"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" id="funLink">2 Unlimited</a><br>OverKill</p>
+</footer>
+<dialog id="cpd" aria-label="CodePen demo">
+  <div id="cpBox">
+    <div class="ytbar"><a href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener" target="_blank">Open op CodePen</a><button type="button" id="cpClose">Sluiten</button></div>
+    <iframe id="cpf" title="Time setting experiments on CodePen" loading="lazy"></iframe>
+  </div>
+</dialog>
+<dialog id="ytd" aria-label="2 Unlimited-video">
+  <div id="ytBox">
+    <div class="ytbar"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" target="_blank">Open op YouTube</a><button type="button" id="ytClose">Sluiten</button></div>
+    <div class="ytframe"><iframe id="ytf" title="2 Unlimited on YouTube" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
+  </div>
+</dialog>
+
+<script>
+// De lamp in de kop: aan/uit, zoals in de app
+const lamp = document.getElementById('lamp'), st = document.getElementById('lampState');
+const setLit = on => {
+  document.body.classList.toggle('lit', on);
+  lamp.setAttribute('aria-pressed', on);
+  st.textContent = on ? 'Aan' : 'Uit. Tik om aan te zetten';
+};
+let demoTimers = [], touched = false;
+lamp.addEventListener('click', () => {
+  touched = true; demoTimers.forEach(clearTimeout); demoTimers = [];
+  setLit(!document.body.classList.contains('lit'));
+});
+// Eén keer per bezoek: zodra de schakelaar in beeld komt, vier keer vanzelf aan en uit
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window){
+  const io = new IntersectionObserver(es => {
+    if (!es.some(e => e.isIntersecting)) return;
+    io.disconnect();
+    if (touched) return;
+    [[600, true], [1500, false], [2300, true], [3200, false], [4000, true], [4900, false], [5700, true], [6600, false]].forEach(([t, on]) =>
+      demoTimers.push(setTimeout(() => { if (!touched) setLit(on); }, t)));
+  }, {threshold: .7});
+  io.observe(lamp);
+}
+// Video's in een venster
+const dlg = document.getElementById('player'), pv = document.getElementById('pv');
+const vcards = [...document.querySelectorAll('.vcard')];
+let vi = 0;
+function playAt(i){
+  vi = (i + vcards.length) % vcards.length; const b = vcards[vi];
+  dlg.classList.toggle('wide', b.hasAttribute('data-wide'));
+  pv.src = b.dataset.v; pv.play().catch(() => {});
+  document.getElementById('pTitle').innerHTML = (b.querySelector('b') || {}).textContent.replace(/[<>&]/g, '') + `<small>${vi + 1} / ${vcards.length}</small>`;
+}
+vcards.forEach((b, i) => b.addEventListener('click', () => { dlg.showModal(); playAt(i); }));
+document.getElementById('pPrev').addEventListener('click', () => playAt(vi - 1));
+document.getElementById('pNext').addEventListener('click', () => playAt(vi + 1));
+dlg.addEventListener('keydown', e => { if (e.key === 'ArrowLeft' && e.target !== pv) playAt(vi - 1); if (e.key === 'ArrowRight' && e.target !== pv) playAt(vi + 1); });
+dlg.addEventListener('close', () => { pv.pause(); pv.removeAttribute('src'); pv.load(); });
+dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+// "Open the app" alleen op Android (opent de app als die er is, anders de download)
+if (/Android/i.test(navigator.userAgent)) document.querySelectorAll('.openapp').forEach(a => a.hidden = false);
+// GitHub-vragen onthouden (15 min), en bij een weigering (limiet 60 per uur) het laatst bekende antwoord tonen
+async function ghJson(url){
+  const key = 'gh:' + url; let c = null;
+  try { c = JSON.parse(localStorage.getItem(key) || 'null'); } catch(e){}
+  if (c && Date.now() - c.t < 15 * 60e3) return c.d;
+  try {
+    const r = await fetch(url); if (!r.ok) throw new Error(r.status);
+    const d = await r.json();
+    try { localStorage.setItem(key, JSON.stringify({t: Date.now(), d})); } catch(e){}
+    return d;
+  } catch(e){ return c ? c.d : null; }
+}
+// Teller: hoe vaak de app gedownload is (som van alle releases, live uit de openbare GitHub-cijfers; niets wordt bijgehouden)
+(async () => {
+  try {
+    let total = 0;
+    for (let page = 1; page <= 5; page++){
+      const list = await ghJson(`https://api.github.com/repos/ldijkman/Tasmota-android-test/releases?per_page=100&page=${page}`);
+      if (!Array.isArray(list)) return;
+      list.forEach(rel => (rel.assets || []).forEach(a => { if (/\.apk$/i.test(a.name)) total += a.download_count || 0; }));
+      if (list.length < 100) break;
+    }
+    if (total > 0){
+      document.querySelectorAll('.dlcount').forEach(el => {
+        el.textContent = 'Al ' + total.toLocaleString('nl') + ' keer gedownload.';
+        el.hidden = false; });
+    }
+  } catch(e){}
+})();
+// Aantal sterren op GitHub
+ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test').then(j => {
+    if (!j || !j.stargazers_count) return;
+    const el = document.getElementById('starN'); el.textContent = j.stargazers_count.toLocaleString('nl') + ' ★'; el.hidden = false;
+  }).catch(() => {});
+// Versienummer van de nieuwste release
+ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/latest').then(j => {
+    if (!j) return;
+    const m = String(j.name || '').match(/(\d+\.\d+)/), a = (j.assets || []).find(x => /\.apk$/i.test(x.name));
+    if (m) document.querySelectorAll('.dlv').forEach(el => el.textContent = 'versie ' + m[1].replace('.', ',') + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : ''));
+  }).catch(() => {});
+
+// CodePen-link: in een venster op deze pagina, zodat bezoekers de site niet verlaten
+(() => {
+  const a = document.getElementById('cpLink'), d = document.getElementById('cpd'), f = document.getElementById('cpf');
+  if (!a || !d || !d.showModal) return;
+  a.addEventListener('click', e => { e.preventDefault(); f.src = 'https://codepen.io/ldijkman/embed/dPXPGwo?default-tab=result&theme-id=dark'; d.showModal(); });
+  const close = () => { f.src = 'about:blank'; d.close(); };
+  document.getElementById('cpClose').addEventListener('click', close);
+  d.addEventListener('cancel', e => { e.preventDefault(); close(); });
+})();
+
+// 2 Unlimited: in een eigen schermvullende speler (valt terug op YouTube als het filmpje niet ingesloten mag worden)
+(() => {
+  const a = document.getElementById('funLink'), d = document.getElementById('ytd'), f = document.getElementById('ytf'), box = document.getElementById('ytBox');
+  if (!a || !d || !d.showModal) return;
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    f.src = 'https://www.youtube-nocookie.com/embed/r6FVk2k4qsM?autoplay=1&rel=0&playsinline=1';
+    d.showModal();
+    try { (box.requestFullscreen || box.webkitRequestFullscreen).call(box).catch(() => {}); } catch (_) {}
+  });
+  const close = () => { f.src = 'about:blank'; try { if (document.fullscreenElement) document.exitFullscreen(); } catch (_) {} d.close(); };
+  document.getElementById('ytClose').addEventListener('click', close);
+  d.addEventListener('cancel', e => { e.preventDefault(); close(); });
+})();
+</script>
+<script>
+// Sleutel-notitie: 2 regels zichtbaar, aanraken klapt open/dicht
+document.querySelectorAll('.keynote').forEach(k => {
+  k.classList.add('fold'); k.setAttribute('role', 'button'); k.setAttribute('tabindex', '0'); k.setAttribute('aria-expanded', 'false');
+  const t = () => { const o = k.classList.toggle('open'); k.setAttribute('aria-expanded', o); };
+  k.addEventListener('click', e => { if (e.target.closest('a')) return; t(); });
+  k.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); t(); } });
+});
+</script>
+</body>
+</html>
