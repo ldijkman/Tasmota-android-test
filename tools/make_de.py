@@ -291,6 +291,7 @@ T = [
 ('>Obsessed: wasted time on time setting</a>', '>Besessen: verschwendete Zeit beim Zeiteinstellen</a>'),
 ('<b>Shelly 1 Gen3: the tiny button</b>', '<b>Shelly 1 Gen3: die kleine Taste</b>'),
 ('Tasmota and Shelly side by side: a Shelly Christmas tree between Tasmota lamps, in one room.', 'Tasmota und Shelly nebeneinander: ein Shelly-Weihnachtsbaum zwischen Tasmota-Lampen, in einem Raum.'),
+('Well, 1 million+ Shelly app users waste more time on hard-to-set schedules. 😉', 'Na ja, über 1 Million Nutzer der Shelly-App verschwenden mehr Zeit mit schwer einzustellenden Zeitplänen. 😉'),
 ]
 bad = []
 for en, de in T:

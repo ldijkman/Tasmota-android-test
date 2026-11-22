@@ -288,6 +288,7 @@ T = [
 ('>Obsessed: wasted time on time setting</a>', '>Obsédé : du temps perdu à régler l’heure</a>'),
 ('<b>Shelly 1 Gen3: the tiny button</b>', '<b>Shelly 1 Gen3 : le petit bouton</b>'),
 ('Tasmota and Shelly side by side: a Shelly Christmas tree between Tasmota lamps, in one room.', 'Tasmota et Shelly côte à côte : un sapin Shelly entre des lampes Tasmota, dans une même pièce.'),
+('Well, 1 million+ Shelly app users waste more time on hard-to-set schedules. 😉', 'Bon, plus d’1 million d’utilisateurs de l’appli Shelly perdent encore plus de temps à régler des programmations compliquées. 😉'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
