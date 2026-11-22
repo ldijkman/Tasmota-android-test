@@ -905,10 +905,10 @@ document.querySelectorAll('.keynote').forEach(k => {
 // Reacties zonder account: versturen naar een Google Formulier, goedgekeurde reacties lezen uit een gepubliceerd Google Sheet (CSV)
 (() => {
   const CMT = {
-    form: '',        // https://docs.google.com/forms/d/e/<ID>/formResponse
-    entryName: '',   // entry.123456789
-    entryText: '',   // entry.987654321
-    csv: ''          // https://docs.google.com/spreadsheets/d/e/<ID>/pub?gid=<GID>&single=true&output=csv
+    form: 'https://docs.google.com/forms/d/e/1FAIpQLSdOFSh7C-M_0mxlt6xsOU0poahvx3Yp994BNcEATcdLIaA8UA/formResponse',        // https://docs.google.com/forms/d/e/<ID>/formResponse
+    entryName: 'entry.591120809',   // entry.123456789
+    entryText: 'entry.942542373',   // entry.987654321
+    csv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTFXXBUW2mWThy53aF5NNLl_NuDIM5976moDcQnnpes9IJVoAO912qnFMVtGeamrAxCw-9vbAxRMOcl/pub?gid=1846616325&single=true&output=csv'          // https://docs.google.com/spreadsheets/d/e/<ID>/pub?gid=<GID>&single=true&output=csv
   };
   const sec = document.getElementById('cmt');
   if (!sec || !CMT.form || !CMT.csv) return;
