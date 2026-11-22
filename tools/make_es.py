@@ -440,6 +440,8 @@ T = [
 ('>Close</button></div>\n    <iframe id="cpf"', '>Cerrar</button></div>\n    <iframe id="cpf"'),
 ('<small>Free, for Android 7 and newer</small>', '<small>Gratis, para Android 7 o superior</small>'),
 ('PlafondLED.apk">Download<small class="dlv">', 'PlafondLED.apk">Descargar<small class="dlv">'),
+('Shelly plugs: on their way', 'Enchufes Shelly: en camino'),
+('EU wall plug, 13 A, with power metering.', 'Enchufe de pared UE, 13 A, con medición de consumo.'),
 ]
 
 

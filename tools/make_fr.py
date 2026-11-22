@@ -294,6 +294,8 @@ T = [
 ('>Close</button></div>\n    <iframe id="cpf"', '>Fermer</button></div>\n    <iframe id="cpf"'),
 ('<small>Free, for Android 7 and newer</small>', '<small>Gratuit, pour Android 7 et plus</small>'),
 ('PlafondLED.apk">Download<small class="dlv">', 'PlafondLED.apk">Télécharger<small class="dlv">'),
+('Shelly plugs: on their way', 'Prises Shelly : en route'),
+('EU wall plug, 13 A, with power metering.', 'Prise murale EU, 13 A, avec mesure de consommation.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

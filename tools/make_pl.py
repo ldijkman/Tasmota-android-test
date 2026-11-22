@@ -438,6 +438,8 @@ T = [
 ('>Close</button></div>\n    <iframe id="cpf"', '>Zamknij</button></div>\n    <iframe id="cpf"'),
 ('<small>Free, for Android 7 and newer</small>', '<small>Za darmo, dla Androida 7 i nowszych</small>'),
 ('PlafondLED.apk">Download<small class="dlv">', 'PlafondLED.apk">Pobierz<small class="dlv">'),
+('Shelly plugs: on their way', 'Gniazdka Shelly: w drodze'),
+('EU wall plug, 13 A, with power metering.', 'Wtyczka EU, 13 A, z pomiarem energii.'),
 ]
 
 bad = []
