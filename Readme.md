@@ -625,6 +625,10 @@ Other apps, some of them paid or with limits in the free version:
 - [TasmoTastic](https://play.google.com/store/apps/details?id=com.unbox_digital_print.tasmotastic)
 - [TasmoHub](https://github.com/adelomer12/tasmo-hub): free and open source, for Android and iPhone, also supports OpenBeken
 
+## Other Android Shelly apps
+
+- [Pearlnode](https://f-droid.org/packages/com.pearlnode/) on F-Droid: free and open source (MIT), local only with no cloud or account, for Shelly Gen1 to Gen4
+
 ---
 
 Made with [claude.ai](https://claude.ai) (Grok can also build the APK from the zip) and built by GitHub Actions.
