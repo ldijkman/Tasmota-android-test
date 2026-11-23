@@ -2,13 +2,13 @@ name: Deploy web demo
 
 # Publishes the website to GitHub Pages:
 #   /        front page (site/)
-#   /demo/   the app's own index.html (from plafond-led-app.zip), with demo/demo-bridge.js standing in for the Android bridge
+#   /demo/   the app's own index.html (from the plafond-led-app folder), with demo/demo-bridge.js standing in for the Android bridge
 #   /*.mp4   the videos (these addresses are linked from the app, so they stay at the root)
 on:
   push:
     branches: [main]
     paths:
-      - 'plafond-led-app.zip'
+      - 'plafond-led-app/app/src/main/assets/**'
       - 'demo/**'
       - 'site/**'
       - '.github/workflows/pages.yml'
@@ -34,7 +34,6 @@ jobs:
 
       - name: Build demo site
         run: |
-          unzip -o -q plafond-led-app.zip
           mkdir -p _site/demo
           cp -r site/. _site/
           cp demo/demo-bridge.js _site/demo/

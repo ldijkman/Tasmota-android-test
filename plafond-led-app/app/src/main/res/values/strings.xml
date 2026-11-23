@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ts_widget_label">Tailscale VPN</string>
+    <string name="ts_widget_desc">Shows whether Tailscale VPN is on and switches it with one tap</string>
+    <string name="wifi_widget_label">Switch wifi</string>
+    <string name="wifi_widget_desc">Shows the current wifi network and switches with one tap</string>
+    <string name="dev_widget_label">Tasmota switch</string>
+    <string name="dev_widget_desc">Switch one Tasmota device on or off with one tap</string>
+    <string name="grp_widget_label">Tasmota group</string>
+    <string name="grp_widget_desc">Switch a whole group on or off with one tap</string>
+    <string name="scene_widget_label">Tasmota scene</string>
+    <string name="scene_widget_desc">Run a scene with one tap</string>
+</resources>

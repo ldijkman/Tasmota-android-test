@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Eenvoudig lamp-icoon -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="48dp" android:height="48dp"
+    android:viewportWidth="48" android:viewportHeight="48">
+    <path android:fillColor="#2F3B45" android:pathData="M24,0a24,24 0 1,0 0.01,0z" />
+    <path android:fillColor="#E8A317"
+        android:pathData="M24,9c-6.1,0 -11,4.9 -11,11c0,4 2.1,7.2 5,9.1V33h12v-3.9c2.9,-1.9 5,-5.1 5,-9.1C35,13.9 30.1,9 24,9z" />
+    <path android:fillColor="#EEEAE2" android:pathData="M18,35h12v3h-12zM20,39h8v2h-8z" />
+</vector>

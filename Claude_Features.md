@@ -11,7 +11,7 @@ This overview describes version 17.3.
 - **No ads, no tracking, no data collection.** Your location is only sent to your own Tasmota devices, so they can calculate sunrise and sunset.
 - **Small.** The APK is about 165 KB.
 - **Android 7.0 and newer.**
-- **Open source.** The full source is in `plafond-led-app.zip` in this repository, and GitHub Actions builds the APK from it.
+- **Open source.** The full source is in the `plafond-led-app` folder of this repository, and GitHub Actions builds the APK from it.
 
 ## Find and control
 

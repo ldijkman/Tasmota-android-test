@@ -9,8 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Old key from the project zip
-        run: unzip -o -q plafond-led-app.zip 'plafond-led-app/app/release.keystore'
       - name: Latest release APK
         env:
           GH_TOKEN: ${{ github.token }}

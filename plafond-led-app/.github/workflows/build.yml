@@ -1,0 +1,52 @@
+name: Build APK
+
+on:
+  push:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: '8.7'
+
+      - name: Build APK
+        run: gradle assembleDebug --no-daemon
+
+      - name: Rename APK
+        run: cp app/build/outputs/apk/debug/app-debug.apk PlafondLED.apk
+
+      # Versie uit build.gradle, zodat de app kan zien of er een nieuwere is
+      - name: Read version
+        id: ver
+        run: |
+          echo "name=$(grep -oP "versionName '\K[^']+" app/build.gradle)" >> "$GITHUB_OUTPUT"
+          echo "code=$(grep -oP 'versionCode \K[0-9]+' app/build.gradle)" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: PlafondLED-apk
+          path: PlafondLED.apk
+
+      # Zet de APK ook bij "Releases", zodat je hem direct op je telefoon kunt downloaden
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: build-${{ github.run_number }}
+          name: Tasmota Scan & Control ${{ steps.ver.outputs.name }} (build ${{ github.run_number }})
+          body: |
+            Tasmota Scan & Control ${{ steps.ver.outputs.name }}
+            versionCode: ${{ steps.ver.outputs.code }}
+          files: PlafondLED.apk
+          make_latest: true

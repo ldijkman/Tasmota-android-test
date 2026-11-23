@@ -48,7 +48,7 @@ website
 - No MQTT server or Home Assistant needed
 - Your settings and devices stay on your phone
 - Your location is only sent to your own Tasmota switches, for sunrise and sunset
-- Open source: all code is in `plafond-led-app.zip`
+- Open source: all code is in the [`plafond-led-app`](plafond-led-app) folder
 - Small (about 170 KB) and starts fast
 - Android 7.0 or newer
 
@@ -576,17 +576,17 @@ http://<ip>/cm?cmnd=Timer1%20{"Enable":1,"Mode":2,"Time":"-00:30","Days":"111111
 
 ## Build it yourself
 
-The complete Android project is in **`plafond-led-app.zip`**. When the zip changes, GitHub Actions builds a new APK and release
+The complete Android project is in the **[`plafond-led-app`](plafond-led-app)** folder. When something in it changes, GitHub Actions builds a new APK and release
 (see [`.github/workflows`](.github/workflows)).
 
-| File in the zip | Contents |
+| File in the folder | Contents |
 |---|---|
 | `app/src/main/assets/index.html` | All screens (HTML, CSS and JavaScript) |
 | `app/src/main/java/.../MainActivity.java` | WebView, HTTP requests, network scan, location, sharing and updates |
 | `app/src/main/java/.../DeviceWidget.java`, `GroupWidget.java`, `SceneWidget.java`, `WifiWidget.java`, `TailscaleWidget.java` | The home screen widgets |
 | `app/build.gradle` | Version number and signing |
 
-To change something: unzip, edit, zip again and upload. GitHub then builds a new APK.
+To change something: edit the files in the folder (on GitHub or on your computer) and commit. GitHub then builds a new APK.
 
 ## Known limitations
 

@@ -1,0 +1,40 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'nl.dijkman.plafondled'
+    compileSdk 34
+
+    defaultConfig {
+        applicationId 'nl.dijkman.plafondled'
+        minSdk 24
+        targetSdk 34
+        // Builddatum komt in BuildConfig.BUILD_DATE (getoond onderaan de app)
+        buildConfigField "String", "BUILD_DATE", "\"" + new java.text.SimpleDateFormat("d MMMM yyyy", java.util.Locale.ENGLISH).format(new Date()) + "\""
+        versionCode 240
+        versionName '25.3'
+    }
+
+    signingConfigs {
+        fixed {
+            storeFile file('release.keystore')
+            storePassword 'plafondled'
+            keyAlias 'plafondled'
+            keyPassword 'plafondled'
+        }
+    }
+
+    buildTypes {
+        debug { signingConfig signingConfigs.fixed }
+    }
+
+    buildFeatures {
+        buildConfig true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}

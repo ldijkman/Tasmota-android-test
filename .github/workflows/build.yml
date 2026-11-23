@@ -3,7 +3,7 @@ name: Build APK
 on:
   push:
     paths:
-      - 'plafond-led-app.zip'
+      - 'plafond-led-app/**'
       - '.github/workflows/build.yml'
   workflow_dispatch: 
 
@@ -15,9 +15,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-
-      - name: Unzip project
-        run: unzip -o plafond-led-app.zip
 
       - uses: actions/setup-java@v4
         with:
