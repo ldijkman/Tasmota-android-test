@@ -376,6 +376,11 @@ footer a{color:var(--muted)}
 .cmt-after{color:var(--muted);margin:0}
 .cmt-msg{margin:0;color:var(--amber);min-height:1.2em}
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+#garland{position:fixed;top:0;left:0;right:0;height:34px;z-index:60;pointer-events:none}
+#garland svg{display:block;width:100%;height:34px;overflow:visible}
+#garland .gb{animation:gTw 1.4s ease-in-out infinite}
+@keyframes gTw{0%,100%{opacity:1}50%{opacity:.18}}
+@media (prefers-reduced-motion:reduce){#garland .gb{animation:none}}
 #dlbar{display:none}
 @media (max-width:900px){
 #dlbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;gap:12px;justify-content:space-between;padding:1px 12px calc(1px + env(safe-area-inset-bottom,0px));background:rgba(14,21,37,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid rgba(42,53,80,.6);transform:translateY(110%);transition:transform .3s}
@@ -951,6 +956,30 @@ document.querySelectorAll('.keynote').forEach(k => {
     fetch(CMT.form, {method: 'POST', mode: 'no-cors', body}).then(() => { msg.textContent = msg.dataset.ok; x.value = ''; })
       .catch(() => { msg.textContent = msg.dataset.fail; }).finally(() => { btn.disabled = false; });
   });
+})();
+</script>
+<div id="garland" aria-hidden="true"></div>
+<script>
+// Kerstlichtjes: een hangend snoer met twinkelende gekleurde lampjes over de hele breedte bovenaan
+(() => {
+  const g = document.getElementById('garland'); if (!g) return;
+  const COLS = ['#ff4d4d', '#ffd23a', '#4da6ff', '#2fd02a', '#ff5ad1'];
+  const draw = () => {
+    const W = window.innerWidth, n = Math.max(3, Math.round(W / 110)), sw = W / n;
+    let wire = '', bulbs = '', k = 0;
+    for (let i = 0; i < n; i++) {
+      const x0 = i * sw, x1 = x0 + sw, cx = x0 + sw / 2;
+      wire += `M${x0.toFixed(1)},2 Q${cx.toFixed(1)},22 ${x1.toFixed(1)},2 `;
+      [0.25, 0.5, 0.75].forEach(t => {
+        const x = x0 + sw * t, y = 2 + 2 * t * (1 - t) * 20 + 0.5;   // punt op de boog
+        const c = COLS[k % COLS.length], d = ((k * 0.37) % 1.4).toFixed(2); k++;
+        bulbs += `<rect x="${(x - 2).toFixed(1)}" y="${y.toFixed(1)}" width="4" height="4" rx="1" fill="#5d6b88"/>` +
+          `<ellipse class="gb" cx="${x.toFixed(1)}" cy="${(y + 9).toFixed(1)}" rx="4.2" ry="5.8" fill="${c}" style="animation-delay:${d}s;filter:drop-shadow(0 0 4px ${c})"/>`;
+      });
+    }
+    g.innerHTML = `<svg viewBox="0 0 ${W} 34" preserveAspectRatio="none"><path d="${wire}" fill="none" stroke="#3a4560" stroke-width="1.6"/>${bulbs}</svg>`;
+  };
+  draw(); let t; addEventListener('resize', () => { clearTimeout(t); t = setTimeout(draw, 150); });
 })();
 </script>
 </body>
