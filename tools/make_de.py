@@ -321,6 +321,7 @@ T = [
 ('<b>Idea: a thermostat for central heating</b>', '<b>Idee: ein Thermostat für die Zentralheizung</b>'),
 ('Idea: your old tablet as the thermostat on the wall', 'Idee: dein altes Tablet als Thermostat an der Wand'),
 ('Give an old tablet a second life. On the wall it shows the room temperature in big numbers, a 🔥 when the boiler is heating, and big Boost and Away buttons that everyone in the house can tap. The thermostat itself runs in the Shelly, so the heating keeps working even when the tablet is off.', 'Gib einem alten Tablet ein zweites Leben. An der Wand zeigt es die Raumtemperatur in großen Zahlen, ein 🔥 wenn der Kessel heizt, und große Tasten für Boost und Abwesend, die jeder im Haus antippen kann. Das Thermostat selbst läuft im Shelly, also heizt es weiter, auch wenn das Tablet aus ist.'),
+('With the same easy-to-set schedules you already know.', 'Mit denselben einfach einzustellenden Zeitplänen, die du schon kennst.'),
 ]
 bad = []
 for en, de in T:
