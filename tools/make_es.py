@@ -456,6 +456,8 @@ T = [
 ('<a href="#cmt">Comments</a>', '<a href="#cmt">Comentarios</a>'),
 ('<a href="#dl">Download</a>', '<a href="#dl">Descargar</a>'),
 ('<span>Source code</span>', '<span>Código fuente</span>'),
+('Shelly Plus Add-on: on their way', 'Shelly Plus Add-on: en camino'),
+('Sensor inputs: temperature, humidity, digital and analog.', 'Entradas de sensores: temperatura, humedad, digital y analógica.'),
 ]
 
 

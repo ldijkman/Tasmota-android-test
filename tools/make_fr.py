@@ -312,6 +312,8 @@ T = [
 ('<a href="#cmt">Comments</a>', '<a href="#cmt">Commentaires</a>'),
 ('<a href="#dl">Download</a>', '<a href="#dl">Télécharger</a>'),
 ('<span>Source code</span>', '<span>Code source</span>'),
+('Shelly Plus Add-on: on their way', 'Shelly Plus Add-on : en route'),
+('Sensor inputs: temperature, humidity, digital and analog.', 'Entrées capteurs : température, humidité, numérique et analogique.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

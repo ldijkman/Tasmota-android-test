@@ -481,6 +481,8 @@ T = [
 ('<a href="#cmt">Comments</a>', '<a href="#cmt">Reacties</a>'),
 ('<a href="#dl">Download</a>', '<a href="#dl">Downloaden</a>'),
 ('<span>Source code</span>', '<span>Broncode</span>'),
+('Shelly Plus Add-on: on their way', 'Shelly Plus Add-on: onderweg'),
+('Sensor inputs: temperature, humidity, digital and analog.', 'Sensoringangen: temperatuur, luchtvochtigheid, digitaal en analoog.'),
 ]
 bad = []
 for en, de in T:
