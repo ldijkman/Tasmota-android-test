@@ -470,6 +470,7 @@ T = [
 ('Questions, comments &amp; suggestions', 'Vragen, reacties &amp; suggesties'),
 ('No comments yet. Be the first!', 'Nog geen reacties. Wees de eerste!'),
 ('Answer from Lubèrth', 'Antwoord van Lubèrth'),
+('placeholder="Your question or comment (short, please)"', 'placeholder="Je vraag of reactie (graag kort)"'),
 ('Your question or comment', 'Je vraag of reactie'),
 ('Your name', 'Je naam'),
 ('Send comment', 'Reactie versturen'),

@@ -301,6 +301,7 @@ T = [
 ('Questions, comments &amp; suggestions', 'Questions, commentaires &amp; suggestions'),
 ('No comments yet. Be the first!', 'Pas encore de commentaires. Soyez le premier !'),
 ('Answer from Lubèrth', 'Réponse de Lubèrth'),
+('placeholder="Your question or comment (short, please)"', 'placeholder="Votre question ou commentaire (court, s’il vous plaît)"'),
 ('Your question or comment', 'Votre question ou commentaire'),
 ('Your name', 'Votre nom'),
 ('Send comment', 'Envoyer le commentaire'),
