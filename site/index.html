@@ -988,6 +988,11 @@ document.querySelectorAll('.keynote').forEach(k => {
   const set = o => { l.hidden = !o; b.setAttribute('aria-expanded', o); };
   b.addEventListener('click', e => { e.stopPropagation(); set(l.hidden); });
   l.addEventListener('click', e => { if (e.target.closest('a')) set(false); });
+  // Download: de knop midden in beeld zetten in plaats van tegen de bovenkant
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[href="#dl"]'), t = document.getElementById('dl'); if (!a || !t) return;
+    e.preventDefault(); set(false); t.scrollIntoView({block: 'center', behavior: 'smooth'}); history.replaceState(null, '', '#dl');
+  });
   document.addEventListener('click', e => { if (!l.hidden && !e.target.closest('#fmenu')) set(false); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') set(false); });
 })();
