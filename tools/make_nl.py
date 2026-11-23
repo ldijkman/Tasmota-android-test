@@ -472,7 +472,7 @@ T = [
 ('<b>Christmas tree on a timer</b>', '<b>Kerstboom met tijdschakeling</b>'),
 ('Questions &amp; comments', 'Vragen &amp; reacties'),
 ('No comments yet. Be the first!', 'Nog geen reacties. Wees de eerste!'),
-('Reply from the maker', 'Antwoord van de maker'),
+('Answer from Lubèrth', 'Antwoord van Lubèrth'),
 ('Your question or comment', 'Je vraag of reactie'),
 ('Your name', 'Je naam'),
 ('Send comment', 'Reactie versturen'),

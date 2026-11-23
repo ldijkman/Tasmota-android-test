@@ -300,7 +300,7 @@ T = [
 ('<b>Christmas tree on a timer</b>', '<b>Sapin de Noël avec minuterie</b>'),
 ('Questions &amp; comments', 'Questions &amp; commentaires'),
 ('No comments yet. Be the first!', 'Pas encore de commentaires. Soyez le premier !'),
-('Reply from the maker', 'Réponse du créateur'),
+('Answer from Lubèrth', 'Réponse de Lubèrth'),
 ('Your question or comment', 'Votre question ou commentaire'),
 ('Your name', 'Votre nom'),
 ('Send comment', 'Envoyer le commentaire'),

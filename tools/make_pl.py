@@ -444,7 +444,7 @@ T = [
 ('<b>Christmas tree on a timer</b>', '<b>Choinka z harmonogramem</b>'),
 ('Questions &amp; comments', 'Pytania i komentarze'),
 ('No comments yet. Be the first!', 'Brak komentarzy. Bądź pierwszy!'),
-('Reply from the maker', 'Odpowiedź twórcy'),
+('Answer from Lubèrth', 'Odpowiedź: Lubèrth'),
 ('Your question or comment', 'Twoje pytanie lub komentarz'),
 ('Your name', 'Twoje imię'),
 ('Send comment', 'Wyślij komentarz'),
