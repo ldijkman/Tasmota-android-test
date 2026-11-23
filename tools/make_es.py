@@ -462,7 +462,7 @@ T = [
 ('<b>Idea: a thermostat for central heating</b>', '<b>Idea: un termostato para la calefacción central</b>'),
 ('Idea: your old tablet as the thermostat on the wall', 'Idea: tu tablet antigua como termostato en la pared'),
 ('Give an old tablet a second life.<br>(Or a good reason to buy a new tablet and reuse the old.)<br>On the wall it shows the room temperature in big numbers, a 🔥 when the boiler is heating, and big Boost and Away buttons that everyone in the house can tap. The thermostat itself runs in the Shelly, so the heating keeps working even when the tablet is off.', 'Dale una segunda vida a una tablet antigua.<br>(O una buena razón para comprar una nueva y reutilizar la antigua.)<br>En la pared muestra la temperatura de la habitación en números grandes, un 🔥 cuando la caldera calienta, y grandes botones de Boost y Ausente que cualquiera en casa puede tocar. El termostato funciona dentro del Shelly, así que la calefacción sigue funcionando aunque la tablet esté apagada.'),
-('With the same easy-to-set schedules you already know.', 'Con los mismos horarios fáciles de configurar que ya conoces.'),
+('With the same easy-to-set schedules you’re already familiar with.', 'Con los mismos horarios fáciles de configurar que ya conoces.'),
 ]
 
 
