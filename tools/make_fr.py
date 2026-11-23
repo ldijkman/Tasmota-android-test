@@ -175,7 +175,7 @@ T = [
 ('<b>IoTorero Tasmota EU plug</b>', '<b>Prise EU IoTorero Tasmota</b>'),
 ('alt="IoTorero Tasmota EU plug"', 'alt="Prise EU IoTorero Tasmota"'),
 ('<span>on AliExpress</span>', '<span>sur AliExpress</span>'),
-('<b>For Nerds 🤓</b><br>Not directly compatible, but you can flash Tasmota on it.', '<b>Pour les geeks 🤓</b><br>Pas compatible directement, mais vous pouvez y flasher Tasmota.'),
+('<b>For Nerds 🤓</b><br>Not directly compatible, but you can flash Tasmota on it.<br>Sonoff Basic R3 / R4 Wi-Fi inline switch<br>Replacing the Sonoff eWeLink software with Tasmota:<br>no more Chinese cloud and software I don’t like.', '<b>Pour les geeks 🤓</b><br>Pas compatible directement, mais vous pouvez y flasher Tasmota.<br>Interrupteur en ligne Wi-Fi Sonoff Basic R3 / R4<br>Remplacer le logiciel Sonoff eWeLink par Tasmota :<br>fini le cloud chinois et les logiciels que je n’aime pas.'),
 ('alt="Sonoff Basic R4 Wi-Fi switch"', 'alt="Interrupteur Wi-Fi Sonoff Basic R4"'),
 ('<h3>Nerds like me flash Tasmota themselves. 🤓</h3>', '<h3>Les geeks comme moi flashent Tasmota eux-mêmes. 🤓</h3>'),
 ('alt="Flashing Tasmota on a Sonoff Basic R4 (ESP32-C3) with a USB-to-serial adapter and a pogo pin clip"',
