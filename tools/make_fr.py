@@ -319,7 +319,8 @@ T = [
 ('Idea: your old tablet as the thermostat on the wall', 'Idée : votre vieille tablette comme thermostat mural'),
 ('Give an old tablet a second life.<br><i class="aside">(Or a good reason to buy a new tablet and reuse the old.)</i><br>On the wall it shows the room temperature in big numbers, a 🔥 when the boiler is heating, and big Boost and Away buttons that everyone in the house can tap. The thermostat itself runs in the Shelly, so the heating keeps working even when the tablet is off.', 'Offrez une seconde vie à une vieille tablette.<br><i class="aside">(Ou une bonne raison d’en acheter une nouvelle et de réutiliser l’ancienne.)</i><br>Au mur, elle affiche la température de la pièce en grands chiffres, un 🔥 quand la chaudière chauffe, et de grands boutons Boost et Absent que toute la maison peut toucher. Le thermostat lui-même tourne dans le Shelly : le chauffage continue même quand la tablette est éteinte.'),
 ('With the same easy-to-set schedules you’re already familiar with.', 'Avec les mêmes programmes faciles à régler que vous connaissez déjà.'),
-('<a href="#shots">Tasmota &amp; Shelly screenshots</a>', '<a href="#shots">Captures Tasmota &amp; Shelly</a>'),
+('<a href="#shots">Tasmota screenshots</a>', '<a href="#shots">Captures Tasmota</a>'),
+('<a href="#shelly-shots">Shelly screenshots</a>', '<a href="#shelly-shots">Captures Shelly</a>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

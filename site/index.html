@@ -376,7 +376,7 @@ footer a{color:var(--muted)}
 .cmt-msg{margin:0;color:var(--amber);min-height:1.2em}
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 html.noxmas .xtree{display:none}
-section[id]{scroll-margin-top:56px}
+section[id],#shelly-shots{scroll-margin-top:56px}
 #garland{position:fixed;top:0;left:0;right:0;height:34px;z-index:60;pointer-events:none}
 #garland svg{display:block;width:100%;height:34px;overflow:visible}
 #garland .gb{animation:gTw 1.4s ease-in-out infinite}
@@ -680,7 +680,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       <a class="pl" href="https://www.shelly.com/products/shelly-plus-add-on" rel="noopener"><img src="img/shelly-plus-add-on.jpg" alt="Shelly Plus Add-on sensor module with green screw terminals" width="360" height="360" loading="lazy"><b>Plus Add-on</b><span>Sensor inputs: temperature, humidity, digital and analog.</span></a>
     </div>
     <a class="btn sh-btn" href="https://www.shelly.com/" rel="noopener">Visit the Shelly shop</a>
-    <p class="sh-cap"><b>First test on a real Shelly 1 Gen3</b></p>
+    <p class="sh-cap" id="shelly-shots"><b>First test on a real Shelly 1 Gen3</b></p>
     <p class="swipe" aria-hidden="true"><span class="sw-t">Swipe for more</span><span class="sw-p">Scroll sideways for more</span><svg class="sw-arr" viewBox="0 0 24 24" width="22" height="22"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
     <div class="strip sh-strip" tabindex="0" aria-label="Shelly screenshots, scroll sideways">
       <figure><img src="img/shelly-1-gen3-specs-en.jpg" alt="Shelly 1 Gen3: only 42 × 37 mm, fits behind a wall switch." loading="lazy" width="810" height="1649"><figcaption>Shelly 1 Gen3: only 42 × 37 mm, fits behind a wall switch.</figcaption></figure>
@@ -995,7 +995,8 @@ document.querySelectorAll('.keynote').forEach(k => {
     <li><a href="#features">Features</a></li>
     <li><a href="#videos">Videos</a></li>
     <li><a href="#brainstorm">Brainstorm 💡</a></li>
-    <li><a href="#shots">Tasmota &amp; Shelly screenshots</a></li>
+    <li><a href="#shots">Tasmota screenshots</a></li>
+    <li><a href="#shelly-shots">Shelly screenshots</a></li>
     <li><a href="#faq">Questions</a></li>
     <li class="fm-cmt"><a href="#cmt">Comments</a></li>
     <li><a href="demo/">Live demo</a></li>

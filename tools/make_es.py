@@ -463,7 +463,8 @@ T = [
 ('Idea: your old tablet as the thermostat on the wall', 'Idea: tu tablet antigua como termostato en la pared'),
 ('Give an old tablet a second life.<br><i class="aside">(Or a good reason to buy a new tablet and reuse the old.)</i><br>On the wall it shows the room temperature in big numbers, a 🔥 when the boiler is heating, and big Boost and Away buttons that everyone in the house can tap. The thermostat itself runs in the Shelly, so the heating keeps working even when the tablet is off.', 'Dale una segunda vida a una tablet antigua.<br><i class="aside">(O una buena razón para comprar una nueva y reutilizar la antigua.)</i><br>En la pared muestra la temperatura de la habitación en números grandes, un 🔥 cuando la caldera calienta, y grandes botones de Boost y Ausente que cualquiera en casa puede tocar. El termostato funciona dentro del Shelly, así que la calefacción sigue funcionando aunque la tablet esté apagada.'),
 ('With the same easy-to-set schedules you’re already familiar with.', 'Con los mismos horarios fáciles de configurar que ya conoces.'),
-('<a href="#shots">Tasmota &amp; Shelly screenshots</a>', '<a href="#shots">Capturas de Tasmota y Shelly</a>'),
+('<a href="#shots">Tasmota screenshots</a>', '<a href="#shots">Capturas de Tasmota</a>'),
+('<a href="#shelly-shots">Shelly screenshots</a>', '<a href="#shelly-shots">Capturas de Shelly</a>'),
 ]
 
 

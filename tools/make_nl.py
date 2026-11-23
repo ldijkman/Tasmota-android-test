@@ -488,7 +488,8 @@ T = [
 ('Idea: your old tablet as the thermostat on the wall', 'Idee: je oude tablet als thermostaat aan de muur'),
 ('Give an old tablet a second life.<br><i class="aside">(Or a good reason to buy a new tablet and reuse the old.)</i><br>On the wall it shows the room temperature in big numbers, a 🔥 when the boiler is heating, and big Boost and Away buttons that everyone in the house can tap. The thermostat itself runs in the Shelly, so the heating keeps working even when the tablet is off.', 'Geef een oude tablet een tweede leven.<br><i class="aside">(Of een goede reden om een nieuwe te kopen en de oude te hergebruiken.)</i><br>Aan de muur toont hij de kamertemperatuur in grote cijfers, een 🔥 als de ketel stookt, en grote knoppen voor Boost en Weg die iedereen in huis kan aantikken. De thermostaat zelf draait in de Shelly, dus de verwarming blijft werken, ook als de tablet uit staat.'),
 ('With the same easy-to-set schedules you’re already familiar with.', 'Met dezelfde makkelijk in te stellen schema’s die je al kent.'),
-('<a href="#shots">Tasmota &amp; Shelly screenshots</a>', '<a href="#shots">Tasmota- &amp; Shelly-screenshots</a>'),
+('<a href="#shots">Tasmota screenshots</a>', '<a href="#shots">Tasmota-screenshots</a>'),
+('<a href="#shelly-shots">Shelly screenshots</a>', '<a href="#shelly-shots">Shelly-screenshots</a>'),
 ]
 bad = []
 for en, de in T:
