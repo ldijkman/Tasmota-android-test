@@ -298,7 +298,7 @@ T = [
 ('EU wall plug, 13 A, with power metering.', 'Prise murale EU, 13 A, avec mesure de consommation.'),
 ('8.5 W, 800 lm', '8,5 W, 800 lm'),
 ('<b>Christmas tree on a timer</b>', '<b>Sapin de Noël avec minuterie</b>'),
-('Questions &amp; comments', 'Questions &amp; commentaires'),
+('Questions, comments &amp; suggestions', 'Questions, commentaires &amp; suggestions'),
 ('No comments yet. Be the first!', 'Pas encore de commentaires. Soyez le premier !'),
 ('Answer from Lubèrth', 'Réponse de Lubèrth'),
 ('Your question or comment', 'Votre question ou commentaire'),
