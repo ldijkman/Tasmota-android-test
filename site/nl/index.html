@@ -373,6 +373,7 @@ footer a{color:var(--muted)}
 .cmt-form input:focus,.cmt-form textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
 .cmt-en{color:var(--amber);font-weight:700;margin:0}
 .cmt-send{justify-self:start;border-color:var(--amber);cursor:pointer;font-size:.85rem;padding:7px 14px;border-radius:10px}
+.cmt-after{color:var(--muted);margin:0}
 .cmt-msg{margin:0;color:var(--amber);min-height:1.2em}
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 #dlbar{display:none}
@@ -739,6 +740,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <textarea id="cmtText" maxlength="1500" required rows="3" placeholder="Je vraag of reactie"></textarea>
     <input id="cmtHp" class="vh" tabindex="-1" autocomplete="off" aria-hidden="true">
     <button class="btn cmt-send" type="submit">Reactie versturen</button>
+    <p class="cmt-after">Je reactie verschijnt nadat ik hem heb bekeken.</p>
     <p id="cmtMsg" class="cmt-msg" role="status" data-ok="Bedankt! Je reactie verschijnt na een controle." data-err="Vul je naam en een reactie in." data-fail="Versturen mislukt. Probeer het later nog eens."></p>
   </form>
 </div></section>
