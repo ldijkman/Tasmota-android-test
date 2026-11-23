@@ -455,6 +455,7 @@ T = [
 ('Your comment appears after I have checked it.', 'Tu comentario aparece después de que lo haya revisado.'),
 ('<a href="#cmt">Comments</a>', '<a href="#cmt">Comentarios</a>'),
 ('<a href="#dl">Download</a>', '<a href="#dl">Descargar</a>'),
+('<span>Source code</span>', '<span>Código fuente</span>'),
 ]
 
 

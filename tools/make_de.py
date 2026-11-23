@@ -314,6 +314,7 @@ T = [
 ('Your comment appears after I have checked it.', 'Dein Kommentar erscheint, nachdem ich ihn geprüft habe.'),
 ('<a href="#cmt">Comments</a>', '<a href="#cmt">Kommentare</a>'),
 ('<a href="#dl">Download</a>', '<a href="#dl">Herunterladen</a>'),
+('<span>Source code</span>', '<span>Quellcode</span>'),
 ]
 bad = []
 for en, de in T:

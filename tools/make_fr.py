@@ -311,6 +311,7 @@ T = [
 ('Your comment appears after I have checked it.', 'Votre commentaire apparaît après que je l’ai vérifié.'),
 ('<a href="#cmt">Comments</a>', '<a href="#cmt">Commentaires</a>'),
 ('<a href="#dl">Download</a>', '<a href="#dl">Télécharger</a>'),
+('<span>Source code</span>', '<span>Code source</span>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

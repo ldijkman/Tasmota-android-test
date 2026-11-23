@@ -480,6 +480,7 @@ T = [
 ('Your comment appears after I have checked it.', 'Je reactie verschijnt nadat ik hem heb bekeken.'),
 ('<a href="#cmt">Comments</a>', '<a href="#cmt">Reacties</a>'),
 ('<a href="#dl">Download</a>', '<a href="#dl">Downloaden</a>'),
+('<span>Source code</span>', '<span>Broncode</span>'),
 ]
 bad = []
 for en, de in T:

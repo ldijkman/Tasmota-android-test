@@ -453,6 +453,7 @@ T = [
 ('Your comment appears after I have checked it.', 'Komentarz pojawi się, gdy go sprawdzę.'),
 ('<a href="#cmt">Comments</a>', '<a href="#cmt">Komentarze</a>'),
 ('<a href="#dl">Download</a>', '<a href="#dl">Pobierz</a>'),
+('<span>Source code</span>', '<span>Kod źródłowy</span>'),
 ]
 
 bad = []
