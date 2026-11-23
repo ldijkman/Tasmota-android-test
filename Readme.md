@@ -576,7 +576,7 @@ http://<ip>/cm?cmnd=Timer1%20{"Enable":1,"Mode":2,"Time":"-00:30","Days":"111111
 
 ## Build it yourself
 
-The complete Android project is in the **[`plafond-led-app`](plafond-led-app)** folder. When something in it changes, GitHub Actions builds a new APK and release
+The complete Android project is in the **[`plafond-led-app`](plafond-led-app)** folder. When something in it changes, GitHub Actions builds the APK; it only publishes a new release when the `versionCode` in `app/build.gradle` goes up
 (see [`.github/workflows`](.github/workflows)).
 
 | File in the folder | Contents |
@@ -586,7 +586,7 @@ The complete Android project is in the **[`plafond-led-app`](plafond-led-app)** 
 | `app/src/main/java/.../DeviceWidget.java`, `GroupWidget.java`, `SceneWidget.java`, `WifiWidget.java`, `TailscaleWidget.java` | The home screen widgets |
 | `app/build.gradle` | Version number and signing |
 
-To change something: edit the files in the folder (on GitHub or on your computer) and commit. GitHub then builds a new APK.
+To change something: edit the files in the folder (on GitHub or on your computer) and commit. GitHub builds a test APK (under Actions → Artifacts). For a new release, also raise `versionCode` and `versionName` in `app/build.gradle`.
 
 ## Known limitations
 

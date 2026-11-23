@@ -44,12 +44,28 @@ jobs:
           echo "name=$(grep -oP "versionName '\K[^']+" plafond-led-app/app/build.gradle)" >> "$GITHUB_OUTPUT"
           echo "code=$(grep -oP 'versionCode \K[0-9]+' plafond-led-app/app/build.gradle)" >> "$GITHUB_OUTPUT"
 
+      # Alleen een nieuwe release als het versienummer (versionCode) hoger is dan dat van de laatste release.
+      # Andere wijzigingen bouwen wel (om te controleren dat alles werkt), maar publiceren niets.
+      - name: New version?
+        id: new
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          last=$(gh api "repos/${{ github.repository }}/releases/latest" --jq '.body' 2>/dev/null | grep -oP 'versionCode: \K[0-9]+' || true)
+          code="${{ steps.ver.outputs.code }}"
+          if [ "$code" -gt "${last:-0}" ]; then
+            echo "release=true" >> "$GITHUB_OUTPUT"; echo "::notice::New version $code (last release: ${last:-none}), publishing a release"
+          else
+            echo "release=false" >> "$GITHUB_OUTPUT"; echo "::notice::versionCode $code is not higher than the last release (${last}), no release. The test APK is under Artifacts."
+          fi
+
       - uses: actions/upload-artifact@v4
         with:
           name: PlafondLED-apk
           path: PlafondLED.apk
 
       - uses: softprops/action-gh-release@v2
+        if: steps.new.outputs.release == 'true'
         with:
           tag_name: build-${{ github.run_number }}
           name: Tasmota Scan & Control ${{ steps.ver.outputs.name }} (build ${{ github.run_number }})
