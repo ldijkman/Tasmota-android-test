@@ -261,7 +261,8 @@ T = [
 ('aria-label="2 Unlimited video"', 'aria-label="2-Unlimited-Video"'),
 # script texts
 ("st.textContent = on ? 'On' : 'Off. Tap to switch on';", "st.textContent = on ? 'An' : 'Aus. Zum Einschalten tippen';"),
-("el.textContent = 'Downloaded ' + total.toLocaleString('en') + ' times so far.';", "el.textContent = 'Bisher ' + total.toLocaleString('de') + ' Mal heruntergeladen.';"),
+("el.textContent = 'Downloaded or updated ' + total.toLocaleString('en') + ' times so far.';",
+ "el.textContent = 'Bisher ' + total.toLocaleString('de') + '-mal heruntergeladen oder aktualisiert.';"),
 ("j.stargazers_count.toLocaleString('en')", "j.stargazers_count.toLocaleString('de')"),
 ("el.textContent = 'version ' + m[1] + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : '')", "el.textContent = 'Version ' + m[1].replace('.', ',') + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : '')"),
 ('Christmas tree on a Shelly: temperature, firmware 2.2.0 and the auto-off countdown.', 'Weihnachtsbaum an einem Shelly: Temperatur, Firmware 2.2.0 und der Auto-Aus-Countdown.'),

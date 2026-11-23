@@ -875,7 +875,7 @@ async function ghJson(url){
     }
     if (total > 0){
       document.querySelectorAll('.dlcount').forEach(el => {
-        el.textContent = 'Déjà téléchargée ' + total.toLocaleString('fr') + ' fois.';
+        el.textContent = 'Déjà ' + total.toLocaleString('fr') + ' téléchargements ou mises à jour.';
         el.hidden = false; });
     }
   } catch(e){}

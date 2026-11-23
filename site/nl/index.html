@@ -875,7 +875,7 @@ async function ghJson(url){
     }
     if (total > 0){
       document.querySelectorAll('.dlcount').forEach(el => {
-        el.textContent = 'Al ' + total.toLocaleString('nl') + ' keer gedownload.';
+        el.textContent = 'Al ' + total.toLocaleString('nl') + ' keer gedownload of bijgewerkt.';
         el.hidden = false; });
     }
   } catch(e){}
