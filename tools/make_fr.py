@@ -316,6 +316,8 @@ T = [
 ('Sensor inputs: temperature, humidity, digital and analog.', 'Entrées capteurs : température, humidité, numérique et analogique.'),
 ('Please let me sleep 😴<br>Ideas we are thinking about.<br>They are not in the app yet.', 'Laissez-moi dormir 😴<br>Des idées auxquelles nous réfléchissons.<br>Elles ne sont pas encore dans l’appli.'),
 ('<b>Idea: a thermostat for central heating</b>', '<b>Idée : un thermostat pour le chauffage central</b>'),
+('Idea: your old tablet as the thermostat on the wall', 'Idée : votre vieille tablette comme thermostat mural'),
+('Give an old tablet a second life. On the wall it shows the room temperature in big numbers, a 🔥 when the boiler is heating, and big Boost and Away buttons that everyone in the house can tap. The thermostat itself runs in the Shelly, so the heating keeps working even when the tablet is off.', 'Offrez une seconde vie à une vieille tablette. Au mur, elle affiche la température de la pièce en grands chiffres, un 🔥 quand la chaudière chauffe, et de grands boutons Boost et Absent que toute la maison peut toucher. Le thermostat lui-même tourne dans le Shelly : le chauffage continue même quand la tablette est éteinte.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

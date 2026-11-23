@@ -458,6 +458,8 @@ T = [
 ('Sensor inputs: temperature, humidity, digital and analog.', 'Wejścia czujników: temperatura, wilgotność, cyfrowe i analogowe.'),
 ('Please let me sleep 😴<br>Ideas we are thinking about.<br>They are not in the app yet.', 'Pozwól mi spać 😴<br>Pomysły, nad którymi myślimy.<br>Nie ma ich jeszcze w aplikacji.'),
 ('<b>Idea: a thermostat for central heating</b>', '<b>Pomysł: termostat do centralnego ogrzewania</b>'),
+('Idea: your old tablet as the thermostat on the wall', 'Pomysł: stary tablet jako termostat na ścianie'),
+('Give an old tablet a second life. On the wall it shows the room temperature in big numbers, a 🔥 when the boiler is heating, and big Boost and Away buttons that everyone in the house can tap. The thermostat itself runs in the Shelly, so the heating keeps working even when the tablet is off.', 'Daj staremu tabletowi drugie życie. Na ścianie pokazuje temperaturę w pokoju dużymi cyframi, 🔥 gdy kocioł grzeje, oraz duże przyciski Boost i Nieobecny, które każdy domownik może nacisnąć. Sam termostat działa w Shelly, więc ogrzewanie działa dalej, nawet gdy tablet jest wyłączony.'),
 ]
 
 bad = []

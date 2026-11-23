@@ -319,6 +319,8 @@ T = [
 ('Sensor inputs: temperature, humidity, digital and analog.', 'Sensoreingänge: Temperatur, Luftfeuchtigkeit, digital und analog.'),
 ('Please let me sleep 😴<br>Ideas we are thinking about.<br>They are not in the app yet.', 'Bitte lass mich schlafen 😴<br>Ideen, über die wir nachdenken.<br>Sie sind noch nicht in der App.'),
 ('<b>Idea: a thermostat for central heating</b>', '<b>Idee: ein Thermostat für die Zentralheizung</b>'),
+('Idea: your old tablet as the thermostat on the wall', 'Idee: dein altes Tablet als Thermostat an der Wand'),
+('Give an old tablet a second life. On the wall it shows the room temperature in big numbers, a 🔥 when the boiler is heating, and big Boost and Away buttons that everyone in the house can tap. The thermostat itself runs in the Shelly, so the heating keeps working even when the tablet is off.', 'Gib einem alten Tablet ein zweites Leben. An der Wand zeigt es die Raumtemperatur in großen Zahlen, ein 🔥 wenn der Kessel heizt, und große Tasten für Boost und Abwesend, die jeder im Haus antippen kann. Das Thermostat selbst läuft im Shelly, also heizt es weiter, auch wenn das Tablet aus ist.'),
 ]
 bad = []
 for en, de in T:

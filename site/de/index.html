@@ -397,6 +397,7 @@ section[id]{scroll-margin-top:56px}
 #fmList li.fm-src{border-top:1px solid var(--line);margin-top:4px;padding-top:4px}#fmList li.fm-src a{display:flex;align-items:center;gap:9px;color:var(--muted)}#fmList .fm-ic{width:18px;height:18px;flex:none}
 }
 .vids.brain{padding-top:10px}
+.brain-note{margin-top:22px;max-width:640px;border:1.5px dashed var(--line);border-radius:14px;padding:14px 16px}.brain-note b{color:var(--amber);font:700 1.02rem var(--display)}.brain-note p{margin:6px 0 0;color:var(--ink)}
 #dlbar{display:none}
 @media (max-width:900px){
 #dlbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;gap:12px;justify-content:space-between;padding:1px 12px calc(1px + env(safe-area-inset-bottom,0px));background:rgba(14,21,37,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid rgba(42,53,80,.6);transform:translateY(110%);transition:transform .3s}
@@ -589,6 +590,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <div class="vgrid">
       <button class="vcard" data-v="../shelly-thermostat-idea.mp4"><span class="fr"><img src="../img/poster-thermostat-idea.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Idee: ein Thermostat für die Zentralheizung</b><span class="len">1,5 Min.</span></button>
     </div>
+    <div class="brain-note"><b>Idee: dein altes Tablet als Thermostat an der Wand</b><p>Gib einem alten Tablet ein zweites Leben. An der Wand zeigt es die Raumtemperatur in großen Zahlen, ein 🔥 wenn der Kessel heizt, und große Tasten für Boost und Abwesend, die jeder im Haus antippen kann. Das Thermostat selbst läuft im Shelly, also heizt es weiter, auch wenn das Tablet aus ist.</p></div>
   </div>
 </section>
 <dialog id="player" aria-label="Video">
