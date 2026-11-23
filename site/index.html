@@ -874,7 +874,7 @@ async function ghJson(url){
     }
     if (total > 0){
       document.querySelectorAll('.dlcount').forEach(el => {
-        el.textContent = 'Downloaded or updated ' + total.toLocaleString('en') + ' times so far.';
+        el.textContent = 'Downloaded ' + total.toLocaleString('en') + ' times so far.';
         el.hidden = false; });
     }
   } catch(e){}

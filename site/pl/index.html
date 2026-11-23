@@ -875,7 +875,7 @@ async function ghJson(url){
     }
     if (total > 0){
       document.querySelectorAll('.dlcount').forEach(el => {
-        el.textContent = 'Pobrano lub zaktualizowano już ' + total.toLocaleString('pl') + ' razy.';
+        el.textContent = 'Pobrano już ' + total.toLocaleString('pl') + ' razy.';
         el.hidden = false; });
     }
   } catch(e){}

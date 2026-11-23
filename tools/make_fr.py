@@ -258,8 +258,7 @@ T = [
 ('>Open on YouTube</a><button type="button" id="ytClose">Close</button>', '>Ouvrir sur YouTube</a><button type="button" id="ytClose">Fermer</button>'),
 # script texts
 ("st.textContent = on ? 'On' : 'Off. Tap to switch on';", "st.textContent = on ? 'Allumé' : 'Éteint. Touchez pour allumer';"),
-("el.textContent = 'Downloaded or updated ' + total.toLocaleString('en') + ' times so far.';",
- "el.textContent = 'Déjà ' + total.toLocaleString('fr') + ' téléchargements ou mises à jour.';"),
+("el.textContent = 'Downloaded ' + total.toLocaleString('en') + ' times so far.';", "el.textContent = 'Déjà téléchargée ' + total.toLocaleString('fr') + ' fois.';"),
 ("j.stargazers_count.toLocaleString('en')", "j.stargazers_count.toLocaleString('fr')"),
 ("el.textContent = 'version ' + m[1] + (a ? ', ' + Math.round(a.size / 1024) + ' KB' : '')", "el.textContent = 'version ' + m[1].replace('.', ',') + (a ? ', ' + Math.round(a.size / 1024) + ' Ko' : '')"),
 ('Christmas tree on a Shelly: temperature, firmware 2.2.0 and the auto-off countdown.', 'Sapin de Noël sur un Shelly\xa0: température, firmware 2.2.0 et le compte à rebours de l’arrêt automatique.'),

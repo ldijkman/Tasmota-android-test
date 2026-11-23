@@ -875,7 +875,7 @@ async function ghJson(url){
     }
     if (total > 0){
       document.querySelectorAll('.dlcount').forEach(el => {
-        el.textContent = 'Bisher ' + total.toLocaleString('de') + '-mal heruntergeladen oder aktualisiert.';
+        el.textContent = 'Bisher ' + total.toLocaleString('de') + ' Mal heruntergeladen.';
         el.hidden = false; });
     }
   } catch(e){}
