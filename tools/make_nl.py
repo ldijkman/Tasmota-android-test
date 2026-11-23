@@ -483,7 +483,7 @@ T = [
 ('<span>Source code</span>', '<span>Broncode</span>'),
 ('Shelly Plus Add-on: on their way', 'Shelly Plus Add-on: onderweg'),
 ('Sensor inputs: temperature, humidity, digital and analog.', 'Sensoringangen: temperatuur, luchtvochtigheid, digitaal en analoog.'),
-('Please let me sleep 😴 Ideas we are thinking about. They are not in the app yet.', 'Laat me alsjeblieft slapen 😴 Ideeën waar we over nadenken. Ze zitten nog niet in de app.'),
+('Please let me sleep 😴<br>Ideas we are thinking about.<br>They are not in the app yet.', 'Laat me alsjeblieft slapen 😴<br>Ideeën waar we over nadenken.<br>Ze zitten nog niet in de app.'),
 ('<b>Idea: a thermostat for central heating</b>', '<b>Idee: een thermostaat voor de cv</b>'),
 ]
 bad = []

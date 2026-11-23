@@ -456,7 +456,7 @@ T = [
 ('<span>Source code</span>', '<span>Kod źródłowy</span>'),
 ('Shelly Plus Add-on: on their way', 'Shelly Plus Add-on: w drodze'),
 ('Sensor inputs: temperature, humidity, digital and analog.', 'Wejścia czujników: temperatura, wilgotność, cyfrowe i analogowe.'),
-('Please let me sleep 😴 Ideas we are thinking about. They are not in the app yet.', 'Pozwól mi spać 😴 Pomysły, nad którymi myślimy. Nie ma ich jeszcze w aplikacji.'),
+('Please let me sleep 😴<br>Ideas we are thinking about.<br>They are not in the app yet.', 'Pozwól mi spać 😴<br>Pomysły, nad którymi myślimy.<br>Nie ma ich jeszcze w aplikacji.'),
 ('<b>Idea: a thermostat for central heating</b>', '<b>Pomysł: termostat do centralnego ogrzewania</b>'),
 ]
 
