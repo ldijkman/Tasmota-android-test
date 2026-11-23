@@ -255,6 +255,7 @@
       '<b>Some options only show in the app with real Tasmota devices. <br>' +
       'in App Tap <i>Scan network</i> to find Tasmota Devices. <br>The protected one uses password <code>demo</code>. <br>' +
       '<a href="https://github.com/ldijkman/Tasmota-android-test/releases/latest" style="display:block;text-align:center;margin-top:8px;color:#3ddc84;font-weight:700">Get the Android app</a>' +
+      '<a href="../#videos" style="display:block;text-align:center;margin-top:6px;color:#f0a630;font-weight:700">A video says more than a thousand words ▶</a>' +
       '<br><button type="button" class="b-tog" style="margin-top:10px" onclick="demoReset()">Reset demo</button></div>');
     // also in the hamburger menu
     const menu = document.getElementById('menu');
