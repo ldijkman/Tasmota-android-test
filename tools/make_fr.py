@@ -314,6 +314,8 @@ T = [
 ('<span>Source code</span>', '<span>Code source</span>'),
 ('Shelly Plus Add-on: on their way', 'Shelly Plus Add-on : en route'),
 ('Sensor inputs: temperature, humidity, digital and analog.', 'Entrées capteurs : température, humidité, numérique et analogique.'),
+('Please let me sleep 😴 Ideas we are thinking about. They are not in the app yet.', 'Laissez-moi dormir 😴 Des idées auxquelles nous réfléchissons. Elles ne sont pas encore dans l’appli.'),
+('<b>Idea: a thermostat for central heating</b>', '<b>Idée : un thermostat pour le chauffage central</b>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

@@ -64,3 +64,4 @@ Features:
 - [Toilet fan with a Shelly: push button on the SW input, wall switch setting and auto-off](https://ldijkman.github.io/Tasmota-android-test/shelly-toilet-fan.mp4)
 - [Shelly 1 Gen3 without a manual: the label, the tiny button (5 s slow blink = own Wi-Fi and Bluetooth on, 10 s fast blink = factory reset) and the app](https://ldijkman.github.io/Tasmota-android-test/shelly-1-gen3-button.mp4)
 - [Christmas tree on a timer: on 15 minutes after sunset, off at 22:00, every day, stored in the Shelly itself; with the twinkling Christmas tree icon](https://ldijkman.github.io/Tasmota-android-test/shelly-christmas-tree.mp4)
+- [Brainstorm idea, not in the app yet: a thermostat for central heating with a Shelly 1 Gen3, the Plus Add-on and two DS18B20 sensors](https://ldijkman.github.io/Tasmota-android-test/shelly-thermostat-idea.mp4)
