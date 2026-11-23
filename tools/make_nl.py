@@ -480,7 +480,7 @@ T = [
 ('Please fill in your name and a comment.', 'Vul je naam en een reactie in.'),
 ('Sending failed. Please try again later.', 'Versturen mislukt. Probeer het later nog eens.'),
 ('Please write your comment in English.', 'Schrijf je reactie alsjeblieft in het Engels.'),
-('Your comment appears after a check.', 'Je reactie verschijnt na een controle.'),
+('Your comment appears after I have checked it.', 'Je reactie verschijnt nadat ik hem heb bekeken.'),
 ]
 bad = []
 for en, de in T:

@@ -454,7 +454,7 @@ T = [
 ('Please fill in your name and a comment.', 'Escribe tu nombre y un comentario.'),
 ('Sending failed. Please try again later.', 'No se pudo enviar. Inténtalo más tarde.'),
 ('Please write your comment in English.', 'Por favor, escribe tu comentario en inglés.'),
-('Your comment appears after a check.', 'Tu comentario aparece tras una revisión.'),
+('Your comment appears after I have checked it.', 'Tu comentario aparece después de que lo haya revisado.'),
 ]
 
 

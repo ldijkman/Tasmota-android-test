@@ -308,7 +308,7 @@ T = [
 ('Please fill in your name and a comment.', 'Veuillez indiquer votre nom et un commentaire.'),
 ('Sending failed. Please try again later.', 'Échec de l’envoi. Veuillez réessayer plus tard.'),
 ('Please write your comment in English.', 'Merci d’écrire votre commentaire en anglais.'),
-('Your comment appears after a check.', 'Votre commentaire apparaît après vérification.'),
+('Your comment appears after I have checked it.', 'Votre commentaire apparaît après que je l’ai vérifié.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
