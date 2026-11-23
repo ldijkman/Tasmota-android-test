@@ -312,6 +312,8 @@ T = [
 ('Sending failed. Please try again later.', 'Senden fehlgeschlagen. Bitte versuche es später noch einmal.'),
 ('Please write your comment in English.', 'Bitte schreibe deinen Kommentar auf Englisch.'),
 ('Your comment appears after I have checked it.', 'Dein Kommentar erscheint, nachdem ich ihn geprüft habe.'),
+('<a href="#cmt">Comments</a>', '<a href="#cmt">Kommentare</a>'),
+('<a href="#dl">Download</a>', '<a href="#dl">Herunterladen</a>'),
 ]
 bad = []
 for en, de in T:

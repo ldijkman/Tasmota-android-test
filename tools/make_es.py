@@ -453,6 +453,8 @@ T = [
 ('Sending failed. Please try again later.', 'No se pudo enviar. Inténtalo más tarde.'),
 ('Please write your comment in English.', 'Por favor, escribe tu comentario en inglés.'),
 ('Your comment appears after I have checked it.', 'Tu comentario aparece después de que lo haya revisado.'),
+('<a href="#cmt">Comments</a>', '<a href="#cmt">Comentarios</a>'),
+('<a href="#dl">Download</a>', '<a href="#dl">Descargar</a>'),
 ]
 
 

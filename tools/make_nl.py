@@ -478,6 +478,8 @@ T = [
 ('Sending failed. Please try again later.', 'Versturen mislukt. Probeer het later nog eens.'),
 ('Please write your comment in English.', 'Schrijf je reactie alsjeblieft in het Engels.'),
 ('Your comment appears after I have checked it.', 'Je reactie verschijnt nadat ik hem heb bekeken.'),
+('<a href="#cmt">Comments</a>', '<a href="#cmt">Reacties</a>'),
+('<a href="#dl">Download</a>', '<a href="#dl">Downloaden</a>'),
 ]
 bad = []
 for en, de in T:

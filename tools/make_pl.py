@@ -451,6 +451,8 @@ T = [
 ('Sending failed. Please try again later.', 'Nie udało się wysłać. Spróbuj ponownie później.'),
 ('Please write your comment in English.', 'Prosimy pisać komentarze po angielsku.'),
 ('Your comment appears after I have checked it.', 'Komentarz pojawi się, gdy go sprawdzę.'),
+('<a href="#cmt">Comments</a>', '<a href="#cmt">Komentarze</a>'),
+('<a href="#dl">Download</a>', '<a href="#dl">Pobierz</a>'),
 ]
 
 bad = []

@@ -382,6 +382,18 @@ html.noxmas .xtree{display:none}
 #garland .gb{animation:gTw 1.4s ease-in-out infinite}
 @keyframes gTw{0%,100%{opacity:1}50%{opacity:.18}}
 @media (prefers-reduced-motion:reduce){#garland .gb{animation:none}}
+#fmenu{display:none}
+@media (max-width:960px){
+#fmenu{display:block;position:fixed;top:80px;right:12px;z-index:55}
+#fmBtn{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:rgba(14,21,37,.88);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35)}
+#fmBtn svg{width:22px;height:22px}
+#fmBtn[aria-expanded="true"]{border-color:var(--amber);color:var(--amber)}
+#fmList{position:absolute;right:0;top:54px;min-width:190px;margin:0;padding:6px;list-style:none;background:#121b2e;border:1.5px solid var(--line);border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.45)}
+#fmList[hidden]{display:none}
+#fmList a{display:block;padding:11px 14px;border-radius:9px;color:var(--ink);text-decoration:none;font-weight:600}
+#fmList a:active,#fmList a:hover{background:#1c2740;color:#fff}
+#fmList li.fm-cmt a{color:var(--amber)}
+}
 #dlbar{display:none}
 @media (max-width:900px){
 #dlbar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:flex;align-items:center;gap:12px;justify-content:space-between;padding:1px 12px calc(1px + env(safe-area-inset-bottom,0px));background:rgba(14,21,37,.72);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid rgba(42,53,80,.6);transform:translateY(110%);transition:transform .3s}
@@ -957,6 +969,28 @@ document.querySelectorAll('.keynote').forEach(k => {
     fetch(CMT.form, {method: 'POST', mode: 'no-cors', body}).then(() => { msg.textContent = msg.dataset.ok; x.value = ''; })
       .catch(() => { msg.textContent = msg.dataset.fail; }).finally(() => { btn.disabled = false; });
   });
+})();
+</script>
+<div id="fmenu">
+  <button id="fmBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="fmList"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+  <ul id="fmList" hidden>
+    <li><a href="#features">Functies</a></li>
+    <li><a href="#videos">Videos</a></li>
+    <li><a href="#faq">Vragen</a></li>
+    <li class="fm-cmt"><a href="#cmt">Reacties</a></li>
+    <li><a href="../demo/">Live demo</a></li>
+    <li><a href="#dl">Downloaden</a></li>
+  </ul>
+</div>
+<script>
+// Zwevend menu op telefoons: openen/sluiten, sluiten na een tik op een link, buiten het menu of met Esc
+(() => {
+  const b = document.getElementById('fmBtn'), l = document.getElementById('fmList'); if (!b) return;
+  const set = o => { l.hidden = !o; b.setAttribute('aria-expanded', o); };
+  b.addEventListener('click', e => { e.stopPropagation(); set(l.hidden); });
+  l.addEventListener('click', e => { if (e.target.closest('a')) set(false); });
+  document.addEventListener('click', e => { if (!l.hidden && !e.target.closest('#fmenu')) set(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') set(false); });
 })();
 </script>
 <div id="garland" aria-hidden="true"></div>

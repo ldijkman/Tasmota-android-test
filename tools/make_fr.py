@@ -309,6 +309,8 @@ T = [
 ('Sending failed. Please try again later.', 'Échec de l’envoi. Veuillez réessayer plus tard.'),
 ('Please write your comment in English.', 'Merci d’écrire votre commentaire en anglais.'),
 ('Your comment appears after I have checked it.', 'Votre commentaire apparaît après que je l’ai vérifié.'),
+('<a href="#cmt">Comments</a>', '<a href="#cmt">Commentaires</a>'),
+('<a href="#dl">Download</a>', '<a href="#dl">Télécharger</a>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
