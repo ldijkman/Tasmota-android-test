@@ -472,11 +472,17 @@ T = [
 ]
 
 
+# het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
+_i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
+FIG = s[_i:_j]; s = s[:_i] + '@@FIG@@' + s[_j:]
 bad = []
 for en, fr in T:
     n = s.count(en)
-    if n == 0: bad.append(en[:70]); continue
+    if n == 0:
+        if en not in FIG: bad.append(en[:70])
+        continue
     s = s.replace(en, fr)
+s = s.replace('@@FIG@@', FIG)
 if bad:
     print('NOT FOUND:\n  ' + '\n  '.join(bad)); sys.exit(1)
 

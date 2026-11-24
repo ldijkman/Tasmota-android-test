@@ -502,30 +502,30 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       <p class="lead">Un aperçu visuel simple et intuitif montre chaque programmation sur une ligne de 24 heures : la ligne jaune est la lumière du jour, du lever au coucher du soleil, et le bloc orange est le moment où l’interrupteur est allumé. Vous voyez tout de suite si ça convient. <a class="sidenote" id="cpLink" href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener">Obsédé : du temps perdu à régler l’heure</a> 😉</p>
       <p class="lead sidenote2">Bon, plus d’1 million d’utilisateurs de l’appli Shelly<br>perdent encore plus de temps à régler des programmations compliquées. <img class="wow" src="../img/wow.svg" alt="😮" width="24" height="24"></p>
     </div>
-    <figure class="bar" aria-labelledby="bar-cap" style="margin:0">
-      <div class="bh"><h3>Lumières du jardin</h3><span>☀↑ 07:41&nbsp;&nbsp; ☀↓ 17:02</span></div>
-      <p class="sr" id="bar-cap">Deux programmations des lumières du jardin. Programmation 1 : allumé à 06:30, éteint au lever du soleil à 07:41, en semaine. Programmation 2 : allumé 15 minutes avant le coucher du soleil à 16:47, éteint à 23:00, tous les jours.</p>
+    <figure class="bar" aria-labelledby="bar-cap" style="margin:0" lang="en" translate="no">
+      <div class="bh"><h3>Garden lights</h3><span>☀↑ 07:41&nbsp;&nbsp; ☀↓ 17:02</span></div>
+      <p class="sr" id="bar-cap">Two schedules of the garden lights. Schedule 1: on at 06:30, off at sunrise 07:41, on weekdays. Schedule 2: on 15 minutes before sunset at 16:47, off at 23:00, every day.</p>
       <div class="sc">
-        <div class="sc-h"><b>Programmation 1</b><span class="act">active</span></div>
-        <div class="flds" aria-hidden="true"><div><span class="fl">Marche</span><span class="fb fs">Heure fixe</span><span class="fr2"><span class="fb ft">06:30</span></span></div><div><span class="fl">Arrêt</span><span class="fb fs">Lever du soleil</span><span class="fr2"><span class="fb sg">+</span><span class="fb ft">00:00</span></span><span class=fh>décalage (hh:mm)</span></div></div>
+        <div class="sc-h"><b>Schedule 1</b><span class="act">active</span></div>
+        <div class="flds" aria-hidden="true"><div><span class="fl">On</span><span class="fb fs">At fixed time</span><span class="fr2"><span class="fb ft">06:30</span></span></div><div><span class="fl">Off</span><span class="fb fs">Sunrise</span><span class="fr2"><span class="fb sg">+</span><span class="fb ft">00:00</span></span><span class=fh>offset (hh:mm)</span></div></div>
         <div class="sun" aria-hidden="true"></div>
         <div class="trk" aria-hidden="true"><span class="on" style="left:27.08%;width:4.93%"></span><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i></div>
         <div class="rul" aria-hidden="true"><i class="mj" style="left:0.000%"></i><i class="" style="left:4.167%"></i><i class="" style="left:8.333%"></i><i class="" style="left:12.500%"></i><i class="" style="left:16.667%"></i><i class="" style="left:20.833%"></i><i class="mj" style="left:25.000%"></i><i class="" style="left:29.167%"></i><i class="" style="left:33.333%"></i><i class="" style="left:37.500%"></i><i class="" style="left:41.667%"></i><i class="" style="left:45.833%"></i><i class="mj" style="left:50.000%"></i><i class="" style="left:54.167%"></i><i class="" style="left:58.333%"></i><i class="" style="left:62.500%"></i><i class="" style="left:66.667%"></i><i class="" style="left:70.833%"></i><i class="mj" style="left:75.000%"></i><i class="" style="left:79.167%"></i><i class="" style="left:83.333%"></i><i class="" style="left:87.500%"></i><i class="" style="left:91.667%"></i><i class="" style="left:95.833%"></i><i class="mj" style="left:100.000%"></i></div>
         <div class="hrs" aria-hidden="true"><span style="left:0.000%">0</span><span style="left:25.000%">6</span><span style="left:50.000%">12</span><span style="left:75.000%">18</span><span style="left:100.000%">24</span></div>
-        <div class="lbl"><span class="l on" style="left:34%;transform:translateX(calc(-100% - 6px))">Marche 06:30</span><span class="l off" style="left:34%;transform:translateX(6px)">Arrêt 07:41 ☀↑</span></div>
-        <p class="sum">Allumé 1 h 11 min par jour</p>
-        <div class="days"><span class="d on">Lu</span><span class="d on">Ma</span><span class="d on">Me</span><span class="d on">Je</span><span class="d on">Ve</span><span class="d">Sa</span><span class="d">Di</span></div>
+        <div class="lbl"><span class="l on" style="left:34%;transform:translateX(calc(-100% - 6px))">On 06:30</span><span class="l off" style="left:34%;transform:translateX(6px)">Off 07:41 ☀↑</span></div>
+        <p class="sum">On for 1 h 11 min a day</p>
+        <div class="days"><span class="d on">Mo</span><span class="d on">Tu</span><span class="d on">We</span><span class="d on">Th</span><span class="d on">Fr</span><span class="d">Sa</span><span class="d">Su</span></div>
       </div>
       <div class="sc">
-        <div class="sc-h"><b>Programmation 2</b><span class="act">active</span></div>
-        <div class="flds" aria-hidden="true"><div><span class="fl">Marche</span><span class="fb fs">Coucher du soleil</span><span class="fr2"><span class="fb sg">−</span><span class="fb ft">00:15</span></span><span class=fh>décalage (hh:mm)</span></div><div><span class="fl">Arrêt</span><span class="fb fs">Heure fixe</span><span class="fr2"><span class="fb ft">23:00</span></span></div></div>
+        <div class="sc-h"><b>Schedule 2</b><span class="act">active</span></div>
+        <div class="flds" aria-hidden="true"><div><span class="fl">On</span><span class="fb fs">Sunset</span><span class="fr2"><span class="fb sg">−</span><span class="fb ft">00:15</span></span><span class=fh>offset (hh:mm)</span></div><div><span class="fl">Off</span><span class="fb fs">At fixed time</span><span class="fr2"><span class="fb ft">23:00</span></span></div></div>
         <div class="sun" aria-hidden="true"></div>
         <div class="trk" aria-hidden="true"><span class="on" style="left:69.93%;width:25.90%"></span><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i></div>
         <div class="rul" aria-hidden="true"><i class="mj" style="left:0.000%"></i><i class="" style="left:4.167%"></i><i class="" style="left:8.333%"></i><i class="" style="left:12.500%"></i><i class="" style="left:16.667%"></i><i class="" style="left:20.833%"></i><i class="mj" style="left:25.000%"></i><i class="" style="left:29.167%"></i><i class="" style="left:33.333%"></i><i class="" style="left:37.500%"></i><i class="" style="left:41.667%"></i><i class="" style="left:45.833%"></i><i class="mj" style="left:50.000%"></i><i class="" style="left:54.167%"></i><i class="" style="left:58.333%"></i><i class="" style="left:62.500%"></i><i class="" style="left:66.667%"></i><i class="" style="left:70.833%"></i><i class="mj" style="left:75.000%"></i><i class="" style="left:79.167%"></i><i class="" style="left:83.333%"></i><i class="" style="left:87.500%"></i><i class="" style="left:91.667%"></i><i class="" style="left:95.833%"></i><i class="mj" style="left:100.000%"></i></div>
         <div class="hrs" aria-hidden="true"><span style="left:0.000%">0</span><span style="left:25.000%">6</span><span style="left:50.000%">12</span><span style="left:75.000%">18</span><span style="left:100.000%">24</span></div>
-        <div class="lbl"><span class="l on" style="left:66%;transform:translateX(calc(-100% - 6px))">Marche 16:47 ☀↓</span><span class="l off" style="left:66%;transform:translateX(6px)">Arrêt 23:00</span></div>
-        <p class="sum">Allumé 6 h 13 min par jour</p>
-        <div class="days"><span class="d on">Lu</span><span class="d on">Ma</span><span class="d on">Me</span><span class="d on">Je</span><span class="d on">Ve</span><span class="d on">Sa</span><span class="d on">Di</span></div>
+        <div class="lbl"><span class="l on" style="left:66%;transform:translateX(calc(-100% - 6px))">On 16:47 ☀↓</span><span class="l off" style="left:66%;transform:translateX(6px)">Off 23:00</span></div>
+        <p class="sum">On for 6 h 13 min a day</p>
+        <div class="days"><span class="d on">Mo</span><span class="d on">Tu</span><span class="d on">We</span><span class="d on">Th</span><span class="d on">Fr</span><span class="d on">Sa</span><span class="d on">Su</span></div>
       </div>
     </figure>
     <p class="lead copynote"><b>Copier les programmations entre appareils :</b> réglez-les une fois, puis copiez-les vers un autre interrupteur. Même d’un Tasmota vers un Shelly, et inversement.</p>

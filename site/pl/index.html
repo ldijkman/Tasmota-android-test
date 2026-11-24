@@ -502,30 +502,30 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       <p class="lead">Prosty, intuicyjny podgląd pokazuje każdy harmonogram na 24-godzinnej osi czasu: żółta linia to światło dzienne od wschodu do zachodu słońca, a pomarańczowy blok to czas, gdy przełącznik jest włączony. Od razu widzisz, czy pasuje. <a class="sidenote" id="cpLink" href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener">Obsesja: czas stracony na ustawianiu czasu</a> 😉</p>
       <p class="lead sidenote2">No cóż, ponad milion użytkowników aplikacji Shelly<br>traci więcej czasu na trudne do ustawienia harmonogramy. <img class="wow" src="../img/wow.svg" alt="😮" width="24" height="24"></p>
     </div>
-    <figure class="bar" aria-labelledby="bar-cap" style="margin:0">
-      <div class="bh"><h3>Światła w ogrodzie</h3><span>☀↑ 07:41&nbsp;&nbsp; ☀↓ 17:02</span></div>
-      <p class="sr" id="bar-cap">Dwa harmonogramy świateł w ogrodzie. Harmonogram 1: włącz o 06:30, wyłącz o wschodzie słońca o 07:41, w dni robocze. Harmonogram 2: włącz 15 minut przed zachodem słońca o 16:47, wyłącz o 23:00, codziennie.</p>
+    <figure class="bar" aria-labelledby="bar-cap" style="margin:0" lang="en" translate="no">
+      <div class="bh"><h3>Garden lights</h3><span>☀↑ 07:41&nbsp;&nbsp; ☀↓ 17:02</span></div>
+      <p class="sr" id="bar-cap">Two schedules of the garden lights. Schedule 1: on at 06:30, off at sunrise 07:41, on weekdays. Schedule 2: on 15 minutes before sunset at 16:47, off at 23:00, every day.</p>
       <div class="sc">
-        <div class="sc-h"><b>Harmonogram 1</b><span class="act">aktywny</span></div>
-        <div class="flds" aria-hidden="true"><div><span class="fl">Wł.</span><span class="fb fs">O stałej godzinie</span><span class="fr2"><span class="fb ft">06:30</span></span></div><div><span class="fl">Wył.</span><span class="fb fs">Wschód słońca</span><span class="fr2"><span class="fb sg">+</span><span class="fb ft">00:00</span></span><span class=fh>przesunięcie (gg:mm)</span></div></div>
+        <div class="sc-h"><b>Schedule 1</b><span class="act">active</span></div>
+        <div class="flds" aria-hidden="true"><div><span class="fl">On</span><span class="fb fs">At fixed time</span><span class="fr2"><span class="fb ft">06:30</span></span></div><div><span class="fl">Off</span><span class="fb fs">Sunrise</span><span class="fr2"><span class="fb sg">+</span><span class="fb ft">00:00</span></span><span class=fh>offset (hh:mm)</span></div></div>
         <div class="sun" aria-hidden="true"></div>
         <div class="trk" aria-hidden="true"><span class="on" style="left:27.08%;width:4.93%"></span><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i></div>
         <div class="rul" aria-hidden="true"><i class="mj" style="left:0.000%"></i><i class="" style="left:4.167%"></i><i class="" style="left:8.333%"></i><i class="" style="left:12.500%"></i><i class="" style="left:16.667%"></i><i class="" style="left:20.833%"></i><i class="mj" style="left:25.000%"></i><i class="" style="left:29.167%"></i><i class="" style="left:33.333%"></i><i class="" style="left:37.500%"></i><i class="" style="left:41.667%"></i><i class="" style="left:45.833%"></i><i class="mj" style="left:50.000%"></i><i class="" style="left:54.167%"></i><i class="" style="left:58.333%"></i><i class="" style="left:62.500%"></i><i class="" style="left:66.667%"></i><i class="" style="left:70.833%"></i><i class="mj" style="left:75.000%"></i><i class="" style="left:79.167%"></i><i class="" style="left:83.333%"></i><i class="" style="left:87.500%"></i><i class="" style="left:91.667%"></i><i class="" style="left:95.833%"></i><i class="mj" style="left:100.000%"></i></div>
         <div class="hrs" aria-hidden="true"><span style="left:0.000%">0</span><span style="left:25.000%">6</span><span style="left:50.000%">12</span><span style="left:75.000%">18</span><span style="left:100.000%">24</span></div>
-        <div class="lbl"><span class="l on" style="left:34%;transform:translateX(calc(-100% - 6px))">Wł. 06:30</span><span class="l off" style="left:34%;transform:translateX(6px)">Wył. 07:41 ☀↑</span></div>
-        <p class="sum">Włączone 1 godz. 11 min dziennie</p>
-        <div class="days"><span class="d on">Pn</span><span class="d on">Wt</span><span class="d on">Śr</span><span class="d on">Cz</span><span class="d on">Pt</span><span class="d">So</span><span class="d">Nd</span></div>
+        <div class="lbl"><span class="l on" style="left:34%;transform:translateX(calc(-100% - 6px))">On 06:30</span><span class="l off" style="left:34%;transform:translateX(6px)">Off 07:41 ☀↑</span></div>
+        <p class="sum">On for 1 h 11 min a day</p>
+        <div class="days"><span class="d on">Mo</span><span class="d on">Tu</span><span class="d on">We</span><span class="d on">Th</span><span class="d on">Fr</span><span class="d">Sa</span><span class="d">Su</span></div>
       </div>
       <div class="sc">
-        <div class="sc-h"><b>Harmonogram 2</b><span class="act">aktywny</span></div>
-        <div class="flds" aria-hidden="true"><div><span class="fl">Wł.</span><span class="fb fs">Zachód słońca</span><span class="fr2"><span class="fb sg">−</span><span class="fb ft">00:15</span></span><span class=fh>przesunięcie (gg:mm)</span></div><div><span class="fl">Wył.</span><span class="fb fs">O stałej godzinie</span><span class="fr2"><span class="fb ft">23:00</span></span></div></div>
+        <div class="sc-h"><b>Schedule 2</b><span class="act">active</span></div>
+        <div class="flds" aria-hidden="true"><div><span class="fl">On</span><span class="fb fs">Sunset</span><span class="fr2"><span class="fb sg">−</span><span class="fb ft">00:15</span></span><span class=fh>offset (hh:mm)</span></div><div><span class="fl">Off</span><span class="fb fs">At fixed time</span><span class="fr2"><span class="fb ft">23:00</span></span></div></div>
         <div class="sun" aria-hidden="true"></div>
         <div class="trk" aria-hidden="true"><span class="on" style="left:69.93%;width:25.90%"></span><i style="left:25%"></i><i style="left:50%"></i><i style="left:75%"></i></div>
         <div class="rul" aria-hidden="true"><i class="mj" style="left:0.000%"></i><i class="" style="left:4.167%"></i><i class="" style="left:8.333%"></i><i class="" style="left:12.500%"></i><i class="" style="left:16.667%"></i><i class="" style="left:20.833%"></i><i class="mj" style="left:25.000%"></i><i class="" style="left:29.167%"></i><i class="" style="left:33.333%"></i><i class="" style="left:37.500%"></i><i class="" style="left:41.667%"></i><i class="" style="left:45.833%"></i><i class="mj" style="left:50.000%"></i><i class="" style="left:54.167%"></i><i class="" style="left:58.333%"></i><i class="" style="left:62.500%"></i><i class="" style="left:66.667%"></i><i class="" style="left:70.833%"></i><i class="mj" style="left:75.000%"></i><i class="" style="left:79.167%"></i><i class="" style="left:83.333%"></i><i class="" style="left:87.500%"></i><i class="" style="left:91.667%"></i><i class="" style="left:95.833%"></i><i class="mj" style="left:100.000%"></i></div>
         <div class="hrs" aria-hidden="true"><span style="left:0.000%">0</span><span style="left:25.000%">6</span><span style="left:50.000%">12</span><span style="left:75.000%">18</span><span style="left:100.000%">24</span></div>
-        <div class="lbl"><span class="l on" style="left:66%;transform:translateX(calc(-100% - 6px))">Wł. 16:47 ☀↓</span><span class="l off" style="left:66%;transform:translateX(6px)">Wył. 23:00</span></div>
-        <p class="sum">Włączone 6 godz. 13 min dziennie</p>
-        <div class="days"><span class="d on">Pn</span><span class="d on">Wt</span><span class="d on">Śr</span><span class="d on">Cz</span><span class="d on">Pt</span><span class="d on">So</span><span class="d on">Nd</span></div>
+        <div class="lbl"><span class="l on" style="left:66%;transform:translateX(calc(-100% - 6px))">On 16:47 ☀↓</span><span class="l off" style="left:66%;transform:translateX(6px)">Off 23:00</span></div>
+        <p class="sum">On for 6 h 13 min a day</p>
+        <div class="days"><span class="d on">Mo</span><span class="d on">Tu</span><span class="d on">We</span><span class="d on">Th</span><span class="d on">Fr</span><span class="d on">Sa</span><span class="d on">Su</span></div>
       </div>
     </figure>
     <p class="lead copynote"><b>Kopiowanie harmonogramów między urządzeniami:</b> ustaw je raz, potem skopiuj na inny przełącznik. Nawet z Tasmoty na Shelly i z powrotem.</p>
