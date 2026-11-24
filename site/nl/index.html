@@ -228,18 +228,11 @@ details p.fnote{color:#ff7b72;font-weight:600}
 .factmore ul{margin:12px 0 0;padding-left:1.2em;line-height:1.5}
 .factmore li+li{margin-top:8px}
 .factmore b{color:var(--ink)}
-.keynote{margin:18px 0 0;padding:12px 16px;border:2px solid var(--amber);border-radius:14px;background:rgba(240,166,48,.10);color:var(--ink);font-size:.95rem;line-height:1.5;max-width:60ch;overflow-wrap:anywhere}
-.keynote b{color:var(--amber)}
 .regbadge{display:flex;align-items:center;gap:9px;margin:16px auto 0;padding:7px 12px 7px 9px;width:fit-content;max-width:min(100%,250px);background:#141e33;border:2px solid var(--amber);border-radius:14px;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
 .regbadge svg{flex:none;width:22px;height:28px}
 .regbadge b{display:block;color:var(--amber);font-family:var(--display);font-weight:800;font-size:.9rem;line-height:1.2}
 .regbadge .rb2{display:block;font-size:.72rem;line-height:1.3}
 .regbadge:focus-visible{outline:3px solid var(--light);outline-offset:3px}
-.keynote.fold{cursor:pointer;position:relative}
-.keynote.fold:not(.open){max-height:calc(3em + 16px);padding-bottom:0;overflow:hidden}
-.keynote.fold::after{content:"▾ more";position:absolute;right:2px;bottom:2px;padding:0 14px 0 30px;color:var(--amber);font-weight:700;font-size:.9rem;line-height:1.5;background:linear-gradient(90deg,rgba(37,36,39,0),#252427 22px);border-radius:0 0 12px 0}
-.keynote.fold.open{padding-bottom:40px}
-.keynote.fold.open::after{content:"▴ less";background:none}
 .don{display:inline-block;margin-top:4px;padding:9px 16px;border-radius:12px;border:1.5px solid var(--amber);color:var(--light);font-weight:700;text-decoration:none}
 .don:hover{background:rgba(240,166,48,.12)}
 @media (max-width:900px){.faq .wrap{grid-template-columns:1fr;gap:28px}}
@@ -453,8 +446,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       </div>
       <p class="promise">Geen cloud, geen account, geen reclame, geen limiet op apparaten. Gratis en open source.<br>Werkt met <b>Tasmota</b> en <b>Shelly</b>; OpenBeken deels.</p>
       <p class="promise dlcount" id="dlcount" hidden></p>
-      <button type="button" class="regbadge" onclick="const k=document.querySelector('.keynote'); if(k){k.classList.add('open'); k.setAttribute('aria-expanded','true'); k.scrollIntoView({behavior:'smooth',block:'center'});}" aria-label="Bekend bij Google: geregistreerde ontwikkelaar, installeert op de meeste telefoons zonder Play Protect-scan. Tik voor details."><svg viewBox="-34 -42 68 86" width="44" height="56" aria-hidden="true"><path d="M0,-40 L32,-28 L32,2 C32,22 18,34 0,42 C-18,34 -32,22 -32,2 L-32,-28 Z" fill="#f0a630"/><path d="M-14,1 L-4,12 L16,-11" fill="none" stroke="#141e33" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Bekend bij Google</b><span class="rb2">Geregistreerde ontwikkelaar · installeert op de meeste telefoons zonder Play Protect-scan</span></span></button>
-      <p class="keynote"><b>Nieuwe ondertekeningssleutel sinds versie 24.2.</b><br>✅ Geregistreerd bij Googles Android-ontwikkelaarsverificatie.<br>Elke Android-app heeft een digitale handtekening, zoals een zegel op een brief. Android accepteert een update alleen als het zegel klopt.<br><br>Het nieuwe zegel is privé<br>en alleen ik kan het gebruiken.<br>Het bereidt de app ook voor op Googles ontwikkelaarscontrole,<br>die in 2027 komt.<br>Bijwerken? Tik zoals altijd op Check for update in de app. Je schakelaars blijven staan. Zegt Android ooit “App niet geïnstalleerd”, verwijder dan de oude app en installeer hem opnieuw.<br>Download alleen van GitHub: github.com/ldijkman/Tasmota-android-test</p>
+      <div class="regbadge" role="note" aria-label="Bekend bij Google: geregistreerde ontwikkelaar, installeert op de meeste telefoons zonder Play Protect-scan."><svg viewBox="-34 -42 68 86" width="44" height="56" aria-hidden="true"><path d="M0,-40 L32,-28 L32,2 C32,22 18,34 0,42 C-18,34 -32,22 -32,2 L-32,-28 Z" fill="#f0a630"/><path d="M-14,1 L-4,12 L16,-11" fill="none" stroke="#141e33" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Bekend bij Google</b><span class="rb2">Geregistreerde ontwikkelaar · installeert op de meeste telefoons zonder Play Protect-scan</span></span></div>
     </div>
 
     <div class="stage" aria-hidden="true">
@@ -920,15 +912,6 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
   document.getElementById('ytClose').addEventListener('click', close);
   d.addEventListener('cancel', e => { e.preventDefault(); close(); });
 })();
-</script>
-<script>
-// Sleutel-notitie: 2 regels zichtbaar, aanraken klapt open/dicht
-document.querySelectorAll('.keynote').forEach(k => {
-  k.classList.add('fold'); k.setAttribute('role', 'button'); k.setAttribute('tabindex', '0'); k.setAttribute('aria-expanded', 'false');
-  const t = () => { const o = k.classList.toggle('open'); k.setAttribute('aria-expanded', o); };
-  k.addEventListener('click', e => { if (e.target.closest('a')) return; t(); });
-  k.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); t(); } });
-});
 </script>
 <div id="dlbar" hidden><span class="dlb-t"><b>Shelly &amp; Tasmota</b><b>Scan &amp; Control</b><small>Gratis, voor Android 7 en nieuwer</small></span><a class="dlb-btn" href="https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk">Downloaden<small class="dlv"></small><svg class="xtree dlx" width="30" height="30" viewBox="0 0 24 24" aria-hidden="true"><path fill="#3fae5a" d="M10,21V18H3L8,13H5L10,8H7L12,3L17,8H14L19,13H16L21,18H14V21H10Z"/><g class="xl"><circle cx="12" cy="3.7" r="1.4" fill="#ffd23a" style="animation-delay:0s"/><circle cx="10.8" cy="6.7" r="1.2" fill="#ff4d4d" style="animation-delay:0.25s"/><circle cx="13.3" cy="7.2" r="1.2" fill="#4da6ff" style="animation-delay:0.7s"/><circle cx="9.4" cy="10.8" r="1.2" fill="#ffd23a" style="animation-delay:1s"/><circle cx="12.3" cy="11.6" r="1.2" fill="#ff5ad1" style="animation-delay:0.4s"/><circle cx="15" cy="10.6" r="1.2" fill="#ff4d4d" style="animation-delay:0.85s"/><circle cx="7.1" cy="15.9" r="1.2" fill="#4da6ff" style="animation-delay:0.55s"/><circle cx="10.4" cy="16.6" r="1.2" fill="#ffd23a" style="animation-delay:0.15s"/><circle cx="13.6" cy="16.2" r="1.2" fill="#ff5ad1" style="animation-delay:0.95s"/><circle cx="17" cy="16.8" r="1.2" fill="#ff4d4d" style="animation-delay:0.5s"/></g></svg></a></div>
 <script>
