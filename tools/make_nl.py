@@ -493,6 +493,7 @@ T = [
 ('<b>❤️ Share this page?</b>', '<b>❤️ Deel deze pagina?</b>'),
 ('>Link copied</small>', '>Link gekopieerd</small>'),
 ('aria-label="Copy link" title="Copy link"', 'aria-label="Link kopiëren" title="Link kopiëren"'),
+('aria-label="Share this video" data-ok="Link copied" data-wait="Preparing video…">⤴</button>', 'aria-label="Deel deze video" data-ok="Link gekopieerd" data-wait="Video voorbereiden…">⤴</button>'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

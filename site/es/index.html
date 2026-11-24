@@ -179,6 +179,10 @@ dialog video{width:100%;max-height:86vh;border-radius:18px;background:#000;displ
 dialog.wide{max-width:min(94vw,1100px)}
 dialog form.pbar{display:flex;align-items:center;gap:6px;margin-bottom:8px}
 dialog form.pbar button{padding:8px 11px;white-space:nowrap}
+#pShare{color:#3ddc84;font-size:1.15rem;padding:6px 12px}
+.vcard .vsh{position:absolute;right:10px;top:10px;width:38px;height:38px;border-radius:50%;background:rgba(14,21,37,.85);border:1.5px solid var(--line);display:grid;place-items:center;color:#fff;font-size:18px;line-height:1;z-index:2}
+.vcard .vsh:active{border-color:#3ddc84;color:#3ddc84}
+.vtoast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);background:#121b2e;border:1.5px solid #3ddc84;color:#3ddc84;font-weight:700;padding:9px 16px;border-radius:12px;z-index:100}
 #pTitle{flex:1;min-width:0;color:#cfd6e6;font-size:.82rem;text-align:center;line-height:1.25;overflow:hidden;text-overflow:ellipsis}
 #pTitle small{display:block;color:#8a96b0;font-size:.78rem}
 dialog button{background:none;border:1.5px solid #3a4a70;color:#fff;border-radius:10px;padding:8px 14px;font:inherit;cursor:pointer}
@@ -601,6 +605,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <button type="button" id="pPrev" aria-label="Vídeo anterior">‹ Ant.</button>
     <span id="pTitle" aria-live="polite"></span>
     <button type="button" id="pNext" aria-label="Vídeo siguiente">Sig. ›</button>
+    <button type="button" id="pShare" aria-label="Compartir este vídeo" data-ok="Enlace copiado" data-wait="Preparando el vídeo…">⤴</button>
     <button aria-label="Cerrar vídeo">Cerrar</button>
   </form>
   <video id="pv" controls playsinline preload="none"></video>
@@ -858,6 +863,41 @@ document.getElementById('pNext').addEventListener('click', () => playAt(vi + 1))
 dlg.addEventListener('keydown', e => { if (e.key === 'ArrowLeft' && e.target !== pv) playAt(vi - 1); if (e.key === 'ArrowRight' && e.target !== pv) playAt(vi + 1); });
 dlg.addEventListener('close', () => { pv.pause(); pv.removeAttribute('src'); pv.load(); });
 dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+// Video delen: link naar deze video (#video-naam); op telefoons het videobestand zelf via het deelmenu
+const pSh = document.getElementById('pShare');
+const vSlug = b => 'video-' + b.dataset.v.replace(/^.*\//, '').replace(/\.mp4$/, '');
+const vLink = b => location.origin + location.pathname + '#' + vSlug(b);
+const vName = b => ((b.querySelector('b') || {}).textContent || '').trim();
+const toast = t => { const d = document.createElement('div'); d.className = 'vtoast'; d.textContent = t; (dlg.open ? dlg : document.body).appendChild(d); setTimeout(() => d.remove(), 2200); };
+async function shareVideo(b){
+  const link = vLink(b), title = vName(b);
+  try {
+    if (navigator.canShare){
+      toast(pSh.dataset.wait);
+      const blob = await (await fetch(b.dataset.v)).blob();
+      const f = new File([blob], b.dataset.v.replace(/^.*\//, ''), {type: 'video/mp4'});
+      if (navigator.canShare({files: [f]})){ await navigator.share({files: [f], title, text: title + ' ' + link}); return; }
+    }
+    if (navigator.share){ await navigator.share({title, text: title, url: link}); return; }
+  } catch(e){ if (e && e.name === 'AbortError') return; }
+  try { await navigator.clipboard.writeText(link); } catch(e){}
+  toast(pSh.dataset.ok);
+}
+pSh.addEventListener('click', () => shareVideo(vcards[vi]));
+vcards.forEach(b => { const f = b.querySelector('.fr'); if (!f) return;
+  const x = document.createElement('span'); x.className = 'vsh'; x.setAttribute('role', 'button'); x.tabIndex = 0;
+  x.setAttribute('aria-label', pSh.getAttribute('aria-label') + ': ' + vName(b)); x.textContent = '⤴';
+  const go = e => { e.stopPropagation(); e.preventDefault(); shareVideo(b); };
+  x.addEventListener('click', go); x.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') go(e); });
+  f.appendChild(x);
+});
+// Link naar één video: #video-naam opent die video meteen
+const openHash = () => { const h = location.hash.slice(1); if (!h.startsWith('video-')) return;
+  const i = vcards.findIndex(b => vSlug(b) === h); if (i < 0) return; vcards[i].scrollIntoView({block: 'center'}); dlg.showModal(); playAt(i); };
+openHash(); addEventListener('hashchange', openHash);
+// adres bijwerken tijdens het kijken, zodat delen of kopiëren altijd naar deze video wijst
+const _play = playAt; playAt = i => { _play(i); history.replaceState(null, '', '#' + vSlug(vcards[vi])); };
+dlg.addEventListener('close', () => { if (location.hash.startsWith('#video-')) history.replaceState(null, '', location.pathname); });
 // "Open the app" alleen op Android (opent de app als die er is, anders de download)
 if (/Android/i.test(navigator.userAgent)) document.querySelectorAll('.openapp').forEach(a => a.hidden = false);
 // GitHub-vragen onthouden (15 min), en bij een weigering (limiet 60 per uur) het laatst bekende antwoord tonen

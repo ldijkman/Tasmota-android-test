@@ -327,6 +327,7 @@ T = [
 ('<b>❤️ Share this page?</b>', '<b>❤️ Partager cette page ?</b>'),
 ('>Link copied</small>', '>Lien copié</small>'),
 ('aria-label="Copy link" title="Copy link"', 'aria-label="Copier le lien" title="Copier le lien"'),
+('aria-label="Share this video" data-ok="Link copied" data-wait="Preparing video…">⤴</button>', 'aria-label="Partager cette vidéo" data-ok="Lien copié" data-wait="Préparation de la vidéo…">⤴</button>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

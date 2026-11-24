@@ -467,6 +467,7 @@ T = [
 ('<b>❤️ Share this page?</b>', '<b>❤️ Udostępnij tę stronę?</b>'),
 ('>Link copied</small>', '>Link skopiowany</small>'),
 ('aria-label="Copy link" title="Copy link"', 'aria-label="Kopiuj link" title="Kopiuj link"'),
+('aria-label="Share this video" data-ok="Link copied" data-wait="Preparing video…">⤴</button>', 'aria-label="Udostępnij ten film" data-ok="Link skopiowany" data-wait="Przygotowuję film…">⤴</button>'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

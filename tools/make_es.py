@@ -469,6 +469,7 @@ T = [
 ('<b>❤️ Share this page?</b>', '<b>❤️ ¿Compartir esta página?</b>'),
 ('>Link copied</small>', '>Enlace copiado</small>'),
 ('aria-label="Copy link" title="Copy link"', 'aria-label="Copiar enlace" title="Copiar enlace"'),
+('aria-label="Share this video" data-ok="Link copied" data-wait="Preparing video…">⤴</button>', 'aria-label="Compartir este vídeo" data-ok="Enlace copiado" data-wait="Preparando el vídeo…">⤴</button>'),
 ]
 
 
