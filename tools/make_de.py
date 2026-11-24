@@ -326,8 +326,10 @@ T = [
 ('Want to share screenshots or a longer story? Use', 'Screenshots oder eine längere Geschichte teilen? Nutze'),
 ('Screenshot from Google’s Android Developer Console: the app is registered.', 'Screenshot aus Googles Android Developer Console: die App ist registriert.'),
 ('<span class="rb3">Tap to see the proof</span>', '<span class="rb3">Tippen für den Beweis</span>'),
-('<span>Share via WhatsApp</span>', '<span>Per WhatsApp teilen</span>'),
-('<a id="fmWa" href="https://wa.me/"', '<a id="fmWa" data-t="Shelly & Tasmota Scan & Control: eine kostenlose Android-App für Shelly- und Tasmota-Schalter, ohne Cloud." href="https://wa.me/"'),
+('data-t="Shelly & Tasmota Scan & Control: a free Android app for Shelly and Tasmota switches, no cloud."', 'data-t="Shelly & Tasmota Scan & Control: eine kostenlose Android-App für Shelly- und Tasmota-Schalter, ohne Cloud."'),
+('<b>Share this page</b>', '<b>Diese Seite teilen</b>'),
+('>Link copied</small>', '>Link kopiert</small>'),
+('aria-label="Copy link" title="Copy link"', 'aria-label="Link kopieren" title="Link kopieren"'),
 ]
 bad = []
 for en, de in T:

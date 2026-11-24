@@ -465,8 +465,10 @@ T = [
 ('Want to share screenshots or a longer story? Use', '¿Quieres compartir capturas o una historia más larga? Usa'),
 ('Screenshot from Google’s Android Developer Console: the app is registered.', 'Captura de la Android Developer Console de Google: la app está registrada.'),
 ('<span class="rb3">Tap to see the proof</span>', '<span class="rb3">Toca para ver la prueba</span>'),
-('<span>Share via WhatsApp</span>', '<span>Compartir por WhatsApp</span>'),
-('<a id="fmWa" href="https://wa.me/"', '<a id="fmWa" data-t="Shelly & Tasmota Scan & Control: una app Android gratuita para interruptores Shelly y Tasmota, sin nube." href="https://wa.me/"'),
+('data-t="Shelly & Tasmota Scan & Control: a free Android app for Shelly and Tasmota switches, no cloud."', 'data-t="Shelly & Tasmota Scan & Control: una app Android gratuita para interruptores Shelly y Tasmota, sin nube."'),
+('<b>Share this page</b>', '<b>Compartir esta página</b>'),
+('>Link copied</small>', '>Enlace copiado</small>'),
+('aria-label="Copy link" title="Copy link"', 'aria-label="Copiar enlace" title="Copiar enlace"'),
 ]
 
 
