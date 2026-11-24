@@ -285,7 +285,7 @@ footer a{color:var(--muted)}
 .sh-row .pl img{padding:0;object-fit:cover}
 .sh-grp{margin:26px 0 -6px;color:var(--amber);font-weight:700;font-size:.95rem}
 .sh-grp + .sh-row{margin-top:14px}
-.sh-btn{margin-bottom:30px}
+.sh-btns{display:flex;flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:30px}.sh-btn{margin:0}.rb-btn{color:var(--amber);border-color:var(--amber)}
 .sh-cap{margin:0;color:var(--ink)}
 .swipe{display:flex;align-items:center;gap:8px;margin:10px 0 0;color:#5d6a88;font-size:.9rem;font-weight:400}
 .swipe .sw-p{display:none}
@@ -690,7 +690,10 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <div class="pl-row sh-row">
       <a class="pl" href="https://www.shelly.com/nl/products/shelly-plus-add-on" rel="noopener"><img src="../img/shelly-plus-add-on.jpg" alt="Shelly Plus Add-on sensor module with green screw terminals" width="360" height="360" loading="lazy"><b>Plus Add-on</b><span>Sensoringangen: temperatuur, luchtvochtigheid, digitaal en analoog.</span></a>
     </div>
-    <a class="btn sh-btn" href="https://www.shelly.com/nl/" rel="noopener">Naar de Shelly-winkel</a>
+    <div class="sh-btns">
+      <a class="btn sh-btn" href="https://www.shelly.com/nl/" rel="noopener">Naar de Shelly-winkel</a>
+      <a class="btn sh-btn rb-btn" href="https://www.robbshop.nl/smart-home-hubs/homey/alle-homey-producten#twn|?tn_q=shelly" rel="noopener">Shelly bij Robbshop (NL)</a>
+    </div>
     <p class="sh-cap" id="shelly-shots"><b>Eerste test op een echte Shelly 1 Gen3</b></p>
     <p class="swipe" aria-hidden="true"><span class="sw-t">Veeg voor meer</span><span class="sw-p">Schuif opzij voor meer</span><svg class="sw-arr" viewBox="0 0 24 24" width="22" height="22"><path d="M4 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></p>
     <div class="strip sh-strip" tabindex="0" aria-label="Shelly-schermafbeeldingen, schuif opzij">
