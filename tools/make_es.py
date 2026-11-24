@@ -466,6 +466,7 @@ T = [
 ('With the same easy-to-set schedules you’re already familiar with.', 'Con los mismos horarios fáciles de configurar que ya conoces.'),
 ('<a href="#shots">Tasmota screenshots</a>', '<a href="#shots">Capturas de Tasmota</a>'),
 ('<a href="#shelly-shots">Shelly screenshots</a>', '<a href="#shelly-shots">Capturas de Shelly</a>'),
+('Want to share screenshots or a longer story? Use', '¿Quieres compartir capturas o una historia más larga? Usa'),
 ]
 
 

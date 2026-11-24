@@ -373,7 +373,7 @@ footer a{color:var(--muted)}
 .cmt-form input:focus,.cmt-form textarea:focus{outline:2px solid var(--amber);outline-offset:1px}
 .cmt-en{color:var(--amber);font-weight:700;margin:0}
 .cmt-send{justify-self:start;border-color:var(--amber);cursor:pointer;font-size:.85rem;padding:7px 14px;border-radius:10px}
-.cmt-after{color:var(--muted);margin:0}
+.cmt-after{color:var(--muted);margin:0}.cmt-after a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
 .cmt-msg{margin:0;color:var(--amber);min-height:1.2em}
 .vh{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 html.noxmas .xtree{display:none}
@@ -777,6 +777,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <input id="cmtHp" class="vh" tabindex="-1" autocomplete="off" aria-hidden="true">
     <button class="btn cmt-send" type="submit">Wyślij komentarz</button>
     <p class="cmt-after">Komentarz pojawi się, gdy go sprawdzę.</p>
+    <p class="cmt-after">Chcesz pokazać zrzuty ekranu lub opisać coś dłużej? Użyj <a href="https://github.com/ldijkman/Tasmota-android-test/discussions" target="_blank" rel="noopener">GitHub Discussions</a>.</p>
     <p id="cmtMsg" class="cmt-msg" role="status" data-ok="Dziękujemy! Komentarz pojawi się po sprawdzeniu." data-err="Podaj imię i komentarz." data-fail="Nie udało się wysłać. Spróbuj ponownie później."></p>
   </form>
 </div></section>

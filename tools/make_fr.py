@@ -322,6 +322,7 @@ T = [
 ('With the same easy-to-set schedules you’re already familiar with.', 'Avec les mêmes programmes faciles à régler que vous connaissez déjà.'),
 ('<a href="#shots">Tasmota screenshots</a>', '<a href="#shots">Captures Tasmota</a>'),
 ('<a href="#shelly-shots">Shelly screenshots</a>', '<a href="#shelly-shots">Captures Shelly</a>'),
+('Want to share screenshots or a longer story? Use', 'Envie de partager des captures ou une histoire plus longue ? Utilisez'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

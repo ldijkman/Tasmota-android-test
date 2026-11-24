@@ -491,6 +491,7 @@ T = [
 ('With the same easy-to-set schedules you’re already familiar with.', 'Met dezelfde makkelijk in te stellen schema’s die je al kent.'),
 ('<a href="#shots">Tasmota screenshots</a>', '<a href="#shots">Tasmota-screenshots</a>'),
 ('<a href="#shelly-shots">Shelly screenshots</a>', '<a href="#shelly-shots">Shelly-screenshots</a>'),
+('Want to share screenshots or a longer story? Use', 'Screenshots of een langer verhaal delen? Gebruik'),
 ]
 bad = []
 for en, de in T:

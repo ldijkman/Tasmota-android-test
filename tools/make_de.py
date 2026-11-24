@@ -325,6 +325,7 @@ T = [
 ('With the same easy-to-set schedules you’re already familiar with.', 'Mit denselben einfach einzustellenden Zeitplänen, die du schon kennst.'),
 ('<a href="#shots">Tasmota screenshots</a>', '<a href="#shots">Tasmota-Screenshots</a>'),
 ('<a href="#shelly-shots">Shelly screenshots</a>', '<a href="#shelly-shots">Shelly-Screenshots</a>'),
+('Want to share screenshots or a longer story? Use', 'Screenshots oder eine längere Geschichte teilen? Nutze'),
 ]
 bad = []
 for en, de in T:
