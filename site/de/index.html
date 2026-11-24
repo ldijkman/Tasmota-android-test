@@ -1084,7 +1084,7 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
   });
 })();
 </script>
-<button type="button" id="fsExit" hidden aria-label="Vollbild beenden" title="Vollbild beenden"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button>
+<button type="button" id="fsExit" hidden aria-label="Vollbild beenden" title="Vollbild beenden" data-on="Vollbild" data-off="Vollbild beenden"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg></button>
 <script>
 // Volledig scherm bij de eerste tik op een telefoon (niet op links, knoppen of formulieren); na verlaten blijft het uit
 (() => {
@@ -1100,9 +1100,16 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
   document.addEventListener('click', go, true);
   // knop om volledig scherm te verlaten, alleen zichtbaar in volledig scherm
   const x = document.getElementById('fsExit');
-  const upd = () => { x.hidden = !(document.fullscreenElement || document.webkitFullscreenElement); };
-  document.addEventListener('fullscreenchange', upd); document.addEventListener('webkitfullscreenchange', upd);
-  x.addEventListener('click', () => { (document.exitFullscreen || document.webkitExitFullscreen).call(document); });
+  // één knop: in volledig scherm 'verlaten', anders 'volledig scherm'
+  const IC_OUT = '<path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/>', IC_IN = '<path fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>';
+  const isFs = () => !!(document.fullscreenElement || document.webkitFullscreenElement);
+  const upd = () => { const f = isFs(), t = f ? x.dataset.off : x.dataset.on;
+    x.hidden = false; x.classList.toggle('in', !f); x.querySelector('svg').innerHTML = f ? IC_OUT : IC_IN;
+    x.setAttribute('aria-label', t); x.title = t; };
+  document.addEventListener('fullscreenchange', upd); document.addEventListener('webkitfullscreenchange', upd); upd();
+  x.addEventListener('click', () => { used = true;
+    if (isFs()) (document.exitFullscreen || document.webkitExitFullscreen).call(document);
+    else { try { const r = req.call(el, {navigationUI: 'hide'}); if (r && r.catch) r.catch(() => {}); } catch(_){} } });
 })();
 </script>
 <div id="garland" aria-hidden="true"></div>

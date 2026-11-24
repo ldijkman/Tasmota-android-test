@@ -329,6 +329,7 @@ T = [
 ('aria-label="Copy link" title="Copy link"', 'aria-label="Copier le lien" title="Copier le lien"'),
 ('aria-label="Share this video" data-ok="Link copied" data-wait="Preparing video…"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px"><g fill="#fff"><circle cx="18" cy="5" r="3.2"/><circle cx="6" cy="12" r="3.2"/><circle cx="18" cy="19" r="3.2"/></g><path d="M18 5 6 12l12 7" stroke="#fff" stroke-width="2.2" fill="none"/></svg></button>', 'aria-label="Partager cette vidéo" data-ok="Lien copié" data-wait="Préparation de la vidéo…"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px"><g fill="#fff"><circle cx="18" cy="5" r="3.2"/><circle cx="6" cy="12" r="3.2"/><circle cx="18" cy="19" r="3.2"/></g><path d="M18 5 6 12l12 7" stroke="#fff" stroke-width="2.2" fill="none"/></svg></button>'),
 ('aria-label="Exit full screen" title="Exit full screen"', 'aria-label="Quitter le plein écran" title="Quitter le plein écran"'),
+('data-on="Full screen" data-off="Exit full screen"', 'data-on="Plein écran" data-off="Quitter le plein écran"'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
