@@ -16,10 +16,8 @@ T = [
  'content="Darmowa aplikacja na Androida do przełączników, gniazdek i lamp Wi-Fi Tasmota i Shelly, bez limitu urządzeń. Znajduje je w sieci w kilka sekund. Włącz/wyłącz, harmonogramy ze wschodem i zachodem słońca zapisane w przełączniku, grupy, sceny, widżety i tryb panelu ściennego. Bez chmury, bez konta, bez reklam."'),
 ('<link rel="canonical" href="https://ldijkman.github.io/Tasmota-android-test/">',
  '<link rel="canonical" href="https://ldijkman.github.io/Tasmota-android-test/pl/">'),
-('<meta property="og:title" content="Tasmota Scan & Control: free Android app for Tasmota and Shelly switches">',
- '<meta property="og:title" content="Tasmota Scan & Control: darmowa aplikacja na Androida do przełączników Tasmota i Shelly">'),
-('<meta property="og:description" content="Find, switch and schedule your Tasmota and Shelly devices. No cloud, no account, no ads.">',
- '<meta property="og:description" content="Znajduj, przełączaj i planuj swoje urządzenia Tasmota i Shelly. Bez chmury, bez konta, bez reklam.">'),
+('<meta property="og:title" content="Shelly & Tasmota Scan & Control: free Android app, no cloud">', '<meta property="og:title" content="Shelly & Tasmota Scan & Control: darmowa aplikacja na Androida, bez chmury">'),
+('<meta property="og:description" content="Easy schedules, sunrise and sunset, scenes and widgets. No account, no ads.">', '<meta property="og:description" content="Proste harmonogramy, wschód i zachód słońca, sceny i widżety. Bez konta, bez reklam.">'),
 ('<meta property="og:url" content="https://ldijkman.github.io/Tasmota-android-test/">',
  '<meta property="og:url" content="https://ldijkman.github.io/Tasmota-android-test/pl/">\n<meta property="og:locale" content="pl_PL">'),
 ('"description":"Android app to find, switch and schedule Tasmota and Shelly Wi-Fi switches, plugs and lamps on your own network. No cloud, no account, no ads."',
@@ -465,6 +463,8 @@ T = [
 ('Want to share screenshots or a longer story? Use', 'Chcesz pokazać zrzuty ekranu lub opisać coś dłużej? Użyj'),
 ('Screenshot from Google’s Android Developer Console: the app is registered.', 'Zrzut ekranu z Android Developer Console Google: aplikacja jest zarejestrowana.'),
 ('<span class="rb3">Tap to see the proof</span>', '<span class="rb3">Stuknij, aby zobaczyć dowód</span>'),
+('<span>Share via WhatsApp</span>', '<span>Udostępnij przez WhatsApp</span>'),
+('<a id="fmWa" href="https://wa.me/"', '<a id="fmWa" data-t="Shelly & Tasmota Scan & Control: darmowa aplikacja na Androida do przełączników Shelly i Tasmota, bez chmury." href="https://wa.me/"'),
 ]
 
 bad = []

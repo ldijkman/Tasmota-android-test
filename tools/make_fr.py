@@ -14,8 +14,8 @@ T = [
 ('content="Free Android app for Tasmota and Shelly Wi-Fi switches, plugs and lamps, with no device limit. Finds them on your network in seconds. On/off, timers with sunrise and sunset stored in the switch, groups, scenes, widgets and a wall panel mode. No cloud, no account, no ads."', 'content="Application Android gratuite pour les interrupteurs, prises et lampes Wi-Fi Tasmota et Shelly, sans limite d’appareils. Les trouve sur votre réseau en quelques secondes. Marche/arrêt, programmations avec lever et coucher du soleil enregistrées dans l’interrupteur, groupes, scènes, widgets et mode panneau mural. Pas de cloud, pas de compte, pas de pub."'),
 ('<link rel="canonical" href="https://ldijkman.github.io/Tasmota-android-test/">',
  '<link rel="canonical" href="https://ldijkman.github.io/Tasmota-android-test/fr/">'),
-('<meta property="og:title" content="Tasmota Scan & Control: free Android app for Tasmota and Shelly switches">', '<meta property="og:title" content="Tasmota Scan & Control : application Android gratuite pour interrupteurs Tasmota et Shelly">'),
-('<meta property="og:description" content="Find, switch and schedule your Tasmota and Shelly devices. No cloud, no account, no ads.">', '<meta property="og:description" content="Trouvez, commandez et programmez vos appareils Tasmota et Shelly. Pas de cloud, pas de compte, pas de pub.">'),
+('<meta property="og:title" content="Shelly & Tasmota Scan & Control: free Android app, no cloud">', '<meta property="og:title" content="Shelly & Tasmota Scan & Control: appli Android gratuite, sans cloud">'),
+('<meta property="og:description" content="Easy schedules, sunrise and sunset, scenes and widgets. No account, no ads.">', '<meta property="og:description" content="Programmes faciles, lever et coucher du soleil, scènes et widgets. Pas de compte, pas de pub.">'),
 ('<meta property="og:url" content="https://ldijkman.github.io/Tasmota-android-test/">',
  '<meta property="og:url" content="https://ldijkman.github.io/Tasmota-android-test/fr/">\n<meta property="og:locale" content="fr_FR">'),
 ('"description":"Android app to find, switch and schedule Tasmota and Shelly Wi-Fi switches, plugs and lamps on your own network. No cloud, no account, no ads."', '"description":"Application Android pour trouver, commander et programmer les interrupteurs, prises et lampes Wi-Fi Tasmota et Shelly sur votre propre réseau. Pas de cloud, pas de compte, pas de pub.","inLanguage":"fr"'),
@@ -323,6 +323,8 @@ T = [
 ('Want to share screenshots or a longer story? Use', 'Envie de partager des captures ou une histoire plus longue ? Utilisez'),
 ('Screenshot from Google’s Android Developer Console: the app is registered.', 'Capture de la Android Developer Console de Google : l’appli est enregistrée.'),
 ('<span class="rb3">Tap to see the proof</span>', '<span class="rb3">Touchez pour voir la preuve</span>'),
+('<span>Share via WhatsApp</span>', '<span>Partager sur WhatsApp</span>'),
+('<a id="fmWa" href="https://wa.me/"', '<a id="fmWa" data-t="Shelly & Tasmota Scan & Control : une appli Android gratuite pour les interrupteurs Shelly et Tasmota, sans cloud." href="https://wa.me/"'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

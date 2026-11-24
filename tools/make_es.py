@@ -16,10 +16,8 @@ T = [
  'content="App gratuita para Android para interruptores, enchufes y lámparas Wi-Fi Tasmota y Shelly, sin límite de dispositivos. Los encuentra en tu red en segundos. Encendido/apagado, horarios con amanecer y atardecer guardados en el interruptor, grupos, escenas, widgets y modo panel de pared. Sin nube, sin cuenta, sin anuncios."'),
 ('<link rel="canonical" href="https://ldijkman.github.io/Tasmota-android-test/">',
  '<link rel="canonical" href="https://ldijkman.github.io/Tasmota-android-test/es/">'),
-('<meta property="og:title" content="Tasmota Scan & Control: free Android app for Tasmota and Shelly switches">',
- '<meta property="og:title" content="Tasmota Scan & Control: app gratuita para Android para interruptores Tasmota y Shelly">'),
-('<meta property="og:description" content="Find, switch and schedule your Tasmota and Shelly devices. No cloud, no account, no ads.">',
- '<meta property="og:description" content="Encuentra, controla y programa tus dispositivos Tasmota y Shelly. Sin nube, sin cuenta, sin anuncios.">'),
+('<meta property="og:title" content="Shelly & Tasmota Scan & Control: free Android app, no cloud">', '<meta property="og:title" content="Shelly & Tasmota Scan & Control: app Android gratuita, sin nube">'),
+('<meta property="og:description" content="Easy schedules, sunrise and sunset, scenes and widgets. No account, no ads.">', '<meta property="og:description" content="Horarios fáciles, amanecer y atardecer, escenas y widgets. Sin cuenta, sin anuncios.">'),
 ('<meta property="og:url" content="https://ldijkman.github.io/Tasmota-android-test/">',
  '<meta property="og:url" content="https://ldijkman.github.io/Tasmota-android-test/es/">\n<meta property="og:locale" content="es_ES">'),
 ('"description":"Android app to find, switch and schedule Tasmota and Shelly Wi-Fi switches, plugs and lamps on your own network. No cloud, no account, no ads."',
@@ -467,6 +465,8 @@ T = [
 ('Want to share screenshots or a longer story? Use', '¿Quieres compartir capturas o una historia más larga? Usa'),
 ('Screenshot from Google’s Android Developer Console: the app is registered.', 'Captura de la Android Developer Console de Google: la app está registrada.'),
 ('<span class="rb3">Tap to see the proof</span>', '<span class="rb3">Toca para ver la prueba</span>'),
+('<span>Share via WhatsApp</span>', '<span>Compartir por WhatsApp</span>'),
+('<a id="fmWa" href="https://wa.me/"', '<a id="fmWa" data-t="Shelly & Tasmota Scan & Control: una app Android gratuita para interruptores Shelly y Tasmota, sin nube." href="https://wa.me/"'),
 ]
 
 
