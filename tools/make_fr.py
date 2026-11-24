@@ -322,6 +322,7 @@ T = [
 ('<a href="#shelly-shots">Shelly screenshots</a>', '<a href="#shelly-shots">Captures Shelly</a>'),
 ('Want to share screenshots or a longer story? Use', 'Envie de partager des captures ou une histoire plus longue ? Utilisez'),
 ('Screenshot from Google’s Android Developer Console: the app is registered.', 'Capture de la Android Developer Console de Google : l’appli est enregistrée.'),
+('<span class="rb3">Tap to see the proof</span>', '<span class="rb3">Touchez pour voir la preuve</span>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

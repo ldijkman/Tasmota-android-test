@@ -490,6 +490,7 @@ T = [
 ('<a href="#shelly-shots">Shelly screenshots</a>', '<a href="#shelly-shots">Shelly-screenshots</a>'),
 ('Want to share screenshots or a longer story? Use', 'Screenshots of een langer verhaal delen? Gebruik'),
 ('Screenshot from Google’s Android Developer Console: the app is registered.', 'Schermafbeelding uit Googles Android Developer Console: de app is geregistreerd.'),
+('<span class="rb3">Tap to see the proof</span>', '<span class="rb3">Tik voor het bewijs</span>'),
 ]
 bad = []
 for en, de in T:

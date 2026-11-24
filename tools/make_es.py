@@ -466,6 +466,7 @@ T = [
 ('<a href="#shelly-shots">Shelly screenshots</a>', '<a href="#shelly-shots">Capturas de Shelly</a>'),
 ('Want to share screenshots or a longer story? Use', '¿Quieres compartir capturas o una historia más larga? Usa'),
 ('Screenshot from Google’s Android Developer Console: the app is registered.', 'Captura de la Android Developer Console de Google: la app está registrada.'),
+('<span class="rb3">Tap to see the proof</span>', '<span class="rb3">Toca para ver la prueba</span>'),
 ]
 
 

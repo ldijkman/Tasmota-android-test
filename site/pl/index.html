@@ -231,6 +231,7 @@ details p.fnote{color:#ff7b72;font-weight:600}
 .regbadge{display:flex;align-items:center;gap:9px;margin:16px auto 0;padding:7px 12px 7px 9px;width:fit-content;max-width:min(100%,250px);background:#141e33;border:2px solid var(--amber);border-radius:14px;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
 .regbadge svg{flex:none;width:22px;height:28px}
 .regbadge b{display:block;color:var(--amber);font-family:var(--display);font-weight:800;font-size:.9rem;line-height:1.2}
+.regbadge .rb3{display:block;margin-top:3px;color:var(--amber);font-size:.72rem;font-weight:700}
 .regbadge .rb2{display:block;font-size:.72rem;line-height:1.3}
 .regbadge:focus-visible{outline:3px solid var(--light);outline-offset:3px}
 .don{display:inline-block;margin-top:4px;padding:9px 16px;border-radius:12px;border:1.5px solid var(--amber);color:var(--light);font-weight:700;text-decoration:none}
@@ -453,7 +454,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       </div>
       <p class="promise">Bez chmury, bez konta, bez reklam, bez limitu urządzeń. Darmowa i open source.<br>Działa z <b>Tasmota</b> i <b>Shelly</b>; OpenBeken częściowo.<br>Sama aplikacja jest po angielsku.</p>
       <p class="promise dlcount" id="dlcount" hidden></p>
-      <button type="button" class="regbadge" onclick="document.getElementById('gdc').showModal()" aria-label="Znany Google: zarejestrowany deweloper, instaluje się bez skanowania Play Protect na większości telefonów. Stuknij, aby zobaczyć rejestrację."><svg viewBox="-34 -42 68 86" width="44" height="56" aria-hidden="true"><path d="M0,-40 L32,-28 L32,2 C32,22 18,34 0,42 C-18,34 -32,22 -32,2 L-32,-28 Z" fill="#f0a630"/><path d="M-14,1 L-4,12 L16,-11" fill="none" stroke="#141e33" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Znany Google</b><span class="rb2">Zarejestrowany deweloper · instaluje się bez skanowania Play Protect na większości telefonów</span></span></button>
+      <button type="button" class="regbadge" onclick="document.getElementById('gdc').showModal()" aria-label="Znany Google: zarejestrowany deweloper, instaluje się bez skanowania Play Protect na większości telefonów. Stuknij, aby zobaczyć rejestrację."><svg viewBox="-34 -42 68 86" width="44" height="56" aria-hidden="true"><path d="M0,-40 L32,-28 L32,2 C32,22 18,34 0,42 C-18,34 -32,22 -32,2 L-32,-28 Z" fill="#f0a630"/><path d="M-14,1 L-4,12 L16,-11" fill="none" stroke="#141e33" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Znany Google</b><span class="rb2">Zarejestrowany deweloper · instaluje się bez skanowania Play Protect na większości telefonów</span><span class="rb3">Stuknij, aby zobaczyć dowód</span></span></button>
     </div>
 
     <div class="stage" aria-hidden="true">
