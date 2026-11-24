@@ -27,7 +27,7 @@ Features:
 - Per card, optional: Wi-Fi signal and uptime, last restart reason (crashes shown in orange), Tasmota version and chip. Tap the IP address to open the device's own Tasmota web page.
 - Drag to reorder switches and whole groups.
 - Home screen widgets for switches, groups, scenes, Wi-Fi and Tailscale.
-- Add a new or reset device from the menu, without the browser: "Add new Tasmota" (the device's tasmota-… Wi-Fi), and "Add new Shelly" (Gen1, Gen2, Gen3, Gen4; tested on a real Shelly 1 Gen3). The app gives it the home Wi-Fi, a name and the location, and on Gen2+ turns off the Shelly's own setup access point afterwards.
+- Wi-Fi provisioning for Tasmota and device inclusion for Shelly (the term the Shelly app uses), without the Shelly app or a cloud account. Add a new or reset device from the menu, without the browser: "Add new Tasmota" (the device's tasmota-… Wi-Fi), and "Add new Shelly" (Gen1, Gen2, Gen3, Gen4; tested on a real Shelly 1 Gen3). The app gives it the home Wi-Fi, a name and the location, and on Gen2+ turns off the Shelly's own setup access point afterwards.
 - Wall panel (kiosk) mode for a spare phone or tablet: keep screen on, dim after a set time, full screen, use as home screen app, black OLED theme.
 - Remote control from anywhere with Tailscale (a phone or tablet at home acts as subnet router; no ports opened on the router).
 - Seven themes, share setup to another phone, own icons and colours, built-in farm and pet animal icons.
