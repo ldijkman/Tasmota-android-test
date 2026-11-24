@@ -466,7 +466,7 @@ T = [
 ('Screenshot from Google’s Android Developer Console: the app is registered.', 'Captura de la Android Developer Console de Google: la app está registrada.'),
 ('<span class="rb3">Tap to see the proof</span>', '<span class="rb3">Toca para ver la prueba</span>'),
 ('data-t="Shelly & Tasmota Scan & Control: a free Android app for Shelly and Tasmota switches, no cloud."', 'data-t="Shelly & Tasmota Scan & Control: una app Android gratuita para interruptores Shelly y Tasmota, sin nube."'),
-('<b>❤️ Share this page</b>', '<b>❤️ Compartir esta página</b>'),
+('<b>❤️ Share this page?</b>', '<b>❤️ Compartir esta página?</b>'),
 ('>Link copied</small>', '>Enlace copiado</small>'),
 ('aria-label="Copy link" title="Copy link"', 'aria-label="Copiar enlace" title="Copiar enlace"'),
 ]
