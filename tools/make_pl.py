@@ -468,6 +468,7 @@ T = [
 ('>Link copied</small>', '>Link skopiowany</small>'),
 ('aria-label="Copy link" title="Copy link"', 'aria-label="Kopiuj link" title="Kopiuj link"'),
 ('aria-label="Share this video" data-ok="Link copied" data-wait="Preparing video…"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px"><g fill="#fff"><circle cx="18" cy="5" r="3.2"/><circle cx="6" cy="12" r="3.2"/><circle cx="18" cy="19" r="3.2"/></g><path d="M18 5 6 12l12 7" stroke="#fff" stroke-width="2.2" fill="none"/></svg></button>', 'aria-label="Udostępnij ten film" data-ok="Link skopiowany" data-wait="Przygotowuję film…"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px"><g fill="#fff"><circle cx="18" cy="5" r="3.2"/><circle cx="6" cy="12" r="3.2"/><circle cx="18" cy="19" r="3.2"/></g><path d="M18 5 6 12l12 7" stroke="#fff" stroke-width="2.2" fill="none"/></svg></button>'),
+('aria-label="Exit full screen" title="Exit full screen"', 'aria-label="Zamknij pełny ekran" title="Zamknij pełny ekran"'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
