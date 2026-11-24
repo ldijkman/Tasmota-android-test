@@ -330,7 +330,7 @@ T = [
 ('<b>❤️ Share this page?</b>', '<b>❤️ Diese Seite teilen?</b>'),
 ('>Link copied</small>', '>Link kopiert</small>'),
 ('aria-label="Copy link" title="Copy link"', 'aria-label="Link kopieren" title="Link kopieren"'),
-('aria-label="Share this video" data-ok="Link copied" data-wait="Preparing video…">⤴</button>', 'aria-label="Dieses Video teilen" data-ok="Link kopiert" data-wait="Video wird vorbereitet…">⤴</button>'),
+('aria-label="Share this video" data-ok="Link copied" data-wait="Preparing video…"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px"><g fill="#fff"><circle cx="18" cy="5" r="3.2"/><circle cx="6" cy="12" r="3.2"/><circle cx="18" cy="19" r="3.2"/></g><path d="M18 5 6 12l12 7" stroke="#fff" stroke-width="2.2" fill="none"/></svg></button>', 'aria-label="Dieses Video teilen" data-ok="Link kopiert" data-wait="Video wird vorbereitet…"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px"><g fill="#fff"><circle cx="18" cy="5" r="3.2"/><circle cx="6" cy="12" r="3.2"/><circle cx="18" cy="19" r="3.2"/></g><path d="M18 5 6 12l12 7" stroke="#fff" stroke-width="2.2" fill="none"/></svg></button>'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

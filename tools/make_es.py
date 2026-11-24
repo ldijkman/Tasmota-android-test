@@ -469,7 +469,7 @@ T = [
 ('<b>❤️ Share this page?</b>', '<b>❤️ ¿Compartir esta página?</b>'),
 ('>Link copied</small>', '>Enlace copiado</small>'),
 ('aria-label="Copy link" title="Copy link"', 'aria-label="Copiar enlace" title="Copiar enlace"'),
-('aria-label="Share this video" data-ok="Link copied" data-wait="Preparing video…">⤴</button>', 'aria-label="Compartir este vídeo" data-ok="Enlace copiado" data-wait="Preparando el vídeo…">⤴</button>'),
+('aria-label="Share this video" data-ok="Link copied" data-wait="Preparing video…"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px"><g fill="#fff"><circle cx="18" cy="5" r="3.2"/><circle cx="6" cy="12" r="3.2"/><circle cx="18" cy="19" r="3.2"/></g><path d="M18 5 6 12l12 7" stroke="#fff" stroke-width="2.2" fill="none"/></svg></button>', 'aria-label="Compartir este vídeo" data-ok="Enlace copiado" data-wait="Preparando el vídeo…"><svg viewBox="0 0 24 24" aria-hidden="true" style="width:20px;height:20px"><g fill="#fff"><circle cx="18" cy="5" r="3.2"/><circle cx="6" cy="12" r="3.2"/><circle cx="18" cy="19" r="3.2"/></g><path d="M18 5 6 12l12 7" stroke="#fff" stroke-width="2.2" fill="none"/></svg></button>'),
 ]
 
 
