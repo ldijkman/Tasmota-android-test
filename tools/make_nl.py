@@ -407,8 +407,8 @@ T = [
  '<summary>Waarom niet de Shelly-app?</summary><p>Je hoeft niet te kiezen. Beide apps kunnen op je telefoon staan en dezelfde Shelly bedienen.</p><p>De Shelly-app wordt gemaakt door Shelly zelf. Hij werkt met elke <b style="color:#ff7b72">Shelly</b>, en <b style="color:#ff7b72">alleen</b> met <b style="color:#ff7b72">Shelly</b>. Ook buiten de deur, en met Alexa of Google Home. Je hebt er een Shelly-account voor nodig.</p><p>Deze app is kleiner en simpeler. Geen account. Alles blijft thuis. Je <b style="color:var(--amber)">Tasmota- en Shelly</b>-schakelaars <b style="color:var(--amber)">staan</b> op <b style="color:var(--amber)">één</b> scherm.</p><p><b>Ze werken naast elkaar.</b> Zet de lamp aan in de ene app, en de andere app laat hem ook aan zien. Automatisch uit en schema’s staan in de Shelly zelf, dus ze blijven werken, welke app je ook gebruikte.</p><p class="fnote">Let op: deze app maakt schema’s als aan/uit-paren: één aan-tijd en één uit-tijd per schema. Schema’s die je in de Shelly-app maakt, verschijnen misschien niet in deze app, maar ze blijven werken in de Shelly.</p><p>Een goede mix: de Shelly-app om een nieuwe Shelly in te stellen, deze app voor elke dag.</p>'),
 ('<b>Known to Google</b><span class="rb2">Registered developer · installs without the Play Protect scan on most phones</span>',
  '<b>Bekend bij Google</b><span class="rb2">Geregistreerde ontwikkelaar · installeert op de meeste telefoons zonder Play Protect-scan</span>'),
-('aria-label="Known to Google: registered developer, installs without the Play Protect scan on most phones."',
- 'aria-label="Bekend bij Google: geregistreerde ontwikkelaar, installeert op de meeste telefoons zonder Play Protect-scan.\"'),
+('aria-label="Known to Google: registered developer, installs without the Play Protect scan on most phones. Tap to see the registration."',
+ 'aria-label="Bekend bij Google: geregistreerde ontwikkelaar, installeert op de meeste telefoons zonder Play Protect-scan. Tik om de registratie te zien."'),
 ('<b>Toilet fan with a Shelly</b>',
  '<b>Wc-ventilator met een Shelly</b>'),
 ('Main screen: Wi-Fi and Tailscale side by side, what switches today, and your switches by room.',
@@ -489,6 +489,7 @@ T = [
 ('<a href="#shots">Tasmota screenshots</a>', '<a href="#shots">Tasmota-screenshots</a>'),
 ('<a href="#shelly-shots">Shelly screenshots</a>', '<a href="#shelly-shots">Shelly-screenshots</a>'),
 ('Want to share screenshots or a longer story? Use', 'Screenshots of een langer verhaal delen? Gebruik'),
+('Screenshot from Google’s Android Developer Console: the app is registered.', 'Schermafbeelding uit Googles Android Developer Console: de app is geregistreerd.'),
 ]
 bad = []
 for en, de in T:

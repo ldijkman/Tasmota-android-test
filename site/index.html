@@ -336,6 +336,13 @@ footer a{color:var(--muted)}
 .fun a{color:var(--muted)}
 #ytd{padding:0;border:0;background:#000;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0}
 #ytd::backdrop{background:#000}
+#gdc{padding:12px;border:1.5px solid var(--line);border-radius:16px;background:#0e1525;color:var(--ink);width:min(96vw,900px);max-width:96vw;position:fixed}
+#gdc::backdrop{background:rgba(0,0,0,.75)}
+#gdc img{display:block;width:100%;height:auto;border-radius:10px}
+#gdc p{margin:10px 4px 2px;color:var(--muted);font-size:.85rem;text-align:center}
+.gdc-x{position:absolute;top:-14px;right:-6px;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:#121b2e;color:#fff;font-size:16px;cursor:pointer}
+#gdc{overflow:visible}
+.regbadge{cursor:pointer}
 #cpd{padding:0;border:0;background:#0e1525;width:100vw;max-width:100vw;height:100dvh;max-height:100dvh;margin:0}
 #cpd::backdrop{background:#000}
 #cpBox{display:flex;flex-direction:column;width:100%;height:100%}
@@ -445,7 +452,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       </div>
       <p class="promise">No cloud, no account, no ads, no device limit. Free and open source.<br>Works with <b>Tasmota</b> and <b>Shelly</b>; OpenBeken partly.</p>
       <p class="promise dlcount" id="dlcount" hidden></p>
-      <div class="regbadge" role="note" aria-label="Known to Google: registered developer, installs without the Play Protect scan on most phones."><svg viewBox="-34 -42 68 86" width="44" height="56" aria-hidden="true"><path d="M0,-40 L32,-28 L32,2 C32,22 18,34 0,42 C-18,34 -32,22 -32,2 L-32,-28 Z" fill="#f0a630"/><path d="M-14,1 L-4,12 L16,-11" fill="none" stroke="#141e33" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Known to Google</b><span class="rb2">Registered developer · installs without the Play Protect scan on most phones</span></span></div>
+      <button type="button" class="regbadge" onclick="document.getElementById('gdc').showModal()" aria-label="Known to Google: registered developer, installs without the Play Protect scan on most phones. Tap to see the registration."><svg viewBox="-34 -42 68 86" width="44" height="56" aria-hidden="true"><path d="M0,-40 L32,-28 L32,2 C32,22 18,34 0,42 C-18,34 -32,22 -32,2 L-32,-28 Z" fill="#f0a630"/><path d="M-14,1 L-4,12 L16,-11" fill="none" stroke="#141e33" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/></svg><span><b>Known to Google</b><span class="rb2">Registered developer · installs without the Play Protect scan on most phones</span></span></button>
     </div>
 
     <div class="stage" aria-hidden="true">
@@ -788,6 +795,11 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   </div>
   <p class="fun"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" id="funLink">2 Unlimited</a><br>OverKill</p>
 </footer>
+<dialog id="gdc" aria-label="Google Android Developer Console" onclick="if(event.target===this)this.close()">
+  <button type="button" class="gdc-x" aria-label="Close" onclick="this.closest('dialog').close()">✕</button>
+  <img src="img/google-dev-console-registered.jpg" alt="Google Android Developer Console: package nl.dijkman.plafondled, Tasmota Scan &amp; Control, status Registered, 1 key, last updated Nov 21, 2026" width="1400" height="646">
+  <p>Screenshot from Google’s Android Developer Console: the app is registered.</p>
+</dialog>
 <dialog id="cpd" aria-label="CodePen demo">
   <div id="cpBox">
     <div class="ytbar"><a href="https://codepen.io/ldijkman/full/dPXPGwo" rel="noopener" target="_blank">Open on CodePen</a><button type="button" id="cpClose">Close</button></div>
