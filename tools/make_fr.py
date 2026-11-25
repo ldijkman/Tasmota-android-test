@@ -345,6 +345,8 @@ T = [
 ('>Never required, always appreciated.<', '>Jamais obligatoire, toujours apprécié.<'),
 ('<b>Sensor Add-on with a DS18B20</b>', '<b>Sensor Add-on avec une DS18B20</b>'),
 ('Sensor Add-on with a DS18B20: the room temperature and the Shelly’s own temperature, each on its own line.', 'Sensor Add-on avec une DS18B20 : la température de la pièce et celle du Shelly lui-même, chacune sur sa propre ligne.'),
+('>Latest app changes<', '>Dernières modifications de l’app<'),
+('>All changes on GitHub<', '>Toutes les modifications sur GitHub<'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
