@@ -210,6 +210,7 @@
   .dev .snc{display:inline-flex;align-items:center;gap:4px;padding:2px 7px;border-radius:8px;border:1px solid var(--line);
     color:var(--ink);font-size:.72rem;font-weight:500;font-variant-numeric:tabular-nums}
   .dev .snc svg{color:var(--on);flex:none}
+  .dev .snn{font-style:normal;color:var(--muted);margin-right:3px}
   .h-sensors .dev .sn{display:none}
   .tile .t-sn{display:block;font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .eg-big{text-align:center;padding:6px 0 2px}
@@ -1682,7 +1683,7 @@ async function shellyLight({c, h, g, a}){
     const ext = Object.keys(s).filter(k => /^(temperature|humidity):\d+$/.test(k)).sort((x, y) => x.split(':')[1] - y.split(':')[1]);
     if (ext.length){
       let cfg = null; try { cfg = await get(`${h}/rpc/Shelly.GetConfig`); } catch(e){}
-      const nameOf = id => { const n = cfg && ((cfg['temperature:' + id] || {}).name || (cfg['humidity:' + id] || {}).name); return n ? String(n) : 'Sensor ' + id; };
+      const nameOf = id => { const n = cfg && ((cfg['temperature:' + id] || {}).name || (cfg['humidity:' + id] || {}).name); return n ? String(n) : 'Temperature (' + id + ')'; };
       ext.forEach(k => {
         const [t, id] = k.split(':'), v = s[k] || {}, o = out[nameOf(id)] || (out[nameOf(id)] = {});
         if (t === 'temperature' && v.tC != null) o.Temperature = +v.tC;
@@ -2144,8 +2145,11 @@ const fmtSens = x => (x.t === 'hum' ? x.v + x.u : x.v + (x.u.startsWith('°') ? 
 function sensorLine(ip){
   const S = devSens[ip], st = (devLive[ip] || {}).state;
   if (!S || !S.length || st === 'offline' || st === 'locked') return '';
+  // één regel per sensor (naam erbij als er meer dan één is); de eigen temperatuur van de Shelly op een eigen regel
   const many = new Set(S.map(x => x.n)).size > 1;
-  return `<div class="sn">${S.map(x => `<span class="snc"${many ? ` title="${esc(x.n)}"` : ''}><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${SENS_ICON[x.t]}"/></svg>${esc(fmtSens(x))}</span>`).join('')}</div>`;
+  const chip = x => `<span class="snc"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${SENS_ICON[x.t]}"/></svg>${many ? `<i class="snn">${esc(x.n)}</i>` : ''}${esc(fmtSens(x))}</span>`;
+  const rows = []; S.forEach(x => { const r = rows.find(r => r[0].n === x.n); r ? r.push(x) : rows.push([x]); });
+  return rows.map(r => `<div class="sn">${r.map((x, k) => chip(Object.assign({}, x, k ? {n: ''} : {}))).join('')}</div>`).join('');
 }
 // korte tekst voor de tegels: temperatuur en vocht van de eerste sensor
 const sensOn = () => { try { return !!showOpts().sensors || localStorage.getItem('tas_details') === '1'; } catch(e){ return true; } };
