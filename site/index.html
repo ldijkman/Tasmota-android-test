@@ -645,7 +645,9 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 <span class="jc">//</span>
 <span class="jc">// Paste on the Shelly&#x27;s own web page: Scripts -&gt; Create script -&gt; paste -&gt; Save -&gt; Start.</span>
 <span class="jc">// Turn on &quot;Run on startup&quot; so it starts again after a power cut.</span>
-<span class="jc">// Watch what it does in the log under the script (lots of console.log lines).</span>
+<span class="jc">// Watch what it does in the log under the script (lots of console.log lines),</span>
+<span class="jc">// or open the log page in Chrome to copy it: http://&lt;shelly-ip&gt;/script/&lt;script-number&gt;/log</span>
+<span class="jc">// (the exact address is in the first log line).</span>
 
 <span class="jk">let</span> CFG = {
   dryRun: <span class="jk">true</span>,          <span class="jc">// TEST MODE: only log what it would do, never switch the relay</span>
@@ -660,9 +662,23 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 
 <span class="jk">let</span> state = { heating: <span class="jk">false</span>, lastSwitch: <span class="jn">0</span>, mode: <span class="js">&quot;on&quot;</span>, round: <span class="jn">0</span> };  <span class="jc">// mode: &quot;on&quot; or &quot;off&quot; (KVS &quot;th_mode&quot;)</span>
 
+<span class="jc">// keep the last log lines in memory for the log page (small: the Shelly has little memory)</span>
+<span class="jk">let</span> LOG = [];
+<span class="jk">let</span> LOG_MAX = <span class="jn">60</span>;
 <span class="jk">function</span> log(msg) {
   <span class="jf">console</span>.log(<span class="js">&quot;[thermostat] &quot;</span> + msg);
+  <span class="jk">let</span> up = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;sys&quot;</span>).uptime;
+  LOG.push(up + <span class="js">&quot;s &quot;</span> + msg);
+  <span class="jk">if</span> (LOG.length &gt; LOG_MAX) LOG.splice(<span class="jn">0</span>, LOG.length - LOG_MAX);
 }
+
+<span class="jc">// log page: http://&lt;shelly-ip&gt;/script/&lt;script-number&gt;/log  (plain text, easy to copy)</span>
+<span class="jf">HTTPServer</span>.registerEndpoint(<span class="js">&quot;log&quot;</span>, <span class="jk">function</span> (req, res) {
+  res.code = <span class="jn">200</span>;
+  res.headers = [[<span class="js">&quot;Content-Type&quot;</span>, <span class="js">&quot;text/plain; charset=utf-8&quot;</span>]];
+  res.body = <span class="js">&quot;Thermostat log (last &quot;</span> + LOG.length + <span class="js">&quot; lines, newest at the bottom)\n\n&quot;</span> + LOG.join(<span class="js">&quot;\n&quot;</span>) + <span class="js">&quot;\n&quot;</span>;
+  res.send();
+});
 
 <span class="jc">// read the settings the app could write in KVS (the Shelly&#x27;s own storage)</span>
 <span class="jk">function</span> loadSettings() {
@@ -768,6 +784,8 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 }
 
 <span class="jc">// start: read the relay as it is now, then check every 30 s (settings every 5 min)</span>
+<span class="jk">let</span> wifi = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;wifi&quot;</span>);
+log(<span class="js">&quot;log page: http://&quot;</span> + (wifi &amp;&amp; wifi.sta_ip ? wifi.sta_ip : <span class="js">&quot;&lt;shelly-ip&gt;&quot;</span>) + <span class="js">&quot;/script/&quot;</span> + <span class="jf">Shelly</span>.getCurrentScriptId() + <span class="js">&quot;/log&quot;</span>);
 <span class="jk">let</span> sw = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;switch&quot;</span>, <span class="jn">0</span>);
 state.heating = !!(sw &amp;&amp; sw.output);
 log(<span class="js">&quot;script started · relay is &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + <span class="js">&quot; · sensors &quot;</span> + <span class="jf">JSON</span>.stringify(CFG.sensors) +

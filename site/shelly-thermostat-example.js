@@ -3,7 +3,9 @@
 //
 // Paste on the Shelly's own web page: Scripts -> Create script -> paste -> Save -> Start.
 // Turn on "Run on startup" so it starts again after a power cut.
-// Watch what it does in the log under the script (lots of console.log lines).
+// Watch what it does in the log under the script (lots of console.log lines),
+// or open the log page in Chrome to copy it: http://<shelly-ip>/script/<script-number>/log
+// (the exact address is in the first log line).
 
 let CFG = {
   dryRun: true,          // TEST MODE: only log what it would do, never switch the relay
@@ -18,9 +20,23 @@ let CFG = {
 
 let state = { heating: false, lastSwitch: 0, mode: "on", round: 0 };  // mode: "on" or "off" (KVS "th_mode")
 
+// keep the last log lines in memory for the log page (small: the Shelly has little memory)
+let LOG = [];
+let LOG_MAX = 60;
 function log(msg) {
   console.log("[thermostat] " + msg);
+  let up = Shelly.getComponentStatus("sys").uptime;
+  LOG.push(up + "s " + msg);
+  if (LOG.length > LOG_MAX) LOG.splice(0, LOG.length - LOG_MAX);
 }
+
+// log page: http://<shelly-ip>/script/<script-number>/log  (plain text, easy to copy)
+HTTPServer.registerEndpoint("log", function (req, res) {
+  res.code = 200;
+  res.headers = [["Content-Type", "text/plain; charset=utf-8"]];
+  res.body = "Thermostat log (last " + LOG.length + " lines, newest at the bottom)\n\n" + LOG.join("\n") + "\n";
+  res.send();
+});
 
 // read the settings the app could write in KVS (the Shelly's own storage)
 function loadSettings() {
@@ -126,6 +142,8 @@ function check() {
 }
 
 // start: read the relay as it is now, then check every 30 s (settings every 5 min)
+let wifi = Shelly.getComponentStatus("wifi");
+log("log page: http://" + (wifi && wifi.sta_ip ? wifi.sta_ip : "<shelly-ip>") + "/script/" + Shelly.getCurrentScriptId() + "/log");
 let sw = Shelly.getComponentStatus("switch", 0);
 state.heating = !!(sw && sw.output);
 log("script started · relay is " + (state.heating ? "ON" : "OFF") + " · sensors " + JSON.stringify(CFG.sensors) +
