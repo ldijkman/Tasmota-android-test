@@ -1129,14 +1129,19 @@ document.getElementById('fmWhy').addEventListener('click', e => { e.preventDefau
 (() => {
   const el = document.documentElement, req = el.requestFullscreen || el.webkitRequestFullscreen;
   if (!req || !matchMedia('(pointer: coarse)').matches) return;
+  // eerste tik óf het loslaten na een veeg: probeer volledig scherm.
+  // Na een veeg weigert de browser soms; dan proberen we het bij de volgende aanraking opnieuw.
   let used = false;
+  const EV = ['click', 'touchend', 'pointerup'];
+  const stop = () => { used = true; EV.forEach(t => document.removeEventListener(t, go, true)); };
   const go = e => {
-    if (used) return;
+    if (used || document.fullscreenElement || document.webkitFullscreenElement) return;
     if (e.target.closest('a,button,input,textarea,select,label,summary,video,dialog,[role="button"]')) return;
-    used = true; document.removeEventListener('click', go, true);
-    try { const r = req.call(el, {navigationUI: 'hide'}); if (r && r.catch) r.catch(() => {}); } catch(_){}
+    try { const r = req.call(el, {navigationUI: 'hide'}); if (r && r.then) r.then(stop, () => {}); } catch(_){}
   };
-  document.addEventListener('click', go, true);
+  EV.forEach(t => document.addEventListener(t, go, true));
+  document.addEventListener('fullscreenchange', () => { if (document.fullscreenElement) stop(); });
+  document.addEventListener('webkitfullscreenchange', () => { if (document.webkitFullscreenElement) stop(); });
   // knop om volledig scherm te verlaten, alleen zichtbaar in volledig scherm
   const x = document.getElementById('fsExit');
   // één knop: in volledig scherm 'verlaten', anders 'volledig scherm'
