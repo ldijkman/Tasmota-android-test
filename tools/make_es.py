@@ -486,6 +486,7 @@ T = [
 ('>☕ Buy me a coffee<', '>☕ Invítame a un café<'),
 ('>Never required, always appreciated.<', '>Nunca obligatorio, siempre agradecido.<'),
 ('<b>Sensor Add-on with a DS18B20</b>', '<b>Sensor Add-on con un DS18B20</b>'),
+('Sensor Add-on with a DS18B20: the room temperature and the Shelly’s own temperature, each on its own line.', 'Sensor Add-on con un DS18B20: la temperatura de la habitación y la del propio Shelly, cada una en su propia línea.'),
 ]
 
 

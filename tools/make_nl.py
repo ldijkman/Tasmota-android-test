@@ -510,6 +510,7 @@ T = [
 ('>☕ Buy me a coffee<', '>☕ Trakteer me op een koffie<'),
 ('>Never required, always appreciated.<', '>Nooit verplicht, altijd gewaardeerd.<'),
 ('<b>Sensor Add-on with a DS18B20</b>', '<b>Sensor Add-on met een DS18B20</b>'),
+('Sensor Add-on with a DS18B20: the room temperature and the Shelly’s own temperature, each on its own line.', 'Sensor Add-on met een DS18B20: de kamertemperatuur en de eigen temperatuur van de Shelly, elk op een eigen regel.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
