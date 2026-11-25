@@ -3,8 +3,10 @@
 //
 // Paste on the Shelly's own web page: Scripts -> Create script -> paste -> Save -> Start.
 // Turn on "Run on startup" so it starts again after a power cut.
+// Watch what it does in the log under the script (lots of console.log lines).
 
 let CFG = {
+  dryRun: true,          // TEST MODE: only log what it would do, never switch the relay
   sensors: [100, 101],   // Add-on sensor ids; use [100] for one sensor
   setpoint: 20.0,        // default room temperature (°C), can be changed via KVS "th_set"
   hyst: 0.3,             // heat below 19.7, stop above 20.3
@@ -14,18 +16,35 @@ let CFG = {
   everySec: 30           // check every 30 seconds
 };
 
-let state = { heating: false, lastSwitch: 0, mode: "on" };  // mode: "on" or "off" (KVS "th_mode")
+let state = { heating: false, lastSwitch: 0, mode: "on", round: 0 };  // mode: "on" or "off" (KVS "th_mode")
+
+function log(msg) {
+  console.log("[thermostat] " + msg);
+}
 
 // read the settings the app could write in KVS (the Shelly's own storage)
 function loadSettings() {
-  Shelly.call("KVS.Get", { key: "th_set" }, function (r) {
+  log("reading settings from KVS ...");
+  Shelly.call("KVS.Get", { key: "th_set" }, function (r, err) {
+    if (err) { log("KVS th_set not found (error " + err + "), keep setpoint " + CFG.setpoint); return; }
     if (r && r.value !== undefined) {
       let v = Number(r.value);
-      if (v >= 5 && v <= 30) CFG.setpoint = v;
+      if (v >= 5 && v <= 30) {
+        if (v !== CFG.setpoint) log("setpoint changed: " + CFG.setpoint + " -> " + v + " °C");
+        CFG.setpoint = v;
+      } else {
+        log("KVS th_set = " + r.value + " is out of range (5-30), ignored");
+      }
     }
   });
-  Shelly.call("KVS.Get", { key: "th_mode" }, function (r) {
-    if (r && (r.value === "on" || r.value === "off")) state.mode = r.value;
+  Shelly.call("KVS.Get", { key: "th_mode" }, function (r, err) {
+    if (err) { log("KVS th_mode not found, keep mode " + state.mode); return; }
+    if (r && (r.value === "on" || r.value === "off")) {
+      if (r.value !== state.mode) log("mode changed: " + state.mode + " -> " + r.value);
+      state.mode = r.value;
+    } else {
+      log("KVS th_mode = " + (r ? r.value : "?") + " is not on/off, ignored");
+    }
   });
 }
 
@@ -33,37 +52,65 @@ function loadSettings() {
 function roomTemp() {
   let vals = [];
   for (let i = 0; i < CFG.sensors.length; i++) {
-    let st = Shelly.getComponentStatus("temperature", CFG.sensors[i]);
-    if (st && typeof st.tC === "number") vals.push(st.tC);
+    let id = CFG.sensors[i];
+    let st = Shelly.getComponentStatus("temperature", id);
+    if (st && typeof st.tC === "number") {
+      log("sensor " + id + ": " + st.tC.toFixed(1) + " °C");
+      vals.push(st.tC);
+    } else {
+      log("sensor " + id + ": NO VALUE (not connected, wrong id or broken?)");
+    }
   }
   if (vals.length === 0) return null;
-  if (vals.length === 2 && Math.abs(vals[0] - vals[1]) > CFG.maxDiff) {
-    print("Warning: sensors differ: " + vals[0] + " / " + vals[1]);
+  if (vals.length === 2) {
+    let diff = Math.abs(vals[0] - vals[1]);
+    log("difference between sensors: " + diff.toFixed(1) + " °C");
+    if (diff > CFG.maxDiff) log("WARNING: sensors differ more than " + CFG.maxDiff + " °C");
   }
   let sum = 0;
   for (let i = 0; i < vals.length; i++) sum += vals[i];
-  return sum / vals.length;
+  let avg = sum / vals.length;
+  log("room temperature (average of " + vals.length + "): " + avg.toFixed(2) + " °C");
+  return avg;
 }
 
 function setHeating(on, why) {
-  if (on === state.heating) return;
+  if (on === state.heating) {
+    log("heating stays " + (on ? "ON" : "OFF") + " (" + why + ")");
+    return;
+  }
   let now = Shelly.getComponentStatus("sys").uptime;
+  let since = now - state.lastSwitch;
   // switching off for safety is always allowed; otherwise wait the minimum time
-  if (why !== "safety" && now - state.lastSwitch < CFG.minSwitchSec) return;
-  Shelly.call("Switch.Set", { id: 0, on: on });
+  if (why !== "safety" && state.lastSwitch > 0 && since < CFG.minSwitchSec) {
+    log("want heating " + (on ? "ON" : "OFF") + " but last switch was " + since + " s ago, wait until " + CFG.minSwitchSec + " s");
+    return;
+  }
+  if (CFG.dryRun) {
+    log("TEST MODE: would turn heating " + (on ? "ON" : "OFF") + " (" + why + "), relay NOT switched");
+  } else {
+    log("switching heating " + (on ? "ON" : "OFF") + " (" + why + ")");
+    Shelly.call("Switch.Set", { id: 0, on: on }, function (r, err, msg) {
+      if (err) log("ERROR switching relay: " + err + " " + msg);
+      else log("relay switched " + (on ? "ON" : "OFF") + ", was " + (r && r.was_on ? "ON" : "OFF"));
+    });
+  }
   state.heating = on;
   state.lastSwitch = now;
-  print("Heating " + (on ? "ON" : "OFF") + " (" + why + ")");
 }
 
 function check() {
+  state.round++;
+  log("---- check " + state.round + " · setpoint " + CFG.setpoint + " °C · mode " + state.mode +
+      " · heating " + (state.heating ? "ON" : "OFF") + (CFG.dryRun ? " · TEST MODE" : "") + " ----");
   let t = roomTemp();
   if (t === null) {                       // no sensor works: heating off
+    log("no temperature at all: heating off for safety");
     setHeating(false, "safety");
-    print("No temperature: heating off");
     return;
   }
   if (t < CFG.frost) {                    // frost guard always wins
+    log("below frost guard " + CFG.frost + " °C");
     setHeating(true, "frost");
     return;
   }
@@ -71,13 +118,18 @@ function check() {
     setHeating(false, "mode off");
     return;
   }
-  if (t < CFG.setpoint - CFG.hyst) setHeating(true, t.toFixed(1) + " < " + CFG.setpoint);
-  else if (t > CFG.setpoint + CFG.hyst) setHeating(false, t.toFixed(1) + " > " + CFG.setpoint);
+  let low = CFG.setpoint - CFG.hyst, high = CFG.setpoint + CFG.hyst;
+  log("heat below " + low.toFixed(1) + " °C, stop above " + high.toFixed(1) + " °C");
+  if (t < low) setHeating(true, t.toFixed(1) + " < " + low.toFixed(1));
+  else if (t > high) setHeating(false, t.toFixed(1) + " > " + high.toFixed(1));
+  else log(t.toFixed(1) + " °C is between " + low.toFixed(1) + " and " + high.toFixed(1) + ": no change (heating stays " + (state.heating ? "ON" : "OFF") + ")");
 }
 
 // start: read the relay as it is now, then check every 30 s (settings every 5 min)
 let sw = Shelly.getComponentStatus("switch", 0);
 state.heating = !!(sw && sw.output);
+log("script started · relay is " + (state.heating ? "ON" : "OFF") + " · sensors " + JSON.stringify(CFG.sensors) +
+    " · check every " + CFG.everySec + " s" + (CFG.dryRun ? " · TEST MODE (relay is never switched)" : ""));
 loadSettings();
 Timer.set(CFG.everySec * 1000, true, check);
 Timer.set(300 * 1000, true, loadSettings);
