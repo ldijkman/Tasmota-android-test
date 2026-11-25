@@ -332,6 +332,17 @@ T = [
 ('data-on="Full screen" data-off="Exit full screen"', 'data-on="Plein écran" data-off="Quitter le plein écran"'),
 ('>Shelly at Robbshop (NL)<', '>Shelly chez Robbshop (NL)<'),
 ('>🔊 Tap for sound<', '>🔊 Touchez pour le son<'),
+('>Why free?<', '>Pourquoi gratuit ?<'),
+('>I made this app for my own home, for fun. I’m an installer and a handy guy, and I like home automation that just works. If it helps you too, that makes me happy.<', '>J’ai fait cette application pour ma propre maison, pour le plaisir. Je suis installateur et bricoleur, et j’aime la domotique qui fonctionne, tout simplement. Si elle vous aide aussi, j’en suis heureux.<'),
+('>Why no tracking?<', '>Pourquoi pas de pistage ?<'),
+('>The app talks to your own switches on your own Wi-Fi. No analytics: nothing about you or your home is sent anywhere. It only goes online to check GitHub for a new version, and for icon search if you use it.<', '>L’application parle à vos propres interrupteurs sur votre propre Wi-Fi. Pas d’analytique : rien sur vous ou votre maison n’est envoyé nulle part. Elle ne va en ligne que pour vérifier sur GitHub s’il y a une nouvelle version, et pour la recherche d’icônes si vous l’utilisez.<'),
+('>Why no account?<', '>Pourquoi pas de compte ?<'),
+('>There is no server to log in to. Your switches, your phone, your home.<', '>Il n’y a pas de serveur où se connecter. Vos interrupteurs, votre téléphone, votre maison.<'),
+('>Why no ads?<', '>Pourquoi pas de pub ?<'),
+('>Ads bring tracking and clutter. The app stays small and quiet.<', '>La pub apporte pistage et encombrement. L’application reste petite et calme.<'),
+('>Like the app? <', '>L’application vous plaît ? <'),
+('>☕ Buy me a coffee<', '>☕ Offrez-moi un café<'),
+('>Never required, always appreciated.<', '>Jamais obligatoire, toujours apprécié.<'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

@@ -498,6 +498,17 @@ T = [
 ('data-on="Full screen" data-off="Exit full screen"', 'data-on="Volledig scherm" data-off="Volledig scherm sluiten"'),
 ('>Shelly at Robbshop (NL)<', '>Shelly bij Robbshop (NL)<'),
 ('>🔊 Tap for sound<', '>🔊 Tik voor geluid<'),
+('>Why free?<', '>Waarom gratis?<'),
+('>I made this app for my own home, for fun. I’m an installer and a handy guy, and I like home automation that just works. If it helps you too, that makes me happy.<', '>Ik heb deze app voor mijn eigen huis gemaakt, voor de lol. Ik ben installateur en een handige jongen, en ik houd van domotica die gewoon werkt. Heb jij er ook wat aan, dan maakt mij dat blij.<'),
+('>Why no tracking?<', '>Waarom geen tracking?<'),
+('>The app talks to your own switches on your own Wi-Fi. No analytics: nothing about you or your home is sent anywhere. It only goes online to check GitHub for a new version, and for icon search if you use it.<', '>De app praat met je eigen schakelaars op je eigen wifi. Geen analytics: er gaat niets over jou of je huis naar buiten. Hij gaat alleen online om op GitHub te kijken of er een nieuwe versie is, en voor het zoeken naar iconen als je dat gebruikt.<'),
+('>Why no account?<', '>Waarom geen account?<'),
+('>There is no server to log in to. Your switches, your phone, your home.<', '>Er is geen server om op in te loggen. Jouw schakelaars, jouw telefoon, jouw huis.<'),
+('>Why no ads?<', '>Waarom geen reclame?<'),
+('>Ads bring tracking and clutter. The app stays small and quiet.<', '>Reclame brengt tracking en rommel. De app blijft klein en rustig.<'),
+('>Like the app? <', '>Vind je de app fijn? <'),
+('>☕ Buy me a coffee<', '>☕ Trakteer me op een koffie<'),
+('>Never required, always appreciated.<', '>Nooit verplicht, altijd gewaardeerd.<'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

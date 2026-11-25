@@ -474,6 +474,17 @@ T = [
 ('data-on="Full screen" data-off="Exit full screen"', 'data-on="Pantalla completa" data-off="Salir de pantalla completa"'),
 ('>Shelly at Robbshop (NL)<', '>Shelly en Robbshop (NL)<'),
 ('>🔊 Tap for sound<', '>🔊 Toca para activar el sonido<'),
+('>Why free?<', '>¿Por qué gratis?<'),
+('>I made this app for my own home, for fun. I’m an installer and a handy guy, and I like home automation that just works. If it helps you too, that makes me happy.<', '>Hice esta app para mi propia casa, por diversión. Soy instalador y un manitas, y me gusta la domótica que simplemente funciona. Si a ti también te ayuda, me alegra.<'),
+('>Why no tracking?<', '>¿Por qué sin rastreo?<'),
+('>The app talks to your own switches on your own Wi-Fi. No analytics: nothing about you or your home is sent anywhere. It only goes online to check GitHub for a new version, and for icon search if you use it.<', '>La app habla con tus propios interruptores en tu propio wifi. Sin analíticas: no se envía nada sobre ti ni tu casa a ningún sitio. Solo se conecta a internet para buscar en GitHub una versión nueva, y para la búsqueda de iconos si la usas.<'),
+('>Why no account?<', '>¿Por qué sin cuenta?<'),
+('>There is no server to log in to. Your switches, your phone, your home.<', '>No hay servidor en el que iniciar sesión. Tus interruptores, tu teléfono, tu casa.<'),
+('>Why no ads?<', '>¿Por qué sin anuncios?<'),
+('>Ads bring tracking and clutter. The app stays small and quiet.<', '>Los anuncios traen rastreo y desorden. La app sigue siendo pequeña y tranquila.<'),
+('>Like the app? <', '>¿Te gusta la app? <'),
+('>☕ Buy me a coffee<', '>☕ Invítame a un café<'),
+('>Never required, always appreciated.<', '>Nunca obligatorio, siempre agradecido.<'),
 ]
 
 

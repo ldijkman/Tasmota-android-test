@@ -350,6 +350,14 @@ footer a{color:var(--muted)}
 #ytd::backdrop{background:#000}
 #gdc{padding:12px;border:1.5px solid var(--line);border-radius:16px;background:#0e1525;color:var(--ink);width:min(96vw,900px);max-width:96vw;position:fixed}
 #gdc::backdrop{background:rgba(0,0,0,.75)}
+#why{padding:18px 20px 14px;border:1.5px solid var(--amber);border-radius:16px;background:#0e1525;color:var(--ink);width:min(92vw,460px);max-width:92vw;position:fixed;overflow:visible;line-height:1.45}
+#why::backdrop{background:rgba(0,0,0,.75)}
+#why h3{margin:0 0 8px;color:var(--amber);font-size:1.25rem}
+#why h4{margin:14px 0 4px;color:var(--amber);font-size:1rem}
+#why p{margin:0;color:var(--ink);font-size:.95rem}
+#why .why-cof{margin-top:16px;text-align:center}#why .why-cof a{display:inline-block;margin:6px 0 4px;padding:9px 18px;border-radius:999px;background:var(--amber);color:#111;font-weight:700;text-decoration:none}#why .why-cof small{color:var(--muted);font-size:.82rem}
+#why .why-sig{margin-top:12px;text-align:right;font-style:italic;color:var(--muted)}
+#fmList li.fm-why a{color:var(--amber)}
 #gdc img{display:block;width:100%;height:auto;border-radius:10px}
 #gdc p{margin:10px 4px 2px;color:var(--muted);font-size:.85rem;text-align:center}
 .gdc-x{position:absolute;top:-14px;right:-6px;width:36px;height:36px;border-radius:50%;border:1.5px solid var(--line);background:#121b2e;color:#fff;font-size:16px;cursor:pointer}
@@ -814,6 +822,19 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   </div>
   <p class="fun"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" id="funLink">2 Unlimited</a><br>OverKill</p>
 </footer>
+<dialog id="why" aria-labelledby="why-h" onclick="if(event.target===this)this.close()">
+  <button type="button" class="gdc-x" aria-label="Close" onclick="this.closest('dialog').close()">✕</button>
+  <h3 id="why-h">¿Por qué gratis?</h3>
+  <p>Hice esta app para mi propia casa, por diversión. Soy instalador y un manitas, y me gusta la domótica que simplemente funciona. Si a ti también te ayuda, me alegra.</p>
+  <h4>¿Por qué sin rastreo?</h4>
+  <p>La app habla con tus propios interruptores en tu propio wifi. Sin analíticas: no se envía nada sobre ti ni tu casa a ningún sitio. Solo se conecta a internet para buscar en GitHub una versión nueva, y para la búsqueda de iconos si la usas.</p>
+  <h4>¿Por qué sin cuenta?</h4>
+  <p>No hay servidor en el que iniciar sesión. Tus interruptores, tu teléfono, tu casa.</p>
+  <h4>¿Por qué sin anuncios?</h4>
+  <p>Los anuncios traen rastreo y desorden. La app sigue siendo pequeña y tranquila.</p>
+  <p class="why-cof">¿Te gusta la app? <a href="https://paypal.me/ldijkman" target="_blank" rel="noopener">☕ Invítame a un café</a><br><small>Nunca obligatorio, siempre agradecido.</small></p>
+  <p class="why-sig">Lubèrth</p>
+</dialog>
 <dialog id="gdc" aria-label="Google Android Developer Console" onclick="if(event.target===this)this.close()">
   <button type="button" class="gdc-x" aria-label="Close" onclick="this.closest('dialog').close()">✕</button>
   <img src="../img/google-dev-console-registered.jpg" alt="Google Android Developer Console: package nl.dijkman.plafondled, Tasmota Scan &amp; Control, status Registered, 1 key, last updated Nov 21, 2026" width="1400" height="646">
@@ -1058,6 +1079,7 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
     <li class="fm-demo"><a href="#dl">Descargar</a></li>
     <li class="fm-share" id="fmShare" data-t="Shelly & Tasmota Scan & Control: una app Android gratuita para interruptores Shelly y Tasmota, sin nube."><b>❤️ ¿Compartir esta página?</b><span class="fsh-row"><a class="fsh" data-s="wa" href="#" target="_blank" rel="noopener" aria-label="WhatsApp" title="WhatsApp" style="background:#25d366"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.2-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2c0 1.3.9 2.5 1 2.7.1.2 1.8 2.8 4.4 3.9 1.6.7 2.3.8 3.1.6.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg></a><a class="fsh" data-s="fb" href="#" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook" style="background:#1877f2"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 8.5V6.6c0-.8.4-1.3 1.4-1.3H17V2.2A22 22 0 0 0 14.6 2C12.1 2 10.4 3.5 10.4 6.3v2.2H7.8v3.4h2.6V22H14V11.9h2.7l.4-3.4z"/></svg></a><a class="fsh" data-s="rd" href="#" target="_blank" rel="noopener" aria-label="Reddit" title="Reddit" style="background:#ff4500"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22 12.1a2.2 2.2 0 0 0-3.7-1.6 10.7 10.7 0 0 0-5.7-1.8l1-4.5 3.1.7a1.6 1.6 0 1 0 .2-1l-3.6-.8a.5.5 0 0 0-.6.4l-1.1 5.2a10.8 10.8 0 0 0-5.8 1.8 2.2 2.2 0 1 0-2.4 3.6v.6c0 3.5 4 6.3 9 6.3s9-2.8 9-6.3v-.6a2.2 2.2 0 0 0 1.2-2zM7.5 13.6a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0zm8.5 4.1a5.6 5.6 0 0 1-4 1.2 5.6 5.6 0 0 1-4-1.2.4.4 0 0 1 .6-.6 4.8 4.8 0 0 0 3.4 1 4.8 4.8 0 0 0 3.4-1 .4.4 0 0 1 .6.6zm-.3-2.6a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/></svg></a><a class="fsh" data-s="tg" href="#" target="_blank" rel="noopener" aria-label="Telegram" title="Telegram" style="background:#229ed9"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.4 3.6 2.9 10.7c-1.3.5-1.2 1.2-.2 1.5l4.7 1.5 1.8 5.6c.2.6.4.8.8.8s.6-.2.9-.5l2.3-2.2 4.7 3.5c.9.5 1.5.2 1.7-.8l3.1-14.6c.3-1.3-.5-1.9-1.3-1.5zM9.2 13.4l8.6-5.4c.4-.3.8-.1.5.2l-7.2 6.5-.3 3.1z"/></svg></a><a class="fsh" data-s="x" href="#" target="_blank" rel="noopener" aria-label="X" title="X" style="background:#000"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M17.8 3h3.1l-6.8 7.8L22 21h-6.3l-4.9-6.4L5.2 21H2.1l7.3-8.3L1.8 3h6.4l4.4 5.8zm-1.1 16.2h1.7L7.4 4.7H5.6z"/></svg></a><a class="fsh" data-s="bs" href="#" target="_blank" rel="noopener" aria-label="Bluesky" title="Bluesky" style="background:#1185fe"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5.2 3.6C7.6 5.4 10.2 9 11.2 11c1-2 3.6-5.6 6-7.4 1.7-1.3 4.5-2.3 4.5.9 0 .6-.4 5.3-.6 6.1-.7 2.7-3.5 3.4-5.9 3 4.2.7 5.3 3.1 3 5.5-4.4 4.5-6.3-1.1-6.8-2.6l-.2-.5-.2.5c-.5 1.5-2.4 7.1-6.8 2.6-2.3-2.4-1.2-4.8 3-5.5-2.4.4-5.2-.3-5.9-3C.5 9.8.1 5.1.1 4.5c0-3.2 2.8-2.2 4.5-.9z"/></svg></a><a class="fsh" data-s="ma" href="#" target="_blank" rel="noopener" aria-label="Mastodon" title="Mastodon" style="background:#6364ff"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21.3 13.9c-.3 1.6-2.8 3.3-5.6 3.6-1.5.2-2.9.3-4.4.3-2.5-.1-4.4-.6-4.4-.6v.7c.3 2.5 2.4 2.6 4.4 2.7 2 .1 3.8-.5 3.8-.5l.1 1.8s-1.4.7-3.9.9c-1.4.1-3.1 0-5.1-.6C2 21.2 1.3 17 1.2 12.8V9.2C1.2 4.7 4.2 3.4 4.2 3.4 5.7 2.7 8.2 2.4 10.9 2.4h.1c2.6 0 5.2.3 6.7 1 0 0 3 1.3 3 5.8 0 0 0 3.3-.4 4.7zM18.2 8.6c0-1.1-.3-2-.9-2.7-.6-.7-1.4-1-2.4-1-1.1 0-2 .4-2.5 1.3l-.5.9-.5-.9c-.6-.9-1.4-1.3-2.5-1.3-1 0-1.8.3-2.4 1-.6.7-.9 1.6-.9 2.7v5.3h2.1V8.8c0-1.1.5-1.6 1.4-1.6 1 0 1.5.6 1.5 1.9v2.8h2.1V9.1c0-1.3.5-1.9 1.5-1.9.9 0 1.4.5 1.4 1.6v5.1h2.1z"/></svg></a><button type="button" class="fsh" data-s="sg" aria-label="Signal" title="Signal" style="background:#3a76f0"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.2a9.8 9.8 0 0 0-8.4 14.9l-1 4.6 4.6-1A9.8 9.8 0 1 0 12 2.2zm0 1.6a8.2 8.2 0 1 1-4.3 15.2l-.3-.2-2.7.6.6-2.7-.2-.3A8.2 8.2 0 0 1 12 3.8z"/></svg></button><a class="fsh" data-s="em" href="#" target="_blank" rel="noopener" aria-label="Email" title="Email" style="background:#4a5672"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M3 5h18a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1zm9 7.2L4 7v10h16V7z"/></svg></a><button type="button" class="fsh" data-s="copy" aria-label="Copiar enlace" title="Copiar enlace" style="background:#4a5672"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16 1H5a2 2 0 0 0-2 2v13h2V3h11zm3 4H9a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 16H9V7h10z"/></svg></button></span><small class="fsh-ok" hidden>Enlace copiado</small></li>
     <li class="fm-src"><a href="https://github.com/ldijkman/Tasmota-android-test/tree/main/plafond-led-app" rel="noopener"><svg class="fm-ic" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg><span>Código fuente</span></a></li>
+    <li class="fm-why"><a href="#" id="fmWhy">¿Por qué gratis?</a></li>
   </ul>
 </div>
 <script>
@@ -1078,6 +1100,7 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
 </script>
 <script>
 // Deel deze pagina: WhatsApp, Facebook, Reddit, Telegram, X, e-mail of link kopiëren
+document.getElementById('fmWhy').addEventListener('click', e => { e.preventDefault(); document.getElementById('why').showModal(); });
 (() => { const box = document.getElementById('fmShare'); if (!box) return;
   const u = location.origin + location.pathname, t = box.dataset.t, U = encodeURIComponent(u), T = encodeURIComponent(t);
   const L = {wa: 'https://wa.me/?text=' + T + '%20' + U, fb: 'https://www.facebook.com/sharer/sharer.php?u=' + U,
