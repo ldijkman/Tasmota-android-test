@@ -491,6 +491,7 @@ T = [
 ('>All changes on GitHub<', '>Todos los cambios en GitHub<'),
 ("'prev', 'M15 5l-7 7 7 7', 'Previous'", "'prev', 'M15 5l-7 7 7 7', 'Anterior'"),
 ("'next', 'M9 5l7 7-7 7', 'Next'", "'next', 'M9 5l7 7-7 7', 'Siguiente'"),
+('<span class="fm-lbl">Menu</span>', '<span class="fm-lbl">Menú</span>'),
 ]
 
 

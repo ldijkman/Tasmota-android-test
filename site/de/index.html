@@ -424,7 +424,8 @@ section[id],#shelly-shots{scroll-margin-top:56px}
 @media all{
 #fmenu{display:block;position:fixed;top:61px;right:12px;z-index:55}
 #fmBtn{width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:rgba(14,21,37,.88);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35)}
-#fmBtn svg{width:22px;height:22px}
+#fmBtn svg{width:22px;height:22px}.fm-lbl{display:none}
+@media (pointer:fine){#fmBtn{width:auto;padding:0 18px 0 14px;border-radius:23px;display:flex;align-items:center;gap:8px;font:700 1rem var(--text)}#fmBtn .fm-lbl{display:inline}}
 #fmBtn[aria-expanded="true"]{border-color:var(--amber);color:var(--amber)}
 #fmList{position:absolute;right:0;top:52px;min-width:200px;max-height:calc(100vh - 130px);overflow-y:auto;margin:0;padding:5px;list-style:none;background:#121b2e;border:1.5px solid var(--line);border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.45)}
 #fmList[hidden]{display:none}
@@ -1110,7 +1111,7 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
 })();
 </script>
 <div id="fmenu">
-  <button id="fmBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="fmList"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+  <button id="fmBtn" type="button" aria-label="Menu" aria-expanded="false" aria-controls="fmList"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg><span class="fm-lbl">Menü</span></button>
   <ul id="fmList" hidden>
     <li><a href="#features">Funktionen</a></li>
     <li class="fm-cmt"><a href="#videos">Videos</a></li>

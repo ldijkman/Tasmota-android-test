@@ -352,6 +352,7 @@ T = [
 ('>All changes on GitHub<', '>Alle Änderungen auf GitHub<'),
 ("'prev', 'M15 5l-7 7 7 7', 'Previous'", "'prev', 'M15 5l-7 7 7 7', 'Zurück'"),
 ("'next', 'M9 5l7 7-7 7', 'Next'", "'next', 'M9 5l7 7-7 7', 'Weiter'"),
+('<span class="fm-lbl">Menu</span>', '<span class="fm-lbl">Menü</span>'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
