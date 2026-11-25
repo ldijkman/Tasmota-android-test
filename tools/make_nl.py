@@ -499,7 +499,7 @@ T = [
 ('>Shelly at Robbshop (NL)<', '>Shelly bij Robbshop (NL)<'),
 ('>🔊 Tap for sound<', '>🔊 Tik voor geluid<'),
 ('>Why free?<', '>Waarom gratis?<'),
-('>I made this app for my own home, for fun. I’m a handy guy with lowest possible education, and I like home automation that just works. If it helps you too, that makes me happy.<', '>Ik heb deze app voor mijn eigen huis gemaakt, voor de lol. Ik ben een handige jongen met de laagst mogelijke opleiding, en ik houd van domotica die gewoon werkt. Heb jij er ook wat aan, dan maakt mij dat blij.<'),
+('>I made this app for my own home, for fun. I’m a handy guy with the lowest possible education, and I like home automation that just works. If it helps you too, that makes me happy.<', '>Ik heb deze app voor mijn eigen huis gemaakt, voor de lol. Ik ben een handige jongen met de laagst mogelijke opleiding, en ik houd van domotica die gewoon werkt. Heb jij er ook wat aan, dan maakt mij dat blij.<'),
 ('>Why no tracking?<', '>Waarom geen tracking?<'),
 ('>The app talks to your own switches on your own Wi-Fi. No analytics: nothing about you or your home is sent anywhere. It only goes online to check GitHub for a new version, and for icon search if you use it.<', '>De app praat met je eigen schakelaars op je eigen wifi. Geen analytics: er gaat niets over jou of je huis naar buiten. Hij gaat alleen online om op GitHub te kijken of er een nieuwe versie is, en voor het zoeken naar iconen als je dat gebruikt.<'),
 ('>Why no account?<', '>Waarom geen account?<'),
