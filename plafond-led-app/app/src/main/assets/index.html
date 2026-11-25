@@ -1689,9 +1689,9 @@ async function shellyLight({c, h, g, a}){
         if (t === 'humidity' && v.rh != null) o.Humidity = +v.rh;
       });
     }
-    // eigen temperatuur van de Shelly alleen als er geen Add-on-sensor is (anders verwarrend)
+    // eigen temperatuur van de Shelly (in het kastje): apart soort, met een chip-icoon
     const cs = s[key] || {}, tC = cs.temperature && cs.temperature.tC;
-    if (!Object.keys(out).length && tC != null) out.Shelly = {Temperature: +tC};
+    if (tC != null) out.Shelly = {DeviceTemp: +tC};
     return {StatusSNS: Object.keys(out).length ? Object.assign(out, {TempUnit: 'C'}) : {}};
   }
   if (a.fw){
@@ -2115,6 +2115,7 @@ const numFirst = v => Array.isArray(v) ? (v.length ? +v[0] : null) : (v == null 
 // ---- Sensoren (zelfde Status 10): temperatuur, vocht, luchtdruk, licht, CO2, afstand ----
 var devSens = {};   // ip -> [{t, v, u, n}] | false (geen sensoren)
 const SENS_ICON = {
+  chip: 'M6,4H18V5H21V7H18V9H21V11H18V13H21V15H18V17H21V19H18V20H6V19H3V17H6V15H3V13H6V11H3V9H6V7H3V5H6V4M11,15V18H12V15H11M13,15V18H14V15H13M15,15V18H16V15H15Z',
   temp: 'M15 13V5A3 3 0 0 0 9 5V13A5 5 0 1 0 15 13M12 4A1 1 0 0 1 13 5V8H11V5A1 1 0 0 1 12 4Z',
   hum: 'M12,20A6,6 0 0,1 6,14C6,10 12,3.25 12,3.25C12,3.25 18,10 18,14A6,6 0 0,1 12,20Z',
   pres: 'M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12C20,14.4 19,16.5 17.3,18C15.9,16.7 14,16 12,16C10,16 8.2,16.7 6.7,18C5,16.5 4,14.4 4,12A8,8 0 0,1 12,4M14,5.89C13.62,5.9 13.26,6.15 13.1,6.54L11.81,9.77L11.71,10C11,10.13 10.41,10.6 10.14,11.26C9.73,12.29 10.23,13.45 11.26,13.86C12.29,14.27 13.45,13.77 13.86,12.74C14.12,12.08 14,11.32 13.57,10.76L13.67,10.5L14.96,7.29L14.97,7.26C15.17,6.75 14.92,6.17 14.41,5.96C14.28,5.91 14.15,5.89 14,5.89Z',
@@ -2123,7 +2124,7 @@ const SENS_ICON = {
   dist: 'M1.39,18.36L3.16,16.6L4.58,18L5.64,16.95L4.22,15.54L5.64,14.12L8.11,16.6L9.17,15.54L6.7,13.06L8.11,11.65L9.53,13.06L10.59,12L9.17,10.59L10.59,9.17L13.06,11.65L14.12,10.59L11.65,8.11L13.06,6.7L14.47,8.11L15.54,7.05L14.12,5.64L15.54,4.22L18,6.7L19.07,5.64L16.6,3.16L18.36,1.39L22.61,5.64L5.64,22.61L1.39,18.36Z'
 };
 // [veld in Tasmota, soort, eenheid (of de unit-sleutel van StatusSNS), decimalen]
-const SENS_FIELDS = [['Temperature','temp','TempUnit',1],['Humidity','hum','%',0],['Pressure','pres','PressureUnit',0],
+const SENS_FIELDS = [['Temperature','temp','TempUnit',1],['DeviceTemp','chip','TempUnit',1],['Humidity','hum','%',0],['Pressure','pres','PressureUnit',0],
   ['Illuminance','lux','lx',0],['CarbonDioxide','co2','ppm',0],['CO2','co2','ppm',0],['eCO2','co2','ppm',0],['Distance','dist','cm',0],['Moisture','hum','%',0]];
 function parseSensors(sns){
   const out = [];
@@ -2150,7 +2151,7 @@ function sensorLine(ip){
 const sensOn = () => { try { return !!showOpts().sensors || localStorage.getItem('tas_details') === '1'; } catch(e){ return true; } };
 function sensorShort(ip){
   const S = devSens[ip]; if (!S || !S.length) return '';
-  const t = S.find(x => x.t === 'temp'), h = S.find(x => x.t === 'hum');
+  const t = S.find(x => x.t === 'temp') || S.find(x => x.t === 'chip'), h = S.find(x => x.t === 'hum');
   return [t, h].filter(Boolean).map(fmtSens).join(' · ');
 }
 async function fetchEnergy(ip){
