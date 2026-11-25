@@ -334,6 +334,7 @@ T = [
 ('aria-label="Exit full screen" title="Exit full screen"', 'aria-label="Vollbild beenden" title="Vollbild beenden"'),
 ('data-on="Full screen" data-off="Exit full screen"', 'data-on="Vollbild" data-off="Vollbild beenden"'),
 ('>Shelly at Robbshop (NL)<', '>Shelly bei Robbshop (NL)<'),
+('>🔊 Tap for sound<', '>🔊 Tippen für Ton<'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

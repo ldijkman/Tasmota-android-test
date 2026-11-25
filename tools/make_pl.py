@@ -471,6 +471,7 @@ T = [
 ('aria-label="Exit full screen" title="Exit full screen"', 'aria-label="Zamknij pełny ekran" title="Zamknij pełny ekran"'),
 ('data-on="Full screen" data-off="Exit full screen"', 'data-on="Pełny ekran" data-off="Zamknij pełny ekran"'),
 ('>Shelly at Robbshop (NL)<', '>Shelly w Robbshop (NL)<'),
+('>🔊 Tap for sound<', '>🔊 Dotknij, aby włączyć dźwięk<'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

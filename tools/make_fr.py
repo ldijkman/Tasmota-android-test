@@ -331,6 +331,7 @@ T = [
 ('aria-label="Exit full screen" title="Exit full screen"', 'aria-label="Quitter le plein écran" title="Quitter le plein écran"'),
 ('data-on="Full screen" data-off="Exit full screen"', 'data-on="Plein écran" data-off="Quitter le plein écran"'),
 ('>Shelly at Robbshop (NL)<', '>Shelly chez Robbshop (NL)<'),
+('>🔊 Tap for sound<', '>🔊 Touchez pour le son<'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

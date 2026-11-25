@@ -177,6 +177,9 @@ dialog{border:0;padding:0;background:transparent;max-width:min(94vw,440px)}
 dialog::backdrop{background:rgba(5,8,15,.86)}
 dialog video{width:100%;max-height:86vh;border-radius:18px;background:#000;display:block}
 dialog.wide{max-width:min(94vw,1100px)}
+
+#pUnmute{position:absolute;left:50%;bottom:76px;transform:translateX(-50%);z-index:3;background:var(--amber);color:#111;border:0;border-radius:999px;padding:12px 20px;font:700 1rem var(--text);box-shadow:0 4px 18px rgba(0,0,0,.5)}
+#pUnmute[hidden]{display:none}
 dialog form.pbar{display:flex;align-items:center;gap:6px;margin-bottom:8px}
 dialog form.pbar button{padding:8px 11px;white-space:nowrap}
 #pShare{width:40px;height:40px;padding:0;border-radius:50%;background:var(--amber);border-color:var(--amber);display:grid;place-items:center;flex:none}
@@ -611,6 +614,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <button aria-label="Cerrar vídeo">Cerrar</button>
   </form>
   <video id="pv" controls playsinline preload="none"></video>
+  <button type="button" id="pUnmute" hidden>🔊 Toca para activar el sonido</button>
 </dialog>
 
 <section class="shots" id="shots" aria-labelledby="shot-h">
@@ -856,10 +860,15 @@ if (!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObse
 const dlg = document.getElementById('player'), pv = document.getElementById('pv');
 const vcards = [...document.querySelectorAll('.vcard')];
 let vi = 0;
+const unm = document.getElementById('pUnmute');
+unm.addEventListener('click', () => { pv.muted = false; unm.hidden = true; pv.play().catch(() => {}); });
+pv.addEventListener('volumechange', () => { if (!pv.muted) unm.hidden = true; });
 function playAt(i){
   vi = (i + vcards.length) % vcards.length; const b = vcards[vi];
   dlg.classList.toggle('wide', b.hasAttribute('data-wide'));
-  pv.src = b.dataset.v; pv.play().catch(() => {});
+  pv.src = b.dataset.v; pv.play().catch(() => {
+    // geen tik gedaan (link geopend): browsers spelen dan alleen zonder geluid af
+    pv.muted = true; pv.play().then(() => { unm.hidden = false; }).catch(() => {}); });
   document.getElementById('pTitle').innerHTML = (b.querySelector('b') || {}).textContent.replace(/[<>&]/g, '') + `<small>${vi + 1} / ${vcards.length}</small>`;
 }
 vcards.forEach((b, i) => b.addEventListener('click', () => { dlg.showModal(); playAt(i); }));

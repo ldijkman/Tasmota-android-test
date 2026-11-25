@@ -473,6 +473,7 @@ T = [
 ('aria-label="Exit full screen" title="Exit full screen"', 'aria-label="Salir de pantalla completa" title="Salir de pantalla completa"'),
 ('data-on="Full screen" data-off="Exit full screen"', 'data-on="Pantalla completa" data-off="Salir de pantalla completa"'),
 ('>Shelly at Robbshop (NL)<', '>Shelly en Robbshop (NL)<'),
+('>🔊 Tap for sound<', '>🔊 Toca para activar el sonido<'),
 ]
 
 
