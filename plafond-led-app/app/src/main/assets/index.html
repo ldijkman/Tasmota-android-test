@@ -1677,8 +1677,22 @@ async function shellyLight({c, h, g, a}){
   }
   const ns = SHELLY_NS[c] || 'Switch', key = (c || 'switch') + ':0';
   if (a.sns){
-    const s = await get(`${h}/rpc/Shelly.GetStatus`), cs = s[key] || {}, tC = cs.temperature && cs.temperature.tC;
-    return {StatusSNS: tC != null ? {Shelly: {Temperature: +tC}, TempUnit: 'C'} : {}};
+    const s = await get(`${h}/rpc/Shelly.GetStatus`), out = {};
+    // sensoren van de Shelly Add-on (DS18B20, DHT22): temperature:100, humidity:100, ...
+    const ext = Object.keys(s).filter(k => /^(temperature|humidity):\d+$/.test(k)).sort((x, y) => x.split(':')[1] - y.split(':')[1]);
+    if (ext.length){
+      let cfg = null; try { cfg = await get(`${h}/rpc/Shelly.GetConfig`); } catch(e){}
+      const nameOf = id => { const n = cfg && ((cfg['temperature:' + id] || {}).name || (cfg['humidity:' + id] || {}).name); return n ? String(n) : 'Sensor ' + id; };
+      ext.forEach(k => {
+        const [t, id] = k.split(':'), v = s[k] || {}, o = out[nameOf(id)] || (out[nameOf(id)] = {});
+        if (t === 'temperature' && v.tC != null) o.Temperature = +v.tC;
+        if (t === 'humidity' && v.rh != null) o.Humidity = +v.rh;
+      });
+    }
+    // eigen temperatuur van de Shelly alleen als er geen Add-on-sensor is (anders verwarrend)
+    const cs = s[key] || {}, tC = cs.temperature && cs.temperature.tC;
+    if (!Object.keys(out).length && tC != null) out.Shelly = {Temperature: +tC};
+    return {StatusSNS: Object.keys(out).length ? Object.assign(out, {TempUnit: 'C'}) : {}};
   }
   if (a.fw){
     const [i, s, cfg] = await Promise.all([get(`${h}/rpc/Shelly.GetDeviceInfo`), get(`${h}/rpc/Shelly.GetStatus`), get(`${h}/rpc/Shelly.GetConfig`).catch(() => null)]);
