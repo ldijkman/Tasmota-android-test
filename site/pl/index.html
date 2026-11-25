@@ -439,8 +439,9 @@ section[id],#shelly-shots{scroll-margin-top:56px}
 @media (min-width:1560px) and (pointer:fine){#fmBtn{display:none}#fmenu{top:84px}#fmList,#fmList[hidden]{display:block;position:static;max-height:calc(100vh - 100px)}}
 .vids.brain{padding-top:10px}
 .jsbox{margin-top:18px;max-width:640px}.jsbox-h{margin:0 0 8px}.jsbox-h b{color:var(--amber);font:700 1.02rem var(--display)}.jsbox-h span{color:var(--muted);font-size:.88rem}
-.jscode{margin:0;max-height:260px;overflow:auto;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#d6deeb;tab-size:2;overscroll-behavior:contain}
+.jscode{margin:0;height:260px;min-height:120px;overflow:auto;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#d6deeb;tab-size:2;overscroll-behavior:contain}
 .jscode .jc{color:#7f8ea8;font-style:italic}.jscode .js{color:#ecc48d}.jscode .jn{color:#f78c6c}.jscode .jk{color:#c792ea}.jscode .jf{color:#82aaff}
+.jsgrip{height:22px;margin-top:-1px;display:grid;place-items:center;cursor:ns-resize;touch-action:none;color:var(--muted);user-select:none}.jsgrip span{width:56px;height:5px;border-radius:3px;background:var(--line)}.jsgrip:hover span,.jsgrip.on span{background:var(--amber)}
 .jsbox-a{margin:8px 0 0;font-size:.9rem;display:flex;gap:14px;align-items:center}.jsbox-a button{background:none;border:1.5px solid var(--amber);color:var(--amber);border-radius:999px;padding:4px 14px;font:700 .88rem var(--text);cursor:pointer}.jsbox-a a{color:var(--amber)}#jsOk{color:#3ddc84}#jsOk[hidden]{display:none}
 .brain-note{margin-top:22px;max-width:640px;border:1.5px dashed var(--line);border-radius:14px;padding:14px 16px}.brain-note b{color:var(--amber);font:700 1.02rem var(--display)}.brain-note p{margin:6px 0 0;color:var(--ink)}.brain-note .aside{color:#9fb0cc}.brain-note p.brain-am{color:var(--amber);font-weight:700}
 #fsExit{position:fixed;top:61px;right:66px;z-index:55;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:rgba(14,21,37,.88);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35);padding:0}#fsExit[hidden]{display:none}#fsExit{opacity:.55;transition:opacity .2s}#fsExit:active,#fsExit:focus-visible{opacity:1}#fsExit svg{width:22px;height:22px}#fsExit:active{border-color:var(--amber);color:var(--amber)}
@@ -723,6 +724,7 @@ loadSettings();
 <span class="jf">Timer</span>.set(CFG.everySec * <span class="jn">1000</span>, <span class="jk">true</span>, check);
 <span class="jf">Timer</span>.set(<span class="jn">300</span> * <span class="jn">1000</span>, <span class="jk">true</span>, loadSettings);
 check();</code></pre>
+      <div class="jsgrip" title="Drag to resize" aria-hidden="true"><span></span></div>
       <p class="jsbox-a"><button type="button" id="jsCopy">Kopiuj</button> <a href="https://ldijkman.github.io/Tasmota-android-test/shelly-thermostat-example.js" download>Pobierz .js</a><span id="jsOk" hidden>Skopiowano</span></p>
     </div>
   </div>
@@ -1344,6 +1346,12 @@ document.getElementById('fmWhy').addEventListener('click', e => { e.preventDefau
 })();
 </script>
 <script>
+(() => { // codevenster groter/kleiner slepen (muis en vinger)
+  const g = document.querySelector('.jsgrip'), pre = document.querySelector('.jscode'); let y0 = 0, h0 = 0;
+  g.addEventListener('pointerdown', e => { y0 = e.clientY; h0 = pre.getBoundingClientRect().height; g.setPointerCapture(e.pointerId); g.classList.add('on'); e.preventDefault(); });
+  g.addEventListener('pointermove', e => { if (!g.classList.contains('on')) return; pre.style.height = Math.max(120, Math.min(pre.scrollHeight + 4, h0 + e.clientY - y0)) + 'px'; });
+  const end = () => g.classList.remove('on'); g.addEventListener('pointerup', end); g.addEventListener('pointercancel', end);
+})();
 document.getElementById('jsCopy').addEventListener('click', () => {
   const t = document.querySelector('.jscode').innerText, ok = document.getElementById('jsOk');
   (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => { ok.hidden = false; setTimeout(() => ok.hidden = true, 1800); }, () => {});
