@@ -820,7 +820,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       <li><a href="https://tasmota.github.io/docs/">About Tasmota</a></li>
     </ul>
   </div>
-  <p class="fun"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" id="funLink">2 Unlimited</a><br>OverKill</p>
+  <p class="fun"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" id="funLink" data-yt="r6FVk2k4qsM">2 Unlimited</a><br>OverKill</p>
 </footer>
 <dialog id="why" aria-labelledby="why-h" onclick="if(event.target===this)this.close()">
   <button type="button" class="gdc-x" aria-label="Close" onclick="this.closest('dialog').close()">✕</button>
@@ -833,7 +833,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   <h4>Why no ads?</h4>
   <p>Ads bring tracking and clutter. The app stays small and quiet.</p>
   <p class="why-cof">Like the app? <a href="https://paypal.me/ldijkman" target="_blank" rel="noopener">☕ Buy me a coffee</a><br><small>Never required, always appreciated.</small></p>
-  <p class="why-yt"><a href="https://youtu.be/AmGVAu9lk6I" target="_blank" rel="noopener">▶ Money didn’t matter yesterday</a></p>
+  <p class="why-yt"><a href="https://youtu.be/AmGVAu9lk6I" target="_blank" rel="noopener" data-yt="AmGVAu9lk6I">▶ Money didn’t matter yesterday</a></p>
   <p class="why-sig">Lubèrth</p>
 </dialog>
 <dialog id="gdc" aria-label="Google Android Developer Console" onclick="if(event.target===this)this.close()">
@@ -849,7 +849,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 </dialog>
 <dialog id="ytd" aria-label="2 Unlimited video">
   <div id="ytBox">
-    <div class="ytbar"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" target="_blank">Open on YouTube</a><button type="button" id="ytClose">Close</button></div>
+    <div class="ytbar"><a id="ytOpen" href="https://youtu.be/r6FVk2k4qsM" rel="noopener" target="_blank">Open on YouTube</a><button type="button" id="ytClose">Close</button></div>
     <div class="ytframe"><iframe id="ytf" title="2 Unlimited on YouTube" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe></div>
   </div>
 </dialog>
@@ -992,14 +992,16 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
 
 // 2 Unlimited: in een eigen schermvullende speler (valt terug op YouTube als het filmpje niet ingesloten mag worden)
 (() => {
-  const a = document.getElementById('funLink'), d = document.getElementById('ytd'), f = document.getElementById('ytf'), box = document.getElementById('ytBox');
-  if (!a || !d || !d.showModal) return;
-  a.addEventListener('click', e => {
-    e.preventDefault();
-    f.src = 'https://www.youtube-nocookie.com/embed/r6FVk2k4qsM?autoplay=1&rel=0&playsinline=1';
+  const d = document.getElementById('ytd'), f = document.getElementById('ytf'), box = document.getElementById('ytBox');
+  if (!d || !d.showModal) return;
+  // elke link met data-yt="id" opent in deze speler
+  document.querySelectorAll('a[data-yt]').forEach(a => a.addEventListener('click', e => {
+    e.preventDefault(); const id = a.dataset.yt;
+    document.getElementById('ytOpen').href = 'https://youtu.be/' + id;
+    f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1';
     d.showModal();
     try { (box.requestFullscreen || box.webkitRequestFullscreen).call(box).catch(() => {}); } catch (_) {}
-  });
+  }));
   const close = () => { f.src = 'about:blank'; try { if (document.fullscreenElement) document.exitFullscreen(); } catch (_) {} d.close(); };
   document.getElementById('ytClose').addEventListener('click', close);
   d.addEventListener('cancel', e => { e.preventDefault(); close(); });
