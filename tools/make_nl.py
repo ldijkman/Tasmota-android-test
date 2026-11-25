@@ -520,6 +520,7 @@ T = [
 ('>Copy<', '>Kopiëren<'),
 ('>Download .js<', '>.js downloaden<'),
 ('>Copied<', '>Gekopieerd<'),
+('>Drag the corner to resize ↘<', '>Sleep de hoek om te vergroten ↘<'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

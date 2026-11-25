@@ -494,6 +494,7 @@ T = [
 ('>Copy<', '>Kopiuj<'),
 ('>Download .js<', '>Pobierz .js<'),
 ('>Copied<', '>Skopiowano<'),
+('>Drag the corner to resize ↘<', '>Przeciągnij róg, aby zmienić rozmiar ↘<'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

@@ -438,11 +438,12 @@ section[id],#shelly-shots{scroll-margin-top:56px}
 /* brede pc-schermen: menu altijd open, zwevend rechts naast de inhoud */
 @media (min-width:1560px) and (pointer:fine){#fmBtn{display:none}#fmenu{top:84px}#fmList,#fmList[hidden]{display:block;position:static;max-height:calc(100vh - 100px)}}
 .vids.brain{padding-top:10px}
-.jsbox{margin-top:18px}.jswrap{position:relative;width:min(100%,640px);max-width:100%}.jsbox-h{margin:0 0 8px}.jsbox-h b{color:var(--amber);font:700 1.02rem var(--display)}.jsbox-h span{color:var(--muted);font-size:.88rem}
+.jsbox{margin-top:18px}.jsin{position:relative}.jswrap{width:min(100%,640px);max-width:100%}.jsbox-h{margin:0 0 8px}.jsbox-h b{color:var(--amber);font:700 1.02rem var(--display)}.jsbox-h span{color:var(--muted);font-size:.88rem}
 .jscode{margin:0;height:260px;min-height:120px;overflow:auto;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#d6deeb;tab-size:2;overscroll-behavior:contain}
 .jscode .jc{color:#7f8ea8;font-style:italic}.jscode .js{color:#ecc48d}.jscode .jn{color:#f78c6c}.jscode .jk{color:#c792ea}.jscode .jf{color:#82aaff}
 .jsgrip{position:absolute;right:3px;bottom:3px;width:30px;height:30px;display:grid;place-items:center;cursor:nwse-resize;touch-action:none;color:#56617d;user-select:none;border-radius:8px}.jsgrip svg{width:18px;height:18px}.jsgrip:hover,.jsgrip.on{color:var(--amber)}
-.jsbox-a{margin:8px 0 0;font-size:.9rem;display:flex;gap:14px;align-items:center}.jsbox-a button{background:none;border:1.5px solid var(--amber);color:var(--amber);border-radius:999px;padding:4px 14px;font:700 .88rem var(--text);cursor:pointer}.jsbox-a a{color:var(--amber)}#jsOk{color:#3ddc84}#jsOk[hidden]{display:none}
+.jsnote{display:block;text-align:right;margin:4px 6px 0;font-size:.78rem;color:var(--muted)}
+.jsbox-a{margin:2px 0 0;font-size:.9rem;display:flex;gap:14px;align-items:center}.jsbox-a button{background:none;border:1.5px solid var(--amber);color:var(--amber);border-radius:999px;padding:4px 14px;font:700 .88rem var(--text);cursor:pointer}.jsbox-a a{color:var(--amber)}#jsOk{color:#3ddc84}#jsOk[hidden]{display:none}
 .brain-note{margin-top:22px;max-width:640px;border:1.5px dashed var(--line);border-radius:14px;padding:14px 16px}.brain-note b{color:var(--amber);font:700 1.02rem var(--display)}.brain-note p{margin:6px 0 0;color:var(--ink)}.brain-note .aside{color:#9fb0cc}.brain-note p.brain-am{color:var(--amber);font-weight:700}
 #fsExit{position:fixed;top:61px;right:66px;z-index:55;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:rgba(14,21,37,.88);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35);padding:0}#fsExit[hidden]{display:none}#fsExit{opacity:.55;transition:opacity .2s}#fsExit:active,#fsExit:focus-visible{opacity:1}#fsExit svg{width:22px;height:22px}#fsExit:active{border-color:var(--amber);color:var(--amber)}
 #dlbar{display:none}
@@ -640,7 +641,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <div class="brain-note"><b>Pomysł: stary tablet jako termostat na ścianie</b><p>Daj staremu tabletowi drugie życie.<br><i class="aside">(Albo dobry powód, by kupić nowy, a stary wykorzystać ponownie.)</i><br>Na ścianie pokazuje temperaturę w pokoju dużymi cyframi, 🔥 gdy kocioł grzeje, oraz duże przyciski Boost i Nieobecny, które każdy domownik może nacisnąć. Sam termostat działa w Shelly, więc ogrzewanie działa dalej, nawet gdy tablet jest wyłączony.</p><p class="brain-am">Z tymi samymi łatwymi w ustawieniu harmonogramami, które już znasz.</p></div>
     <div class="jsbox">
       <p class="jsbox-h"><b>Przykład: termostat jako skrypt w Shelly</b><br><span>Jeszcze nie przetestowany. Pierwszy pomysł, nie w aplikacji.</span></p>
-      <div class="jswrap"><pre class="jscode" lang="en" translate="no"><code><span class="jc">// Simple thermostat for a Shelly Gen2/Gen3 with the Sensor Add-on (DS18B20)</span>
+      <div class="jswrap"><div class="jsin"><pre class="jscode" lang="en" translate="no"><code><span class="jc">// Simple thermostat for a Shelly Gen2/Gen3 with the Sensor Add-on (DS18B20)</span>
 <span class="jc">// EXAMPLE, NOT TESTED YET: try it with a lamp on the relay before you connect the boiler.</span>
 <span class="jc">//</span>
 <span class="jc">// Paste on the Shelly&#x27;s own web page: Scripts -&gt; Create script -&gt; paste -&gt; Save -&gt; Start.</span>
@@ -724,7 +725,7 @@ loadSettings();
 <span class="jf">Timer</span>.set(CFG.everySec * <span class="jn">1000</span>, <span class="jk">true</span>, check);
 <span class="jf">Timer</span>.set(<span class="jn">300</span> * <span class="jn">1000</span>, <span class="jk">true</span>, loadSettings);
 check();</code></pre>
-<div class="jsgrip" title="Drag to resize" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 9L9 21M21 15l-6 6M21 3L3 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div></div>
+<div class="jsgrip" title="Drag to resize" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 9L9 21M21 15l-6 6M21 3L3 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div></div><span class="jsnote">Przeciągnij róg, aby zmienić rozmiar ↘</span></div>
       <p class="jsbox-a"><button type="button" id="jsCopy">Kopiuj</button> <a href="https://ldijkman.github.io/Tasmota-android-test/shelly-thermostat-example.js" download>Pobierz .js</a><span id="jsOk" hidden>Skopiowano</span></p>
     </div>
   </div>

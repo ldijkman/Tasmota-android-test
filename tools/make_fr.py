@@ -354,6 +354,7 @@ T = [
 ('>Copy<', '>Copier<'),
 ('>Download .js<', '>Télécharger le .js<'),
 ('>Copied<', '>Copié<'),
+('>Drag the corner to resize ↘<', '>Tirez le coin pour agrandir ↘<'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

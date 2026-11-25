@@ -497,6 +497,7 @@ T = [
 ('>Copy<', '>Copiar<'),
 ('>Download .js<', '>Descargar .js<'),
 ('>Copied<', '>Copiado<'),
+('>Drag the corner to resize ↘<', '>Arrastra la esquina para cambiar el tamaño ↘<'),
 ]
 
 
