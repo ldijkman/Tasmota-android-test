@@ -659,7 +659,9 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   frost: <span class="jn">5.0</span>,            <span class="jc">// frost guard: always heat below this, even when &quot;off&quot;</span>
   maxDiff: <span class="jn">1.5</span>,          <span class="jc">// warn if two sensors differ more than this</span>
   minSwitchSec: <span class="jn">180</span>,     <span class="jc">// at least 3 minutes between switching (protects the boiler)</span>
-  everySec: <span class="jn">30</span>           <span class="jc">// check every 30 seconds</span>
+  everySec: <span class="jn">30</span>,          <span class="jc">// check every 30 seconds</span>
+  watchdogSec: <span class="jn">600</span>       <span class="jc">// safety: the Shelly turns the relay off by itself after 10 min</span>
+                         <span class="jc">// if the script stops refreshing it (script hangs or is stopped)</span>
 };
 
 <span class="jk">let</span> state = { heating: <span class="jk">false</span>, lastSwitch: <span class="jn">0</span>, mode: <span class="js">&quot;on&quot;</span>, round: <span class="jn">0</span> };  <span class="jc">// mode: &quot;on&quot; or &quot;off&quot; (KVS &quot;th_mode&quot;)</span>
@@ -667,6 +669,11 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 <span class="jc">// keep the last log lines in memory for the log page (small: the Shelly has little memory)</span>
 <span class="jk">let</span> LOG = [];
 <span class="jk">let</span> LOG_MAX = <span class="jn">60</span>;
+<span class="jc">// one decimal, rounded the same way everywhere (26.55 -&gt; &quot;26.6&quot;)</span>
+<span class="jk">function</span> f1(x) {
+  <span class="jk">return</span> (<span class="jf">Math</span>.round(x * <span class="jn">10</span>) / <span class="jn">10</span>).toFixed(<span class="jn">1</span>);
+}
+
 <span class="jk">function</span> log(msg) {
   <span class="jf">console</span>.log(<span class="js">&quot;[thermostat] &quot;</span> + msg);
   <span class="jk">let</span> up = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;sys&quot;</span>).uptime;
@@ -715,7 +722,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <span class="jk">let</span> id = CFG.sensors[i];
     <span class="jk">let</span> st = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;temperature&quot;</span>, id);
     <span class="jk">if</span> (st &amp;&amp; <span class="jk">typeof</span> st.tC === <span class="js">&quot;number&quot;</span>) {
-      log(<span class="js">&quot;sensor &quot;</span> + id + <span class="js">&quot;: &quot;</span> + st.tC.toFixed(<span class="jn">1</span>) + <span class="js">&quot; °C&quot;</span>);
+      log(<span class="js">&quot;sensor &quot;</span> + id + <span class="js">&quot;: &quot;</span> + f1(st.tC) + <span class="js">&quot; °C&quot;</span>);
       vals.push(st.tC);
     } <span class="jk">else</span> {
       log(<span class="js">&quot;sensor &quot;</span> + id + <span class="js">&quot;: NO VALUE (not connected, wrong id or broken?)&quot;</span>);
@@ -724,13 +731,13 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   <span class="jk">if</span> (vals.length === <span class="jn">0</span>) <span class="jk">return</span> <span class="jk">null</span>;
   <span class="jk">if</span> (vals.length === <span class="jn">2</span>) {
     <span class="jk">let</span> diff = <span class="jf">Math</span>.abs(vals[<span class="jn">0</span>] - vals[<span class="jn">1</span>]);
-    log(<span class="js">&quot;difference between sensors: &quot;</span> + diff.toFixed(<span class="jn">1</span>) + <span class="js">&quot; °C&quot;</span>);
+    log(<span class="js">&quot;difference between sensors: &quot;</span> + f1(diff) + <span class="js">&quot; °C&quot;</span>);
     <span class="jk">if</span> (diff &gt; CFG.maxDiff) log(<span class="js">&quot;WARNING: sensors differ more than &quot;</span> + CFG.maxDiff + <span class="js">&quot; °C&quot;</span>);
   }
   <span class="jk">let</span> sum = <span class="jn">0</span>;
   <span class="jk">for</span> (<span class="jk">let</span> i = <span class="jn">0</span>; i &lt; vals.length; i++) sum += vals[i];
   <span class="jk">let</span> avg = sum / vals.length;
-  log(<span class="js">&quot;room temperature (average of &quot;</span> + vals.length + <span class="js">&quot;): &quot;</span> + avg.toFixed(<span class="jn">2</span>) + <span class="js">&quot; °C&quot;</span>);
+  log(<span class="js">&quot;room temperature (average of &quot;</span> + vals.length + <span class="js">&quot;): &quot;</span> + f1(avg) + <span class="js">&quot; °C&quot;</span>);
   <span class="jk">return</span> avg;
 }
 
@@ -749,8 +756,9 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   <span class="jk">if</span> (CFG.dryRun) {
     log(<span class="js">&quot;TEST MODE: would turn heating &quot;</span> + (on ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + <span class="js">&quot; (&quot;</span> + why + <span class="js">&quot;), relay NOT switched&quot;</span>);
   } <span class="jk">else</span> {
-    log(<span class="js">&quot;switching heating &quot;</span> + (on ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + <span class="js">&quot; (&quot;</span> + why + <span class="js">&quot;)&quot;</span>);
-    <span class="jf">Shelly</span>.call(<span class="js">&quot;Switch.Set&quot;</span>, { id: <span class="jn">0</span>, on: on }, <span class="jk">function</span> (r, err, msg) {
+    log(<span class="js">&quot;switching heating &quot;</span> + (on ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + <span class="js">&quot; (&quot;</span> + why + <span class="js">&quot;)&quot;</span> + (on ? <span class="js">&quot;, watchdog &quot;</span> + CFG.watchdogSec + <span class="js">&quot; s&quot;</span> : <span class="js">&quot;&quot;</span>));
+    <span class="jk">let</span> args = on ? { id: <span class="jn">0</span>, on: <span class="jk">true</span>, toggle_after: CFG.watchdogSec } : { id: <span class="jn">0</span>, on: <span class="jk">false</span> };
+    <span class="jf">Shelly</span>.call(<span class="js">&quot;Switch.Set&quot;</span>, args, <span class="jk">function</span> (r, err, msg) {
       <span class="jk">if</span> (err) log(<span class="js">&quot;ERROR switching relay: &quot;</span> + err + <span class="js">&quot; &quot;</span> + msg);
       <span class="jk">else</span> log(<span class="js">&quot;relay switched &quot;</span> + (on ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + <span class="js">&quot;, was &quot;</span> + (r &amp;&amp; r.was_on ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>));
     });
@@ -759,8 +767,28 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   state.lastSwitch = now;
 }
 
+<span class="jc">// watchdog: while heating, set &quot;on, and off again after watchdogSec&quot; every check.</span>
+<span class="jc">// Each refresh starts the timer over; if the script stops, the Shelly switches off by itself.</span>
+<span class="jk">function</span> refreshWatchdog() {
+  <span class="jk">if</span> (!state.heating) <span class="jk">return</span>;
+  <span class="jk">if</span> (CFG.dryRun) { log(<span class="js">&quot;TEST MODE: would refresh watchdog (&quot;</span> + CFG.watchdogSec + <span class="js">&quot; s)&quot;</span>); <span class="jk">return</span>; }
+  <span class="jf">Shelly</span>.call(<span class="js">&quot;Switch.Set&quot;</span>, { id: <span class="jn">0</span>, on: <span class="jk">true</span>, toggle_after: CFG.watchdogSec }, <span class="jk">function</span> (r, err, msg) {
+    <span class="jk">if</span> (err) log(<span class="js">&quot;ERROR refreshing watchdog: &quot;</span> + err + <span class="js">&quot; &quot;</span> + msg);
+    <span class="jk">else</span> log(<span class="js">&quot;watchdog refreshed: relay turns off by itself in &quot;</span> + CFG.watchdogSec + <span class="js">&quot; s if the script stops&quot;</span>);
+  });
+}
+
 <span class="jk">function</span> check() {
   state.round++;
+  <span class="jc">// compare with the real relay: it may have been switched by hand, by the watchdog or a schedule</span>
+  <span class="jk">if</span> (!CFG.dryRun) {
+    <span class="jk">let</span> sw = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;switch&quot;</span>, <span class="jn">0</span>);
+    <span class="jk">let</span> real = !!(sw &amp;&amp; sw.output);
+    <span class="jk">if</span> (real !== state.heating) {
+      log(<span class="js">&quot;relay is &quot;</span> + (real ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + <span class="js">&quot; but script thought &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + <span class="js">&quot; (switched by hand, watchdog or schedule?)&quot;</span>);
+      state.heating = real;
+    }
+  }
   log(<span class="js">&quot;---- check &quot;</span> + state.round + <span class="js">&quot; · setpoint &quot;</span> + CFG.setpoint + <span class="js">&quot; °C · mode &quot;</span> + state.mode +
       <span class="js">&quot; · heating &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + (CFG.dryRun ? <span class="js">&quot; · TEST MODE&quot;</span> : <span class="js">&quot;&quot;</span>) + <span class="js">&quot; ----&quot;</span>);
   <span class="jk">let</span> t = roomTemp();
@@ -772,6 +800,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   <span class="jk">if</span> (t &lt; CFG.frost) {                    <span class="jc">// frost guard always wins</span>
     log(<span class="js">&quot;below frost guard &quot;</span> + CFG.frost + <span class="js">&quot; °C&quot;</span>);
     setHeating(<span class="jk">true</span>, <span class="js">&quot;frost&quot;</span>);
+    refreshWatchdog();
     <span class="jk">return</span>;
   }
   <span class="jk">if</span> (state.mode === <span class="js">&quot;off&quot;</span>) {
@@ -779,10 +808,11 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <span class="jk">return</span>;
   }
   <span class="jk">let</span> low = CFG.setpoint - CFG.hyst, high = CFG.setpoint + CFG.hyst;
-  log(<span class="js">&quot;heat below &quot;</span> + low.toFixed(<span class="jn">1</span>) + <span class="js">&quot; °C, stop above &quot;</span> + high.toFixed(<span class="jn">1</span>) + <span class="js">&quot; °C&quot;</span>);
-  <span class="jk">if</span> (t &lt; low) setHeating(<span class="jk">true</span>, t.toFixed(<span class="jn">1</span>) + <span class="js">&quot; &lt; &quot;</span> + low.toFixed(<span class="jn">1</span>));
-  <span class="jk">else</span> <span class="jk">if</span> (t &gt; high) setHeating(<span class="jk">false</span>, t.toFixed(<span class="jn">1</span>) + <span class="js">&quot; &gt; &quot;</span> + high.toFixed(<span class="jn">1</span>));
-  <span class="jk">else</span> log(t.toFixed(<span class="jn">1</span>) + <span class="js">&quot; °C is between &quot;</span> + low.toFixed(<span class="jn">1</span>) + <span class="js">&quot; and &quot;</span> + high.toFixed(<span class="jn">1</span>) + <span class="js">&quot;: no change (heating stays &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + <span class="js">&quot;)&quot;</span>);
+  log(<span class="js">&quot;heat below &quot;</span> + f1(low) + <span class="js">&quot; °C, stop above &quot;</span> + f1(high) + <span class="js">&quot; °C&quot;</span>);
+  <span class="jk">if</span> (t &lt; low) setHeating(<span class="jk">true</span>, f1(t) + <span class="js">&quot; &lt; &quot;</span> + f1(low));
+  <span class="jk">else</span> <span class="jk">if</span> (t &gt; high) setHeating(<span class="jk">false</span>, f1(t) + <span class="js">&quot; &gt; &quot;</span> + f1(high));
+  <span class="jk">else</span> log(f1(t) + <span class="js">&quot; °C is between &quot;</span> + f1(low) + <span class="js">&quot; and &quot;</span> + f1(high) + <span class="js">&quot;: no change (heating stays &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + <span class="js">&quot;)&quot;</span>);
+  refreshWatchdog();
 }
 
 <span class="jc">// start: read the relay as it is now, then check every 30 s (settings every 5 min)</span>
@@ -791,7 +821,7 @@ log(<span class="js">&quot;log page: http://&quot;</span> + (wifi &amp;&amp; wif
 <span class="jk">let</span> sw = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;switch&quot;</span>, <span class="jn">0</span>);
 state.heating = !!(sw &amp;&amp; sw.output);
 log(<span class="js">&quot;script started · relay is &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + <span class="js">&quot; · sensors &quot;</span> + <span class="jf">JSON</span>.stringify(CFG.sensors) +
-    <span class="js">&quot; · check every &quot;</span> + CFG.everySec + <span class="js">&quot; s&quot;</span> + (CFG.dryRun ? <span class="js">&quot; · TEST MODE (relay is never switched)&quot;</span> : <span class="js">&quot;&quot;</span>));
+    <span class="js">&quot; · check every &quot;</span> + CFG.everySec + <span class="js">&quot; s · watchdog &quot;</span> + CFG.watchdogSec + <span class="js">&quot; s&quot;</span> + (CFG.dryRun ? <span class="js">&quot; · TEST MODE (relay is never switched)&quot;</span> : <span class="js">&quot;&quot;</span>));
 loadSettings();
 <span class="jf">Timer</span>.set(CFG.everySec * <span class="jn">1000</span>, <span class="jk">true</span>, check);
 <span class="jf">Timer</span>.set(<span class="jn">300</span> * <span class="jn">1000</span>, <span class="jk">true</span>, loadSettings);

@@ -15,7 +15,9 @@ let CFG = {
   frost: 5.0,            // frost guard: always heat below this, even when "off"
   maxDiff: 1.5,          // warn if two sensors differ more than this
   minSwitchSec: 180,     // at least 3 minutes between switching (protects the boiler)
-  everySec: 30           // check every 30 seconds
+  everySec: 30,          // check every 30 seconds
+  watchdogSec: 600       // safety: the Shelly turns the relay off by itself after 10 min
+                         // if the script stops refreshing it (script hangs or is stopped)
 };
 
 let state = { heating: false, lastSwitch: 0, mode: "on", round: 0 };  // mode: "on" or "off" (KVS "th_mode")
@@ -23,6 +25,11 @@ let state = { heating: false, lastSwitch: 0, mode: "on", round: 0 };  // mode: "
 // keep the last log lines in memory for the log page (small: the Shelly has little memory)
 let LOG = [];
 let LOG_MAX = 60;
+// one decimal, rounded the same way everywhere (26.55 -> "26.6")
+function f1(x) {
+  return (Math.round(x * 10) / 10).toFixed(1);
+}
+
 function log(msg) {
   console.log("[thermostat] " + msg);
   let up = Shelly.getComponentStatus("sys").uptime;
@@ -71,7 +78,7 @@ function roomTemp() {
     let id = CFG.sensors[i];
     let st = Shelly.getComponentStatus("temperature", id);
     if (st && typeof st.tC === "number") {
-      log("sensor " + id + ": " + st.tC.toFixed(1) + " °C");
+      log("sensor " + id + ": " + f1(st.tC) + " °C");
       vals.push(st.tC);
     } else {
       log("sensor " + id + ": NO VALUE (not connected, wrong id or broken?)");
@@ -80,13 +87,13 @@ function roomTemp() {
   if (vals.length === 0) return null;
   if (vals.length === 2) {
     let diff = Math.abs(vals[0] - vals[1]);
-    log("difference between sensors: " + diff.toFixed(1) + " °C");
+    log("difference between sensors: " + f1(diff) + " °C");
     if (diff > CFG.maxDiff) log("WARNING: sensors differ more than " + CFG.maxDiff + " °C");
   }
   let sum = 0;
   for (let i = 0; i < vals.length; i++) sum += vals[i];
   let avg = sum / vals.length;
-  log("room temperature (average of " + vals.length + "): " + avg.toFixed(2) + " °C");
+  log("room temperature (average of " + vals.length + "): " + f1(avg) + " °C");
   return avg;
 }
 
@@ -105,8 +112,9 @@ function setHeating(on, why) {
   if (CFG.dryRun) {
     log("TEST MODE: would turn heating " + (on ? "ON" : "OFF") + " (" + why + "), relay NOT switched");
   } else {
-    log("switching heating " + (on ? "ON" : "OFF") + " (" + why + ")");
-    Shelly.call("Switch.Set", { id: 0, on: on }, function (r, err, msg) {
+    log("switching heating " + (on ? "ON" : "OFF") + " (" + why + ")" + (on ? ", watchdog " + CFG.watchdogSec + " s" : ""));
+    let args = on ? { id: 0, on: true, toggle_after: CFG.watchdogSec } : { id: 0, on: false };
+    Shelly.call("Switch.Set", args, function (r, err, msg) {
       if (err) log("ERROR switching relay: " + err + " " + msg);
       else log("relay switched " + (on ? "ON" : "OFF") + ", was " + (r && r.was_on ? "ON" : "OFF"));
     });
@@ -115,8 +123,28 @@ function setHeating(on, why) {
   state.lastSwitch = now;
 }
 
+// watchdog: while heating, set "on, and off again after watchdogSec" every check.
+// Each refresh starts the timer over; if the script stops, the Shelly switches off by itself.
+function refreshWatchdog() {
+  if (!state.heating) return;
+  if (CFG.dryRun) { log("TEST MODE: would refresh watchdog (" + CFG.watchdogSec + " s)"); return; }
+  Shelly.call("Switch.Set", { id: 0, on: true, toggle_after: CFG.watchdogSec }, function (r, err, msg) {
+    if (err) log("ERROR refreshing watchdog: " + err + " " + msg);
+    else log("watchdog refreshed: relay turns off by itself in " + CFG.watchdogSec + " s if the script stops");
+  });
+}
+
 function check() {
   state.round++;
+  // compare with the real relay: it may have been switched by hand, by the watchdog or a schedule
+  if (!CFG.dryRun) {
+    let sw = Shelly.getComponentStatus("switch", 0);
+    let real = !!(sw && sw.output);
+    if (real !== state.heating) {
+      log("relay is " + (real ? "ON" : "OFF") + " but script thought " + (state.heating ? "ON" : "OFF") + " (switched by hand, watchdog or schedule?)");
+      state.heating = real;
+    }
+  }
   log("---- check " + state.round + " · setpoint " + CFG.setpoint + " °C · mode " + state.mode +
       " · heating " + (state.heating ? "ON" : "OFF") + (CFG.dryRun ? " · TEST MODE" : "") + " ----");
   let t = roomTemp();
@@ -128,6 +156,7 @@ function check() {
   if (t < CFG.frost) {                    // frost guard always wins
     log("below frost guard " + CFG.frost + " °C");
     setHeating(true, "frost");
+    refreshWatchdog();
     return;
   }
   if (state.mode === "off") {
@@ -135,10 +164,11 @@ function check() {
     return;
   }
   let low = CFG.setpoint - CFG.hyst, high = CFG.setpoint + CFG.hyst;
-  log("heat below " + low.toFixed(1) + " °C, stop above " + high.toFixed(1) + " °C");
-  if (t < low) setHeating(true, t.toFixed(1) + " < " + low.toFixed(1));
-  else if (t > high) setHeating(false, t.toFixed(1) + " > " + high.toFixed(1));
-  else log(t.toFixed(1) + " °C is between " + low.toFixed(1) + " and " + high.toFixed(1) + ": no change (heating stays " + (state.heating ? "ON" : "OFF") + ")");
+  log("heat below " + f1(low) + " °C, stop above " + f1(high) + " °C");
+  if (t < low) setHeating(true, f1(t) + " < " + f1(low));
+  else if (t > high) setHeating(false, f1(t) + " > " + f1(high));
+  else log(f1(t) + " °C is between " + f1(low) + " and " + f1(high) + ": no change (heating stays " + (state.heating ? "ON" : "OFF") + ")");
+  refreshWatchdog();
 }
 
 // start: read the relay as it is now, then check every 30 s (settings every 5 min)
@@ -147,7 +177,7 @@ log("log page: http://" + (wifi && wifi.sta_ip ? wifi.sta_ip : "<shelly-ip>") + 
 let sw = Shelly.getComponentStatus("switch", 0);
 state.heating = !!(sw && sw.output);
 log("script started · relay is " + (state.heating ? "ON" : "OFF") + " · sensors " + JSON.stringify(CFG.sensors) +
-    " · check every " + CFG.everySec + " s" + (CFG.dryRun ? " · TEST MODE (relay is never switched)" : ""));
+    " · check every " + CFG.everySec + " s · watchdog " + CFG.watchdogSec + " s" + (CFG.dryRun ? " · TEST MODE (relay is never switched)" : ""));
 loadSettings();
 Timer.set(CFG.everySec * 1000, true, check);
 Timer.set(300 * 1000, true, loadSettings);
