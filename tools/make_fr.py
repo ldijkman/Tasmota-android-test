@@ -349,6 +349,11 @@ T = [
 ('>All changes on GitHub<', '>Toutes les modifications sur GitHub<'),
 ("'prev', 'M15 5l-7 7 7 7', 'Previous'", "'prev', 'M15 5l-7 7 7 7', 'Précédent'"),
 ("'next', 'M9 5l7 7-7 7', 'Next'", "'next', 'M9 5l7 7-7 7', 'Suivant'"),
+('>Example: the thermostat as a script in the Shelly<', '>Exemple : le thermostat comme script dans le Shelly<'),
+('>Not tested yet. A first idea, not in the app.<', '>Pas encore testé. Une première idée, pas dans l’app.<'),
+('>Copy<', '>Copier<'),
+('>Download .js<', '>Télécharger le .js<'),
+('>Copied<', '>Copié<'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
@@ -357,6 +362,8 @@ T = [(en, fr if 'textContent' in fr else _re.sub(r' ([?!:;»])', ' \\1', fr).re
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
 FIG = s[_i:_j]; s = s[:_i] + '@@FIG@@' + s[_j:]
+_i = s.index('<pre class="jscode"'); _j = s.index('</pre>', _i) + 6
+JSC = s[_i:_j]; s = s[:_i] + '@@JSC@@' + s[_j:]
 bad = []
 for en, fr in T:
     n = s.count(en)
@@ -364,7 +371,7 @@ for en, fr in T:
         if en not in FIG: bad.append(en[:70])
         continue
     s = s.replace(en, fr)
-s = s.replace('@@FIG@@', FIG)
+s = s.replace('@@FIG@@', FIG).replace('@@JSC@@', JSC)
 if bad:
     print('NOT FOUND:\n  ' + '\n  '.join(bad)); sys.exit(1)
 

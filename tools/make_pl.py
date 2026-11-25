@@ -489,11 +489,18 @@ T = [
 ('>All changes on GitHub<', '>Wszystkie zmiany na GitHubie<'),
 ("'prev', 'M15 5l-7 7 7 7', 'Previous'", "'prev', 'M15 5l-7 7 7 7', 'Poprzedni'"),
 ("'next', 'M9 5l7 7-7 7', 'Next'", "'next', 'M9 5l7 7-7 7', 'Następny'"),
+('>Example: the thermostat as a script in the Shelly<', '>Przykład: termostat jako skrypt w Shelly<'),
+('>Not tested yet. A first idea, not in the app.<', '>Jeszcze nie przetestowany. Pierwszy pomysł, nie w aplikacji.<'),
+('>Copy<', '>Kopiuj<'),
+('>Download .js<', '>Pobierz .js<'),
+('>Copied<', '>Skopiowano<'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
 FIG = s[_i:_j]; s = s[:_i] + '@@FIG@@' + s[_j:]
+_i = s.index('<pre class="jscode"'); _j = s.index('</pre>', _i) + 6
+JSC = s[_i:_j]; s = s[:_i] + '@@JSC@@' + s[_j:]
 bad = []
 for en, fr in T:
     n = s.count(en)
@@ -501,7 +508,7 @@ for en, fr in T:
         if en not in FIG: bad.append(en[:70])
         continue
     s = s.replace(en, fr)
-s = s.replace('@@FIG@@', FIG)
+s = s.replace('@@FIG@@', FIG).replace('@@JSC@@', JSC)
 if bad:
     print('NOT FOUND:\n  ' + '\n  '.join(bad)); sys.exit(1)
 

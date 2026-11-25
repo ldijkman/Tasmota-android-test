@@ -437,6 +437,10 @@ section[id],#shelly-shots{scroll-margin-top:56px}
 /* brede pc-schermen: menu altijd open, zwevend rechts naast de inhoud */
 @media (min-width:1560px) and (pointer:fine){#fmBtn{display:none}#fmenu{top:84px}#fmList,#fmList[hidden]{display:block;position:static;max-height:calc(100vh - 100px)}}
 .vids.brain{padding-top:10px}
+.jsbox{margin-top:18px;max-width:640px}.jsbox-h{margin:0 0 8px}.jsbox-h b{color:var(--amber);font:700 1.02rem var(--display)}.jsbox-h span{color:var(--muted);font-size:.88rem}
+.jscode{margin:0;max-height:260px;overflow:auto;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#d6deeb;tab-size:2;overscroll-behavior:contain}
+.jscode .jc{color:#7f8ea8;font-style:italic}.jscode .js{color:#ecc48d}.jscode .jn{color:#f78c6c}.jscode .jk{color:#c792ea}.jscode .jf{color:#82aaff}
+.jsbox-a{margin:8px 0 0;font-size:.9rem;display:flex;gap:14px;align-items:center}.jsbox-a button{background:none;border:1.5px solid var(--amber);color:var(--amber);border-radius:999px;padding:4px 14px;font:700 .88rem var(--text);cursor:pointer}.jsbox-a a{color:var(--amber)}#jsOk{color:#3ddc84}#jsOk[hidden]{display:none}
 .brain-note{margin-top:22px;max-width:640px;border:1.5px dashed var(--line);border-radius:14px;padding:14px 16px}.brain-note b{color:var(--amber);font:700 1.02rem var(--display)}.brain-note p{margin:6px 0 0;color:var(--ink)}.brain-note .aside{color:#9fb0cc}.brain-note p.brain-am{color:var(--amber);font-weight:700}
 #fsExit{position:fixed;top:61px;right:66px;z-index:55;width:46px;height:46px;border-radius:50%;border:1.5px solid var(--line);background:rgba(14,21,37,.88);color:#fff;display:grid;place-items:center;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.35);padding:0}#fsExit[hidden]{display:none}#fsExit{opacity:.55;transition:opacity .2s}#fsExit:active,#fsExit:focus-visible{opacity:1}#fsExit svg{width:22px;height:22px}#fsExit:active{border-color:var(--amber);color:var(--amber)}
 #dlbar{display:none}
@@ -632,6 +636,94 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       <button class="vcard" data-v="shelly-thermostat-idea.mp4"><span class="fr"><img src="img/poster-thermostat-idea.jpg" alt="" loading="lazy" width="432" height="540"><span class="pl"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4l13 8-13 8z"/></svg></span></span><b>Idea: a thermostat for central heating</b><span class="len">2 min</span></button>
     </div>
     <div class="brain-note"><b>Idea: your old tablet as the thermostat on the wall</b><p>Give an old tablet a second life.<br><i class="aside">(Or a good reason to buy a new tablet and reuse the old.)</i><br>On the wall it shows the room temperature in big numbers, a 🔥 when the boiler is heating, and big Boost and Away buttons that everyone in the house can tap. The thermostat itself runs in the Shelly, so the heating keeps working even when the tablet is off.</p><p class="brain-am">With the same easy-to-set schedules you’re already familiar with.</p></div>
+    <div class="jsbox">
+      <p class="jsbox-h"><b>Example: the thermostat as a script in the Shelly</b><br><span>Not tested yet. A first idea, not in the app.</span></p>
+      <pre class="jscode" lang="en" translate="no"><code><span class="jc">// Simple thermostat for a Shelly Gen2/Gen3 with the Sensor Add-on (DS18B20)</span>
+<span class="jc">// EXAMPLE, NOT TESTED YET: try it with a lamp on the relay before you connect the boiler.</span>
+<span class="jc">//</span>
+<span class="jc">// Paste on the Shelly&#x27;s own web page: Scripts -&gt; Create script -&gt; paste -&gt; Save -&gt; Start.</span>
+<span class="jc">// Turn on &quot;Run on startup&quot; so it starts again after a power cut.</span>
+
+<span class="jk">let</span> CFG = {
+  sensors: [<span class="jn">100</span>, <span class="jn">101</span>],   <span class="jc">// Add-on sensor ids; use [100] for one sensor</span>
+  setpoint: <span class="jn">20.0</span>,        <span class="jc">// default room temperature (°C), can be changed via KVS &quot;th_set&quot;</span>
+  hyst: <span class="jn">0.3</span>,             <span class="jc">// heat below 19.7, stop above 20.3</span>
+  frost: <span class="jn">5.0</span>,            <span class="jc">// frost guard: always heat below this, even when &quot;off&quot;</span>
+  maxDiff: <span class="jn">1.5</span>,          <span class="jc">// warn if two sensors differ more than this</span>
+  minSwitchSec: <span class="jn">180</span>,     <span class="jc">// at least 3 minutes between switching (protects the boiler)</span>
+  everySec: <span class="jn">30</span>           <span class="jc">// check every 30 seconds</span>
+};
+
+<span class="jk">let</span> state = { heating: <span class="jk">false</span>, lastSwitch: <span class="jn">0</span>, mode: <span class="js">&quot;on&quot;</span> };  <span class="jc">// mode: &quot;on&quot; or &quot;off&quot; (KVS &quot;th_mode&quot;)</span>
+
+<span class="jc">// read the settings the app could write in KVS (the Shelly&#x27;s own storage)</span>
+<span class="jk">function</span> loadSettings() {
+  <span class="jf">Shelly</span>.call(<span class="js">&quot;KVS.Get&quot;</span>, { key: <span class="js">&quot;th_set&quot;</span> }, <span class="jk">function</span> (r) {
+    <span class="jk">if</span> (r &amp;&amp; r.value !== <span class="jk">undefined</span>) {
+      <span class="jk">let</span> v = <span class="jf">Number</span>(r.value);
+      <span class="jk">if</span> (v &gt;= <span class="jn">5</span> &amp;&amp; v &lt;= <span class="jn">30</span>) CFG.setpoint = v;
+    }
+  });
+  <span class="jf">Shelly</span>.call(<span class="js">&quot;KVS.Get&quot;</span>, { key: <span class="js">&quot;th_mode&quot;</span> }, <span class="jk">function</span> (r) {
+    <span class="jk">if</span> (r &amp;&amp; (r.value === <span class="js">&quot;on&quot;</span> || r.value === <span class="js">&quot;off&quot;</span>)) state.mode = r.value;
+  });
+}
+
+<span class="jc">// room temperature: the average of the sensors that give a value, or null</span>
+<span class="jk">function</span> roomTemp() {
+  <span class="jk">let</span> vals = [];
+  <span class="jk">for</span> (<span class="jk">let</span> i = <span class="jn">0</span>; i &lt; CFG.sensors.length; i++) {
+    <span class="jk">let</span> st = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;temperature&quot;</span>, CFG.sensors[i]);
+    <span class="jk">if</span> (st &amp;&amp; <span class="jk">typeof</span> st.tC === <span class="js">&quot;number&quot;</span>) vals.push(st.tC);
+  }
+  <span class="jk">if</span> (vals.length === <span class="jn">0</span>) <span class="jk">return</span> <span class="jk">null</span>;
+  <span class="jk">if</span> (vals.length === <span class="jn">2</span> &amp;&amp; <span class="jf">Math</span>.abs(vals[<span class="jn">0</span>] - vals[<span class="jn">1</span>]) &gt; CFG.maxDiff) {
+    <span class="jf">print</span>(<span class="js">&quot;Warning: sensors differ: &quot;</span> + vals[<span class="jn">0</span>] + <span class="js">&quot; / &quot;</span> + vals[<span class="jn">1</span>]);
+  }
+  <span class="jk">let</span> sum = <span class="jn">0</span>;
+  <span class="jk">for</span> (<span class="jk">let</span> i = <span class="jn">0</span>; i &lt; vals.length; i++) sum += vals[i];
+  <span class="jk">return</span> sum / vals.length;
+}
+
+<span class="jk">function</span> setHeating(on, why) {
+  <span class="jk">if</span> (on === state.heating) <span class="jk">return</span>;
+  <span class="jk">let</span> now = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;sys&quot;</span>).uptime;
+  <span class="jc">// switching off for safety is always allowed; otherwise wait the minimum time</span>
+  <span class="jk">if</span> (why !== <span class="js">&quot;safety&quot;</span> &amp;&amp; now - state.lastSwitch &lt; CFG.minSwitchSec) <span class="jk">return</span>;
+  <span class="jf">Shelly</span>.call(<span class="js">&quot;Switch.Set&quot;</span>, { id: <span class="jn">0</span>, on: on });
+  state.heating = on;
+  state.lastSwitch = now;
+  <span class="jf">print</span>(<span class="js">&quot;Heating &quot;</span> + (on ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + <span class="js">&quot; (&quot;</span> + why + <span class="js">&quot;)&quot;</span>);
+}
+
+<span class="jk">function</span> check() {
+  <span class="jk">let</span> t = roomTemp();
+  <span class="jk">if</span> (t === <span class="jk">null</span>) {                       <span class="jc">// no sensor works: heating off</span>
+    setHeating(<span class="jk">false</span>, <span class="js">&quot;safety&quot;</span>);
+    <span class="jf">print</span>(<span class="js">&quot;No temperature: heating off&quot;</span>);
+    <span class="jk">return</span>;
+  }
+  <span class="jk">if</span> (t &lt; CFG.frost) {                    <span class="jc">// frost guard always wins</span>
+    setHeating(<span class="jk">true</span>, <span class="js">&quot;frost&quot;</span>);
+    <span class="jk">return</span>;
+  }
+  <span class="jk">if</span> (state.mode === <span class="js">&quot;off&quot;</span>) {
+    setHeating(<span class="jk">false</span>, <span class="js">&quot;mode off&quot;</span>);
+    <span class="jk">return</span>;
+  }
+  <span class="jk">if</span> (t &lt; CFG.setpoint - CFG.hyst) setHeating(<span class="jk">true</span>, t.toFixed(<span class="jn">1</span>) + <span class="js">&quot; &lt; &quot;</span> + CFG.setpoint);
+  <span class="jk">else</span> <span class="jk">if</span> (t &gt; CFG.setpoint + CFG.hyst) setHeating(<span class="jk">false</span>, t.toFixed(<span class="jn">1</span>) + <span class="js">&quot; &gt; &quot;</span> + CFG.setpoint);
+}
+
+<span class="jc">// start: read the relay as it is now, then check every 30 s (settings every 5 min)</span>
+<span class="jk">let</span> sw = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;switch&quot;</span>, <span class="jn">0</span>);
+state.heating = !!(sw &amp;&amp; sw.output);
+loadSettings();
+<span class="jf">Timer</span>.set(CFG.everySec * <span class="jn">1000</span>, <span class="jk">true</span>, check);
+<span class="jf">Timer</span>.set(<span class="jn">300</span> * <span class="jn">1000</span>, <span class="jk">true</span>, loadSettings);
+check();</code></pre>
+      <p class="jsbox-a"><button type="button" id="jsCopy">Copy</button> <a href="https://ldijkman.github.io/Tasmota-android-test/shelly-thermostat-example.js" download>Download .js</a><span id="jsOk" hidden>Copied</span></p>
+    </div>
   </div>
 </section>
 <dialog id="player" aria-label="Video">
@@ -1249,6 +1341,12 @@ document.getElementById('fmWhy').addEventListener('click', e => { e.preventDefau
     st.addEventListener('dragstart', e => e.preventDefault());
   });
 })();
+</script>
+<script>
+document.getElementById('jsCopy').addEventListener('click', () => {
+  const t = document.querySelector('.jscode').innerText, ok = document.getElementById('jsOk');
+  (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => { ok.hidden = false; setTimeout(() => ok.hidden = true, 1800); }, () => {});
+});
 </script>
 </body>
 </html>

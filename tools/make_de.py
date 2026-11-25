@@ -353,10 +353,17 @@ T = [
 ("'prev', 'M15 5l-7 7 7 7', 'Previous'", "'prev', 'M15 5l-7 7 7 7', 'Zurück'"),
 ("'next', 'M9 5l7 7-7 7', 'Next'", "'next', 'M9 5l7 7-7 7', 'Weiter'"),
 ('<span class="fm-lbl">Menu</span>', '<span class="fm-lbl">Menü</span>'),
+('>Example: the thermostat as a script in the Shelly<', '>Beispiel: der Thermostat als Skript im Shelly<'),
+('>Not tested yet. A first idea, not in the app.<', '>Noch nicht getestet. Eine erste Idee, nicht in der App.<'),
+('>Copy<', '>Kopieren<'),
+('>Download .js<', '>.js herunterladen<'),
+('>Copied<', '>Kopiert<'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
 FIG = s[_i:_j]; s = s[:_i] + '@@FIG@@' + s[_j:]
+_i = s.index('<pre class="jscode"'); _j = s.index('</pre>', _i) + 6
+JSC = s[_i:_j]; s = s[:_i] + '@@JSC@@' + s[_j:]
 bad = []
 for en, de in T:
     n = s.count(en)
@@ -364,7 +371,7 @@ for en, de in T:
         if en not in FIG: bad.append(en[:70])
         continue
     s = s.replace(en, de)
-s = s.replace('@@FIG@@', FIG)
+s = s.replace('@@FIG@@', FIG).replace('@@JSC@@', JSC)
 if bad:
     print('NOT FOUND:\n  ' + '\n  '.join(bad)); sys.exit(1)
 
