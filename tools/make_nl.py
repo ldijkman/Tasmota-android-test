@@ -523,6 +523,7 @@ T = [
 ('>Drag the corner to resize ↘<', '>Sleep de hoek om te vergroten ↘<'),
 ('>Example log from a real Shelly 1 Gen3 with two DS18B20<', '>Voorbeeld-log van een echte Shelly 1 Gen3 met twee DS18B20<'),
 ('>Test mode: the script only writes what it would do. It is warm in the room, so the heating stays off.<', '>Testmodus: het script schrijft alleen op wat het zou doen. Het is warm in de kamer, dus de verwarming blijft uit.<'),
+('>Nerd Section 🤓<', '>Nerd-hoek 🤓<'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
