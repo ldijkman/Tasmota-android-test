@@ -483,6 +483,7 @@ T = [
 ('>Like the app? <', '>Podoba ci się aplikacja? <'),
 ('>☕ Buy me a coffee<', '>☕ Postaw mi kawę<'),
 ('>Never required, always appreciated.<', '>Nigdy nie wymagane, zawsze docenione.<'),
+('<b>Sensor Add-on with a DS18B20</b>', '<b>Sensor Add-on z czujnikiem DS18B20</b>'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

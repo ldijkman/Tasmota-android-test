@@ -509,6 +509,7 @@ T = [
 ('>Like the app? <', '>Vind je de app fijn? <'),
 ('>☕ Buy me a coffee<', '>☕ Trakteer me op een koffie<'),
 ('>Never required, always appreciated.<', '>Nooit verplicht, altijd gewaardeerd.<'),
+('<b>Sensor Add-on with a DS18B20</b>', '<b>Sensor Add-on met een DS18B20</b>'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

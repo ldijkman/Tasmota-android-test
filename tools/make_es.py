@@ -485,6 +485,7 @@ T = [
 ('>Like the app? <', '>¿Te gusta la app? <'),
 ('>☕ Buy me a coffee<', '>☕ Invítame a un café<'),
 ('>Never required, always appreciated.<', '>Nunca obligatorio, siempre agradecido.<'),
+('<b>Sensor Add-on with a DS18B20</b>', '<b>Sensor Add-on con un DS18B20</b>'),
 ]
 
 
