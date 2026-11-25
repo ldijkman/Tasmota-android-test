@@ -513,6 +513,8 @@ T = [
 ('Sensor Add-on with a DS18B20: the room temperature and the Shelly’s own temperature, each on its own line.', 'Sensor Add-on met een DS18B20: de kamertemperatuur en de eigen temperatuur van de Shelly, elk op een eigen regel.'),
 ('>Latest app changes<', '>Laatste app-wijzigingen<'),
 ('>All changes on GitHub<', '>Alle wijzigingen op GitHub<'),
+("'prev', 'M15 5l-7 7 7 7', 'Previous'", "'prev', 'M15 5l-7 7 7 7', 'Vorige'"),
+("'next', 'M9 5l7 7-7 7', 'Next'", "'next', 'M9 5l7 7-7 7', 'Volgende'"),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

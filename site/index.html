@@ -195,6 +195,16 @@ dialog button{background:none;border:1.5px solid #3a4a70;color:#fff;border-radiu
 .strip{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:24px;padding:40px 24px 18px;margin-top:4px;scrollbar-color:#2b3653 transparent}
 .strip figure{flex:none;width:230px;margin:0;scroll-snap-align:start}
 .strip img{border-radius:22px;border:1.5px solid var(--line)}
+.strip-wrap{position:relative}
+.snav{display:none}
+@media (pointer:fine){
+.snav{display:grid;place-items:center;position:absolute;top:calc(50% - 60px);z-index:3;width:52px;height:52px;border-radius:50%;border:1.5px solid var(--amber);background:rgba(14,21,37,.9);color:var(--amber);cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.45);transition:opacity .2s}
+.snav:hover{background:var(--amber);color:#111}
+.snav[disabled]{opacity:0;pointer-events:none}
+.snav.prev{left:14px}.snav.next{right:14px}
+.snav svg{width:26px;height:26px}
+.strip.drag-ok{cursor:grab}.strip.dragging{cursor:grabbing;scroll-snap-type:none;user-select:none}.strip.dragging img{pointer-events:none}
+}
 .strip figcaption{margin-top:12px;color:var(--muted);font-size:.95rem;line-height:1.4}
 @media (min-width:1168px){.strip{padding-left:calc((100vw - var(--w))/2 + 24px);scroll-padding-left:calc((100vw - var(--w))/2 + 24px)}}
 
@@ -1213,6 +1223,30 @@ document.getElementById('fmWhy').addEventListener('click', e => { e.preventDefau
     g.innerHTML = `<svg viewBox="0 0 ${W} 34" preserveAspectRatio="none"><path d="${wire}" fill="none" stroke="#3a4560" stroke-width="1.6"/>${bulbs}</svg>`;
   };
   draw(); let t; addEventListener('resize', () => { clearTimeout(t); t = setTimeout(draw, 150); });
+})();
+</script>
+<script>
+// Pc: pijlknoppen naast de schermafdrukken, en slepen met de muis
+(() => {
+  if (!matchMedia('(pointer: fine)').matches) return;
+  const svg = d => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="${d}" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+  document.querySelectorAll('.strip').forEach(st => {
+    const w = document.createElement('div'); w.className = 'strip-wrap'; st.before(w); w.append(st);
+    const mk = (cls, d, lab) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'snav ' + cls; b.setAttribute('aria-label', lab); b.title = lab; b.innerHTML = svg(d); w.append(b); return b; };
+    const pv = mk('prev', 'M15 5l-7 7 7 7', 'Previous'), nx = mk('next', 'M9 5l7 7-7 7', 'Next');
+    const step = () => { const f = st.querySelector('figure'); return f ? f.getBoundingClientRect().width + 22 : 250; };
+    pv.onclick = () => st.scrollBy({left: -step(), behavior: 'smooth'});
+    nx.onclick = () => st.scrollBy({left: step(), behavior: 'smooth'});
+    const upd = () => { pv.disabled = st.scrollLeft < 8; nx.disabled = st.scrollLeft + st.clientWidth > st.scrollWidth - 8; };
+    st.addEventListener('scroll', upd, {passive: true}); addEventListener('resize', upd); upd();
+    st.classList.add('drag-ok');
+    let x0 = 0, s0 = 0, down = false, moved = false;
+    st.addEventListener('pointerdown', e => { if (e.pointerType !== 'mouse' || e.button) return; down = true; moved = false; x0 = e.clientX; s0 = st.scrollLeft; });
+    addEventListener('pointermove', e => { if (!down) return; const dx = e.clientX - x0; if (!moved && Math.abs(dx) > 5){ moved = true; st.classList.add('dragging'); } if (moved) st.scrollLeft = s0 - dx; });
+    addEventListener('pointerup', () => { if (!down) return; down = false; if (moved){ const l = st.scrollLeft; st.classList.remove('dragging'); st.scrollLeft = l; } });
+    st.addEventListener('click', e => { if (moved){ e.preventDefault(); e.stopPropagation(); moved = false; } }, true);
+    st.addEventListener('dragstart', e => e.preventDefault());
+  });
 })();
 </script>
 </body>

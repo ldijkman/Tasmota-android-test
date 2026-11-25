@@ -487,6 +487,8 @@ T = [
 ('Sensor Add-on with a DS18B20: the room temperature and the Shelly’s own temperature, each on its own line.', 'Sensor Add-on z czujnikiem DS18B20: temperatura w pokoju i własna temperatura Shelly, każda w osobnym wierszu.'),
 ('>Latest app changes<', '>Ostatnie zmiany w aplikacji<'),
 ('>All changes on GitHub<', '>Wszystkie zmiany na GitHubie<'),
+("'prev', 'M15 5l-7 7 7 7', 'Previous'", "'prev', 'M15 5l-7 7 7 7', 'Poprzedni'"),
+("'next', 'M9 5l7 7-7 7', 'Next'", "'next', 'M9 5l7 7-7 7', 'Następny'"),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

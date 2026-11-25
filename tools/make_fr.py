@@ -347,6 +347,8 @@ T = [
 ('Sensor Add-on with a DS18B20: the room temperature and the Shelly’s own temperature, each on its own line.', 'Sensor Add-on avec une DS18B20 : la température de la pièce et celle du Shelly lui-même, chacune sur sa propre ligne.'),
 ('>Latest app changes<', '>Dernières modifications de l’app<'),
 ('>All changes on GitHub<', '>Toutes les modifications sur GitHub<'),
+("'prev', 'M15 5l-7 7 7 7', 'Previous'", "'prev', 'M15 5l-7 7 7 7', 'Précédent'"),
+("'next', 'M9 5l7 7-7 7', 'Next'", "'next', 'M9 5l7 7-7 7', 'Suivant'"),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

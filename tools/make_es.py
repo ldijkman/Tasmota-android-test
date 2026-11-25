@@ -489,6 +489,8 @@ T = [
 ('Sensor Add-on with a DS18B20: the room temperature and the Shelly’s own temperature, each on its own line.', 'Sensor Add-on con un DS18B20: la temperatura de la habitación y la del propio Shelly, cada una en su propia línea.'),
 ('>Latest app changes<', '>Últimos cambios de la app<'),
 ('>All changes on GitHub<', '>Todos los cambios en GitHub<'),
+("'prev', 'M15 5l-7 7 7 7', 'Previous'", "'prev', 'M15 5l-7 7 7 7', 'Anterior'"),
+("'next', 'M9 5l7 7-7 7', 'Next'", "'next', 'M9 5l7 7-7 7', 'Siguiente'"),
 ]
 
 
