@@ -357,7 +357,7 @@ T = [
 ('>Drag the corner to resize ↘<', '>Tirez le coin pour agrandir ↘<'),
 ('>Example log from a real Shelly 1 Gen3 with two DS18B20<', '>Exemple de journal d’un vrai Shelly 1 Gen3 avec deux DS18B20<'),
 ('>Test mode: the script only writes what it would do. It is warm in the room, so the heating stays off.<', '>Mode test : le script note seulement ce qu’il ferait. La pièce est chaude, donc le chauffage reste éteint.<'),
-('>Sorry!, Nerd Section 🤓<', '>Désolé !, Coin des nerds 🤓<'),
+('>Sorry!, Nerd Section 🤓 <', '>Désolé !, Coin des nerds 🤓 <'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Passer</a>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »

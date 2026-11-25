@@ -500,7 +500,7 @@ T = [
 ('>Drag the corner to resize ↘<', '>Arrastra la esquina para cambiar el tamaño ↘<'),
 ('>Example log from a real Shelly 1 Gen3 with two DS18B20<', '>Ejemplo de registro de un Shelly 1 Gen3 real con dos DS18B20<'),
 ('>Test mode: the script only writes what it would do. It is warm in the room, so the heating stays off.<', '>Modo de prueba: el script solo anota lo que haría. En la habitación hace calor, así que la calefacción sigue apagada.<'),
-('>Sorry!, Nerd Section 🤓<', '>¡Perdón!, Rincón nerd 🤓<'),
+('>Sorry!, Nerd Section 🤓 <', '>¡Perdón!, Rincón nerd 🤓 <'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Saltar</a>'),
 ]
 
