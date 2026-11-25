@@ -521,12 +521,16 @@ T = [
 ('>Download .js<', '>.js downloaden<'),
 ('>Copied<', '>Gekopieerd<'),
 ('>Drag the corner to resize ↘<', '>Sleep de hoek om te vergroten ↘<'),
+('>Example log from a real Shelly 1 Gen3 with two DS18B20<', '>Voorbeeld-log van een echte Shelly 1 Gen3 met twee DS18B20<'),
+('>Test mode: the script only writes what it would do. It is warm in the room, so the heating stays off.<', '>Testmodus: het script schrijft alleen op wat het zou doen. Het is warm in de kamer, dus de verwarming blijft uit.<'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
 FIG = s[_i:_j]; s = s[:_i] + '@@FIG@@' + s[_j:]
 _i = s.index('<pre class="jscode"'); _j = s.index('</pre>', _i) + 6
 JSC = s[_i:_j]; s = s[:_i] + '@@JSC@@' + s[_j:]
+_i = s.index('<pre class="jslog"'); _j = s.index('</pre>', _i) + 6
+JSL = s[_i:_j]; s = s[:_i] + '@@JSL@@' + s[_j:]
 bad = []
 for en, de in T:
     n = s.count(en)
@@ -534,7 +538,7 @@ for en, de in T:
         if en not in FIG: bad.append(en[:70])
         continue
     s = s.replace(en, de)
-s = s.replace('@@FIG@@', FIG).replace('@@JSC@@', JSC)
+s = s.replace('@@FIG@@', FIG).replace('@@JSC@@', JSC).replace('@@JSL@@', JSL)
 if bad:
     print('NOT FOUND:\n  ' + '\n  '.join(bad)); sys.exit(1)
 

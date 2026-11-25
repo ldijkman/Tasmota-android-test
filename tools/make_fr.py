@@ -355,6 +355,8 @@ T = [
 ('>Download .js<', '>Télécharger le .js<'),
 ('>Copied<', '>Copié<'),
 ('>Drag the corner to resize ↘<', '>Tirez le coin pour agrandir ↘<'),
+('>Example log from a real Shelly 1 Gen3 with two DS18B20<', '>Exemple de journal d’un vrai Shelly 1 Gen3 avec deux DS18B20<'),
+('>Test mode: the script only writes what it would do. It is warm in the room, so the heating stays off.<', '>Mode test : le script note seulement ce qu’il ferait. La pièce est chaude, donc le chauffage reste éteint.<'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
@@ -365,6 +367,8 @@ _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figu
 FIG = s[_i:_j]; s = s[:_i] + '@@FIG@@' + s[_j:]
 _i = s.index('<pre class="jscode"'); _j = s.index('</pre>', _i) + 6
 JSC = s[_i:_j]; s = s[:_i] + '@@JSC@@' + s[_j:]
+_i = s.index('<pre class="jslog"'); _j = s.index('</pre>', _i) + 6
+JSL = s[_i:_j]; s = s[:_i] + '@@JSL@@' + s[_j:]
 bad = []
 for en, fr in T:
     n = s.count(en)
@@ -372,7 +376,7 @@ for en, fr in T:
         if en not in FIG: bad.append(en[:70])
         continue
     s = s.replace(en, fr)
-s = s.replace('@@FIG@@', FIG).replace('@@JSC@@', JSC)
+s = s.replace('@@FIG@@', FIG).replace('@@JSC@@', JSC).replace('@@JSL@@', JSL)
 if bad:
     print('NOT FOUND:\n  ' + '\n  '.join(bad)); sys.exit(1)
 
