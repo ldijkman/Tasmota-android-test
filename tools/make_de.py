@@ -362,6 +362,7 @@ T = [
 ('>Example log from a real Shelly 1 Gen3 with two DS18B20<', '>Beispiel-Log von einem echten Shelly 1 Gen3 mit zwei DS18B20<'),
 ('>Test mode: the script only writes what it would do. It is warm in the room, so the heating stays off.<', '>Testmodus: Das Skript schreibt nur auf, was es tun würde. Im Raum ist es warm, also bleibt die Heizung aus.<'),
 ('>Sorry!, Nerd Section 🤓<', '>Sorry!, Nerd-Ecke 🤓<'),
+('<a href="#shots">Skip</a>', '<a href="#shots">Überspringen</a>'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

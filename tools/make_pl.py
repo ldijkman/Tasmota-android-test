@@ -498,6 +498,7 @@ T = [
 ('>Example log from a real Shelly 1 Gen3 with two DS18B20<', '>Przykładowy log z prawdziwego Shelly 1 Gen3 z dwoma DS18B20<'),
 ('>Test mode: the script only writes what it would do. It is warm in the room, so the heating stays off.<', '>Tryb testowy: skrypt tylko zapisuje, co by zrobił. W pokoju jest ciepło, więc ogrzewanie pozostaje wyłączone.<'),
 ('>Sorry!, Nerd Section 🤓<', '>Przepraszam!, Kącik nerdów 🤓<'),
+('<a href="#shots">Skip</a>', '<a href="#shots">Pomiń</a>'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
