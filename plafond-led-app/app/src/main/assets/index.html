@@ -545,6 +545,7 @@
   @keyframes sigFlash{0%{fill:#b6ffcf;filter:drop-shadow(0 0 4px #3ccf6e)}30%{fill:#3ccf6e;filter:drop-shadow(0 0 3px #3ccf6e)}100%{filter:none}}
   .dev .meta .sep{opacity:.6}
   .detrow{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 2px 2px;font-size:.82rem;color:var(--muted)}
+  .detrow[hidden]{display:none}
   .detrow .tgl{position:relative;right:auto;bottom:auto;flex:none}
   /* per onderdeel verbergen (keuze in "Show on cards"); h-* klassen op de lijst */
   .h-mac .dev .macl{display:none}
@@ -3703,7 +3704,7 @@ function startDrag(e, grip){
 // ---- Thermostaat: een script in de Shelly zelf (Gen2+, met temperatuursensor op de Add-on) ----
 // De app installeert het script (assets/thermostat-script.js) en zet instellingen in KVS:
 // th_set (temperatuur), th_mode (on/off), th_sensor (nummer), th_test (on/off). Het script heeft /state en /reload.
-const TH_NAME = 'Thermostat (Scan & Control)';
+const TH_NAME = 'Thermostat (Scan & Control)', TH_VERSION = 2;   // TH_VERSION = VERSION in het script
 const thRpc = (h, m, p) => appCall('get', [`${h}/rpc/${m}${p ? '?' + Object.keys(p).map(k => k + '=' + encodeURIComponent(JSON.stringify(p[k]))).join('&') : ''}`], 9000);
 const thPost = (h, m, body) => appCall('post', [`${h}/rpc/${m}`, JSON.stringify(body)], 15000);
 async function thFind(h){ const r = await thRpc(h, 'Script.List'); return ((r && r.scripts) || []).find(x => x.name === TH_NAME) || null; }
@@ -3751,6 +3752,12 @@ async function fetchThermo(ip){
     devThermo[ip] = Object.assign({}, st, {at: Date.now()}); }
   catch(e){ devThermo[ip] = {err: true, at: Date.now()}; }
 }
+// thermostaat-status vaker verversen (elke 10 s) zolang de app open is
+setInterval(() => {
+  if (!APP || document.hidden) return;
+  const ips = loadDevs().filter(d => d.thermo && (devLive[d.ip] || {}).state !== 'offline').map(d => d.ip);
+  if (ips.length) Promise.all(ips.map(fetchThermo)).then(thRedraw);
+}, 10000);
 const thRedraw = () => { renderDevs(); if (!document.getElementById('tileView').hidden) renderTiles(); };
 const thSetTimers = {};
 function thAdj(ip, d){
@@ -3775,7 +3782,8 @@ function thermoLine(ip){
   if (!T) return `<div class="th-line"><span class="th-t">Thermostat…</span></div>`;
   if (T.err) return `<div class="th-err">⚠ Thermostat script is not answering</div>`;
   const off = T.mode === 'off', heat = T.heating && !off;
-  const sub = off ? 'thermostat off' : heat ? (T.test ? 'would heat (test mode)' : 'heating · watchdog OK') : (T.test ? 'not heating (test mode)' : 'not heating');
+  const old = (+T.version || 1) < TH_VERSION;
+  const sub = old ? 'update the script in Edit' : off ? 'thermostat off' : heat ? (T.test ? 'would heat (test mode)' : 'heating · watchdog OK') : (T.test ? 'not heating (test mode)' : 'not heating');
   return `<div class="th-line${heat && !T.test ? ' heat' : ''}" onclick="event.stopPropagation()">
     <span class="th-t">${heat ? '🔥' : '🌡️'} ${T.temp != null ? (+T.temp).toFixed(1) : '–'} °C → <b>${(+T.set).toFixed(1)} °C</b>${T.test ? '<i class="th-test">test</i>' : ''}<span class="th-sub">${sub}</span></span>
     <span class="th-btns"><button class="th-b" aria-label="Lower" onclick="event.stopPropagation();thAdj('${ip}',-0.5)">−</button><button class="th-b" aria-label="Higher" onclick="event.stopPropagation();thAdj('${ip}',0.5)">+</button>
@@ -3808,6 +3816,7 @@ function thEdit(ip, sh){
       stEl.textContent = `${st.temp != null ? st.temp.toFixed(1) + ' °C' : 'no temperature'} → ${(+st.set).toFixed(1)} °C · ${st.mode === 'off' ? 'off' : st.heating ? (st.test ? 'would heat' : 'heating 🔥') : 'not heating'}`;
       tg(test, !!st.test); if (st.sensor) sen.value = String(st.sensor);
       setV = +st.set; setEl.textContent = setV.toFixed(1) + ' °C';
+      document.getElementById('edThUpdRow').hidden = (+st.version || 1) >= TH_VERSION;
     } catch(e){ stEl.textContent = 'Script running'; }
   };
   thSensors(h).then(async list => {
@@ -3857,6 +3866,14 @@ function thEdit(ip, sh){
     if (!script) return;
     try { await thSetting(h, script.id, {th_sensor: sen.value}); say('Sensor changed.'); setTimeout(showState, 1200); }
     catch(e){ say('Could not change the sensor.', true); }
+  };
+  document.getElementById('edThUpd').onclick = async () => {
+    if (!script || busy) return; busy = true;
+    try { say('Updating the thermostat script…');
+      const id = await thInstall(h, +sen.value, test.classList.contains('on'));   // instellingen in KVS blijven staan
+      script = {id, running: true}; thermoSave(ip, id); document.getElementById('edThUpdRow').hidden = true;
+      say('Script updated and started again.'); setTimeout(showState, 1500);
+    } catch(e){ say('Update did not work: ' + (e && e.message || e), true); } finally { busy = false; }
   };
   logB.onclick = () => { if (!script) return; const u = `${h}/script/${script.id}/log`;
     if (window.Tasmota && window.Tasmota.openUrl) window.Tasmota.openUrl(u); else window.open(u, '_blank'); };
@@ -3916,6 +3933,7 @@ function editDev(ip){
         <div class="detrow"><span>Sensor</span><select class="sel" id="edThSen" style="max-width:62%"></select></div>
         <div class="detrow"><span>Test mode <span style="opacity:.7">(only the log, the relay never switches)</span></span><button type="button" class="tgl" id="edThTest" role="switch" aria-checked="false" aria-label="Test mode"><span></span></button></div>
         <div class="detrow"><span id="edThState"></span><button type="button" class="b-tog edbtn" id="edThLog" style="flex:none;width:auto;padding:8px 16px">Open log</button></div>
+        <div class="detrow" id="edThUpdRow" hidden><span>A newer thermostat script is in the app.</span><button type="button" class="b-tog edbtn" id="edThUpd" style="flex:none;width:auto;padding:8px 16px">Update script</button></div>
       </div>
       <div class="hint" id="edThNote">Reading…</div>
     </div>

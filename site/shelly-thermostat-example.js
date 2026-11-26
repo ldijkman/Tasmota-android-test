@@ -8,6 +8,7 @@
 //
 // Paste on the Shelly's own web page: Scripts -> Create script -> paste -> Save -> Start.
 // Turn on "Run on startup" so it starts again after a power cut.
+// It reacts at once when the temperature changes, and checks every 30 s as a backup.
 // Watch what it does in the log under the script (lots of console.log lines),
 // or open the log page in Chrome to copy it: http://<shelly-ip>/script/<script-number>/log
 // (the exact address is in the first log line).
@@ -25,10 +26,12 @@ let SWITCH_MARGIN    = 0.3;     // heat below 19.7, stop above 20.3
 let SENSOR           = 100;     // Add-on sensor number (see the Shelly page: Temperature (100)), app: KVS "th_sensor"
 
 let CHECK_EVERY_SECONDS = 30;   // how often to look at the temperature
-let MIN_MINUTES_BETWEEN = 3;    // protect the boiler: wait between switching
+let MIN_MINUTES_BETWEEN = 0;    // 0 = react directly; some boilers want e.g. 3 minutes between switching
 let SAFETY_OFF_MINUTES  = 10;   // relay turns off by itself if the script stops
 
 // ================= do not change below this line =================
+
+let VERSION = 2;                // the app checks this to offer an update of the script
 
 let CFG = {
   dryRun: TEST_MODE,
@@ -121,7 +124,7 @@ HTTPServer.registerEndpoint("state", function (req, res) {
   res.headers = [["Content-Type", "application/json"]];
   res.body = JSON.stringify({ thermostat: 1, temp: lastTemp, set: CFG.setpoint, margin: CFG.hyst, mode: state.mode,
     heating: state.heating, test: CFG.dryRun, sensor: CFG.sensor, round: state.round, checked: lastCheck,
-    watchdog: CFG.watchdogSec });
+    watchdog: CFG.watchdogSec, version: VERSION });
   res.send();
 });
 
@@ -226,6 +229,15 @@ log("script started · TEST MODE " + (TEST_MODE ? "on (relay is never switched)"
     " · room " + f1(ROOM_TEMPERATURE) + " °C · margin " + SWITCH_MARGIN + " · no frost guard (use a mechanical one)");
 log("sensor " + SENSOR + " (KVS th_sensor can change it) · check every " + CHECK_EVERY_SECONDS + " s · wait " + MIN_MINUTES_BETWEEN +
     " min between switching · safety off after " + SAFETY_OFF_MINUTES + " min · relay is now " + (state.heating ? "ON" : "OFF"));
+// react at once when the sensor reports a new temperature (every change of its threshold, e.g. 0.1 °C);
+// the check every 30 s stays as a backup
+let soon = null;
+Shelly.addStatusHandler(function (e) {
+  if (!e || e.component !== "temperature:" + CFG.sensor || !e.delta || e.delta.tC === undefined) return;
+  if (soon !== null) return;                        // several reports at once: one check
+  soon = Timer.set(300, false, function () { soon = null; log("new temperature from the sensor"); check(); });
+});
+
 loadSettings(function () {   // first the settings from KVS, then the first check
   Timer.set(CFG.everySec * 1000, true, check);
   Timer.set(300 * 1000, true, function () { loadSettings(); });

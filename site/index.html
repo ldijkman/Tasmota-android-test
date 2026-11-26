@@ -676,6 +676,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 <span class="jc">//</span>
 <span class="jc">// Paste on the Shelly&#x27;s own web page: Scripts -&gt; Create script -&gt; paste -&gt; Save -&gt; Start.</span>
 <span class="jc">// Turn on &quot;Run on startup&quot; so it starts again after a power cut.</span>
+<span class="jc">// It reacts at once when the temperature changes, and checks every 30 s as a backup.</span>
 <span class="jc">// Watch what it does in the log under the script (lots of console.log lines),</span>
 <span class="jc">// or open the log page in Chrome to copy it: http://&lt;shelly-ip&gt;/script/&lt;script-number&gt;/log</span>
 <span class="jc">// (the exact address is in the first log line).</span>
@@ -693,10 +694,12 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 <span class="jk">let</span> SENSOR           = <span class="jn">100</span>;     <span class="jc">// Add-on sensor number (see the Shelly page: Temperature (100)), app: KVS &quot;th_sensor&quot;</span>
 
 <span class="jk">let</span> CHECK_EVERY_SECONDS = <span class="jn">30</span>;   <span class="jc">// how often to look at the temperature</span>
-<span class="jk">let</span> MIN_MINUTES_BETWEEN = <span class="jn">3</span>;    <span class="jc">// protect the boiler: wait between switching</span>
+<span class="jk">let</span> MIN_MINUTES_BETWEEN = <span class="jn">0</span>;    <span class="jc">// 0 = react directly; some boilers want e.g. 3 minutes between switching</span>
 <span class="jk">let</span> SAFETY_OFF_MINUTES  = <span class="jn">10</span>;   <span class="jc">// relay turns off by itself if the script stops</span>
 
 <span class="jc">// ================= do not change below this line =================</span>
+
+<span class="jk">let</span> VERSION = <span class="jn">2</span>;                <span class="jc">// the app checks this to offer an update of the script</span>
 
 <span class="jk">let</span> CFG = {
   dryRun: TEST_MODE,
@@ -789,7 +792,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   res.headers = [[<span class="js">&quot;Content-Type&quot;</span>, <span class="js">&quot;application/json&quot;</span>]];
   res.body = <span class="jf">JSON</span>.stringify({ thermostat: <span class="jn">1</span>, temp: lastTemp, set: CFG.setpoint, margin: CFG.hyst, mode: state.mode,
     heating: state.heating, test: CFG.dryRun, sensor: CFG.sensor, round: state.round, checked: lastCheck,
-    watchdog: CFG.watchdogSec });
+    watchdog: CFG.watchdogSec, version: VERSION });
   res.send();
 });
 
@@ -894,6 +897,15 @@ log(<span class="js">&quot;script started · TEST MODE &quot;</span> + (TEST_MOD
     <span class="js">&quot; · room &quot;</span> + f1(ROOM_TEMPERATURE) + <span class="js">&quot; °C · margin &quot;</span> + SWITCH_MARGIN + <span class="js">&quot; · no frost guard (use a mechanical one)&quot;</span>);
 log(<span class="js">&quot;sensor &quot;</span> + SENSOR + <span class="js">&quot; (KVS th_sensor can change it) · check every &quot;</span> + CHECK_EVERY_SECONDS + <span class="js">&quot; s · wait &quot;</span> + MIN_MINUTES_BETWEEN +
     <span class="js">&quot; min between switching · safety off after &quot;</span> + SAFETY_OFF_MINUTES + <span class="js">&quot; min · relay is now &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>));
+<span class="jc">// react at once when the sensor reports a new temperature (every change of its threshold, e.g. 0.1 °C);</span>
+<span class="jc">// the check every 30 s stays as a backup</span>
+<span class="jk">let</span> soon = <span class="jk">null</span>;
+<span class="jf">Shelly</span>.addStatusHandler(<span class="jk">function</span> (e) {
+  <span class="jk">if</span> (!e || e.component !== <span class="js">&quot;temperature:&quot;</span> + CFG.sensor || !e.delta || e.delta.tC === <span class="jk">undefined</span>) <span class="jk">return</span>;
+  <span class="jk">if</span> (soon !== <span class="jk">null</span>) <span class="jk">return</span>;                        <span class="jc">// several reports at once: one check</span>
+  soon = <span class="jf">Timer</span>.set(<span class="jn">300</span>, <span class="jk">false</span>, <span class="jk">function</span> () { soon = <span class="jk">null</span>; log(<span class="js">&quot;new temperature from the sensor&quot;</span>); check(); });
+});
+
 loadSettings(<span class="jk">function</span> () {   <span class="jc">// first the settings from KVS, then the first check</span>
   <span class="jf">Timer</span>.set(CFG.everySec * <span class="jn">1000</span>, <span class="jk">true</span>, check);
   <span class="jf">Timer</span>.set(<span class="jn">300</span> * <span class="jn">1000</span>, <span class="jk">true</span>, <span class="jk">function</span> () { loadSettings(); });
