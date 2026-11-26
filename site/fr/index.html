@@ -446,7 +446,7 @@ section[id],#shelly-shots{scroll-margin-top:56px}
 .jscode{margin:0;height:260px;min-height:120px;overflow:auto;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#d6deeb;tab-size:2;overscroll-behavior:contain}
 .jscode .jc{color:#7f8ea8;font-style:italic}.jscode .js{color:#ecc48d}.jscode .jn{color:#f78c6c}.jscode .jk{color:#c792ea}.jscode .jf{color:#82aaff}
 .jsgrip{position:absolute;right:3px;bottom:3px;width:30px;height:30px;display:grid;place-items:center;cursor:nwse-resize;touch-action:none;color:#56617d;user-select:none;border-radius:8px}.jsgrip svg{width:18px;height:18px}.jsgrip:hover,.jsgrip.on{color:var(--amber)}
-.jslog{margin:0;max-height:240px;overflow:auto;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#c3cee3;overscroll-behavior:contain;max-width:640px}.jslog .lu{color:#5d6a85}.jslog .lh{color:#c792ea}.jslog .lt{color:var(--amber)}
+.jslog{margin:0;max-height:240px;overflow:auto;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#c3cee3;overscroll-behavior:contain;max-width:640px}.jslog .lu{color:#5d6a85}.jslog .lh{color:#c792ea}.jslog .lt{color:var(--amber)}.jslog .ll{color:#82aaff;text-decoration:underline;text-underline-offset:2px}
 .jsfrost{margin:0 0 10px;font-size:.88rem;color:#9fd3ff;max-width:640px}
 .wiring{margin:0 0 14px;max-width:640px}.wiring svg{width:100%;height:auto;display:block;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;font-family:var(--text)}
 .jsrun{margin:0 0 10px;font-size:.9rem;color:var(--ink);max-width:640px}.jsrun b{color:var(--amber)}
@@ -865,7 +865,7 @@ check();</code></pre>
       <p class="jsbox-h"><b>Exemple de journal (simulé) du script avec une DS18B20</b><br><span>TEST_MODE = false : la pièce se refroidit, le chauffage s’allume avec le watchdog, puis s’éteint au-dessus de 20,3 °C.</span></p>
       <pre class="jslog" lang="en" translate="no"><code>Thermostat log (simulated, newest at the bottom)
 
-<span class="lu">06:30:00</span> <span>log page: http://192.168.1.50/script/1/log</span>
+<span class="lu">06:30:00</span> <span>log page: <span class="ll">http://192.168.1.50/script/1/log</span></span>
 <span class="lu">06:30:00</span> <span>script started · TEST MODE OFF (relay really switches!) · room 20.0 °C · margin 0.3 · no frost guard (use a mechanical one)</span>
 <span class="lu">06:30:00</span> <span>sensor 100 · check every 30 s · wait 3 min between switching · safety off after 10 min · relay is now OFF</span>
 <span class="lu">06:30:00</span> <span>reading settings from KVS ...</span>
