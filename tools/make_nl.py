@@ -523,7 +523,7 @@ T = [
 ('>Drag the corner to resize ↘<', '>Sleep de hoek om te vergroten ↘<'),
 ('>Example log (simulated) of the script with one DS18B20<', '>Voorbeeld-log (gesimuleerd) van het script met één DS18B20<'),
 ('>TEST_MODE = false: the room cools down, the heating goes on with the watchdog, and off again above 20.3 °C.<', '>TEST_MODE = false: de kamer koelt af, de verwarming gaat aan met de watchdog, en boven 20,3 °C weer uit.<'),
-('>Sorry!, Nerd Alert Section 🤓 <', '>Sorry!, Nerd-alarm 🤓 <'),
+('>Sorry!, Nerd Alert Section 🤓<', '>Sorry!, Nerd-alarm 🤓<'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Overslaan</a>'),
 ('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">App openen</a>'),
 ('>❄️ No frost guard in the script: a script can stop. For frost protection use mechanical hardware: a bimetal frost thermostat wired in parallel with the Shelly relay, plus the boiler’s own frost protection. 🔥 Against overheating: a normally closed (NC) max thermostat, for example 30 °C, in series with the relay.<', '>❄️ Geen vorstbeveiliging in het script: een script kan stoppen. Gebruik voor vorstbeveiliging mechanische hardware: een bimetaal-vorstthermostaat parallel aan het Shelly-relais, plus de eigen vorstbeveiliging van de ketel. 🔥 Tegen oververhitting: een normaal gesloten (NC) maximaalthermostaat, bijvoorbeeld 30 °C, in serie met het relais.<'),

@@ -361,7 +361,7 @@ T = [
 ('>Drag the corner to resize ↘<', '>Ecke ziehen zum Vergrößern ↘<'),
 ('>Example log (simulated) of the script with one DS18B20<', '>Beispiel-Log (simuliert) des Skripts mit einem DS18B20<'),
 ('>TEST_MODE = false: the room cools down, the heating goes on with the watchdog, and off again above 20.3 °C.<', '>TEST_MODE = false: Der Raum kühlt ab, die Heizung geht mit dem Watchdog an und über 20,3 °C wieder aus.<'),
-('>Sorry!, Nerd Alert Section 🤓 <', '>Sorry!, Nerd-Alarm 🤓 <'),
+('>Sorry!, Nerd Alert Section 🤓<', '>Sorry!, Nerd-Alarm 🤓<'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Überspringen</a>'),
 ('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">App öffnen</a>'),
 ('>❄️ No frost guard in the script: a script can stop. For frost protection use mechanical hardware: a bimetal frost thermostat wired in parallel with the Shelly relay, plus the boiler’s own frost protection. 🔥 Against overheating: a normally closed (NC) max thermostat, for example 30 °C, in series with the relay.<', '>❄️ Kein Frostschutz im Skript: Ein Skript kann anhalten. Für Frostschutz mechanische Hardware verwenden: einen Bimetall-Frostschutzthermostat parallel zum Shelly-Relais, dazu den eigenen Frostschutz des Kessels. 🔥 Gegen Überhitzung: ein Öffner-Maximalthermostat (NC), zum Beispiel 30 °C, in Reihe mit dem Relais.<'),

@@ -357,7 +357,7 @@ T = [
 ('>Drag the corner to resize ↘<', '>Tirez le coin pour agrandir ↘<'),
 ('>Example log (simulated) of the script with one DS18B20<', '>Exemple de journal (simulé) du script avec une DS18B20<'),
 ('>TEST_MODE = false: the room cools down, the heating goes on with the watchdog, and off again above 20.3 °C.<', '>TEST_MODE = false : la pièce se refroidit, le chauffage s’allume avec le watchdog, puis s’éteint au-dessus de 20,3 °C.<'),
-('>Sorry!, Nerd Alert Section 🤓 <', '>Désolé !, Alerte nerds 🤓 <'),
+('>Sorry!, Nerd Alert Section 🤓<', '>Désolé !, Alerte nerds 🤓<'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Passer</a>'),
 ('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">Ouvrir l’app</a>'),
 ('>❄️ No frost guard in the script: a script can stop. For frost protection use mechanical hardware: a bimetal frost thermostat wired in parallel with the Shelly relay, plus the boiler’s own frost protection. 🔥 Against overheating: a normally closed (NC) max thermostat, for example 30 °C, in series with the relay.<', '>❄️ Pas de hors-gel dans le script : un script peut s’arrêter. Pour la protection contre le gel, utilisez du matériel mécanique : un thermostat hors-gel à bilame en parallèle du relais Shelly, plus la protection antigel de la chaudière. 🔥 Contre la surchauffe : un thermostat de sécurité maximum normalement fermé (NF), par exemple 30 °C, en série avec le relais.<'),

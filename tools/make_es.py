@@ -500,7 +500,7 @@ T = [
 ('>Drag the corner to resize ↘<', '>Arrastra la esquina para cambiar el tamaño ↘<'),
 ('>Example log (simulated) of the script with one DS18B20<', '>Ejemplo de registro (simulado) del script con un DS18B20<'),
 ('>TEST_MODE = false: the room cools down, the heating goes on with the watchdog, and off again above 20.3 °C.<', '>TEST_MODE = false: la habitación se enfría, la calefacción se enciende con el watchdog y se apaga por encima de 20,3 °C.<'),
-('>Sorry!, Nerd Alert Section 🤓 <', '>¡Perdón!, Alerta nerd 🤓 <'),
+('>Sorry!, Nerd Alert Section 🤓<', '>¡Perdón!, Alerta nerd 🤓<'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Saltar</a>'),
 ('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">Abrir la app</a>'),
 ('>❄️ No frost guard in the script: a script can stop. For frost protection use mechanical hardware: a bimetal frost thermostat wired in parallel with the Shelly relay, plus the boiler’s own frost protection. 🔥 Against overheating: a normally closed (NC) max thermostat, for example 30 °C, in series with the relay.<', '>❄️ Sin protección antiheladas en el script: un script puede detenerse. Para la protección antiheladas usa hardware mecánico: un termostato antiheladas bimetálico en paralelo con el relé del Shelly, más la protección antiheladas propia de la caldera. 🔥 Contra el sobrecalentamiento: un termostato de máxima normalmente cerrado (NC), por ejemplo de 30 °C, en serie con el relé.<'),
