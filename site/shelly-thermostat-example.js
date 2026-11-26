@@ -169,7 +169,7 @@ function setHeating(on, why) {
     });
   }
   state.heating = on;
-  state.lastSwitch = now;
+  if (!CFG.dryRun) state.lastSwitch = now;   // test mode: no real switch, so no boiler wait afterwards
 }
 
 // watchdog: while heating, set "on, and off again after watchdogSec" every check.

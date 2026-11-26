@@ -837,7 +837,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     });
   }
   state.heating = on;
-  state.lastSwitch = now;
+  <span class="jk">if</span> (!CFG.dryRun) state.lastSwitch = now;   <span class="jc">// test mode: no real switch, so no boiler wait afterwards</span>
 }
 
 <span class="jc">// watchdog: while heating, set &quot;on, and off again after watchdogSec&quot; every check.</span>

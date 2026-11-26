@@ -212,6 +212,17 @@
   .dev .snc svg{color:var(--on);flex:none}
   .dev .snn{font-style:normal;color:var(--muted);margin-right:3px}
   .h-sensors .dev .sn{display:none}
+  .dev .th-line{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:6px;padding:6px 8px 6px 10px;border-radius:12px;border:1px solid var(--line);font-variant-numeric:tabular-nums}
+  .dev .th-line.heat{border-color:var(--on)}
+  .th-t{font-size:.95rem}.th-t b{font-size:1.05rem}.th-sub{display:block;font-size:.72rem;color:var(--muted)}
+  .th-test{font-style:normal;font-size:.7rem;padding:1px 6px;border-radius:6px;background:var(--line);margin-left:4px}
+  .th-btns{display:flex;gap:6px}
+  .th-b,.th-m{min-width:38px;height:34px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:transparent;color:inherit;font:inherit;font-size:1.1rem;line-height:1}
+  .th-m{font-size:.85rem;min-width:46px}.th-m.on{border-color:var(--on);color:var(--on)}
+  .dev .th-err{color:var(--err);font-size:.82rem;margin-top:6px}
+  .tile .t-th{display:flex;align-items:center;gap:6px;font-size:.8rem;font-variant-numeric:tabular-nums;margin-top:2px;width:100%}
+  .tile .t-thb{display:inline-grid;place-items:center;width:30px;height:26px;border-radius:8px;border:1px solid var(--line);font-size:1rem}
+  .tile .t-thb:first-of-type{margin-left:auto}
   .tile .t-sn{display:block;font-size:.72rem;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .eg-big{text-align:center;padding:6px 0 2px}
   .eg-w{font-size:3rem;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
@@ -1383,6 +1394,7 @@ function devCard(d, cur, grip){
       ${pulseLine(d.ip)}
       ${energyLine(d.ip)}
       ${sensorLine(d.ip)}
+      ${thermoLine(d.ip)}
       ${devTimeLine(d.ip)}
       ${devMeta(d.ip)}
       ${devWarn(d.ip)}
@@ -1950,6 +1962,8 @@ function grpClick(id){ if (dpowHeld){ dpowHeld = false; return; } toggleGroup(id
   list.addEventListener('contextmenu', e => { if (e.target.closest('.dpow, .grp-toggle, .dev .dfn')) e.preventDefault(); });
 })();
 async function quickToggle(ip){
+  const T = devThermo[ip];
+  if (thermoOf(ip) && T && !T.err && !T.test){ thMode(ip); return; }   // thermostaat: aan/uit van de thermostaat, niet van het relais
   const L = devLive[ip] = devLive[ip] || {};
   if (L.busy) return;
   L.busy = true; renderDevs();
@@ -1973,6 +1987,7 @@ async function refreshAllDevs(){
   await Promise.all(devs.filter(d => (devLive[d.ip] || {}).state === 'on' && devPulse[d.ip] && devPulse[d.ip].set).map(d => fetchPulse(d.ip)));
   // energiemeters: elke ronde bijwerken (alleen apparaten waarvan we weten dat ze meten)
   await Promise.all(devs.filter(d => (devEnergy[d.ip] || devSens[d.ip]) && (devLive[d.ip] || {}).state !== 'offline').map(d => fetchEnergy(d.ip)));
+  await Promise.all(devs.filter(d => d.thermo && (devLive[d.ip] || {}).state !== 'offline').map(d => fetchThermo(d.ip)));
   refreshingAll = false;
   renderDevs();
   checkMacs();
@@ -3047,6 +3062,7 @@ const fmtPulse = sec => sec < 60 ? Math.round(sec) + ' s'
   : sec < 3600 ? Math.round(sec / 60) + ' min'
   : Math.floor(sec / 3600) + ' h' + (Math.round(sec % 3600 / 60) ? ' ' + Math.round(sec % 3600 / 60) + ' min' : '');
 function pulseLine(ip){
+  { const T = devThermo[ip]; if (thermoOf(ip) && T && !T.err && !T.test) return ''; }   // aftellen = watchdog van de thermostaat
   const st = (devLive[ip] || {}).state, left = st === 'on' ? pulseLeft(ip) : null, P = devPulse[ip];
   if (left == null){
     // niet aan het aftellen: laten zien waarop de auto-off staat
@@ -3323,7 +3339,8 @@ function tileHtml(d){
     <span class="t-top"><span class="t-ico${pulseRingCls(d.ip, on)}"${pulseRingAttr(d.ip, on)}>${iconSvg(d.icon)}${pulseBadge(d.ip)}</span>
       <span class="t-st">${off ? (st === 'locked' ? 'password needed' : 'not reachable') : on ? 'On' : 'Off'}${!off && lightOf(d.ip) ? ` · <span class="tpct">${lightDot(d.ip)}${lightOf(d.ip).dim}%${TUNE_SVG.replace('13', '11').replace('13', '11')}</span>` : ''}${on && pulseLeft(d.ip) != null ? ` · <span class="pcd" data-ip="${d.ip}">${mmss(pulseLeft(d.ip))}</span>` : ''}</span></span>
     <span class="t-name">${esc(d.friendly || d.name || d.ip)}</span>
-    ${!off && sensorShort(d.ip) && sensOn() ? `<span class="t-sn">${esc(sensorShort(d.ip))}</span>` : ''}
+    ${!off && sensorShort(d.ip) && sensOn() && !thTile(d.ip) ? `<span class="t-sn">${esc(sensorShort(d.ip))}</span>` : ''}
+    ${!off ? thTile(d.ip) : ''}
   </button>`;
 }
 function renderTiles(){
@@ -3368,6 +3385,7 @@ function openTiles(){
     if (held){ held = false; return; }
     const t = e.target.closest('.tile'); if (!t || t.classList.contains('busy')) return;
     if (e.target.closest('.tpct')){ openLight(t.dataset.ip); return; }   // percentage: lampvenster
+    const thb = e.target.closest('[data-th]'); if (thb){ thAdj(t.dataset.ip, +thb.dataset.th); return; }   // thermostaat − / +
     if (navigator.vibrate) try { navigator.vibrate(15); } catch(_){}
     quickToggle(t.dataset.ip);
   };
@@ -3719,13 +3737,69 @@ async function thRemove(h){
   for (const k of ['th_set', 'th_mode', 'th_sensor', 'th_test']) await thRpc(h, 'KVS.Delete', {key: k}).catch(() => {});
 }
 async function thSetting(h, id, kv){ await thKvs(h, kv); await appCall('get', [`${h}/script/${id}/reload`], 9000).catch(() => {}); }
+// thermostaat op de kaart en tegel: status uit het script (/state), − / + en aan/uit via KVS
+var devThermo = {};
+function thermoOf(ip){ const d = loadDevs().find(x => x.ip === ip); return d && d.thermo ? d.thermo : 0; }
+function thermoSave(ip, id){
+  const all = loadDevs(), d = all.find(x => x.ip === ip); if (!d) return;
+  if (id) d.thermo = id; else { delete d.thermo; delete devThermo[ip]; }
+  saveDevs(all);
+}
+async function fetchThermo(ip){
+  const id = thermoOf(ip); if (!id) return;
+  try { const st = await appCall('get', [`http://${hostOf(ip)}/script/${id}/state`], 6000);
+    devThermo[ip] = Object.assign({}, st, {at: Date.now()}); }
+  catch(e){ devThermo[ip] = {err: true, at: Date.now()}; }
+}
+const thRedraw = () => { renderDevs(); if (!document.getElementById('tileView').hidden) renderTiles(); };
+const thSetTimers = {};
+function thAdj(ip, d){
+  const T = devThermo[ip]; if (!T || T.err) return;
+  T.set = Math.min(30, Math.max(5, Math.round((+T.set + d) * 2) / 2)); thRedraw();
+  clearTimeout(thSetTimers[ip]);   // snel na elkaar tikken: alleen de laatste waarde versturen
+  thSetTimers[ip] = setTimeout(() => thSetting('http://' + hostOf(ip), thermoOf(ip), {th_set: T.set})
+    .then(() => fetchThermo(ip)).then(thRedraw)
+    .catch(() => { scanNote = '<span style="color:var(--err)">Could not set the thermostat temperature.</span>'; renderDevs(); }), 700);
+}
+function thMode(ip){
+  const T = devThermo[ip]; if (!T || T.err) return;
+  T.mode = T.mode === 'off' ? 'on' : 'off'; if (T.mode === 'off') T.heating = false; thRedraw();
+  thSetting('http://' + hostOf(ip), thermoOf(ip), {th_mode: T.mode})
+    .then(() => new Promise(r => setTimeout(r, 1200))).then(() => fetchThermo(ip)).then(thRedraw)
+    .catch(() => { scanNote = '<span style="color:var(--err)">Could not switch the thermostat.</span>'; renderDevs(); });
+}
+function thermoLine(ip){
+  if (!thermoOf(ip)) return '';
+  const T = devThermo[ip], st = (devLive[ip] || {}).state;
+  if (st === 'offline' || st === 'locked') return '';
+  if (!T) return `<div class="th-line"><span class="th-t">Thermostat…</span></div>`;
+  if (T.err) return `<div class="th-err">⚠ Thermostat script is not answering</div>`;
+  const off = T.mode === 'off', heat = T.heating && !off;
+  const sub = off ? 'thermostat off' : heat ? (T.test ? 'would heat (test mode)' : 'heating · watchdog OK') : (T.test ? 'not heating (test mode)' : 'not heating');
+  return `<div class="th-line${heat && !T.test ? ' heat' : ''}" onclick="event.stopPropagation()">
+    <span class="th-t">${heat ? '🔥' : '🌡️'} ${T.temp != null ? (+T.temp).toFixed(1) : '–'} °C → <b>${(+T.set).toFixed(1)} °C</b>${T.test ? '<i class="th-test">test</i>' : ''}<span class="th-sub">${sub}</span></span>
+    <span class="th-btns"><button class="th-b" aria-label="Lower" onclick="event.stopPropagation();thAdj('${ip}',-0.5)">−</button><button class="th-b" aria-label="Higher" onclick="event.stopPropagation();thAdj('${ip}',0.5)">+</button>
+    <button class="th-m${off ? '' : ' on'}" aria-label="Thermostat on or off" onclick="event.stopPropagation();thMode('${ip}')">${off ? 'Off' : 'On'}</button></span></div>`;
+}
+function thTile(ip){
+  const T = devThermo[ip]; if (!thermoOf(ip) || !T || T.err) return '';
+  const heat = T.heating && T.mode !== 'off';
+  return `<span class="t-th"><span style="white-space:nowrap">${heat ? '🔥' : '🌡️'} ${T.temp != null ? (+T.temp).toFixed(1) : '–'}→<b>${T.mode === 'off' ? 'off' : (+T.set).toFixed(1) + '°'}</b></span>
+    <span class="t-thb" data-th="-0.5" role="button" aria-label="Lower">−</span><span class="t-thb" data-th="0.5" role="button" aria-label="Higher">+</span></span>`;
+}
 function thEdit(ip, sh){
   const row = document.getElementById('edThRow'); if (!row) return;
   if (!APP || !sh || (sh.gen || 1) < 2 || (sh.comp || 'switch') !== 'switch') return;
   const h = 'http://' + hostOf(ip), on = document.getElementById('edThOn'), more = document.getElementById('edThMore'),
         sen = document.getElementById('edThSen'), test = document.getElementById('edThTest'), note = document.getElementById('edThNote'),
         stEl = document.getElementById('edThState'), logB = document.getElementById('edThLog');
-  let script = null, busy = false;
+  let script = null, busy = false, setV = 20, setT = null;
+  const setEl = document.getElementById('edThSet');
+  const adj = d => { if (!script) return; setV = Math.min(30, Math.max(5, Math.round((setV + d) * 2) / 2)); setEl.textContent = setV.toFixed(1) + ' °C';
+    clearTimeout(setT); setT = setTimeout(() => thSetting(h, script.id, {th_set: setV}).then(() => { say('Temperature set to ' + setV.toFixed(1) + ' °C.'); fetchThermo(ip).then(renderDevs); showState(); })
+      .catch(() => say('Could not set the temperature.', true)), 700); };
+  document.getElementById('edThDn').onclick = () => adj(-0.5);
+  document.getElementById('edThUp').onclick = () => adj(0.5);
   const tg = (b, v) => { b.classList.toggle('on', v); b.setAttribute('aria-checked', v); };
   const say = (t, err) => { note.innerHTML = err ? `<span style="color:var(--err)">${esc(t)}</span>` : esc(t); };
   const showState = async () => {
@@ -3733,6 +3807,7 @@ function thEdit(ip, sh){
     try { const st = await appCall('get', [`${h}/script/${script.id}/state`], 6000);
       stEl.textContent = `${st.temp != null ? st.temp.toFixed(1) + ' °C' : 'no temperature'} → ${(+st.set).toFixed(1)} °C · ${st.mode === 'off' ? 'off' : st.heating ? (st.test ? 'would heat' : 'heating 🔥') : 'not heating'}`;
       tg(test, !!st.test); if (st.sensor) sen.value = String(st.sensor);
+      setV = +st.set; setEl.textContent = setV.toFixed(1) + ' °C';
     } catch(e){ stEl.textContent = 'Script running'; }
   };
   thSensors(h).then(async list => {
@@ -3741,6 +3816,8 @@ function thEdit(ip, sh){
     sen.innerHTML = list.map(x => `<option value="${x.id}">${esc(x.name)}${x.t != null ? ' · ' + (+x.t).toFixed(1) + ' °C' : ''}</option>`).join('');
     try { script = await thFind(h); } catch(e){ say('Could not read the scripts on the Shelly.', true); return; }
     tg(on, !!script); more.hidden = !script; tg(test, true);
+    if (script && thermoOf(ip) !== script.id) thermoSave(ip, script.id);   // ook als hij al eerder (met de hand) geïnstalleerd was
+    if (!script && thermoOf(ip)) thermoSave(ip, 0);
     say(script ? 'The thermostat runs in the Shelly itself, also without the phone.' : 'Installs a small script in the Shelly. Starts in test mode: it only writes a log.');
     if (script) showState();
   }).catch(() => {});
@@ -3750,13 +3827,19 @@ function thEdit(ip, sh){
       if (!script){
         say('Installing the thermostat script…');
         const id = await thInstall(h, +sen.value, true);
-        script = {id, running: true}; tg(on, true); more.hidden = false; tg(test, true);
+        script = {id, running: true}; tg(on, true); more.hidden = false; tg(test, true); thermoSave(ip, id);
+        setTimeout(() => fetchThermo(ip).then(renderDevs), 1500);
         say('Installed and started, in test mode. Open the log to see what it would do.');
         setTimeout(showState, 1500);
       } else {
-        if (!confirm('Remove the thermostat script from this Shelly?')) return;
-        say('Removing…'); await thRemove(h);
-        script = null; tg(on, false); more.hidden = true; say('Removed. The Shelly is a normal switch again.');
+        busy = false;   // WebView kent geen confirm(): eigen vraagvenster van de app
+        askConfirm('Remove the thermostat script from this Shelly?', async () => {
+          busy = true;
+          try { say('Removing…'); await thRemove(h);
+            script = null; tg(on, false); more.hidden = true; thermoSave(ip, 0); renderDevs(); say('Removed. The Shelly is a normal switch again.');
+          } catch(e){ say('Did not work: ' + (e && e.message || e), true); } finally { busy = false; }
+        });
+        return;
       }
     } catch(e){ say('Did not work: ' + (e && e.message || e), true); }
     finally { busy = false; }
@@ -3764,11 +3847,11 @@ function thEdit(ip, sh){
   test.onclick = async () => {
     if (!script || busy) return;
     const v = !test.classList.contains('on');
-    if (!v && !confirm('Turn test mode off? The relay will really switch the heating.')) return;
-    busy = true;
-    try { await thSetting(h, script.id, {th_test: v ? 'on' : 'off'}); tg(test, v);
-      say(v ? 'Test mode on: the relay never switches.' : 'Test mode off: the thermostat really switches the relay.'); setTimeout(showState, 1200);
-    } catch(e){ say('Could not change test mode.', true); } finally { busy = false; }
+    const go = async () => { busy = true;
+      try { await thSetting(h, script.id, {th_test: v ? 'on' : 'off'}); tg(test, v);
+        say(v ? 'Test mode on: the relay never switches.' : 'Test mode off: the thermostat really switches the relay.'); setTimeout(showState, 1200);
+      } catch(e){ say('Could not change test mode.', true); } finally { busy = false; } };
+    if (v) go(); else askConfirm('Turn test mode off? The relay will really switch the heating.', go, 'Yes, turn off', true);
   };
   sen.onchange = async () => {
     if (!script) return;
@@ -3829,6 +3912,7 @@ function editDev(ip){
       <label class="t">Thermostat <span style="opacity:.7">(heating on/off with the Add-on temperature sensor)</span></label>
       <div class="detrow"><span>Use as thermostat</span><button type="button" class="tgl" id="edThOn" role="switch" aria-checked="false" aria-label="Use as thermostat"><span></span></button></div>
       <div id="edThMore" hidden>
+        <div class="detrow"><span>Temperature</span><span class="th-btns"><button type="button" class="th-b" id="edThDn" aria-label="Lower">−</button><b id="edThSet" style="min-width:64px;text-align:center;align-self:center">20.0 °C</b><button type="button" class="th-b" id="edThUp" aria-label="Higher">+</button></span></div>
         <div class="detrow"><span>Sensor</span><select class="sel" id="edThSen" style="max-width:62%"></select></div>
         <div class="detrow"><span>Test mode <span style="opacity:.7">(only the log, the relay never switches)</span></span><button type="button" class="tgl" id="edThTest" role="switch" aria-checked="false" aria-label="Test mode"><span></span></button></div>
         <div class="detrow"><span id="edThState"></span><button type="button" class="b-tog edbtn" id="edThLog" style="flex:none;width:auto;padding:8px 16px">Open log</button></div>
