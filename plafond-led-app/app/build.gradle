@@ -12,8 +12,8 @@ android {
         targetSdk 34
         // Builddatum komt in BuildConfig.BUILD_DATE (getoond onderaan de app)
         buildConfigField "String", "BUILD_DATE", "\"" + new java.text.SimpleDateFormat("d MMMM yyyy", java.util.Locale.ENGLISH).format(new Date()) + "\""
-        versionCode 244
-        versionName '25.7'
+        versionCode 245
+        versionName '25.8'
     }
 
     signingConfigs {
