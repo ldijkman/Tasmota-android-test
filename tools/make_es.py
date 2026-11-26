@@ -502,6 +502,7 @@ T = [
 ('>Test mode: the script only writes what it would do. It is warm in the room, so the heating stays off.<', '>Modo de prueba: el script solo anota lo que haría. En la habitación hace calor, así que la calefacción sigue apagada.<'),
 ('>Sorry!, Nerd Alert Section 🤓 <', '>¡Perdón!, Alerta nerd 🤓 <'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Saltar</a>'),
+('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">Abrir la app</a>'),
 ]
 
 

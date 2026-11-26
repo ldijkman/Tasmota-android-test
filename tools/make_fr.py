@@ -359,6 +359,7 @@ T = [
 ('>Test mode: the script only writes what it would do. It is warm in the room, so the heating stays off.<', '>Mode test : le script note seulement ce qu’il ferait. La pièce est chaude, donc le chauffage reste éteint.<'),
 ('>Sorry!, Nerd Alert Section 🤓 <', '>Désolé !, Alerte nerds 🤓 <'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Passer</a>'),
+('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">Ouvrir l’app</a>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

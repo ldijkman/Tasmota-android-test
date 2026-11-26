@@ -499,6 +499,7 @@ T = [
 ('>Test mode: the script only writes what it would do. It is warm in the room, so the heating stays off.<', '>Tryb testowy: skrypt tylko zapisuje, co by zrobił. W pokoju jest ciepło, więc ogrzewanie pozostaje wyłączone.<'),
 ('>Sorry!, Nerd Alert Section 🤓 <', '>Przepraszam!, Uwaga, nerdy 🤓 <'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Pomiń</a>'),
+('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">Otwórz aplikację</a>'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

@@ -363,6 +363,7 @@ T = [
 ('>Test mode: the script only writes what it would do. It is warm in the room, so the heating stays off.<', '>Testmodus: Das Skript schreibt nur auf, was es tun würde. Im Raum ist es warm, also bleibt die Heizung aus.<'),
 ('>Sorry!, Nerd Alert Section 🤓 <', '>Sorry!, Nerd-Alarm 🤓 <'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Überspringen</a>'),
+('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">App öffnen</a>'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
