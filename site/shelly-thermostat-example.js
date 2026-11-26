@@ -20,8 +20,7 @@ let TEST_MODE        = true;    // true  = only write in the log, never switch t
 let ROOM_TEMPERATURE = 20.0;    // the temperature you want (°C), the app can change it via KVS "th_set"
 let SWITCH_MARGIN    = 0.3;     // heat below 19.7, stop above 20.3
 
-let SENSORS          = [100, 101];  // Add-on sensor numbers; one sensor: [100]
-let WARN_DIFFERENCE  = 1.5;     // warn if two sensors differ more than this (°C)
+let SENSOR           = 100;     // Add-on sensor number (see the Shelly page: Temperature (100))
 
 let CHECK_EVERY_SECONDS = 30;   // how often to look at the temperature
 let MIN_MINUTES_BETWEEN = 3;    // protect the boiler: wait between switching
@@ -31,10 +30,9 @@ let SAFETY_OFF_MINUTES  = 10;   // relay turns off by itself if the script stops
 
 let CFG = {
   dryRun: TEST_MODE,
-  sensors: SENSORS,
+  sensor: SENSOR,
   setpoint: ROOM_TEMPERATURE,
   hyst: SWITCH_MARGIN,
-  maxDiff: WARN_DIFFERENCE,
   minSwitchSec: MIN_MINUTES_BETWEEN * 60,
   everySec: CHECK_EVERY_SECONDS,
   watchdogSec: SAFETY_OFF_MINUTES * 60
@@ -101,30 +99,15 @@ function loadSettings() {
   });
 }
 
-// room temperature: the average of the sensors that give a value, or null
+// room temperature from the sensor, or null if it gives no value
 function roomTemp() {
-  let vals = [];
-  for (let i = 0; i < CFG.sensors.length; i++) {
-    let id = CFG.sensors[i];
-    let st = Shelly.getComponentStatus("temperature", id);
-    if (st && typeof st.tC === "number") {
-      log("sensor " + id + ": " + f1(st.tC) + " °C");
-      vals.push(st.tC);
-    } else {
-      log("sensor " + id + ": NO VALUE (not connected, wrong id or broken?)");
-    }
+  let st = Shelly.getComponentStatus("temperature", CFG.sensor);
+  if (st && typeof st.tC === "number") {
+    log("sensor " + CFG.sensor + ": " + f1(st.tC) + " °C");
+    return st.tC;
   }
-  if (vals.length === 0) return null;
-  if (vals.length === 2) {
-    let diff = Math.abs(vals[0] - vals[1]);
-    log("difference between sensors: " + f1(diff) + " °C");
-    if (diff > CFG.maxDiff) log("WARNING: sensors differ more than " + CFG.maxDiff + " °C");
-  }
-  let sum = 0;
-  for (let i = 0; i < vals.length; i++) sum += vals[i];
-  let avg = sum / vals.length;
-  log("room temperature (average of " + vals.length + "): " + f1(avg) + " °C");
-  return avg;
+  log("sensor " + CFG.sensor + ": NO VALUE (not connected, wrong number or broken?)");
+  return null;
 }
 
 function setHeating(on, why) {
@@ -179,7 +162,7 @@ function check() {
       " · heating " + (state.heating ? "ON" : "OFF") + (CFG.dryRun ? " · TEST MODE" : "") + " ----");
   let t = roomTemp();
   if (t === null) {                       // no sensor works: heating off
-    log("no temperature at all: heating off for safety");
+    log("no temperature: heating off for safety");
     setHeating(false, "safety");
     return;
   }
@@ -202,7 +185,7 @@ let sw = Shelly.getComponentStatus("switch", 0);
 state.heating = !!(sw && sw.output);
 log("script started · TEST MODE " + (TEST_MODE ? "on (relay is never switched)" : "OFF (relay really switches!)") +
     " · room " + f1(ROOM_TEMPERATURE) + " °C · margin " + SWITCH_MARGIN + " · no frost guard (use a mechanical one)");
-log("sensors " + SENSORS.join(", ") + " · check every " + CHECK_EVERY_SECONDS + " s · wait " + MIN_MINUTES_BETWEEN +
+log("sensor " + SENSOR + " · check every " + CHECK_EVERY_SECONDS + " s · wait " + MIN_MINUTES_BETWEEN +
     " min between switching · safety off after " + SAFETY_OFF_MINUTES + " min · relay is now " + (state.heating ? "ON" : "OFF"));
 loadSettings();
 Timer.set(CFG.everySec * 1000, true, check);

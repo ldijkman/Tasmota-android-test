@@ -680,8 +680,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 <span class="jk">let</span> ROOM_TEMPERATURE = <span class="jn">20.0</span>;    <span class="jc">// the temperature you want (°C), the app can change it via KVS &quot;th_set&quot;</span>
 <span class="jk">let</span> SWITCH_MARGIN    = <span class="jn">0.3</span>;     <span class="jc">// heat below 19.7, stop above 20.3</span>
 
-<span class="jk">let</span> SENSORS          = [<span class="jn">100</span>, <span class="jn">101</span>];  <span class="jc">// Add-on sensor numbers; one sensor: [100]</span>
-<span class="jk">let</span> WARN_DIFFERENCE  = <span class="jn">1.5</span>;     <span class="jc">// warn if two sensors differ more than this (°C)</span>
+<span class="jk">let</span> SENSOR           = <span class="jn">100</span>;     <span class="jc">// Add-on sensor number (see the Shelly page: Temperature (100))</span>
 
 <span class="jk">let</span> CHECK_EVERY_SECONDS = <span class="jn">30</span>;   <span class="jc">// how often to look at the temperature</span>
 <span class="jk">let</span> MIN_MINUTES_BETWEEN = <span class="jn">3</span>;    <span class="jc">// protect the boiler: wait between switching</span>
@@ -691,10 +690,9 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 
 <span class="jk">let</span> CFG = {
   dryRun: TEST_MODE,
-  sensors: SENSORS,
+  sensor: SENSOR,
   setpoint: ROOM_TEMPERATURE,
   hyst: SWITCH_MARGIN,
-  maxDiff: WARN_DIFFERENCE,
   minSwitchSec: MIN_MINUTES_BETWEEN * <span class="jn">60</span>,
   everySec: CHECK_EVERY_SECONDS,
   watchdogSec: SAFETY_OFF_MINUTES * <span class="jn">60</span>
@@ -761,30 +759,15 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   });
 }
 
-<span class="jc">// room temperature: the average of the sensors that give a value, or null</span>
+<span class="jc">// room temperature from the sensor, or null if it gives no value</span>
 <span class="jk">function</span> roomTemp() {
-  <span class="jk">let</span> vals = [];
-  <span class="jk">for</span> (<span class="jk">let</span> i = <span class="jn">0</span>; i &lt; CFG.sensors.length; i++) {
-    <span class="jk">let</span> id = CFG.sensors[i];
-    <span class="jk">let</span> st = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;temperature&quot;</span>, id);
-    <span class="jk">if</span> (st &amp;&amp; <span class="jk">typeof</span> st.tC === <span class="js">&quot;number&quot;</span>) {
-      log(<span class="js">&quot;sensor &quot;</span> + id + <span class="js">&quot;: &quot;</span> + f1(st.tC) + <span class="js">&quot; °C&quot;</span>);
-      vals.push(st.tC);
-    } <span class="jk">else</span> {
-      log(<span class="js">&quot;sensor &quot;</span> + id + <span class="js">&quot;: NO VALUE (not connected, wrong id or broken?)&quot;</span>);
-    }
+  <span class="jk">let</span> st = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;temperature&quot;</span>, CFG.sensor);
+  <span class="jk">if</span> (st &amp;&amp; <span class="jk">typeof</span> st.tC === <span class="js">&quot;number&quot;</span>) {
+    log(<span class="js">&quot;sensor &quot;</span> + CFG.sensor + <span class="js">&quot;: &quot;</span> + f1(st.tC) + <span class="js">&quot; °C&quot;</span>);
+    <span class="jk">return</span> st.tC;
   }
-  <span class="jk">if</span> (vals.length === <span class="jn">0</span>) <span class="jk">return</span> <span class="jk">null</span>;
-  <span class="jk">if</span> (vals.length === <span class="jn">2</span>) {
-    <span class="jk">let</span> diff = <span class="jf">Math</span>.abs(vals[<span class="jn">0</span>] - vals[<span class="jn">1</span>]);
-    log(<span class="js">&quot;difference between sensors: &quot;</span> + f1(diff) + <span class="js">&quot; °C&quot;</span>);
-    <span class="jk">if</span> (diff &gt; CFG.maxDiff) log(<span class="js">&quot;WARNING: sensors differ more than &quot;</span> + CFG.maxDiff + <span class="js">&quot; °C&quot;</span>);
-  }
-  <span class="jk">let</span> sum = <span class="jn">0</span>;
-  <span class="jk">for</span> (<span class="jk">let</span> i = <span class="jn">0</span>; i &lt; vals.length; i++) sum += vals[i];
-  <span class="jk">let</span> avg = sum / vals.length;
-  log(<span class="js">&quot;room temperature (average of &quot;</span> + vals.length + <span class="js">&quot;): &quot;</span> + f1(avg) + <span class="js">&quot; °C&quot;</span>);
-  <span class="jk">return</span> avg;
+  log(<span class="js">&quot;sensor &quot;</span> + CFG.sensor + <span class="js">&quot;: NO VALUE (not connected, wrong number or broken?)&quot;</span>);
+  <span class="jk">return</span> <span class="jk">null</span>;
 }
 
 <span class="jk">function</span> setHeating(on, why) {
@@ -839,7 +822,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       <span class="js">&quot; · heating &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + (CFG.dryRun ? <span class="js">&quot; · TEST MODE&quot;</span> : <span class="js">&quot;&quot;</span>) + <span class="js">&quot; ----&quot;</span>);
   <span class="jk">let</span> t = roomTemp();
   <span class="jk">if</span> (t === <span class="jk">null</span>) {                       <span class="jc">// no sensor works: heating off</span>
-    log(<span class="js">&quot;no temperature at all: heating off for safety&quot;</span>);
+    log(<span class="js">&quot;no temperature: heating off for safety&quot;</span>);
     setHeating(<span class="jk">false</span>, <span class="js">&quot;safety&quot;</span>);
     <span class="jk">return</span>;
   }
@@ -862,7 +845,7 @@ log(<span class="js">&quot;log page: http://&quot;</span> + (wifi &amp;&amp; wif
 state.heating = !!(sw &amp;&amp; sw.output);
 log(<span class="js">&quot;script started · TEST MODE &quot;</span> + (TEST_MODE ? <span class="js">&quot;on (relay is never switched)&quot;</span> : <span class="js">&quot;OFF (relay really switches!)&quot;</span>) +
     <span class="js">&quot; · room &quot;</span> + f1(ROOM_TEMPERATURE) + <span class="js">&quot; °C · margin &quot;</span> + SWITCH_MARGIN + <span class="js">&quot; · no frost guard (use a mechanical one)&quot;</span>);
-log(<span class="js">&quot;sensors &quot;</span> + SENSORS.join(<span class="js">&quot;, &quot;</span>) + <span class="js">&quot; · check every &quot;</span> + CHECK_EVERY_SECONDS + <span class="js">&quot; s · wait &quot;</span> + MIN_MINUTES_BETWEEN +
+log(<span class="js">&quot;sensor &quot;</span> + SENSOR + <span class="js">&quot; · check every &quot;</span> + CHECK_EVERY_SECONDS + <span class="js">&quot; s · wait &quot;</span> + MIN_MINUTES_BETWEEN +
     <span class="js">&quot; min between switching · safety off after &quot;</span> + SAFETY_OFF_MINUTES + <span class="js">&quot; min · relay is now &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>));
 loadSettings();
 <span class="jf">Timer</span>.set(CFG.everySec * <span class="jn">1000</span>, <span class="jk">true</span>, check);
