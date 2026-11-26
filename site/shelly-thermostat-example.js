@@ -22,6 +22,17 @@ let CFG = {
 
 let state = { heating: false, lastSwitch: 0, mode: "on", round: 0 };  // mode: "on" or "off" (KVS "th_mode")
 
+// clock time for the log: "04:43:12" (local time of the Shelly),
+// or the seconds since start ("29332s") as long as the Shelly does not know the time yet
+function clock() {
+  let sys = Shelly.getComponentStatus("sys");
+  if (sys && sys.time && sys.unixtime) {
+    let sec = sys.unixtime % 60;
+    return sys.time + ":" + (sec < 10 ? "0" : "") + sec;
+  }
+  return (sys ? sys.uptime : 0) + "s";
+}
+
 // keep the last log lines in memory for the log page (small: the Shelly has little memory)
 let LOG = [];
 let LOG_MAX = 60;
@@ -32,8 +43,7 @@ function f1(x) {
 
 function log(msg) {
   console.log("[thermostat] " + msg);
-  let up = Shelly.getComponentStatus("sys").uptime;
-  LOG.push(up + "s " + msg);
+  LOG.push(clock() + " " + msg);
   if (LOG.length > LOG_MAX) LOG.splice(0, LOG.length - LOG_MAX);
 }
 
