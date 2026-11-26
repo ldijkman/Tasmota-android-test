@@ -665,6 +665,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 <text x="400" y="328" fill="#c3cee3" font-size="13" text-anchor="middle">Heating runs if (Shelly OR frost) AND max is closed</text>
 </svg></figure>
       <p class="jsrun"><b>💡 Funciona dentro del propio Shelly:</b> no hace falta tener abierto ningún navegador, app ni ordenador. El Shelly ejecuta el JavaScript él mismo, también sin internet, y lo vuelve a iniciar tras un corte de luz.</p>
+      <p class="jsrun"><b>⏱️ Watchdog en la app:</b> en la tarjeta del dispositivo verás un temporizador de apagado que cuenta atrás desde 10 minutos y vuelve a empezar cada 30 segundos. Es normal: el script lo reinicia una y otra vez. Si el script se detiene, el temporizador llega a cero y el Shelly apaga la calefacción él mismo.</p>
       <div class="jswrap"><div class="jsin"><pre class="jscode" lang="en" translate="no"><code><span class="jc">// Simple thermostat for a Shelly Gen2/Gen3 with the Sensor Add-on (DS18B20)</span>
 <span class="jc">// EXAMPLE, A LITTLE BIT TESTED: try it with a lamp on the relay before you connect the boiler.</span>
 <span class="jc">// NO FROST GUARD in this script: a script can stop. For frost protection use MECHANICAL HARDWARE:</span>
