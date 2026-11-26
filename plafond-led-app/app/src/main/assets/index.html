@@ -1963,7 +1963,7 @@ function grpClick(id){ if (dpowHeld){ dpowHeld = false; return; } toggleGroup(id
 })();
 async function quickToggle(ip){
   const T = devThermo[ip];
-  if (thermoOf(ip) && T && !T.err && !T.test){ thMode(ip); return; }   // thermostaat: aan/uit van de thermostaat, niet van het relais
+  if (thermoOf(ip) && T && !T.err && !T.test){ showToast('Thermostat: use − / + or On/Off', 2500); return; }   // thermostaat: icoon schakelt niet (per ongeluk tikken)
   const L = devLive[ip] = devLive[ip] || {};
   if (L.busy) return;
   L.busy = true; renderDevs();
