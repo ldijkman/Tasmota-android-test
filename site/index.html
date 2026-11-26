@@ -107,6 +107,8 @@ nav ul a:hover{color:#fff}
   border:1.5px solid #2b3653;box-shadow:0 30px 80px rgba(0,0,0,.55);z-index:1}
 .phone img{border-radius:29px;filter:brightness(.55) saturate(.8);transition:filter .9s ease}
 .lit .phone img{filter:none}
+.phone{overflow:hidden}.phone .ph2{position:absolute;left:10px;top:10px;width:calc(100% - 20px);opacity:0;transition:opacity 1.2s ease,filter .9s ease}.phone .ph2.on{opacity:1}
+.phone img{aspect-ratio:540/1170;object-fit:cover;object-position:top}
 @media (max-width:900px){
   .hero .wrap{grid-template-columns:1fr}
   .hero h1{margin-top:12px}
@@ -1513,6 +1515,28 @@ document.getElementById('jsCopy').addEventListener('click', () => {
   const t = document.querySelector('.jscode').innerText, ok = document.getElementById('jsOk');
   (navigator.clipboard ? navigator.clipboard.writeText(t) : Promise.reject()).then(() => { ok.hidden = false; setTimeout(() => ok.hidden = true, 1800); }, () => {});
 });
+</script>
+<script>
+// Pc: de schermafdruk onder de lamp wisselt elke 6 seconden (zachte overgang)
+(() => {
+  const ph = document.querySelector('.stage .phone'); if (!ph || getComputedStyle(ph).display === 'none') return;
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const base = ph.querySelector('img');
+  const list = [...new Set([base.getAttribute('src')].concat([...document.querySelectorAll('.strip img[width="540"]')]
+    .map(i => i.getAttribute('src')).filter(s => !/hand/.test(s))))];
+  if (list.length < 2) return;
+  const top = document.createElement('img'); top.className = 'ph2'; top.alt = ''; ph.append(top);
+  let i = 0, showTop = false;
+  setInterval(() => {
+    if (document.hidden) return;
+    i = (i + 1) % list.length; const src = list[i], pre = new Image();
+    pre.onload = () => {
+      if (showTop){ base.src = src; top.classList.remove('on'); } else { top.src = src; top.classList.add('on'); }
+      showTop = !showTop;
+    };
+    pre.src = src;
+  }, 6000);
+})();
 </script>
 </body>
 </html>
