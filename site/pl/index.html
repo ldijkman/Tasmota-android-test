@@ -448,6 +448,7 @@ section[id],#shelly-shots{scroll-margin-top:56px}
 .jslog{margin:0;max-height:240px;overflow:auto;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#c3cee3;overscroll-behavior:contain;max-width:640px}.jslog .lu{color:#5d6a85}.jslog .lh{color:#c792ea}.jslog .lt{color:var(--amber)}
 .jsfrost{margin:0 0 10px;font-size:.88rem;color:#9fd3ff;max-width:640px}
 .wiring{margin:0 0 14px;max-width:640px}.wiring svg{width:100%;height:auto;display:block;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;font-family:var(--text)}
+.jsrun{margin:0 0 10px;font-size:.9rem;color:var(--ink);max-width:640px}.jsrun b{color:var(--amber)}
 .jsnote{display:block;text-align:right;margin:4px 6px 0;font-size:.78rem;color:var(--muted)}
 .jsbox-a{margin:2px 0 0;font-size:.9rem;display:flex;gap:14px;align-items:center}.jsbox-a button{background:none;border:1.5px solid var(--amber);color:var(--amber);border-radius:999px;padding:4px 14px;font:700 .88rem var(--text);cursor:pointer}.jsbox-a a{color:var(--amber)}#jsOk{color:#3ddc84}#jsOk[hidden]{display:none}
 .brain-note{margin-top:22px;max-width:640px;border:1.5px dashed var(--line);border-radius:14px;padding:14px 16px}.brain-note b{color:var(--amber);font:700 1.02rem var(--display)}.brain-note p{margin:6px 0 0;color:var(--ink)}.brain-note .aside{color:#9fb0cc}.brain-note p.brain-am{color:var(--amber);font-weight:700}
@@ -662,6 +663,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 <rect x="400" y="175" width="170" height="50" rx="9" fill="#0f2238" stroke="#6cb8ff" stroke-width="1.5"/><text x="485.0" y="192" fill="#e8eaed" font-size="15" font-weight="700" text-anchor="middle" dominant-baseline="central">Frost 5 °C</text><text x="485.0" y="211" fill="#9aa6bd" font-size="13" text-anchor="middle" dominant-baseline="central">bimetal NO, in parallel</text>
 <text x="400" y="318" fill="#c3cee3" font-size="13" text-anchor="middle">Heating runs if (Shelly OR frost) AND max is closed</text>
 </svg></figure>
+      <p class="jsrun"><b>💡 Działa w samym Shelly:</b> nie musi być otwarta przeglądarka, aplikacja ani komputer. Shelly sam uruchamia JavaScript, także bez internetu, i uruchamia go ponownie po zaniku prądu.</p>
       <div class="jswrap"><div class="jsin"><pre class="jscode" lang="en" translate="no"><code><span class="jc">// Simple thermostat for a Shelly Gen2/Gen3 with the Sensor Add-on (DS18B20)</span>
 <span class="jc">// EXAMPLE, A LITTLE BIT TESTED: try it with a lamp on the relay before you connect the boiler.</span>
 <span class="jc">// NO FROST GUARD in this script: a script can stop. For frost protection use MECHANICAL HARDWARE:</span>

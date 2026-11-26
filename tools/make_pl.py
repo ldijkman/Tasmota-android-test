@@ -501,6 +501,7 @@ T = [
 ('<a href="#shots">Skip</a>', '<a href="#shots">Pomiń</a>'),
 ('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">Otwórz aplikację</a>'),
 ('>❄️ No frost guard in the script: a script can stop. For frost protection use mechanical hardware: a bimetal frost thermostat wired in parallel with the Shelly relay, plus the boiler’s own frost protection. 🔥 Against overheating: a normally closed (NC) max thermostat, for example 30 °C, in series with the relay.<', '>❄️ Brak ochrony przed mrozem w skrypcie: skrypt może się zatrzymać. Do ochrony przed mrozem użyj sprzętu mechanicznego: bimetalicznego termostatu przeciwmrozowego równolegle z przekaźnikiem Shelly oraz własnej ochrony przeciwmrozowej kotła. 🔥 Przeciw przegrzaniu: normalnie zamknięty (NC) termostat maksymalny, na przykład 30 °C, szeregowo z przekaźnikiem.<'),
+('<b>💡 Runs inside the Shelly:</b> no browser, app or computer needs to stay open. The Shelly runs the JavaScript itself, also without internet, and starts it again after a power cut.<', '<b>💡 Działa w samym Shelly:</b> nie musi być otwarta przeglądarka, aplikacja ani komputer. Shelly sam uruchamia JavaScript, także bez internetu, i uruchamia go ponownie po zaniku prądu.<'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

@@ -527,6 +527,7 @@ T = [
 ('<a href="#shots">Skip</a>', '<a href="#shots">Overslaan</a>'),
 ('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">App openen</a>'),
 ('>❄️ No frost guard in the script: a script can stop. For frost protection use mechanical hardware: a bimetal frost thermostat wired in parallel with the Shelly relay, plus the boiler’s own frost protection. 🔥 Against overheating: a normally closed (NC) max thermostat, for example 30 °C, in series with the relay.<', '>❄️ Geen vorstbeveiliging in het script: een script kan stoppen. Gebruik voor vorstbeveiliging mechanische hardware: een bimetaal-vorstthermostaat parallel aan het Shelly-relais, plus de eigen vorstbeveiliging van de ketel. 🔥 Tegen oververhitting: een normaal gesloten (NC) maximaalthermostaat, bijvoorbeeld 30 °C, in serie met het relais.<'),
+('<b>💡 Runs inside the Shelly:</b> no browser, app or computer needs to stay open. The Shelly runs the JavaScript itself, also without internet, and starts it again after a power cut.<', '<b>💡 Draait in de Shelly zelf:</b> er hoeft geen browser, app of computer open te blijven. De Shelly voert de JavaScript zelf uit, ook zonder internet, en start hem na een stroomstoring weer op.<'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

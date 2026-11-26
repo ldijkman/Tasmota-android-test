@@ -504,6 +504,7 @@ T = [
 ('<a href="#shots">Skip</a>', '<a href="#shots">Saltar</a>'),
 ('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">Abrir la app</a>'),
 ('>❄️ No frost guard in the script: a script can stop. For frost protection use mechanical hardware: a bimetal frost thermostat wired in parallel with the Shelly relay, plus the boiler’s own frost protection. 🔥 Against overheating: a normally closed (NC) max thermostat, for example 30 °C, in series with the relay.<', '>❄️ Sin protección antiheladas en el script: un script puede detenerse. Para la protección antiheladas usa hardware mecánico: un termostato antiheladas bimetálico en paralelo con el relé del Shelly, más la protección antiheladas propia de la caldera. 🔥 Contra el sobrecalentamiento: un termostato de máxima normalmente cerrado (NC), por ejemplo de 30 °C, en serie con el relé.<'),
+('<b>💡 Runs inside the Shelly:</b> no browser, app or computer needs to stay open. The Shelly runs the JavaScript itself, also without internet, and starts it again after a power cut.<', '<b>💡 Funciona dentro del propio Shelly:</b> no hace falta tener abierto ningún navegador, app ni ordenador. El Shelly ejecuta el JavaScript él mismo, también sin internet, y lo vuelve a iniciar tras un corte de luz.<'),
 ]
 
 
