@@ -354,7 +354,7 @@ T = [
 ("'next', 'M9 5l7 7-7 7', 'Next'", "'next', 'M9 5l7 7-7 7', 'Weiter'"),
 ('<span class="fm-lbl">Menu</span>', '<span class="fm-lbl">Menü</span>'),
 ('>Example: the thermostat as a script in the Shelly<', '>Beispiel: der Thermostat als Skript im Shelly<'),
-('>Not tested yet. A first idea, not in the app.<', '>Noch nicht getestet. Eine erste Idee, nicht in der App.<'),
+('>A little bit tested on a Shelly 1 Gen3. A first idea, not in the app.<', '>Ein bisschen getestet auf einem Shelly 1 Gen3. Eine erste Idee, nicht in der App.<'),
 ('>Copy<', '>Kopieren<'),
 ('>Download .js<', '>.js herunterladen<'),
 ('>Copied<', '>Kopiert<'),

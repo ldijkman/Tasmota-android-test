@@ -1,5 +1,6 @@
 // Simple thermostat for a Shelly Gen2/Gen3 with the Sensor Add-on (DS18B20)
-// EXAMPLE, NOT TESTED YET: try it with a lamp on the relay before you connect the boiler.
+// EXAMPLE, A LITTLE BIT TESTED: try it with a lamp on the relay before you connect the boiler.
+// Start with TEST_MODE = true and read the log; set it to false to really switch.
 //
 // Paste on the Shelly's own web page: Scripts -> Create script -> paste -> Save -> Start.
 // Turn on "Run on startup" so it starts again after a power cut.
@@ -7,17 +8,34 @@
 // or open the log page in Chrome to copy it: http://<shelly-ip>/script/<script-number>/log
 // (the exact address is in the first log line).
 
+// ================= SETTINGS: change these =================
+
+let TEST_MODE        = true;    // true  = only write in the log, never switch the relay
+                                // false = really switch the relay (heating)
+
+let ROOM_TEMPERATURE = 20.0;    // the temperature you want (°C), the app can change it via KVS "th_set"
+let SWITCH_MARGIN    = 0.3;     // heat below 19.7, stop above 20.3
+let FROST_GUARD      = 5.0;     // always heat below this (°C), also when the thermostat is off
+
+let SENSORS          = [100, 101];  // Add-on sensor numbers; one sensor: [100]
+let WARN_DIFFERENCE  = 1.5;     // warn if two sensors differ more than this (°C)
+
+let CHECK_EVERY_SECONDS = 30;   // how often to look at the temperature
+let MIN_MINUTES_BETWEEN = 3;    // protect the boiler: wait between switching
+let SAFETY_OFF_MINUTES  = 10;   // relay turns off by itself if the script stops
+
+// ================= do not change below this line =================
+
 let CFG = {
-  dryRun: true,          // TEST MODE: only log what it would do, never switch the relay
-  sensors: [100, 101],   // Add-on sensor ids; use [100] for one sensor
-  setpoint: 20.0,        // default room temperature (°C), can be changed via KVS "th_set"
-  hyst: 0.3,             // heat below 19.7, stop above 20.3
-  frost: 5.0,            // frost guard: always heat below this, even when "off"
-  maxDiff: 1.5,          // warn if two sensors differ more than this
-  minSwitchSec: 180,     // at least 3 minutes between switching (protects the boiler)
-  everySec: 30,          // check every 30 seconds
-  watchdogSec: 600       // safety: the Shelly turns the relay off by itself after 10 min
-                         // if the script stops refreshing it (script hangs or is stopped)
+  dryRun: TEST_MODE,
+  sensors: SENSORS,
+  setpoint: ROOM_TEMPERATURE,
+  hyst: SWITCH_MARGIN,
+  frost: FROST_GUARD,
+  maxDiff: WARN_DIFFERENCE,
+  minSwitchSec: MIN_MINUTES_BETWEEN * 60,
+  everySec: CHECK_EVERY_SECONDS,
+  watchdogSec: SAFETY_OFF_MINUTES * 60
 };
 
 let state = { heating: false, lastSwitch: 0, mode: "on", round: 0 };  // mode: "on" or "off" (KVS "th_mode")
@@ -186,8 +204,10 @@ let wifi = Shelly.getComponentStatus("wifi");
 log("log page: http://" + (wifi && wifi.sta_ip ? wifi.sta_ip : "<shelly-ip>") + "/script/" + Shelly.getCurrentScriptId() + "/log");
 let sw = Shelly.getComponentStatus("switch", 0);
 state.heating = !!(sw && sw.output);
-log("script started · relay is " + (state.heating ? "ON" : "OFF") + " · sensors " + JSON.stringify(CFG.sensors) +
-    " · check every " + CFG.everySec + " s · watchdog " + CFG.watchdogSec + " s" + (CFG.dryRun ? " · TEST MODE (relay is never switched)" : ""));
+log("script started · TEST MODE " + (TEST_MODE ? "on (relay is never switched)" : "OFF (relay really switches!)") +
+    " · room " + f1(ROOM_TEMPERATURE) + " °C · margin " + SWITCH_MARGIN + " · frost guard " + f1(FROST_GUARD) + " °C");
+log("sensors " + SENSORS.join(", ") + " · check every " + CHECK_EVERY_SECONDS + " s · wait " + MIN_MINUTES_BETWEEN +
+    " min between switching · safety off after " + SAFETY_OFF_MINUTES + " min · relay is now " + (state.heating ? "ON" : "OFF"));
 loadSettings();
 Timer.set(CFG.everySec * 1000, true, check);
 Timer.set(300 * 1000, true, loadSettings);

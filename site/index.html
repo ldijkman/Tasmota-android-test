@@ -644,9 +644,10 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     </div>
     <div class="brain-note"><b>Idea: your old tablet as the thermostat on the wall</b><p>Give an old tablet a second life.<br><i class="aside">(Or a good reason to buy a new tablet and reuse the old.)</i><br>On the wall it shows the room temperature in big numbers, a 🔥 when the boiler is heating, and big Boost and Away buttons that everyone in the house can tap. The thermostat itself runs in the Shelly, so the heating keeps working even when the tablet is off.</p><p class="brain-am">With the same easy-to-set schedules you’re already familiar with.</p></div>
     <div class="jsbox">
-      <p class="jsbox-h"><b>Example: the thermostat as a script in the Shelly</b><br><span>Not tested yet. A first idea, not in the app.</span></p>
+      <p class="jsbox-h"><b>Example: the thermostat as a script in the Shelly</b><br><span>A little bit tested on a Shelly 1 Gen3. A first idea, not in the app.</span></p>
       <div class="jswrap"><div class="jsin"><pre class="jscode" lang="en" translate="no"><code><span class="jc">// Simple thermostat for a Shelly Gen2/Gen3 with the Sensor Add-on (DS18B20)</span>
-<span class="jc">// EXAMPLE, NOT TESTED YET: try it with a lamp on the relay before you connect the boiler.</span>
+<span class="jc">// EXAMPLE, A LITTLE BIT TESTED: try it with a lamp on the relay before you connect the boiler.</span>
+<span class="jc">// Start with TEST_MODE = true and read the log; set it to false to really switch.</span>
 <span class="jc">//</span>
 <span class="jc">// Paste on the Shelly&#x27;s own web page: Scripts -&gt; Create script -&gt; paste -&gt; Save -&gt; Start.</span>
 <span class="jc">// Turn on &quot;Run on startup&quot; so it starts again after a power cut.</span>
@@ -654,17 +655,34 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 <span class="jc">// or open the log page in Chrome to copy it: http://&lt;shelly-ip&gt;/script/&lt;script-number&gt;/log</span>
 <span class="jc">// (the exact address is in the first log line).</span>
 
+<span class="jc">// ================= SETTINGS: change these =================</span>
+
+<span class="jk">let</span> TEST_MODE        = <span class="jk">true</span>;    <span class="jc">// true  = only write in the log, never switch the relay</span>
+                                <span class="jc">// false = really switch the relay (heating)</span>
+
+<span class="jk">let</span> ROOM_TEMPERATURE = <span class="jn">20.0</span>;    <span class="jc">// the temperature you want (°C), the app can change it via KVS &quot;th_set&quot;</span>
+<span class="jk">let</span> SWITCH_MARGIN    = <span class="jn">0.3</span>;     <span class="jc">// heat below 19.7, stop above 20.3</span>
+<span class="jk">let</span> FROST_GUARD      = <span class="jn">5.0</span>;     <span class="jc">// always heat below this (°C), also when the thermostat is off</span>
+
+<span class="jk">let</span> SENSORS          = [<span class="jn">100</span>, <span class="jn">101</span>];  <span class="jc">// Add-on sensor numbers; one sensor: [100]</span>
+<span class="jk">let</span> WARN_DIFFERENCE  = <span class="jn">1.5</span>;     <span class="jc">// warn if two sensors differ more than this (°C)</span>
+
+<span class="jk">let</span> CHECK_EVERY_SECONDS = <span class="jn">30</span>;   <span class="jc">// how often to look at the temperature</span>
+<span class="jk">let</span> MIN_MINUTES_BETWEEN = <span class="jn">3</span>;    <span class="jc">// protect the boiler: wait between switching</span>
+<span class="jk">let</span> SAFETY_OFF_MINUTES  = <span class="jn">10</span>;   <span class="jc">// relay turns off by itself if the script stops</span>
+
+<span class="jc">// ================= do not change below this line =================</span>
+
 <span class="jk">let</span> CFG = {
-  dryRun: <span class="jk">true</span>,          <span class="jc">// TEST MODE: only log what it would do, never switch the relay</span>
-  sensors: [<span class="jn">100</span>, <span class="jn">101</span>],   <span class="jc">// Add-on sensor ids; use [100] for one sensor</span>
-  setpoint: <span class="jn">20.0</span>,        <span class="jc">// default room temperature (°C), can be changed via KVS &quot;th_set&quot;</span>
-  hyst: <span class="jn">0.3</span>,             <span class="jc">// heat below 19.7, stop above 20.3</span>
-  frost: <span class="jn">5.0</span>,            <span class="jc">// frost guard: always heat below this, even when &quot;off&quot;</span>
-  maxDiff: <span class="jn">1.5</span>,          <span class="jc">// warn if two sensors differ more than this</span>
-  minSwitchSec: <span class="jn">180</span>,     <span class="jc">// at least 3 minutes between switching (protects the boiler)</span>
-  everySec: <span class="jn">30</span>,          <span class="jc">// check every 30 seconds</span>
-  watchdogSec: <span class="jn">600</span>       <span class="jc">// safety: the Shelly turns the relay off by itself after 10 min</span>
-                         <span class="jc">// if the script stops refreshing it (script hangs or is stopped)</span>
+  dryRun: TEST_MODE,
+  sensors: SENSORS,
+  setpoint: ROOM_TEMPERATURE,
+  hyst: SWITCH_MARGIN,
+  frost: FROST_GUARD,
+  maxDiff: WARN_DIFFERENCE,
+  minSwitchSec: MIN_MINUTES_BETWEEN * <span class="jn">60</span>,
+  everySec: CHECK_EVERY_SECONDS,
+  watchdogSec: SAFETY_OFF_MINUTES * <span class="jn">60</span>
 };
 
 <span class="jk">let</span> state = { heating: <span class="jk">false</span>, lastSwitch: <span class="jn">0</span>, mode: <span class="js">&quot;on&quot;</span>, round: <span class="jn">0</span> };  <span class="jc">// mode: &quot;on&quot; or &quot;off&quot; (KVS &quot;th_mode&quot;)</span>
@@ -833,8 +851,10 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 log(<span class="js">&quot;log page: http://&quot;</span> + (wifi &amp;&amp; wifi.sta_ip ? wifi.sta_ip : <span class="js">&quot;&lt;shelly-ip&gt;&quot;</span>) + <span class="js">&quot;/script/&quot;</span> + <span class="jf">Shelly</span>.getCurrentScriptId() + <span class="js">&quot;/log&quot;</span>);
 <span class="jk">let</span> sw = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;switch&quot;</span>, <span class="jn">0</span>);
 state.heating = !!(sw &amp;&amp; sw.output);
-log(<span class="js">&quot;script started · relay is &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + <span class="js">&quot; · sensors &quot;</span> + <span class="jf">JSON</span>.stringify(CFG.sensors) +
-    <span class="js">&quot; · check every &quot;</span> + CFG.everySec + <span class="js">&quot; s · watchdog &quot;</span> + CFG.watchdogSec + <span class="js">&quot; s&quot;</span> + (CFG.dryRun ? <span class="js">&quot; · TEST MODE (relay is never switched)&quot;</span> : <span class="js">&quot;&quot;</span>));
+log(<span class="js">&quot;script started · TEST MODE &quot;</span> + (TEST_MODE ? <span class="js">&quot;on (relay is never switched)&quot;</span> : <span class="js">&quot;OFF (relay really switches!)&quot;</span>) +
+    <span class="js">&quot; · room &quot;</span> + f1(ROOM_TEMPERATURE) + <span class="js">&quot; °C · margin &quot;</span> + SWITCH_MARGIN + <span class="js">&quot; · frost guard &quot;</span> + f1(FROST_GUARD) + <span class="js">&quot; °C&quot;</span>);
+log(<span class="js">&quot;sensors &quot;</span> + SENSORS.join(<span class="js">&quot;, &quot;</span>) + <span class="js">&quot; · check every &quot;</span> + CHECK_EVERY_SECONDS + <span class="js">&quot; s · wait &quot;</span> + MIN_MINUTES_BETWEEN +
+    <span class="js">&quot; min between switching · safety off after &quot;</span> + SAFETY_OFF_MINUTES + <span class="js">&quot; min · relay is now &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>));
 loadSettings();
 <span class="jf">Timer</span>.set(CFG.everySec * <span class="jn">1000</span>, <span class="jk">true</span>, check);
 <span class="jf">Timer</span>.set(<span class="jn">300</span> * <span class="jn">1000</span>, <span class="jk">true</span>, loadSettings);

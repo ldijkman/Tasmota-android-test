@@ -350,7 +350,7 @@ T = [
 ("'prev', 'M15 5l-7 7 7 7', 'Previous'", "'prev', 'M15 5l-7 7 7 7', 'Précédent'"),
 ("'next', 'M9 5l7 7-7 7', 'Next'", "'next', 'M9 5l7 7-7 7', 'Suivant'"),
 ('>Example: the thermostat as a script in the Shelly<', '>Exemple : le thermostat comme script dans le Shelly<'),
-('>Not tested yet. A first idea, not in the app.<', '>Pas encore testé. Une première idée, pas dans l’app.<'),
+('>A little bit tested on a Shelly 1 Gen3. A first idea, not in the app.<', '>Un peu testé sur un Shelly 1 Gen3. Une première idée, pas dans l’app.<'),
 ('>Copy<', '>Copier<'),
 ('>Download .js<', '>Télécharger le .js<'),
 ('>Copied<', '>Copié<'),
