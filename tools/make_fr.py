@@ -360,6 +360,7 @@ T = [
 ('>Sorry!, Nerd Alert Section 🤓 <', '>Désolé !, Alerte nerds 🤓 <'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Passer</a>'),
 ('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">Ouvrir l’app</a>'),
+('>❄️ No frost guard in the script: a script can stop. For frost protection use mechanical hardware: a bimetal frost thermostat wired in parallel with the Shelly relay, plus the boiler’s own frost protection.<', '>❄️ Pas de hors-gel dans le script : un script peut s’arrêter. Pour la protection contre le gel, utilisez du matériel mécanique : un thermostat hors-gel à bilame en parallèle du relais Shelly, plus la protection antigel de la chaudière.<'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

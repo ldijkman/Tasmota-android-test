@@ -500,6 +500,7 @@ T = [
 ('>Sorry!, Nerd Alert Section 🤓 <', '>Przepraszam!, Uwaga, nerdy 🤓 <'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Pomiń</a>'),
 ('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">Otwórz aplikację</a>'),
+('>❄️ No frost guard in the script: a script can stop. For frost protection use mechanical hardware: a bimetal frost thermostat wired in parallel with the Shelly relay, plus the boiler’s own frost protection.<', '>❄️ Brak ochrony przed mrozem w skrypcie: skrypt może się zatrzymać. Do ochrony przed mrozem użyj sprzętu mechanicznego: bimetalicznego termostatu przeciwmrozowego równolegle z przekaźnikiem Shelly oraz własnej ochrony przeciwmrozowej kotła.<'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

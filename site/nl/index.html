@@ -446,6 +446,7 @@ section[id],#shelly-shots{scroll-margin-top:56px}
 .jscode .jc{color:#7f8ea8;font-style:italic}.jscode .js{color:#ecc48d}.jscode .jn{color:#f78c6c}.jscode .jk{color:#c792ea}.jscode .jf{color:#82aaff}
 .jsgrip{position:absolute;right:3px;bottom:3px;width:30px;height:30px;display:grid;place-items:center;cursor:nwse-resize;touch-action:none;color:#56617d;user-select:none;border-radius:8px}.jsgrip svg{width:18px;height:18px}.jsgrip:hover,.jsgrip.on{color:var(--amber)}
 .jslog{margin:0;max-height:240px;overflow:auto;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#c3cee3;overscroll-behavior:contain;max-width:640px}.jslog .lu{color:#5d6a85}.jslog .lh{color:#c792ea}.jslog .lt{color:var(--amber)}
+.jsfrost{margin:0 0 10px;font-size:.88rem;color:#9fd3ff;max-width:640px}
 .jsnote{display:block;text-align:right;margin:4px 6px 0;font-size:.78rem;color:var(--muted)}
 .jsbox-a{margin:2px 0 0;font-size:.9rem;display:flex;gap:14px;align-items:center}.jsbox-a button{background:none;border:1.5px solid var(--amber);color:var(--amber);border-radius:999px;padding:4px 14px;font:700 .88rem var(--text);cursor:pointer}.jsbox-a a{color:var(--amber)}#jsOk{color:#3ddc84}#jsOk[hidden]{display:none}
 .brain-note{margin-top:22px;max-width:640px;border:1.5px dashed var(--line);border-radius:14px;padding:14px 16px}.brain-note b{color:var(--amber);font:700 1.02rem var(--display)}.brain-note p{margin:6px 0 0;color:var(--ink)}.brain-note .aside{color:#9fb0cc}.brain-note p.brain-am{color:var(--amber);font-weight:700}
@@ -646,8 +647,12 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <div class="brain-note"><b>Idee: je oude tablet als thermostaat aan de muur</b><p>Geef een oude tablet een tweede leven.<br><i class="aside">(Of een goede reden om een nieuwe te kopen en de oude te hergebruiken.)</i><br>Aan de muur toont hij de kamertemperatuur in grote cijfers, een 🔥 als de ketel stookt, en grote knoppen voor Boost en Weg die iedereen in huis kan aantikken. De thermostaat zelf draait in de Shelly, dus de verwarming blijft werken, ook als de tablet uit staat.</p><p class="brain-am">Met dezelfde makkelijk in te stellen schema’s die je al kent.</p></div>
     <div class="jsbox">
       <p class="jsbox-h"><b>Voorbeeld: de thermostaat als script in de Shelly</b><br><span>Een beetje getest op een Shelly 1 Gen3. Een eerste idee, niet in de app.</span></p>
+      <p class="jsfrost">❄️ Geen vorstbeveiliging in het script: een script kan stoppen. Gebruik voor vorstbeveiliging mechanische hardware: een bimetaal-vorstthermostaat parallel aan het Shelly-relais, plus de eigen vorstbeveiliging van de ketel.</p>
       <div class="jswrap"><div class="jsin"><pre class="jscode" lang="en" translate="no"><code><span class="jc">// Simple thermostat for a Shelly Gen2/Gen3 with the Sensor Add-on (DS18B20)</span>
 <span class="jc">// EXAMPLE, A LITTLE BIT TESTED: try it with a lamp on the relay before you connect the boiler.</span>
+<span class="jc">// NO FROST GUARD in this script: a script can stop. For frost protection use MECHANICAL HARDWARE:</span>
+<span class="jc">// a bimetal frost thermostat wired in parallel with the Shelly relay (like the old Honeywell ones),</span>
+<span class="jc">// plus the boiler&#x27;s own frost protection. Those also work without power, Wi-Fi or software.</span>
 <span class="jc">// Start with TEST_MODE = true and read the log; set it to false to really switch.</span>
 <span class="jc">//</span>
 <span class="jc">// Paste on the Shelly&#x27;s own web page: Scripts -&gt; Create script -&gt; paste -&gt; Save -&gt; Start.</span>
@@ -663,7 +668,6 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 
 <span class="jk">let</span> ROOM_TEMPERATURE = <span class="jn">20.0</span>;    <span class="jc">// the temperature you want (°C), the app can change it via KVS &quot;th_set&quot;</span>
 <span class="jk">let</span> SWITCH_MARGIN    = <span class="jn">0.3</span>;     <span class="jc">// heat below 19.7, stop above 20.3</span>
-<span class="jk">let</span> FROST_GUARD      = <span class="jn">5.0</span>;     <span class="jc">// always heat below this (°C), also when the thermostat is off</span>
 
 <span class="jk">let</span> SENSORS          = [<span class="jn">100</span>, <span class="jn">101</span>];  <span class="jc">// Add-on sensor numbers; one sensor: [100]</span>
 <span class="jk">let</span> WARN_DIFFERENCE  = <span class="jn">1.5</span>;     <span class="jc">// warn if two sensors differ more than this (°C)</span>
@@ -679,7 +683,6 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   sensors: SENSORS,
   setpoint: ROOM_TEMPERATURE,
   hyst: SWITCH_MARGIN,
-  frost: FROST_GUARD,
   maxDiff: WARN_DIFFERENCE,
   minSwitchSec: MIN_MINUTES_BETWEEN * <span class="jn">60</span>,
   everySec: CHECK_EVERY_SECONDS,
@@ -829,12 +832,6 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     setHeating(<span class="jk">false</span>, <span class="js">&quot;safety&quot;</span>);
     <span class="jk">return</span>;
   }
-  <span class="jk">if</span> (t &lt; CFG.frost) {                    <span class="jc">// frost guard always wins</span>
-    log(<span class="js">&quot;below frost guard &quot;</span> + CFG.frost + <span class="js">&quot; °C&quot;</span>);
-    setHeating(<span class="jk">true</span>, <span class="js">&quot;frost&quot;</span>);
-    refreshWatchdog();
-    <span class="jk">return</span>;
-  }
   <span class="jk">if</span> (state.mode === <span class="js">&quot;off&quot;</span>) {
     setHeating(<span class="jk">false</span>, <span class="js">&quot;mode off&quot;</span>);
     <span class="jk">return</span>;
@@ -853,7 +850,7 @@ log(<span class="js">&quot;log page: http://&quot;</span> + (wifi &amp;&amp; wif
 <span class="jk">let</span> sw = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;switch&quot;</span>, <span class="jn">0</span>);
 state.heating = !!(sw &amp;&amp; sw.output);
 log(<span class="js">&quot;script started · TEST MODE &quot;</span> + (TEST_MODE ? <span class="js">&quot;on (relay is never switched)&quot;</span> : <span class="js">&quot;OFF (relay really switches!)&quot;</span>) +
-    <span class="js">&quot; · room &quot;</span> + f1(ROOM_TEMPERATURE) + <span class="js">&quot; °C · margin &quot;</span> + SWITCH_MARGIN + <span class="js">&quot; · frost guard &quot;</span> + f1(FROST_GUARD) + <span class="js">&quot; °C&quot;</span>);
+    <span class="js">&quot; · room &quot;</span> + f1(ROOM_TEMPERATURE) + <span class="js">&quot; °C · margin &quot;</span> + SWITCH_MARGIN + <span class="js">&quot; · no frost guard (use a mechanical one)&quot;</span>);
 log(<span class="js">&quot;sensors &quot;</span> + SENSORS.join(<span class="js">&quot;, &quot;</span>) + <span class="js">&quot; · check every &quot;</span> + CHECK_EVERY_SECONDS + <span class="js">&quot; s · wait &quot;</span> + MIN_MINUTES_BETWEEN +
     <span class="js">&quot; min between switching · safety off after &quot;</span> + SAFETY_OFF_MINUTES + <span class="js">&quot; min · relay is now &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>));
 loadSettings();

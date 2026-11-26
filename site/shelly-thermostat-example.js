@@ -1,5 +1,8 @@
 // Simple thermostat for a Shelly Gen2/Gen3 with the Sensor Add-on (DS18B20)
 // EXAMPLE, A LITTLE BIT TESTED: try it with a lamp on the relay before you connect the boiler.
+// NO FROST GUARD in this script: a script can stop. For frost protection use MECHANICAL HARDWARE:
+// a bimetal frost thermostat wired in parallel with the Shelly relay (like the old Honeywell ones),
+// plus the boiler's own frost protection. Those also work without power, Wi-Fi or software.
 // Start with TEST_MODE = true and read the log; set it to false to really switch.
 //
 // Paste on the Shelly's own web page: Scripts -> Create script -> paste -> Save -> Start.
@@ -15,7 +18,6 @@ let TEST_MODE        = true;    // true  = only write in the log, never switch t
 
 let ROOM_TEMPERATURE = 20.0;    // the temperature you want (°C), the app can change it via KVS "th_set"
 let SWITCH_MARGIN    = 0.3;     // heat below 19.7, stop above 20.3
-let FROST_GUARD      = 5.0;     // always heat below this (°C), also when the thermostat is off
 
 let SENSORS          = [100, 101];  // Add-on sensor numbers; one sensor: [100]
 let WARN_DIFFERENCE  = 1.5;     // warn if two sensors differ more than this (°C)
@@ -31,7 +33,6 @@ let CFG = {
   sensors: SENSORS,
   setpoint: ROOM_TEMPERATURE,
   hyst: SWITCH_MARGIN,
-  frost: FROST_GUARD,
   maxDiff: WARN_DIFFERENCE,
   minSwitchSec: MIN_MINUTES_BETWEEN * 60,
   everySec: CHECK_EVERY_SECONDS,
@@ -181,12 +182,6 @@ function check() {
     setHeating(false, "safety");
     return;
   }
-  if (t < CFG.frost) {                    // frost guard always wins
-    log("below frost guard " + CFG.frost + " °C");
-    setHeating(true, "frost");
-    refreshWatchdog();
-    return;
-  }
   if (state.mode === "off") {
     setHeating(false, "mode off");
     return;
@@ -205,7 +200,7 @@ log("log page: http://" + (wifi && wifi.sta_ip ? wifi.sta_ip : "<shelly-ip>") + 
 let sw = Shelly.getComponentStatus("switch", 0);
 state.heating = !!(sw && sw.output);
 log("script started · TEST MODE " + (TEST_MODE ? "on (relay is never switched)" : "OFF (relay really switches!)") +
-    " · room " + f1(ROOM_TEMPERATURE) + " °C · margin " + SWITCH_MARGIN + " · frost guard " + f1(FROST_GUARD) + " °C");
+    " · room " + f1(ROOM_TEMPERATURE) + " °C · margin " + SWITCH_MARGIN + " · no frost guard (use a mechanical one)");
 log("sensors " + SENSORS.join(", ") + " · check every " + CHECK_EVERY_SECONDS + " s · wait " + MIN_MINUTES_BETWEEN +
     " min between switching · safety off after " + SAFETY_OFF_MINUTES + " min · relay is now " + (state.heating ? "ON" : "OFF"));
 loadSettings();

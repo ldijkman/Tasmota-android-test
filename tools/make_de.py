@@ -364,6 +364,7 @@ T = [
 ('>Sorry!, Nerd Alert Section 🤓 <', '>Sorry!, Nerd-Alarm 🤓 <'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Überspringen</a>'),
 ('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">App öffnen</a>'),
+('>❄️ No frost guard in the script: a script can stop. For frost protection use mechanical hardware: a bimetal frost thermostat wired in parallel with the Shelly relay, plus the boiler’s own frost protection.<', '>❄️ Kein Frostschutz im Skript: Ein Skript kann anhalten. Für Frostschutz mechanische Hardware verwenden: einen Bimetall-Frostschutzthermostat parallel zum Shelly-Relais, dazu den eigenen Frostschutz des Kessels.<'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
