@@ -219,6 +219,7 @@
   .th-btns{display:flex;gap:6px}
   .th-b,.th-m{min-width:38px;height:34px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:transparent;color:inherit;font:inherit;font-size:1.1rem;line-height:1}
   .th-m{font-size:.85rem;min-width:46px}.th-m.on{border-color:var(--on);color:var(--on)}
+  .th-lv{width:100%}.th-lv .th-m{flex:1;font-size:.82rem}
   .dev .th-err{color:var(--err);font-size:.82rem;margin-top:6px}
   .tile .t-th{display:flex;align-items:center;gap:6px;font-size:.8rem;font-variant-numeric:tabular-nums;margin-top:2px;width:100%}
   .tile .t-thb{display:inline-grid;place-items:center;width:30px;height:26px;border-radius:8px;border:1px solid var(--line);font-size:1rem}
@@ -1764,6 +1765,12 @@ function shellyLampState(c, st){
 // Shelly-schedule-job (cron, ook @sunrise/@sunset met offset). De timer zelf staat in de KVS van de Shelly
 // (tsc_t1..tsc_t16, met het job-id), zodat het wandpaneel en andere telefoons dezelfde schema-kaarten zien.
 const SH_DOW = ['SUN', 'MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT'];
+// wat een schema-job doet: gewoon aan/uit, of bij een thermostaat Comfort (aan-tijd) / Eco (uit-tijd)
+const thHostOn = h => loadDevs().some(d => d.thermo && 'http://' + hostOf(d.ip) === h);
+function thSchedCall(h, ns, A, thermo = thHostOn(h)){
+  if (thermo) return {method: 'KVS.Set', params: {key: 'th_level', value: A === 1 ? 'comfort' : 'eco'}};
+  return A === 2 ? {method: ns + '.Toggle', params: {id: 0}} : {method: ns + '.Set', params: {id: 0, on: A === 1}};
+}
 const phoneTz = () => { try { return Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch(e){ return ''; } };
 function shellySchedCmd(sh, h, cmd){
   if ((sh.gen || 1) < 2) return null;
@@ -1842,8 +1849,7 @@ async function shellySched({h, c, a}){
     if ((same && j == null && !(v.E && /1/.test(v.D))) || (!old && !v.E)) return {['Timer' + a.n]: tas(old || v, a.n)};
     if (v.E && /1/.test(v.D)){
       let on = true; try { const r = await rpc('KVS.Get', {key: 'tsc_on'}); on = !r || r.value !== '0'; } catch(e){}
-      const job = {enable: live(v, on), timespec: shTimespec(t),
-        calls: [v.A === 2 ? {method: ns + '.Toggle', params: {id: 0}} : {method: ns + '.Set', params: {id: 0, on: v.A === 1}}]};
+      const job = {enable: live(v, on), timespec: shTimespec(t), calls: [thSchedCall(h, ns, v.A)]};
       if (j != null){ try { await rpc('Schedule.Update', Object.assign({id: j}, job)); } catch(e){ j = null; } }
       if (j == null) j = (await rpc('Schedule.Create', job)).id;
     } else if (j != null){ try { await rpc('Schedule.Delete', {id: j}); } catch(e){} j = null; }
@@ -3583,7 +3589,7 @@ function nextAction(ip){
 }
 function nextLabel(ip){
   const n = nextAction(ip); if (!n) return '';
-  const act = ['off', 'on', 'toggle', 'rule'][n.action] || 'action';
+  const act = (thermoOf(ip) ? ['Eco', 'Comfort'] : ['off', 'on', 'toggle', 'rule'])[n.action] || 'action';
   const day0 = new Date(n.now.getFullYear(), n.now.getMonth(), n.now.getDate());
   const diff = Math.round((new Date(n.at.getFullYear(), n.at.getMonth(), n.at.getDate()) - day0) / 864e5);
   const when = diff === 0 ? '' : diff === 1 ? 'tomorrow ' : n.at.toLocaleDateString('en-GB', {weekday: 'short'}) + ' ';
@@ -3704,7 +3710,7 @@ function startDrag(e, grip){
 // ---- Thermostaat: een script in de Shelly zelf (Gen2+, met temperatuursensor op de Add-on) ----
 // De app installeert het script (assets/thermostat-script.js) en zet instellingen in KVS:
 // th_set (temperatuur), th_mode (on/off), th_sensor (nummer), th_test (on/off). Het script heeft /state en /reload.
-const TH_NAME = 'Thermostat (Scan & Control)', TH_VERSION = 2;   // TH_VERSION = VERSION in het script
+const TH_NAME = 'Thermostat (Scan & Control)', TH_VERSION = 3;   // TH_VERSION = VERSION in het script
 const thRpc = (h, m, p) => appCall('get', [`${h}/rpc/${m}${p ? '?' + Object.keys(p).map(k => k + '=' + encodeURIComponent(JSON.stringify(p[k]))).join('&') : ''}`], 9000);
 const thPost = (h, m, body) => appCall('post', [`${h}/rpc/${m}`, JSON.stringify(body)], 15000);
 async function thFind(h){ const r = await thRpc(h, 'Script.List'); return ((r && r.scripts) || []).find(x => x.name === TH_NAME) || null; }
@@ -3718,6 +3724,7 @@ async function thKvs(h, kv){ for (const k in kv) await thRpc(h, 'KVS.Set', {key:
 async function thInstall(h, sensor, test){
   if (!window.SH_THERMO_CODE) throw new Error('script missing in the app');
   await thKvs(h, {th_sensor: sensor, th_test: test ? 'on' : 'off'});
+  try { await thRpc(h, 'KVS.Get', {key: 'th_level'}); } catch(e){ await thKvs(h, {th_level: 'comfort'}); }   // eerste keer: Comfort
   let s = await thFind(h), id;
   if (s){ id = s.id; if (s.running) await thRpc(h, 'Script.Stop', {id}); }
   else id = (await thRpc(h, 'Script.Create', {name: TH_NAME})).id;
@@ -3725,6 +3732,7 @@ async function thInstall(h, sensor, test){
   for (let i = 0; i < code.length; i += 1024) await thPost(h, 'Script.PutCode', {id, code: code.slice(i, i + 1024), append: i > 0});
   await thRpc(h, 'Script.SetConfig', {id, config: {enable: true}});   // start ook na een stroomstoring
   await thRpc(h, 'Script.Start', {id});
+  await thSchedSwitch(h, true).catch(() => {});   // schema's: aan = Comfort, uit = Eco
   return id;
 }
 async function thRemove(h){
@@ -3735,7 +3743,17 @@ async function thRemove(h){
     await thRpc(h, 'Script.Delete', {id: s.id});
     if (st && st.heating && !st.test) await thRpc(h, 'Switch.Set', {id: 0, on: false}).catch(() => {});   // verwarming niet aan laten staan
   }
-  for (const k of ['th_set', 'th_mode', 'th_sensor', 'th_test']) await thRpc(h, 'KVS.Delete', {key: k}).catch(() => {});
+  for (const k of ['th_set', 'th_mode', 'th_sensor', 'th_test', 'th_comfort', 'th_eco', 'th_level']) await thRpc(h, 'KVS.Delete', {key: k}).catch(() => {});
+  await thSchedSwitch(h, false).catch(() => {});   // schema's weer gewoon aan/uit
+}
+// bestaande schema's omzetten: aan/uit <-> Comfort/Eco (bij installeren of verwijderen van de thermostaat)
+async function thSchedSwitch(h, thermo){
+  const r = await thRpc(h, 'KVS.GetMany', {match: 'tsc_t*'}), it = r && r.items, kv = {};
+  if (Array.isArray(it)) it.forEach(x => kv[x.key] = x.value); else if (it) Object.entries(it).forEach(([k, v]) => kv[k] = v && v.value);
+  for (const k in kv){
+    const p = String(kv[k] || '').split('|'); if (p.length < 6 || p[5] === '') continue;
+    await thRpc(h, 'Schedule.Update', {id: +p[5], calls: [thSchedCall(h, 'Switch', +p[4], thermo)]}).catch(() => {});
+  }
 }
 async function thSetting(h, id, kv){ await thKvs(h, kv); await appCall('get', [`${h}/script/${id}/reload`], 9000).catch(() => {}); }
 // thermostaat op de kaart en tegel: status uit het script (/state), − / + en aan/uit via KVS
@@ -3760,13 +3778,21 @@ setInterval(() => {
 }, 10000);
 const thRedraw = () => { renderDevs(); if (!document.getElementById('tileView').hidden) renderTiles(); };
 const thSetTimers = {};
-function thAdj(ip, d){
+function thAdj(ip, d){   // − / +: temperatuur van het actieve niveau (Comfort of Eco)
   const T = devThermo[ip]; if (!T || T.err) return;
-  T.set = Math.min(30, Math.max(5, Math.round((+T.set + d) * 2) / 2)); thRedraw();
+  const lv = T.level === 'eco' ? 'eco' : 'comfort';
+  T.set = T[lv] = Math.min(30, Math.max(5, Math.round((+T.set + d) * 2) / 2)); thRedraw();
   clearTimeout(thSetTimers[ip]);   // snel na elkaar tikken: alleen de laatste waarde versturen
-  thSetTimers[ip] = setTimeout(() => thSetting('http://' + hostOf(ip), thermoOf(ip), {th_set: T.set})
+  thSetTimers[ip] = setTimeout(() => thSetting('http://' + hostOf(ip), thermoOf(ip), {['th_' + lv]: T.set})
     .then(() => fetchThermo(ip)).then(thRedraw)
     .catch(() => { scanNote = '<span style="color:var(--err)">Could not set the thermostat temperature.</span>'; renderDevs(); }), 700);
+}
+function thLevel(ip, lv){   // Comfort / Eco met de hand (tot het volgende schema)
+  const T = devThermo[ip]; if (!T || T.err || T.level === lv) return;
+  T.level = lv; if (T[lv] != null) T.set = T[lv]; thRedraw();
+  thSetting('http://' + hostOf(ip), thermoOf(ip), {th_level: lv})
+    .then(() => new Promise(r => setTimeout(r, 1000))).then(() => fetchThermo(ip)).then(thRedraw)
+    .catch(() => { scanNote = '<span style="color:var(--err)">Could not change Comfort/Eco.</span>'; renderDevs(); });
 }
 function thMode(ip){
   const T = devThermo[ip]; if (!T || T.err) return;
@@ -3786,13 +3812,14 @@ function thermoLine(ip){
   const sub = old ? 'update the script in Edit' : off ? 'thermostat off' : heat ? (T.test ? 'would heat (test mode)' : 'heating · watchdog OK') : (T.test ? 'not heating (test mode)' : 'not heating');
   return `<div class="th-line${heat && !T.test ? ' heat' : ''}" onclick="event.stopPropagation()">
     <span class="th-t">${heat ? '🔥' : '🌡️'} ${T.temp != null ? (+T.temp).toFixed(1) : '–'} °C → <b>${(+T.set).toFixed(1)} °C</b>${T.test ? '<i class="th-test">test</i>' : ''}<span class="th-sub">${sub}</span></span>
+    ${T.level ? `<span class="th-btns th-lv"><button class="th-m${T.level !== 'eco' ? ' on' : ''}" onclick="event.stopPropagation();thLevel('${ip}','comfort')">☀️ Comfort</button><button class="th-m${T.level === 'eco' ? ' on' : ''}" onclick="event.stopPropagation();thLevel('${ip}','eco')">🌙 Eco</button></span>` : ''}
     <span class="th-btns"><button class="th-b" aria-label="Lower" onclick="event.stopPropagation();thAdj('${ip}',-0.5)">−</button><button class="th-b" aria-label="Higher" onclick="event.stopPropagation();thAdj('${ip}',0.5)">+</button>
     <button class="th-m${off ? '' : ' on'}" aria-label="Thermostat on or off" onclick="event.stopPropagation();thMode('${ip}')">${off ? 'Off' : 'On'}</button></span></div>`;
 }
 function thTile(ip){
   const T = devThermo[ip]; if (!thermoOf(ip) || !T || T.err) return '';
   const heat = T.heating && T.mode !== 'off';
-  return `<span class="t-th"><span style="white-space:nowrap">${heat ? '🔥' : '🌡️'} ${T.temp != null ? (+T.temp).toFixed(1) : '–'}→<b>${T.mode === 'off' ? 'off' : (+T.set).toFixed(1) + '°'}</b></span>
+  return `<span class="t-th"><span style="white-space:nowrap">${heat ? '🔥' : '🌡️'} ${T.temp != null ? (+T.temp).toFixed(1) : '–'}→<b>${T.mode === 'off' ? 'off' : (T.level === 'eco' ? '🌙' : T.level ? '☀️' : '') + (+T.set).toFixed(1) + '°'}</b></span>
     <span class="t-thb" data-th="-0.5" role="button" aria-label="Lower">−</span><span class="t-thb" data-th="0.5" role="button" aria-label="Higher">+</span></span>`;
 }
 function thEdit(ip, sh){
@@ -3801,21 +3828,24 @@ function thEdit(ip, sh){
   const h = 'http://' + hostOf(ip), on = document.getElementById('edThOn'), more = document.getElementById('edThMore'),
         sen = document.getElementById('edThSen'), test = document.getElementById('edThTest'), note = document.getElementById('edThNote'),
         stEl = document.getElementById('edThState'), logB = document.getElementById('edThLog');
-  let script = null, busy = false, setV = 20, setT = null;
-  const setEl = document.getElementById('edThSet');
-  const adj = d => { if (!script) return; setV = Math.min(30, Math.max(5, Math.round((setV + d) * 2) / 2)); setEl.textContent = setV.toFixed(1) + ' °C';
-    clearTimeout(setT); setT = setTimeout(() => thSetting(h, script.id, {th_set: setV}).then(() => { say('Temperature set to ' + setV.toFixed(1) + ' °C.'); fetchThermo(ip).then(renderDevs); showState(); })
-      .catch(() => say('Could not set the temperature.', true)), 700); };
-  document.getElementById('edThDn').onclick = () => adj(-0.5);
-  document.getElementById('edThUp').onclick = () => adj(0.5);
+  let script = null, busy = false, setT = {};
+  const lvV = {comfort: 20.5, eco: 16};
+  const lvShow = () => { document.getElementById('edThC').textContent = lvV.comfort.toFixed(1) + ' °C'; document.getElementById('edThE').textContent = lvV.eco.toFixed(1) + ' °C'; };
+  more.querySelectorAll('[data-lv]').forEach(b => b.onclick = () => {
+    if (!script) return; const lv = b.dataset.lv;
+    lvV[lv] = Math.min(30, Math.max(5, Math.round((lvV[lv] + +b.dataset.d) * 2) / 2)); lvShow();
+    clearTimeout(setT[lv]); setT[lv] = setTimeout(() => thSetting(h, script.id, {['th_' + lv]: lvV[lv]})
+      .then(() => { say((lv === 'eco' ? 'Eco' : 'Comfort') + ' set to ' + lvV[lv].toFixed(1) + ' °C.'); fetchThermo(ip).then(renderDevs); showState(); })
+      .catch(() => say('Could not set the temperature.', true)), 700);
+  });
   const tg = (b, v) => { b.classList.toggle('on', v); b.setAttribute('aria-checked', v); };
   const say = (t, err) => { note.innerHTML = err ? `<span style="color:var(--err)">${esc(t)}</span>` : esc(t); };
   const showState = async () => {
     if (!script || !script.running){ stEl.textContent = script ? 'Script stopped' : ''; return; }
     try { const st = await appCall('get', [`${h}/script/${script.id}/state`], 6000);
-      stEl.textContent = `${st.temp != null ? st.temp.toFixed(1) + ' °C' : 'no temperature'} → ${(+st.set).toFixed(1)} °C · ${st.mode === 'off' ? 'off' : st.heating ? (st.test ? 'would heat' : 'heating 🔥') : 'not heating'}`;
+      stEl.textContent = `${st.temp != null ? st.temp.toFixed(1) + ' °C' : 'no temperature'} → ${(+st.set).toFixed(1)} °C${st.level ? ' ' + (st.level === 'eco' ? 'Eco' : 'Comfort') : ''} · ${st.mode === 'off' ? 'off' : st.heating ? (st.test ? 'would heat' : 'heating 🔥') : 'not heating'}`;
       tg(test, !!st.test); if (st.sensor) sen.value = String(st.sensor);
-      setV = +st.set; setEl.textContent = setV.toFixed(1) + ' °C';
+      if (st.comfort != null){ lvV.comfort = +st.comfort; lvV.eco = +st.eco; lvShow(); }
       document.getElementById('edThUpdRow').hidden = (+st.version || 1) >= TH_VERSION;
     } catch(e){ stEl.textContent = 'Script running'; }
   };
@@ -3929,7 +3959,9 @@ function editDev(ip){
       <label class="t">Thermostat <span style="opacity:.7">(heating on/off with the Add-on temperature sensor)</span></label>
       <div class="detrow"><span>Use as thermostat</span><button type="button" class="tgl" id="edThOn" role="switch" aria-checked="false" aria-label="Use as thermostat"><span></span></button></div>
       <div id="edThMore" hidden>
-        <div class="detrow"><span>Temperature</span><span class="th-btns"><button type="button" class="th-b" id="edThDn" aria-label="Lower">−</button><b id="edThSet" style="min-width:64px;text-align:center;align-self:center">20.0 °C</b><button type="button" class="th-b" id="edThUp" aria-label="Higher">+</button></span></div>
+        <div class="detrow"><span>☀️ Comfort</span><span class="th-btns"><button type="button" class="th-b" data-lv="comfort" data-d="-0.5" aria-label="Comfort lower">−</button><b id="edThC" style="min-width:64px;text-align:center;align-self:center">20.5 °C</b><button type="button" class="th-b" data-lv="comfort" data-d="0.5" aria-label="Comfort higher">+</button></span></div>
+        <div class="detrow"><span>🌙 Eco</span><span class="th-btns"><button type="button" class="th-b" data-lv="eco" data-d="-0.5" aria-label="Eco lower">−</button><b id="edThE" style="min-width:64px;text-align:center;align-self:center">16.0 °C</b><button type="button" class="th-b" data-lv="eco" data-d="0.5" aria-label="Eco higher">+</button></span></div>
+        <div class="hint" style="margin:2px 2px 6px">Schedules switch between Comfort (on-time) and Eco (off-time).</div>
         <div class="detrow"><span>Sensor</span><select class="sel" id="edThSen" style="max-width:62%"></select></div>
         <div class="detrow"><span>Test mode <span style="opacity:.7">(only the log, the relay never switches)</span></span><button type="button" class="tgl" id="edThTest" role="switch" aria-checked="false" aria-label="Test mode"><span></span></button></div>
         <div class="detrow"><span id="edThState"></span><button type="button" class="b-tog edbtn" id="edThLog" style="flex:none;width:auto;padding:8px 16px">Open log</button></div>
@@ -4850,6 +4882,10 @@ function openSchedView(ip){
   v.hidden = false; v.scrollTop = 0; document.body.classList.add('noscroll');
   if (cur !== ip){ tasClock = null; document.getElementById('sunRow').style.display = 'none'; }
   fillCopyFrom(ip);   // niet de tijd van het vorige apparaat tonen
+  { const th = !!(d.thermo);   // thermostaat: aan-tijd = Comfort, uit-tijd = Eco
+    SCHEDS.forEach(n => { const a = document.getElementById('on' + n + '_m'), b = document.getElementById('off' + n + '_m');
+      if (a && a.previousElementSibling) a.previousElementSibling.textContent = th ? '☀️ Comfort' : 'On';
+      if (b && b.previousElementSibling) b.previousElementSibling.textContent = th ? '🌙 Eco' : 'Off'; }); }
   svInfo();
   msg('Loading schedules…');
   const done = () => { if (document.getElementById('msg').textContent === 'Loading schedules…') msg(''); };

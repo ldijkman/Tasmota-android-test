@@ -13,14 +13,17 @@
 // or open the log page in Chrome to copy it: http://<shelly-ip>/script/<script-number>/log
 // (the exact address is in the first log line).
 // The app "Shelly & Tasmota Scan & Control" can install this script and change the settings
-// through KVS: th_set (temperature), th_mode (on/off), th_sensor (number), th_test (on/off).
+// through KVS: th_comfort, th_eco (temperatures), th_level (comfort/eco), th_mode (on/off),
+// th_sensor (number), th_test (on/off). The app's schedules set th_level at the switch times.
 
 // ================= SETTINGS: change these =================
 
 let TEST_MODE        = true;    // true  = only write in the log, never switch the relay (app: KVS "th_test")
                                 // false = really switch the relay (heating)
 
-let ROOM_TEMPERATURE = 20.0;    // the temperature you want (°C), the app can change it via KVS "th_set"
+let COMFORT          = 20.5;    // Comfort temperature (°C), app: KVS "th_comfort"
+let ECO              = 16.0;    // Eco temperature (°C), app: KVS "th_eco"
+let LEVEL            = "comfort";  // "comfort" or "eco": set by the schedules in the Shelly, app: KVS "th_level"
 let SWITCH_MARGIN    = 0.3;     // heat below 19.7, stop above 20.3
 
 let SENSOR           = 100;     // Add-on sensor number (see the Shelly page: Temperature (100)), app: KVS "th_sensor"
@@ -31,12 +34,15 @@ let SAFETY_OFF_MINUTES  = 10;   // relay turns off by itself if the script stops
 
 // ================= do not change below this line =================
 
-let VERSION = 2;                // the app checks this to offer an update of the script
+let VERSION = 3;                // the app checks this to offer an update of the script
 
 let CFG = {
   dryRun: TEST_MODE,
   sensor: SENSOR,
-  setpoint: ROOM_TEMPERATURE,
+  comfort: COMFORT,
+  eco: ECO,
+  level: LEVEL,
+  setpoint: COMFORT,
   hyst: SWITCH_MARGIN,
   minSwitchSec: MIN_MINUTES_BETWEEN * 60,
   everySec: CHECK_EVERY_SECONDS,
@@ -85,15 +91,30 @@ function kvs(key, use, done) {
     done();
   });
 }
+function temp(v) { let n = Number(v); return n >= 5 && n <= 30 ? n : null; }
+function useLevel() {   // the temperature the thermostat heats to: Comfort or Eco
+  let t = CFG.level === "eco" ? CFG.eco : CFG.comfort;
+  if (t !== CFG.setpoint) log("now " + CFG.level + ": " + f1(t) + " °C");
+  CFG.setpoint = t;
+}
 function loadSettings(then) {
-  let left = 4;
-  let done = function () { left--; if (left === 0 && then) then(); };
-  kvs("th_set", function (v) {
-    let n = Number(v);
-    if (n >= 5 && n <= 30) {
-      if (n !== CFG.setpoint) log("setpoint changed: " + CFG.setpoint + " -> " + n + " °C");
-      CFG.setpoint = n;
-    } else log("KVS th_set = " + v + " is out of range (5-30), ignored");
+  let left = 6;
+  let done = function () { left--; if (left === 0) { useLevel(); if (then) then(); } };
+  kvs("th_comfort", function (v) {
+    let n = temp(v); if (n === null) { log("KVS th_comfort = " + v + " is out of range (5-30), ignored"); return; }
+    if (n !== CFG.comfort) log("Comfort changed: " + f1(CFG.comfort) + " -> " + f1(n) + " °C");
+    CFG.comfort = n;
+  }, done);
+  kvs("th_eco", function (v) {
+    let n = temp(v); if (n === null) { log("KVS th_eco = " + v + " is out of range (5-30), ignored"); return; }
+    if (n !== CFG.eco) log("Eco changed: " + f1(CFG.eco) + " -> " + f1(n) + " °C");
+    CFG.eco = n;
+  }, done);
+  kvs("th_level", function (v) {
+    if (v === "comfort" || v === "eco") {
+      if (v !== CFG.level) log("level changed: " + CFG.level + " -> " + v);
+      CFG.level = v;
+    } else log("KVS th_level = " + v + " is not comfort/eco, ignored");
   }, done);
   kvs("th_mode", function (v) {
     if (v === "on" || v === "off") {
@@ -117,12 +138,19 @@ function loadSettings(then) {
   }, done);
 }
 
+// the schedules write th_level; read it at every check (reading KVS does not wear the flash)
+function loadLevel(then) {
+  kvs("th_level", function (v) { if ((v === "comfort" || v === "eco") && v !== CFG.level) { log("schedule: level " + CFG.level + " -> " + v); CFG.level = v; } },
+    function () { useLevel(); then(); });
+}
+
 // state page for the app: http://<shelly-ip>/script/<script-number>/state  (JSON)
 let lastTemp = null, lastCheck = 0;
 HTTPServer.registerEndpoint("state", function (req, res) {
   res.code = 200;
   res.headers = [["Content-Type", "application/json"]];
-  res.body = JSON.stringify({ thermostat: 1, temp: lastTemp, set: CFG.setpoint, margin: CFG.hyst, mode: state.mode,
+  res.body = JSON.stringify({ thermostat: 1, temp: lastTemp, set: CFG.setpoint, comfort: CFG.comfort, eco: CFG.eco,
+    level: CFG.level, margin: CFG.hyst, mode: state.mode,
     heating: state.heating, test: CFG.dryRun, sensor: CFG.sensor, round: state.round, checked: lastCheck,
     watchdog: CFG.watchdogSec, version: VERSION });
   res.send();
@@ -187,6 +215,9 @@ function refreshWatchdog() {
 }
 
 function check() {
+  loadLevel(doCheck);
+}
+function doCheck() {
   state.round++;
   // compare with the real relay: it may have been switched by hand, by the watchdog or a schedule
   if (!CFG.dryRun) {
@@ -197,7 +228,7 @@ function check() {
       state.heating = real;
     }
   }
-  log("---- check " + state.round + " · setpoint " + CFG.setpoint + " °C · mode " + state.mode +
+  log("---- check " + state.round + " · " + CFG.level + " " + f1(CFG.setpoint) + " °C · mode " + state.mode +
       " · heating " + (state.heating ? "ON" : "OFF") + (CFG.dryRun ? " · TEST MODE" : "") + " ----");
   let t = roomTemp();
   lastTemp = t === null ? null : Math.round(t * 10) / 10;
@@ -226,7 +257,7 @@ log("log page: http://" + (wifi && wifi.sta_ip ? wifi.sta_ip : "<shelly-ip>") + 
 let sw = Shelly.getComponentStatus("switch", 0);
 state.heating = !!(sw && sw.output);
 log("script started · TEST MODE " + (TEST_MODE ? "on (relay is never switched)" : "OFF (relay really switches!)") +
-    " · room " + f1(ROOM_TEMPERATURE) + " °C · margin " + SWITCH_MARGIN + " · no frost guard (use a mechanical one)");
+    " · Comfort " + f1(COMFORT) + " °C · Eco " + f1(ECO) + " °C · margin " + SWITCH_MARGIN + " · no frost guard (use a mechanical one)");
 log("sensor " + SENSOR + " (KVS th_sensor can change it) · check every " + CHECK_EVERY_SECONDS + " s · wait " + MIN_MINUTES_BETWEEN +
     " min between switching · safety off after " + SAFETY_OFF_MINUTES + " min · relay is now " + (state.heating ? "ON" : "OFF"));
 // react at once when the sensor reports a new temperature (every change of its threshold, e.g. 0.1 °C);

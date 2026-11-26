@@ -681,14 +681,17 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 <span class="jc">// or open the log page in Chrome to copy it: http://&lt;shelly-ip&gt;/script/&lt;script-number&gt;/log</span>
 <span class="jc">// (the exact address is in the first log line).</span>
 <span class="jc">// The app &quot;Shelly &amp; Tasmota Scan &amp; Control&quot; can install this script and change the settings</span>
-<span class="jc">// through KVS: th_set (temperature), th_mode (on/off), th_sensor (number), th_test (on/off).</span>
+<span class="jc">// through KVS: th_comfort, th_eco (temperatures), th_level (comfort/eco), th_mode (on/off),</span>
+<span class="jc">// th_sensor (number), th_test (on/off). The app&#x27;s schedules set th_level at the switch times.</span>
 
 <span class="jc">// ================= SETTINGS: change these =================</span>
 
 <span class="jk">let</span> TEST_MODE        = <span class="jk">true</span>;    <span class="jc">// true  = only write in the log, never switch the relay (app: KVS &quot;th_test&quot;)</span>
                                 <span class="jc">// false = really switch the relay (heating)</span>
 
-<span class="jk">let</span> ROOM_TEMPERATURE = <span class="jn">20.0</span>;    <span class="jc">// the temperature you want (°C), the app can change it via KVS &quot;th_set&quot;</span>
+<span class="jk">let</span> COMFORT          = <span class="jn">20.5</span>;    <span class="jc">// Comfort temperature (°C), app: KVS &quot;th_comfort&quot;</span>
+<span class="jk">let</span> ECO              = <span class="jn">16.0</span>;    <span class="jc">// Eco temperature (°C), app: KVS &quot;th_eco&quot;</span>
+<span class="jk">let</span> LEVEL            = <span class="js">&quot;comfort&quot;</span>;  <span class="jc">// &quot;comfort&quot; or &quot;eco&quot;: set by the schedules in the Shelly, app: KVS &quot;th_level&quot;</span>
 <span class="jk">let</span> SWITCH_MARGIN    = <span class="jn">0.3</span>;     <span class="jc">// heat below 19.7, stop above 20.3</span>
 
 <span class="jk">let</span> SENSOR           = <span class="jn">100</span>;     <span class="jc">// Add-on sensor number (see the Shelly page: Temperature (100)), app: KVS &quot;th_sensor&quot;</span>
@@ -699,12 +702,15 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 
 <span class="jc">// ================= do not change below this line =================</span>
 
-<span class="jk">let</span> VERSION = <span class="jn">2</span>;                <span class="jc">// the app checks this to offer an update of the script</span>
+<span class="jk">let</span> VERSION = <span class="jn">3</span>;                <span class="jc">// the app checks this to offer an update of the script</span>
 
 <span class="jk">let</span> CFG = {
   dryRun: TEST_MODE,
   sensor: SENSOR,
-  setpoint: ROOM_TEMPERATURE,
+  comfort: COMFORT,
+  eco: ECO,
+  level: LEVEL,
+  setpoint: COMFORT,
   hyst: SWITCH_MARGIN,
   minSwitchSec: MIN_MINUTES_BETWEEN * <span class="jn">60</span>,
   everySec: CHECK_EVERY_SECONDS,
@@ -753,15 +759,30 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     done();
   });
 }
+<span class="jk">function</span> temp(v) { <span class="jk">let</span> n = <span class="jf">Number</span>(v); <span class="jk">return</span> n &gt;= <span class="jn">5</span> &amp;&amp; n &lt;= <span class="jn">30</span> ? n : <span class="jk">null</span>; }
+<span class="jk">function</span> useLevel() {   <span class="jc">// the temperature the thermostat heats to: Comfort or Eco</span>
+  <span class="jk">let</span> t = CFG.level === <span class="js">&quot;eco&quot;</span> ? CFG.eco : CFG.comfort;
+  <span class="jk">if</span> (t !== CFG.setpoint) log(<span class="js">&quot;now &quot;</span> + CFG.level + <span class="js">&quot;: &quot;</span> + f1(t) + <span class="js">&quot; °C&quot;</span>);
+  CFG.setpoint = t;
+}
 <span class="jk">function</span> loadSettings(then) {
-  <span class="jk">let</span> left = <span class="jn">4</span>;
-  <span class="jk">let</span> done = <span class="jk">function</span> () { left--; <span class="jk">if</span> (left === <span class="jn">0</span> &amp;&amp; then) then(); };
-  kvs(<span class="js">&quot;th_set&quot;</span>, <span class="jk">function</span> (v) {
-    <span class="jk">let</span> n = <span class="jf">Number</span>(v);
-    <span class="jk">if</span> (n &gt;= <span class="jn">5</span> &amp;&amp; n &lt;= <span class="jn">30</span>) {
-      <span class="jk">if</span> (n !== CFG.setpoint) log(<span class="js">&quot;setpoint changed: &quot;</span> + CFG.setpoint + <span class="js">&quot; -&gt; &quot;</span> + n + <span class="js">&quot; °C&quot;</span>);
-      CFG.setpoint = n;
-    } <span class="jk">else</span> log(<span class="js">&quot;KVS th_set = &quot;</span> + v + <span class="js">&quot; is out of range (5-30), ignored&quot;</span>);
+  <span class="jk">let</span> left = <span class="jn">6</span>;
+  <span class="jk">let</span> done = <span class="jk">function</span> () { left--; <span class="jk">if</span> (left === <span class="jn">0</span>) { useLevel(); <span class="jk">if</span> (then) then(); } };
+  kvs(<span class="js">&quot;th_comfort&quot;</span>, <span class="jk">function</span> (v) {
+    <span class="jk">let</span> n = temp(v); <span class="jk">if</span> (n === <span class="jk">null</span>) { log(<span class="js">&quot;KVS th_comfort = &quot;</span> + v + <span class="js">&quot; is out of range (5-30), ignored&quot;</span>); <span class="jk">return</span>; }
+    <span class="jk">if</span> (n !== CFG.comfort) log(<span class="js">&quot;Comfort changed: &quot;</span> + f1(CFG.comfort) + <span class="js">&quot; -&gt; &quot;</span> + f1(n) + <span class="js">&quot; °C&quot;</span>);
+    CFG.comfort = n;
+  }, done);
+  kvs(<span class="js">&quot;th_eco&quot;</span>, <span class="jk">function</span> (v) {
+    <span class="jk">let</span> n = temp(v); <span class="jk">if</span> (n === <span class="jk">null</span>) { log(<span class="js">&quot;KVS th_eco = &quot;</span> + v + <span class="js">&quot; is out of range (5-30), ignored&quot;</span>); <span class="jk">return</span>; }
+    <span class="jk">if</span> (n !== CFG.eco) log(<span class="js">&quot;Eco changed: &quot;</span> + f1(CFG.eco) + <span class="js">&quot; -&gt; &quot;</span> + f1(n) + <span class="js">&quot; °C&quot;</span>);
+    CFG.eco = n;
+  }, done);
+  kvs(<span class="js">&quot;th_level&quot;</span>, <span class="jk">function</span> (v) {
+    <span class="jk">if</span> (v === <span class="js">&quot;comfort&quot;</span> || v === <span class="js">&quot;eco&quot;</span>) {
+      <span class="jk">if</span> (v !== CFG.level) log(<span class="js">&quot;level changed: &quot;</span> + CFG.level + <span class="js">&quot; -&gt; &quot;</span> + v);
+      CFG.level = v;
+    } <span class="jk">else</span> log(<span class="js">&quot;KVS th_level = &quot;</span> + v + <span class="js">&quot; is not comfort/eco, ignored&quot;</span>);
   }, done);
   kvs(<span class="js">&quot;th_mode&quot;</span>, <span class="jk">function</span> (v) {
     <span class="jk">if</span> (v === <span class="js">&quot;on&quot;</span> || v === <span class="js">&quot;off&quot;</span>) {
@@ -785,12 +806,19 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   }, done);
 }
 
+<span class="jc">// the schedules write th_level; read it at every check (reading KVS does not wear the flash)</span>
+<span class="jk">function</span> loadLevel(then) {
+  kvs(<span class="js">&quot;th_level&quot;</span>, <span class="jk">function</span> (v) { <span class="jk">if</span> ((v === <span class="js">&quot;comfort&quot;</span> || v === <span class="js">&quot;eco&quot;</span>) &amp;&amp; v !== CFG.level) { log(<span class="js">&quot;schedule: level &quot;</span> + CFG.level + <span class="js">&quot; -&gt; &quot;</span> + v); CFG.level = v; } },
+    <span class="jk">function</span> () { useLevel(); then(); });
+}
+
 <span class="jc">// state page for the app: http://&lt;shelly-ip&gt;/script/&lt;script-number&gt;/state  (JSON)</span>
 <span class="jk">let</span> lastTemp = <span class="jk">null</span>, lastCheck = <span class="jn">0</span>;
 <span class="jf">HTTPServer</span>.registerEndpoint(<span class="js">&quot;state&quot;</span>, <span class="jk">function</span> (req, res) {
   res.code = <span class="jn">200</span>;
   res.headers = [[<span class="js">&quot;Content-Type&quot;</span>, <span class="js">&quot;application/json&quot;</span>]];
-  res.body = <span class="jf">JSON</span>.stringify({ thermostat: <span class="jn">1</span>, temp: lastTemp, set: CFG.setpoint, margin: CFG.hyst, mode: state.mode,
+  res.body = <span class="jf">JSON</span>.stringify({ thermostat: <span class="jn">1</span>, temp: lastTemp, set: CFG.setpoint, comfort: CFG.comfort, eco: CFG.eco,
+    level: CFG.level, margin: CFG.hyst, mode: state.mode,
     heating: state.heating, test: CFG.dryRun, sensor: CFG.sensor, round: state.round, checked: lastCheck,
     watchdog: CFG.watchdogSec, version: VERSION });
   res.send();
@@ -855,6 +883,9 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 }
 
 <span class="jk">function</span> check() {
+  loadLevel(doCheck);
+}
+<span class="jk">function</span> doCheck() {
   state.round++;
   <span class="jc">// compare with the real relay: it may have been switched by hand, by the watchdog or a schedule</span>
   <span class="jk">if</span> (!CFG.dryRun) {
@@ -865,7 +896,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       state.heating = real;
     }
   }
-  log(<span class="js">&quot;---- check &quot;</span> + state.round + <span class="js">&quot; · setpoint &quot;</span> + CFG.setpoint + <span class="js">&quot; °C · mode &quot;</span> + state.mode +
+  log(<span class="js">&quot;---- check &quot;</span> + state.round + <span class="js">&quot; · &quot;</span> + CFG.level + <span class="js">&quot; &quot;</span> + f1(CFG.setpoint) + <span class="js">&quot; °C · mode &quot;</span> + state.mode +
       <span class="js">&quot; · heating &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + (CFG.dryRun ? <span class="js">&quot; · TEST MODE&quot;</span> : <span class="js">&quot;&quot;</span>) + <span class="js">&quot; ----&quot;</span>);
   <span class="jk">let</span> t = roomTemp();
   lastTemp = t === <span class="jk">null</span> ? <span class="jk">null</span> : <span class="jf">Math</span>.round(t * <span class="jn">10</span>) / <span class="jn">10</span>;
@@ -894,7 +925,7 @@ log(<span class="js">&quot;log page: http://&quot;</span> + (wifi &amp;&amp; wif
 <span class="jk">let</span> sw = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;switch&quot;</span>, <span class="jn">0</span>);
 state.heating = !!(sw &amp;&amp; sw.output);
 log(<span class="js">&quot;script started · TEST MODE &quot;</span> + (TEST_MODE ? <span class="js">&quot;on (relay is never switched)&quot;</span> : <span class="js">&quot;OFF (relay really switches!)&quot;</span>) +
-    <span class="js">&quot; · room &quot;</span> + f1(ROOM_TEMPERATURE) + <span class="js">&quot; °C · margin &quot;</span> + SWITCH_MARGIN + <span class="js">&quot; · no frost guard (use a mechanical one)&quot;</span>);
+    <span class="js">&quot; · Comfort &quot;</span> + f1(COMFORT) + <span class="js">&quot; °C · Eco &quot;</span> + f1(ECO) + <span class="js">&quot; °C · margin &quot;</span> + SWITCH_MARGIN + <span class="js">&quot; · no frost guard (use a mechanical one)&quot;</span>);
 log(<span class="js">&quot;sensor &quot;</span> + SENSOR + <span class="js">&quot; (KVS th_sensor can change it) · check every &quot;</span> + CHECK_EVERY_SECONDS + <span class="js">&quot; s · wait &quot;</span> + MIN_MINUTES_BETWEEN +
     <span class="js">&quot; min between switching · safety off after &quot;</span> + SAFETY_OFF_MINUTES + <span class="js">&quot; min · relay is now &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>));
 <span class="jc">// react at once when the sensor reports a new temperature (every change of its threshold, e.g. 0.1 °C);</span>
