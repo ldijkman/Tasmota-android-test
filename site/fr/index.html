@@ -680,16 +680,18 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 <span class="jc">// Watch what it does in the log under the script (lots of console.log lines),</span>
 <span class="jc">// or open the log page in Chrome to copy it: http://&lt;shelly-ip&gt;/script/&lt;script-number&gt;/log</span>
 <span class="jc">// (the exact address is in the first log line).</span>
+<span class="jc">// The app &quot;Shelly &amp; Tasmota Scan &amp; Control&quot; can install this script and change the settings</span>
+<span class="jc">// through KVS: th_set (temperature), th_mode (on/off), th_sensor (number), th_test (on/off).</span>
 
 <span class="jc">// ================= SETTINGS: change these =================</span>
 
-<span class="jk">let</span> TEST_MODE        = <span class="jk">true</span>;    <span class="jc">// true  = only write in the log, never switch the relay</span>
+<span class="jk">let</span> TEST_MODE        = <span class="jk">true</span>;    <span class="jc">// true  = only write in the log, never switch the relay (app: KVS &quot;th_test&quot;)</span>
                                 <span class="jc">// false = really switch the relay (heating)</span>
 
 <span class="jk">let</span> ROOM_TEMPERATURE = <span class="jn">20.0</span>;    <span class="jc">// the temperature you want (°C), the app can change it via KVS &quot;th_set&quot;</span>
 <span class="jk">let</span> SWITCH_MARGIN    = <span class="jn">0.3</span>;     <span class="jc">// heat below 19.7, stop above 20.3</span>
 
-<span class="jk">let</span> SENSOR           = <span class="jn">100</span>;     <span class="jc">// Add-on sensor number (see the Shelly page: Temperature (100))</span>
+<span class="jk">let</span> SENSOR           = <span class="jn">100</span>;     <span class="jc">// Add-on sensor number (see the Shelly page: Temperature (100)), app: KVS &quot;th_sensor&quot;</span>
 
 <span class="jk">let</span> CHECK_EVERY_SECONDS = <span class="jn">30</span>;   <span class="jc">// how often to look at the temperature</span>
 <span class="jk">let</span> MIN_MINUTES_BETWEEN = <span class="jn">3</span>;    <span class="jc">// protect the boiler: wait between switching</span>
@@ -742,31 +744,65 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   res.send();
 });
 
-<span class="jc">// read the settings the app could write in KVS (the Shelly&#x27;s own storage)</span>
-<span class="jk">function</span> loadSettings() {
-  log(<span class="js">&quot;reading settings from KVS ...&quot;</span>);
-  <span class="jf">Shelly</span>.call(<span class="js">&quot;KVS.Get&quot;</span>, { key: <span class="js">&quot;th_set&quot;</span> }, <span class="jk">function</span> (r, err) {
-    <span class="jk">if</span> (err) { log(<span class="js">&quot;KVS th_set not found (error &quot;</span> + err + <span class="js">&quot;), keep setpoint &quot;</span> + CFG.setpoint); <span class="jk">return</span>; }
-    <span class="jk">if</span> (r &amp;&amp; r.value !== <span class="jk">undefined</span>) {
-      <span class="jk">let</span> v = <span class="jf">Number</span>(r.value);
-      <span class="jk">if</span> (v &gt;= <span class="jn">5</span> &amp;&amp; v &lt;= <span class="jn">30</span>) {
-        <span class="jk">if</span> (v !== CFG.setpoint) log(<span class="js">&quot;setpoint changed: &quot;</span> + CFG.setpoint + <span class="js">&quot; -&gt; &quot;</span> + v + <span class="js">&quot; °C&quot;</span>);
-        CFG.setpoint = v;
-      } <span class="jk">else</span> {
-        log(<span class="js">&quot;KVS th_set = &quot;</span> + r.value + <span class="js">&quot; is out of range (5-30), ignored&quot;</span>);
-      }
-    }
-  });
-  <span class="jf">Shelly</span>.call(<span class="js">&quot;KVS.Get&quot;</span>, { key: <span class="js">&quot;th_mode&quot;</span> }, <span class="jk">function</span> (r, err) {
-    <span class="jk">if</span> (err) { log(<span class="js">&quot;KVS th_mode not found, keep mode &quot;</span> + state.mode); <span class="jk">return</span>; }
-    <span class="jk">if</span> (r &amp;&amp; (r.value === <span class="js">&quot;on&quot;</span> || r.value === <span class="js">&quot;off&quot;</span>)) {
-      <span class="jk">if</span> (r.value !== state.mode) log(<span class="js">&quot;mode changed: &quot;</span> + state.mode + <span class="js">&quot; -&gt; &quot;</span> + r.value);
-      state.mode = r.value;
-    } <span class="jk">else</span> {
-      log(<span class="js">&quot;KVS th_mode = &quot;</span> + (r ? r.value : <span class="js">&quot;?&quot;</span>) + <span class="js">&quot; is not on/off, ignored&quot;</span>);
-    }
+<span class="jc">// read the settings the app could write in KVS (the Shelly&#x27;s own storage); done() runs when all are read</span>
+<span class="jk">function</span> kvs(key, use, done) {
+  <span class="jf">Shelly</span>.call(<span class="js">&quot;KVS.Get&quot;</span>, { key: key }, <span class="jk">function</span> (r, err) {
+    <span class="jk">if</span> (!err &amp;&amp; r &amp;&amp; r.value !== <span class="jk">undefined</span>) use(<span class="jf">String</span>(r.value));
+    done();
   });
 }
+<span class="jk">function</span> loadSettings(then) {
+  <span class="jk">let</span> left = <span class="jn">4</span>;
+  <span class="jk">let</span> done = <span class="jk">function</span> () { left--; <span class="jk">if</span> (left === <span class="jn">0</span> &amp;&amp; then) then(); };
+  kvs(<span class="js">&quot;th_set&quot;</span>, <span class="jk">function</span> (v) {
+    <span class="jk">let</span> n = <span class="jf">Number</span>(v);
+    <span class="jk">if</span> (n &gt;= <span class="jn">5</span> &amp;&amp; n &lt;= <span class="jn">30</span>) {
+      <span class="jk">if</span> (n !== CFG.setpoint) log(<span class="js">&quot;setpoint changed: &quot;</span> + CFG.setpoint + <span class="js">&quot; -&gt; &quot;</span> + n + <span class="js">&quot; °C&quot;</span>);
+      CFG.setpoint = n;
+    } <span class="jk">else</span> log(<span class="js">&quot;KVS th_set = &quot;</span> + v + <span class="js">&quot; is out of range (5-30), ignored&quot;</span>);
+  }, done);
+  kvs(<span class="js">&quot;th_mode&quot;</span>, <span class="jk">function</span> (v) {
+    <span class="jk">if</span> (v === <span class="js">&quot;on&quot;</span> || v === <span class="js">&quot;off&quot;</span>) {
+      <span class="jk">if</span> (v !== state.mode) log(<span class="js">&quot;mode changed: &quot;</span> + state.mode + <span class="js">&quot; -&gt; &quot;</span> + v);
+      state.mode = v;
+    } <span class="jk">else</span> log(<span class="js">&quot;KVS th_mode = &quot;</span> + v + <span class="js">&quot; is not on/off, ignored&quot;</span>);
+  }, done);
+  kvs(<span class="js">&quot;th_sensor&quot;</span>, <span class="jk">function</span> (v) {
+    <span class="jk">let</span> n = <span class="jf">Number</span>(v);
+    <span class="jk">if</span> (n &gt;= <span class="jn">100</span> &amp;&amp; n &lt;= <span class="jn">199</span>) {
+      <span class="jk">if</span> (n !== CFG.sensor) log(<span class="js">&quot;sensor changed: &quot;</span> + CFG.sensor + <span class="js">&quot; -&gt; &quot;</span> + n);
+      CFG.sensor = n;
+    } <span class="jk">else</span> log(<span class="js">&quot;KVS th_sensor = &quot;</span> + v + <span class="js">&quot; is not 100-199, ignored&quot;</span>);
+  }, done);
+  kvs(<span class="js">&quot;th_test&quot;</span>, <span class="jk">function</span> (v) {
+    <span class="jk">if</span> (v === <span class="js">&quot;on&quot;</span> || v === <span class="js">&quot;off&quot;</span>) {
+      <span class="jk">let</span> test = v === <span class="js">&quot;on&quot;</span>;
+      <span class="jk">if</span> (test !== CFG.dryRun) log(<span class="js">&quot;TEST MODE changed: &quot;</span> + (test ? <span class="js">&quot;on (relay is never switched)&quot;</span> : <span class="js">&quot;OFF (relay really switches!)&quot;</span>));
+      CFG.dryRun = test;
+    } <span class="jk">else</span> log(<span class="js">&quot;KVS th_test = &quot;</span> + v + <span class="js">&quot; is not on/off, ignored&quot;</span>);
+  }, done);
+}
+
+<span class="jc">// state page for the app: http://&lt;shelly-ip&gt;/script/&lt;script-number&gt;/state  (JSON)</span>
+<span class="jk">let</span> lastTemp = <span class="jk">null</span>, lastCheck = <span class="jn">0</span>;
+<span class="jf">HTTPServer</span>.registerEndpoint(<span class="js">&quot;state&quot;</span>, <span class="jk">function</span> (req, res) {
+  res.code = <span class="jn">200</span>;
+  res.headers = [[<span class="js">&quot;Content-Type&quot;</span>, <span class="js">&quot;application/json&quot;</span>]];
+  res.body = <span class="jf">JSON</span>.stringify({ thermostat: <span class="jn">1</span>, temp: lastTemp, set: CFG.setpoint, margin: CFG.hyst, mode: state.mode,
+    heating: state.heating, test: CFG.dryRun, sensor: CFG.sensor, round: state.round, checked: lastCheck,
+    watchdog: CFG.watchdogSec });
+  res.send();
+});
+
+<span class="jc">// the app calls this right after changing a setting, so it works at once instead of within 5 minutes</span>
+<span class="jf">HTTPServer</span>.registerEndpoint(<span class="js">&quot;reload&quot;</span>, <span class="jk">function</span> (req, res) {
+  log(<span class="js">&quot;settings reload asked (by the app)&quot;</span>);
+  loadSettings(check);
+  res.code = <span class="jn">200</span>;
+  res.headers = [[<span class="js">&quot;Content-Type&quot;</span>, <span class="js">&quot;application/json&quot;</span>]];
+  res.body = <span class="jf">JSON</span>.stringify({ ok: <span class="jk">true</span> });
+  res.send();
+});
 
 <span class="jc">// room temperature from the sensor, or null if it gives no value</span>
 <span class="jk">function</span> roomTemp() {
@@ -786,8 +822,8 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   }
   <span class="jk">let</span> now = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;sys&quot;</span>).uptime;
   <span class="jk">let</span> since = now - state.lastSwitch;
-  <span class="jc">// switching off for safety is always allowed; otherwise wait the minimum time</span>
-  <span class="jk">if</span> (why !== <span class="js">&quot;safety&quot;</span> &amp;&amp; state.lastSwitch &gt; <span class="jn">0</span> &amp;&amp; since &lt; CFG.minSwitchSec) {
+  <span class="jc">// switching off for safety or because you turned the thermostat off is always allowed; otherwise wait</span>
+  <span class="jk">if</span> (why !== <span class="js">&quot;safety&quot;</span> &amp;&amp; why !== <span class="js">&quot;mode off&quot;</span> &amp;&amp; state.lastSwitch &gt; <span class="jn">0</span> &amp;&amp; since &lt; CFG.minSwitchSec) {
     log(<span class="js">&quot;want heating &quot;</span> + (on ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + <span class="js">&quot; but last switch was &quot;</span> + since + <span class="js">&quot; s ago, wait until &quot;</span> + CFG.minSwitchSec + <span class="js">&quot; s&quot;</span>);
     <span class="jk">return</span>;
   }
@@ -830,6 +866,9 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   log(<span class="js">&quot;---- check &quot;</span> + state.round + <span class="js">&quot; · setpoint &quot;</span> + CFG.setpoint + <span class="js">&quot; °C · mode &quot;</span> + state.mode +
       <span class="js">&quot; · heating &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + (CFG.dryRun ? <span class="js">&quot; · TEST MODE&quot;</span> : <span class="js">&quot;&quot;</span>) + <span class="js">&quot; ----&quot;</span>);
   <span class="jk">let</span> t = roomTemp();
+  lastTemp = t === <span class="jk">null</span> ? <span class="jk">null</span> : <span class="jf">Math</span>.round(t * <span class="jn">10</span>) / <span class="jn">10</span>;
+  <span class="jk">let</span> sys = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;sys&quot;</span>);
+  lastCheck = sys &amp;&amp; sys.unixtime ? sys.unixtime : <span class="jn">0</span>;
   <span class="jk">if</span> (t === <span class="jk">null</span>) {                       <span class="jc">// no sensor works: heating off</span>
     log(<span class="js">&quot;no temperature: heating off for safety&quot;</span>);
     setHeating(<span class="jk">false</span>, <span class="js">&quot;safety&quot;</span>);
@@ -854,12 +893,13 @@ log(<span class="js">&quot;log page: http://&quot;</span> + (wifi &amp;&amp; wif
 state.heating = !!(sw &amp;&amp; sw.output);
 log(<span class="js">&quot;script started · TEST MODE &quot;</span> + (TEST_MODE ? <span class="js">&quot;on (relay is never switched)&quot;</span> : <span class="js">&quot;OFF (relay really switches!)&quot;</span>) +
     <span class="js">&quot; · room &quot;</span> + f1(ROOM_TEMPERATURE) + <span class="js">&quot; °C · margin &quot;</span> + SWITCH_MARGIN + <span class="js">&quot; · no frost guard (use a mechanical one)&quot;</span>);
-log(<span class="js">&quot;sensor &quot;</span> + SENSOR + <span class="js">&quot; · check every &quot;</span> + CHECK_EVERY_SECONDS + <span class="js">&quot; s · wait &quot;</span> + MIN_MINUTES_BETWEEN +
+log(<span class="js">&quot;sensor &quot;</span> + SENSOR + <span class="js">&quot; (KVS th_sensor can change it) · check every &quot;</span> + CHECK_EVERY_SECONDS + <span class="js">&quot; s · wait &quot;</span> + MIN_MINUTES_BETWEEN +
     <span class="js">&quot; min between switching · safety off after &quot;</span> + SAFETY_OFF_MINUTES + <span class="js">&quot; min · relay is now &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>));
-loadSettings();
-<span class="jf">Timer</span>.set(CFG.everySec * <span class="jn">1000</span>, <span class="jk">true</span>, check);
-<span class="jf">Timer</span>.set(<span class="jn">300</span> * <span class="jn">1000</span>, <span class="jk">true</span>, loadSettings);
-check();</code></pre>
+loadSettings(<span class="jk">function</span> () {   <span class="jc">// first the settings from KVS, then the first check</span>
+  <span class="jf">Timer</span>.set(CFG.everySec * <span class="jn">1000</span>, <span class="jk">true</span>, check);
+  <span class="jf">Timer</span>.set(<span class="jn">300</span> * <span class="jn">1000</span>, <span class="jk">true</span>, <span class="jk">function</span> () { loadSettings(); });
+  check();
+});</code></pre>
 <div class="jsgrip" title="Drag to resize" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 9L9 21M21 15l-6 6M21 3L3 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div></div><span class="jsnote">Tirez le coin pour agrandir ↘</span></div>
       <p class="jsbox-a"><button type="button" id="jsCopy">Copier</button> <a href="https://ldijkman.github.io/Tasmota-android-test/shelly-thermostat-example.js" download>Télécharger le .js</a><span id="jsOk" hidden>Copié</span></p>
     </div>

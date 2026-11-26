@@ -1138,6 +1138,7 @@
   </div>
 </div>
 
+<script src="thermostat-script.js"></script>
 <script>
 const DEFAULT_IP = '10.10.100.114';
 const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
@@ -3681,6 +3682,102 @@ function startDrag(e, grip){
 }
 
 // Bewerken: Friendly Name, Device Name (naar Tasmota) en wachtwoord (alleen in de app)
+// ---- Thermostaat: een script in de Shelly zelf (Gen2+, met temperatuursensor op de Add-on) ----
+// De app installeert het script (assets/thermostat-script.js) en zet instellingen in KVS:
+// th_set (temperatuur), th_mode (on/off), th_sensor (nummer), th_test (on/off). Het script heeft /state en /reload.
+const TH_NAME = 'Thermostat (Scan & Control)';
+const thRpc = (h, m, p) => appCall('get', [`${h}/rpc/${m}${p ? '?' + Object.keys(p).map(k => k + '=' + encodeURIComponent(JSON.stringify(p[k]))).join('&') : ''}`], 9000);
+const thPost = (h, m, body) => appCall('post', [`${h}/rpc/${m}`, JSON.stringify(body)], 15000);
+async function thFind(h){ const r = await thRpc(h, 'Script.List'); return ((r && r.scripts) || []).find(x => x.name === TH_NAME) || null; }
+async function thSensors(h){   // temperatuursensoren van de Add-on: [{id, name}]
+  const st = await thRpc(h, 'Shelly.GetStatus'), ids = Object.keys(st || {}).filter(k => /^temperature:1\d\d$/.test(k)).map(k => +k.split(':')[1]).sort((a, b) => a - b);
+  if (!ids.length) return [];
+  let cfg = null; try { cfg = await thRpc(h, 'Shelly.GetConfig'); } catch(e){}
+  return ids.map(id => ({id, name: (cfg && cfg['temperature:' + id] && cfg['temperature:' + id].name) || 'Temperature (' + id + ')', t: (st['temperature:' + id] || {}).tC}));
+}
+async function thKvs(h, kv){ for (const k in kv) await thRpc(h, 'KVS.Set', {key: k, value: String(kv[k])}); }
+async function thInstall(h, sensor, test){
+  if (!window.SH_THERMO_CODE) throw new Error('script missing in the app');
+  await thKvs(h, {th_sensor: sensor, th_test: test ? 'on' : 'off'});
+  let s = await thFind(h), id;
+  if (s){ id = s.id; if (s.running) await thRpc(h, 'Script.Stop', {id}); }
+  else id = (await thRpc(h, 'Script.Create', {name: TH_NAME})).id;
+  const code = window.SH_THERMO_CODE;
+  for (let i = 0; i < code.length; i += 1024) await thPost(h, 'Script.PutCode', {id, code: code.slice(i, i + 1024), append: i > 0});
+  await thRpc(h, 'Script.SetConfig', {id, config: {enable: true}});   // start ook na een stroomstoring
+  await thRpc(h, 'Script.Start', {id});
+  return id;
+}
+async function thRemove(h){
+  const s = await thFind(h);
+  if (s){
+    let st = null; if (s.running) try { st = await appCall('get', [`${h}/script/${s.id}/state`], 5000); } catch(e){}
+    if (s.running) await thRpc(h, 'Script.Stop', {id: s.id}).catch(() => {});
+    await thRpc(h, 'Script.Delete', {id: s.id});
+    if (st && st.heating && !st.test) await thRpc(h, 'Switch.Set', {id: 0, on: false}).catch(() => {});   // verwarming niet aan laten staan
+  }
+  for (const k of ['th_set', 'th_mode', 'th_sensor', 'th_test']) await thRpc(h, 'KVS.Delete', {key: k}).catch(() => {});
+}
+async function thSetting(h, id, kv){ await thKvs(h, kv); await appCall('get', [`${h}/script/${id}/reload`], 9000).catch(() => {}); }
+function thEdit(ip, sh){
+  const row = document.getElementById('edThRow'); if (!row) return;
+  if (!APP || !sh || (sh.gen || 1) < 2 || (sh.comp || 'switch') !== 'switch') return;
+  const h = 'http://' + hostOf(ip), on = document.getElementById('edThOn'), more = document.getElementById('edThMore'),
+        sen = document.getElementById('edThSen'), test = document.getElementById('edThTest'), note = document.getElementById('edThNote'),
+        stEl = document.getElementById('edThState'), logB = document.getElementById('edThLog');
+  let script = null, busy = false;
+  const tg = (b, v) => { b.classList.toggle('on', v); b.setAttribute('aria-checked', v); };
+  const say = (t, err) => { note.innerHTML = err ? `<span style="color:var(--err)">${esc(t)}</span>` : esc(t); };
+  const showState = async () => {
+    if (!script || !script.running){ stEl.textContent = script ? 'Script stopped' : ''; return; }
+    try { const st = await appCall('get', [`${h}/script/${script.id}/state`], 6000);
+      stEl.textContent = `${st.temp != null ? st.temp.toFixed(1) + ' °C' : 'no temperature'} → ${(+st.set).toFixed(1)} °C · ${st.mode === 'off' ? 'off' : st.heating ? (st.test ? 'would heat' : 'heating 🔥') : 'not heating'}`;
+      tg(test, !!st.test); if (st.sensor) sen.value = String(st.sensor);
+    } catch(e){ stEl.textContent = 'Script running'; }
+  };
+  thSensors(h).then(async list => {
+    if (!list.length) return;   // geen temperatuursensor op de Add-on: sectie blijft verborgen
+    row.hidden = false;
+    sen.innerHTML = list.map(x => `<option value="${x.id}">${esc(x.name)}${x.t != null ? ' · ' + (+x.t).toFixed(1) + ' °C' : ''}</option>`).join('');
+    try { script = await thFind(h); } catch(e){ say('Could not read the scripts on the Shelly.', true); return; }
+    tg(on, !!script); more.hidden = !script; tg(test, true);
+    say(script ? 'The thermostat runs in the Shelly itself, also without the phone.' : 'Installs a small script in the Shelly. Starts in test mode: it only writes a log.');
+    if (script) showState();
+  }).catch(() => {});
+  on.onclick = async () => {
+    if (busy) return; busy = true;
+    try {
+      if (!script){
+        say('Installing the thermostat script…');
+        const id = await thInstall(h, +sen.value, true);
+        script = {id, running: true}; tg(on, true); more.hidden = false; tg(test, true);
+        say('Installed and started, in test mode. Open the log to see what it would do.');
+        setTimeout(showState, 1500);
+      } else {
+        if (!confirm('Remove the thermostat script from this Shelly?')) return;
+        say('Removing…'); await thRemove(h);
+        script = null; tg(on, false); more.hidden = true; say('Removed. The Shelly is a normal switch again.');
+      }
+    } catch(e){ say('Did not work: ' + (e && e.message || e), true); }
+    finally { busy = false; }
+  };
+  test.onclick = async () => {
+    if (!script || busy) return;
+    const v = !test.classList.contains('on');
+    if (!v && !confirm('Turn test mode off? The relay will really switch the heating.')) return;
+    busy = true;
+    try { await thSetting(h, script.id, {th_test: v ? 'on' : 'off'}); tg(test, v);
+      say(v ? 'Test mode on: the relay never switches.' : 'Test mode off: the thermostat really switches the relay.'); setTimeout(showState, 1200);
+    } catch(e){ say('Could not change test mode.', true); } finally { busy = false; }
+  };
+  sen.onchange = async () => {
+    if (!script) return;
+    try { await thSetting(h, script.id, {th_sensor: sen.value}); say('Sensor changed.'); setTimeout(showState, 1200); }
+    catch(e){ say('Could not change the sensor.', true); }
+  };
+  logB.onclick = () => { if (!script) return; const u = `${h}/script/${script.id}/log`;
+    if (window.Tasmota && window.Tasmota.openUrl) window.Tasmota.openUrl(u); else window.open(u, '_blank'); };
+}
 function editDev(ip){
   const d = loadDevs().find(x => x.ip === ip); if (!d) return;
   const before = {fn: d.friendly || '', dn: d.name || ''};
@@ -3727,6 +3824,16 @@ function editDev(ip){
         <option value="other" hidden>Other (set on the Shelly’s own page)</option>
       </select>
       <div class="hint" id="edInNote">Reading…</div>
+    </div>
+    <div id="edThRow" hidden style="margin-top:14px">
+      <label class="t">Thermostat <span style="opacity:.7">(heating on/off with the Add-on temperature sensor)</span></label>
+      <div class="detrow"><span>Use as thermostat</span><button type="button" class="tgl" id="edThOn" role="switch" aria-checked="false" aria-label="Use as thermostat"><span></span></button></div>
+      <div id="edThMore" hidden>
+        <div class="detrow"><span>Sensor</span><select class="sel" id="edThSen" style="max-width:62%"></select></div>
+        <div class="detrow"><span>Test mode <span style="opacity:.7">(only the log, the relay never switches)</span></span><button type="button" class="tgl" id="edThTest" role="switch" aria-checked="false" aria-label="Test mode"><span></span></button></div>
+        <div class="detrow"><span id="edThState"></span><button type="button" class="b-tog edbtn" id="edThLog" style="flex:none;width:auto;padding:8px 16px">Open log</button></div>
+      </div>
+      <div class="hint" id="edThNote">Reading…</div>
     </div>
     <label class="t" for="edP">Web password <span style="opacity:.7">(only if set in Tasmota; empty = default)</span></label>
     <input type="password" id="edP" autocomplete="new-password">
@@ -3802,6 +3909,7 @@ function editDev(ip){
       other: `Set on the Shelly itself (${raw}). Choose one of the options to change it.`}[inSel.value] || '';
     inNote.textContent = t + (inSel.value !== 'other' ? ' Stored in the Shelly itself.' : '');
   }
+  thEdit(ip, sh);
   const pulseNow = () => ps.value === 'custom' ? Math.max(1, Math.min(1080, +pm.value || 0)) * 60 : +ps.value;
   document.getElementById('evSave').onclick = () => {
     const sec = pulseNow();

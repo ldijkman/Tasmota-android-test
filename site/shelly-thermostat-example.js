@@ -11,16 +11,18 @@
 // Watch what it does in the log under the script (lots of console.log lines),
 // or open the log page in Chrome to copy it: http://<shelly-ip>/script/<script-number>/log
 // (the exact address is in the first log line).
+// The app "Shelly & Tasmota Scan & Control" can install this script and change the settings
+// through KVS: th_set (temperature), th_mode (on/off), th_sensor (number), th_test (on/off).
 
 // ================= SETTINGS: change these =================
 
-let TEST_MODE        = true;    // true  = only write in the log, never switch the relay
+let TEST_MODE        = true;    // true  = only write in the log, never switch the relay (app: KVS "th_test")
                                 // false = really switch the relay (heating)
 
 let ROOM_TEMPERATURE = 20.0;    // the temperature you want (°C), the app can change it via KVS "th_set"
 let SWITCH_MARGIN    = 0.3;     // heat below 19.7, stop above 20.3
 
-let SENSOR           = 100;     // Add-on sensor number (see the Shelly page: Temperature (100))
+let SENSOR           = 100;     // Add-on sensor number (see the Shelly page: Temperature (100)), app: KVS "th_sensor"
 
 let CHECK_EVERY_SECONDS = 30;   // how often to look at the temperature
 let MIN_MINUTES_BETWEEN = 3;    // protect the boiler: wait between switching
@@ -73,31 +75,65 @@ HTTPServer.registerEndpoint("log", function (req, res) {
   res.send();
 });
 
-// read the settings the app could write in KVS (the Shelly's own storage)
-function loadSettings() {
-  log("reading settings from KVS ...");
-  Shelly.call("KVS.Get", { key: "th_set" }, function (r, err) {
-    if (err) { log("KVS th_set not found (error " + err + "), keep setpoint " + CFG.setpoint); return; }
-    if (r && r.value !== undefined) {
-      let v = Number(r.value);
-      if (v >= 5 && v <= 30) {
-        if (v !== CFG.setpoint) log("setpoint changed: " + CFG.setpoint + " -> " + v + " °C");
-        CFG.setpoint = v;
-      } else {
-        log("KVS th_set = " + r.value + " is out of range (5-30), ignored");
-      }
-    }
-  });
-  Shelly.call("KVS.Get", { key: "th_mode" }, function (r, err) {
-    if (err) { log("KVS th_mode not found, keep mode " + state.mode); return; }
-    if (r && (r.value === "on" || r.value === "off")) {
-      if (r.value !== state.mode) log("mode changed: " + state.mode + " -> " + r.value);
-      state.mode = r.value;
-    } else {
-      log("KVS th_mode = " + (r ? r.value : "?") + " is not on/off, ignored");
-    }
+// read the settings the app could write in KVS (the Shelly's own storage); done() runs when all are read
+function kvs(key, use, done) {
+  Shelly.call("KVS.Get", { key: key }, function (r, err) {
+    if (!err && r && r.value !== undefined) use(String(r.value));
+    done();
   });
 }
+function loadSettings(then) {
+  let left = 4;
+  let done = function () { left--; if (left === 0 && then) then(); };
+  kvs("th_set", function (v) {
+    let n = Number(v);
+    if (n >= 5 && n <= 30) {
+      if (n !== CFG.setpoint) log("setpoint changed: " + CFG.setpoint + " -> " + n + " °C");
+      CFG.setpoint = n;
+    } else log("KVS th_set = " + v + " is out of range (5-30), ignored");
+  }, done);
+  kvs("th_mode", function (v) {
+    if (v === "on" || v === "off") {
+      if (v !== state.mode) log("mode changed: " + state.mode + " -> " + v);
+      state.mode = v;
+    } else log("KVS th_mode = " + v + " is not on/off, ignored");
+  }, done);
+  kvs("th_sensor", function (v) {
+    let n = Number(v);
+    if (n >= 100 && n <= 199) {
+      if (n !== CFG.sensor) log("sensor changed: " + CFG.sensor + " -> " + n);
+      CFG.sensor = n;
+    } else log("KVS th_sensor = " + v + " is not 100-199, ignored");
+  }, done);
+  kvs("th_test", function (v) {
+    if (v === "on" || v === "off") {
+      let test = v === "on";
+      if (test !== CFG.dryRun) log("TEST MODE changed: " + (test ? "on (relay is never switched)" : "OFF (relay really switches!)"));
+      CFG.dryRun = test;
+    } else log("KVS th_test = " + v + " is not on/off, ignored");
+  }, done);
+}
+
+// state page for the app: http://<shelly-ip>/script/<script-number>/state  (JSON)
+let lastTemp = null, lastCheck = 0;
+HTTPServer.registerEndpoint("state", function (req, res) {
+  res.code = 200;
+  res.headers = [["Content-Type", "application/json"]];
+  res.body = JSON.stringify({ thermostat: 1, temp: lastTemp, set: CFG.setpoint, margin: CFG.hyst, mode: state.mode,
+    heating: state.heating, test: CFG.dryRun, sensor: CFG.sensor, round: state.round, checked: lastCheck,
+    watchdog: CFG.watchdogSec });
+  res.send();
+});
+
+// the app calls this right after changing a setting, so it works at once instead of within 5 minutes
+HTTPServer.registerEndpoint("reload", function (req, res) {
+  log("settings reload asked (by the app)");
+  loadSettings(check);
+  res.code = 200;
+  res.headers = [["Content-Type", "application/json"]];
+  res.body = JSON.stringify({ ok: true });
+  res.send();
+});
 
 // room temperature from the sensor, or null if it gives no value
 function roomTemp() {
@@ -117,8 +153,8 @@ function setHeating(on, why) {
   }
   let now = Shelly.getComponentStatus("sys").uptime;
   let since = now - state.lastSwitch;
-  // switching off for safety is always allowed; otherwise wait the minimum time
-  if (why !== "safety" && state.lastSwitch > 0 && since < CFG.minSwitchSec) {
+  // switching off for safety or because you turned the thermostat off is always allowed; otherwise wait
+  if (why !== "safety" && why !== "mode off" && state.lastSwitch > 0 && since < CFG.minSwitchSec) {
     log("want heating " + (on ? "ON" : "OFF") + " but last switch was " + since + " s ago, wait until " + CFG.minSwitchSec + " s");
     return;
   }
@@ -161,6 +197,9 @@ function check() {
   log("---- check " + state.round + " · setpoint " + CFG.setpoint + " °C · mode " + state.mode +
       " · heating " + (state.heating ? "ON" : "OFF") + (CFG.dryRun ? " · TEST MODE" : "") + " ----");
   let t = roomTemp();
+  lastTemp = t === null ? null : Math.round(t * 10) / 10;
+  let sys = Shelly.getComponentStatus("sys");
+  lastCheck = sys && sys.unixtime ? sys.unixtime : 0;
   if (t === null) {                       // no sensor works: heating off
     log("no temperature: heating off for safety");
     setHeating(false, "safety");
@@ -185,9 +224,10 @@ let sw = Shelly.getComponentStatus("switch", 0);
 state.heating = !!(sw && sw.output);
 log("script started · TEST MODE " + (TEST_MODE ? "on (relay is never switched)" : "OFF (relay really switches!)") +
     " · room " + f1(ROOM_TEMPERATURE) + " °C · margin " + SWITCH_MARGIN + " · no frost guard (use a mechanical one)");
-log("sensor " + SENSOR + " · check every " + CHECK_EVERY_SECONDS + " s · wait " + MIN_MINUTES_BETWEEN +
+log("sensor " + SENSOR + " (KVS th_sensor can change it) · check every " + CHECK_EVERY_SECONDS + " s · wait " + MIN_MINUTES_BETWEEN +
     " min between switching · safety off after " + SAFETY_OFF_MINUTES + " min · relay is now " + (state.heating ? "ON" : "OFF"));
-loadSettings();
-Timer.set(CFG.everySec * 1000, true, check);
-Timer.set(300 * 1000, true, loadSettings);
-check();
+loadSettings(function () {   // first the settings from KVS, then the first check
+  Timer.set(CFG.everySec * 1000, true, check);
+  Timer.set(300 * 1000, true, function () { loadSettings(); });
+  check();
+});

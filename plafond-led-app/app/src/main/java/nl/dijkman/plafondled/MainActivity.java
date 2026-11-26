@@ -785,6 +785,21 @@ public class MainActivity extends Activity {
             }).start();
         }
 
+        /** Tasmota.post(url, json, id): één HTTP POST met JSON (bijv. script-code naar een Shelly) */
+        @JavascriptInterface
+        public void post(final String url, final String body, final String id) {
+            new Thread(() -> {
+                try {
+                    String[] r = httpPost(url, body, 4000, 15000);
+                    int code = Integer.parseInt(r[0]);
+                    if (code < 400) callback(id, true, r[1]);
+                    else callback(id, false, "HTTP " + code + " " + r[1]);
+                } catch (Exception e) {
+                    callback(id, false, e.toString());
+                }
+            }).start();
+        }
+
         /** Tasmota.scanHints("ip1,ip2"): opgeslagen apparaten, krijgen bij een scan meer geduld */
         @JavascriptInterface
         public void scanHints(String csv) {
@@ -1030,6 +1045,28 @@ public class MainActivity extends Activity {
             c.setRequestProperty("User-Agent", "TasmotaScanControl/" + BuildConfig.VERSION_NAME + " (Android)");
             c.setInstanceFollowRedirects(true);
             c.setReadTimeout(readMs);
+            int code = c.getResponseCode();
+            InputStream in = code < 400 ? c.getInputStream() : c.getErrorStream();
+            return new String[]{String.valueOf(code), in == null ? "" : readAll(in)};
+        } finally {
+            c.disconnect();
+        }
+    }
+
+    private static String[] httpPost(String url, String body, int connectMs, int readMs) throws Exception {
+        HttpURLConnection c = (HttpURLConnection) new URL(url).openConnection();
+        try {
+            c.setConnectTimeout(connectMs);
+            c.setReadTimeout(readMs);
+            c.setRequestMethod("POST");
+            c.setDoOutput(true);
+            c.setRequestProperty("Content-Type", "application/json");
+            c.setRequestProperty("User-Agent", "TasmotaScanControl/" + BuildConfig.VERSION_NAME + " (Android)");
+            byte[] b = body.getBytes("UTF-8");
+            c.setFixedLengthStreamingMode(b.length);
+            java.io.OutputStream o = c.getOutputStream();
+            o.write(b);
+            o.close();
             int code = c.getResponseCode();
             InputStream in = code < 400 ? c.getInputStream() : c.getErrorStream();
             return new String[]{String.valueOf(code), in == null ? "" : readAll(in)};
