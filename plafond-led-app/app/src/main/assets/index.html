@@ -102,6 +102,7 @@
     display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;box-shadow:0 4px 14px rgba(0,0,0,.25)}
   .fnav-b small{font-size:.62rem;font-weight:600;color:var(--ink);line-height:1}
   .fnav-b:active{background:var(--line)}
+  .fnav-b[hidden]{display:none}
   .menu{position:fixed;top:calc(env(safe-area-inset-top, 0px) + 62px);right:12px;z-index:9;min-width:170px;padding:6px;
     background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.35);animation:pop .12s ease-out}
   /* kort scherm (liggend of klein): menu niet hoger dan het scherm, zelf scrollen */
@@ -219,6 +220,16 @@
   .th-btns{display:flex;gap:6px}
   .th-b,.th-m{min-width:38px;height:34px;padding:0 10px;border-radius:10px;border:1px solid var(--line);background:transparent;color:inherit;font:inherit;font-size:1.1rem;line-height:1}
   .th-m{font-size:.85rem;min-width:46px}.th-m.on{border-color:var(--on);color:var(--on)}
+  .thv{border:1px solid var(--line);border-radius:22px;padding:18px 18px 16px;margin:0 0 16px;background:var(--card)}
+  .thv.heat{border-color:var(--on)}
+  .thv-n{font-weight:700;font-size:1.05rem}.thv-s{font-size:.8rem;color:var(--muted);margin-top:2px}
+  .thv-big{display:flex;align-items:baseline;gap:10px;margin:14px 0 4px;font-variant-numeric:tabular-nums}
+  .thv-big b{font-size:3.4rem;line-height:1;font-weight:700}.thv-big span{font-size:1.3rem;color:var(--muted)}
+  .thv-to{font-size:1.15rem;font-variant-numeric:tabular-nums}.thv-to b{font-size:1.5rem}
+  .thv-row{display:flex;gap:10px;margin-top:14px}
+  .thv-row button{flex:1;height:54px;border-radius:14px;border:1px solid var(--line);background:transparent;color:inherit;font:inherit;font-size:1rem}
+  .thv-row .pm{font-size:1.8rem;line-height:1}
+  .thv-row button.on{border-color:var(--on);color:var(--on)}
   .th-lv{width:100%}.th-lv .th-m{flex:1;font-size:.82rem}
   .dev .th-err{color:var(--err);font-size:.82rem;margin-top:6px}
   .tile .t-th{display:flex;align-items:center;gap:6px;font-size:.8rem;font-variant-numeric:tabular-nums;margin-top:2px;width:100%}
@@ -971,6 +982,8 @@
     <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="8" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/><rect x="13" y="13" width="8" height="8" rx="2"/></g></svg><small>Tiles</small></button>
   <button type="button" class="fnav-b" aria-label="Open Scenes" onclick="toggleMenu(false);openScenes()">
     <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7.5,5.6L5,7L6.4,4.5L5,2L7.5,3.4L10,2L8.6,4.5L10,7L7.5,5.6M19.5,15.4L22,14L20.6,16.5L22,19L19.5,17.6L17,19L18.4,16.5L17,14L19.5,15.4M22,2L20.6,4.5L22,7L19.5,5.6L17,7L18.4,4.5L17,2L19.5,3.4L22,2M13.34,12.78L15.78,10.34L13.66,8.22L11.22,10.66L13.34,12.78M14.37,7.29L16.71,9.63C17.1,10 17.1,10.65 16.71,11.04L5.04,22.71C4.65,23.1 4,23.1 3.63,22.71L1.29,20.37C0.9,20 0.9,19.35 1.29,18.96L12.96,7.29C13.35,6.9 14,6.9 14.37,7.29Z"/></svg><small>Scenes</small></button>
+  <button type="button" class="fnav-b" id="fnTh" hidden aria-label="Open Thermostat" onclick="toggleMenu(false);openThermo()">
+    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M15 13V5A3 3 0 0 0 9 5V13A5 5 0 1 0 15 13M12 4A1 1 0 0 1 13 5V8H11V5A1 1 0 0 1 12 4Z"/></svg><small>Heating</small></button>
 </div>
 <button class="burger" id="burger" aria-label="Menu" aria-haspopup="true" aria-expanded="false" onclick="toggleMenu()">
   <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
@@ -1119,6 +1132,15 @@
       <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M15 5l-7 7 7 7"/></svg>
       Back without saving</button>
   </div>
+</div>
+
+<div class="schedview" id="thermoView" role="dialog" aria-modal="true" aria-label="Thermostat" hidden>
+  <div class="sv-head">
+    <button class="sv-back" aria-label="Back" onclick="closeThermo()">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="sv-t"><div class="tv-title">Thermostat</div><div class="sv-sub">Comfort or Eco · − / + changes the active one</div></div>
+  </div>
+  <div class="tv-body" id="thermoBody"></div>
 </div>
 
 <div class="schedview" id="tileView" role="dialog" aria-modal="true" aria-label="Tiles" hidden>
@@ -2791,6 +2813,7 @@ window.__openLink = () => { try {
   const h = window.Tasmota && Tasmota.pendingLink ? Tasmota.pendingLink() : ''; if (!h) return;
   if (h === 'scenes'){ if (typeof closeTiles === 'function') closeTiles(); openScenes(); }
   else if (h === 'tiles'){ if (typeof closeScenes === 'function') closeScenes(); openTiles(); }
+  else if (h === 'thermostat'){ closeTiles(); closeScenes(); openThermo(); }
 } catch(e){} };
 function gotSetup(text){
   let o = null; try { o = JSON.parse(text); } catch(e){}
@@ -3762,7 +3785,7 @@ function thermoOf(ip){ const d = loadDevs().find(x => x.ip === ip); return d && 
 function thermoSave(ip, id){
   const all = loadDevs(), d = all.find(x => x.ip === ip); if (!d) return;
   if (id) d.thermo = id; else { delete d.thermo; delete devThermo[ip]; }
-  saveDevs(all);
+  saveDevs(all); thNavShow();
 }
 async function fetchThermo(ip){
   const id = thermoOf(ip); if (!id) return;
@@ -3776,7 +3799,8 @@ setInterval(() => {
   const ips = loadDevs().filter(d => d.thermo && (devLive[d.ip] || {}).state !== 'offline').map(d => d.ip);
   if (ips.length) Promise.all(ips.map(fetchThermo)).then(thRedraw);
 }, 10000);
-const thRedraw = () => { renderDevs(); if (!document.getElementById('tileView').hidden) renderTiles(); };
+const thRedraw = () => { renderDevs(); if (!document.getElementById('tileView').hidden) renderTiles();
+  if (!document.getElementById('thermoView').hidden) renderThermo(); };
 const thSetTimers = {};
 function thAdj(ip, d){   // − / +: temperatuur van het actieve niveau (Comfort of Eco)
   const T = devThermo[ip]; if (!T || T.err) return;
@@ -3800,6 +3824,39 @@ function thMode(ip){
   thSetting('http://' + hostOf(ip), thermoOf(ip), {th_mode: T.mode})
     .then(() => new Promise(r => setTimeout(r, 1200))).then(() => fetchThermo(ip)).then(thRedraw)
     .catch(() => { scanNote = '<span style="color:var(--err)">Could not switch the thermostat.</span>'; renderDevs(); });
+}
+// ---- Thermostaatscherm: grote weergave per thermostaat (ook handig als wandpaneel) ----
+function thermoDevs(){ return loadDevs().filter(d => d.thermo); }
+function thNavShow(){ const b = document.getElementById('fnTh'); if (b) b.hidden = !thermoDevs().length; }
+function renderThermo(){
+  const body = document.getElementById('thermoBody'); if (!body) return;
+  const devs = thermoDevs();
+  if (!devs.length){ body.innerHTML = '<p class="hint">No thermostat yet. Turn one on in Edit of a Shelly with an Add-on temperature sensor.</p>'; return; }
+  body.innerHTML = devs.map(d => {
+    const ip = d.ip, T = devThermo[ip], name = esc(d.friendly || d.name || ip);
+    if (!T) return `<div class="thv"><div class="thv-n">${name}</div><div class="thv-s">Reading…</div></div>`;
+    if (T.err) return `<div class="thv"><div class="thv-n">${name}</div><div class="thv-s" style="color:var(--err)">⚠ Thermostat script is not answering</div></div>`;
+    const off = T.mode === 'off', heat = T.heating && !off, eco = T.level === 'eco', nx = nextLabel(ip);
+    return `<div class="thv${heat && !T.test ? ' heat' : ''}">
+      <div class="thv-n">${name}${T.test ? ' <i class="th-test">test</i>' : ''}</div>
+      <div class="thv-s">${off ? 'Thermostat off' : heat ? (T.test ? 'Would heat (test mode)' : '🔥 Heating') : 'Not heating'}${nx ? ' · ' + esc(nx) : ''}</div>
+      <div class="thv-big"><b>${T.temp != null ? (+T.temp).toFixed(1) : '–'}</b><span>°C now</span></div>
+      <div class="thv-to">${off ? 'Off' : `→ <b>${(+T.set).toFixed(1)} °C</b> ${eco ? '🌙 Eco' : '☀️ Comfort'}`}</div>
+      <div class="thv-row"><button class="pm" aria-label="Lower" onclick="thAdj('${ip}',-0.5)">−</button><button class="pm" aria-label="Higher" onclick="thAdj('${ip}',0.5)">+</button></div>
+      <div class="thv-row"><button class="${!eco ? 'on' : ''}" onclick="thLevel('${ip}','comfort')">☀️ Comfort${T.comfort != null ? ' ' + (+T.comfort).toFixed(1) + '°' : ''}</button>
+        <button class="${eco ? 'on' : ''}" onclick="thLevel('${ip}','eco')">🌙 Eco${T.eco != null ? ' ' + (+T.eco).toFixed(1) + '°' : ''}</button></div>
+      <div class="thv-row"><button class="${off ? '' : 'on'}" onclick="thMode('${ip}')">${off ? 'Thermostat Off' : 'Thermostat On'}</button>
+        <button onclick="closeThermo();openSchedView('${ip}')">Schedules</button></div>
+    </div>`; }).join('');
+}
+function openThermo(){
+  const v = document.getElementById('thermoView'); renderThermo();
+  v.hidden = false; v.scrollTop = 0; document.body.classList.add('noscroll');
+  Promise.all(thermoDevs().map(d => fetchThermo(d.ip))).then(renderThermo);
+}
+function closeThermo(){
+  const v = document.getElementById('thermoView'); if (v.hidden) return;
+  v.hidden = true; if (document.getElementById('schedView').hidden && document.getElementById('editView').hidden) document.body.classList.remove('noscroll');
 }
 function thermoLine(ip){
   if (!thermoOf(ip)) return '';
@@ -4730,6 +4787,7 @@ window.__back = () => {
   const ib = document.getElementById('iconBox'); if (!ib.hidden){ ib.hidden = true; return true; }
   if (!document.getElementById('editView').hidden){ closeEditView(); return true; }
   if (!document.getElementById('tileView').hidden){ closeTiles(); return true; }
+  if (!document.getElementById('thermoView').hidden){ closeThermo(); return true; }
   if (!document.getElementById('sceneView').hidden){ closeSceneView(); return true; }
   if (!document.getElementById('scenesView').hidden){ closeScenes(); return true; }
   if (!document.getElementById('todayView').hidden){ closeToday(); return true; }
@@ -5333,7 +5391,7 @@ if (APP) {
   // In de app werkt de status gewoon; de iframe-noodoplossing is dan overbodig
   document.getElementById('liveCard').style.display = 'none';
   document.getElementById('scanCard').style.display = '';
-  document.getElementById('fNav').hidden = false; document.getElementById('topBar').hidden = false;
+  document.getElementById('fNav').hidden = false; document.getElementById('topBar').hidden = false; thNavShow();
   renderScenes();
   renderDevs(); refreshAllDevs(); setInterval(refreshAllDevs, 30000); syncWidgets();
   if (window.Tasmota.wifiInfo){ document.getElementById('wifiCard').style.display = ''; showWifi(); setInterval(showWifi, 5000); }
