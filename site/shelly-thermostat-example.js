@@ -3,6 +3,7 @@
 // NO FROST GUARD in this script: a script can stop. For frost protection use MECHANICAL HARDWARE:
 // a bimetal frost thermostat wired in parallel with the Shelly relay (like the old Honeywell ones),
 // plus the boiler's own frost protection. Those also work without power, Wi-Fi or software.
+// For safety against overheating: a normally closed (NC) max thermostat (e.g. 30 °C) in series with the relay.
 // Start with TEST_MODE = true and read the log; set it to false to really switch.
 //
 // Paste on the Shelly's own web page: Scripts -> Create script -> paste -> Save -> Start.

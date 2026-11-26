@@ -646,12 +646,13 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <div class="brain-note"><b>Idea: your old tablet as the thermostat on the wall</b><p>Give an old tablet a second life.<br><i class="aside">(Or a good reason to buy a new tablet and reuse the old.)</i><br>On the wall it shows the room temperature in big numbers, a 🔥 when the boiler is heating, and big Boost and Away buttons that everyone in the house can tap. The thermostat itself runs in the Shelly, so the heating keeps working even when the tablet is off.</p><p class="brain-am">With the same easy-to-set schedules you’re already familiar with.</p></div>
     <div class="jsbox">
       <p class="jsbox-h"><b>Example: the thermostat as a script in the Shelly</b><br><span>A little bit tested on a Shelly 1 Gen3. A first idea, not in the app.</span></p>
-      <p class="jsfrost">❄️ No frost guard in the script: a script can stop. For frost protection use mechanical hardware: a bimetal frost thermostat wired in parallel with the Shelly relay, plus the boiler’s own frost protection.</p>
+      <p class="jsfrost">❄️ No frost guard in the script: a script can stop. For frost protection use mechanical hardware: a bimetal frost thermostat wired in parallel with the Shelly relay, plus the boiler’s own frost protection. 🔥 Against overheating: a normally closed (NC) max thermostat, for example 30 °C, in series with the relay.</p>
       <div class="jswrap"><div class="jsin"><pre class="jscode" lang="en" translate="no"><code><span class="jc">// Simple thermostat for a Shelly Gen2/Gen3 with the Sensor Add-on (DS18B20)</span>
 <span class="jc">// EXAMPLE, A LITTLE BIT TESTED: try it with a lamp on the relay before you connect the boiler.</span>
 <span class="jc">// NO FROST GUARD in this script: a script can stop. For frost protection use MECHANICAL HARDWARE:</span>
 <span class="jc">// a bimetal frost thermostat wired in parallel with the Shelly relay (like the old Honeywell ones),</span>
 <span class="jc">// plus the boiler&#x27;s own frost protection. Those also work without power, Wi-Fi or software.</span>
+<span class="jc">// For safety against overheating: a normally closed (NC) max thermostat (e.g. 30 °C) in series with the relay.</span>
 <span class="jc">// Start with TEST_MODE = true and read the log; set it to false to really switch.</span>
 <span class="jc">//</span>
 <span class="jc">// Paste on the Shelly&#x27;s own web page: Scripts -&gt; Create script -&gt; paste -&gt; Save -&gt; Start.</span>

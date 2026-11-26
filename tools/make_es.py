@@ -503,7 +503,7 @@ T = [
 ('>Sorry!, Nerd Alert Section 🤓 <', '>¡Perdón!, Alerta nerd 🤓 <'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Saltar</a>'),
 ('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">Abrir la app</a>'),
-('>❄️ No frost guard in the script: a script can stop. For frost protection use mechanical hardware: a bimetal frost thermostat wired in parallel with the Shelly relay, plus the boiler’s own frost protection.<', '>❄️ Sin protección antiheladas en el script: un script puede detenerse. Para la protección antiheladas usa hardware mecánico: un termostato antiheladas bimetálico en paralelo con el relé del Shelly, más la protección antiheladas propia de la caldera.<'),
+('>❄️ No frost guard in the script: a script can stop. For frost protection use mechanical hardware: a bimetal frost thermostat wired in parallel with the Shelly relay, plus the boiler’s own frost protection. 🔥 Against overheating: a normally closed (NC) max thermostat, for example 30 °C, in series with the relay.<', '>❄️ Sin protección antiheladas en el script: un script puede detenerse. Para la protección antiheladas usa hardware mecánico: un termostato antiheladas bimetálico en paralelo con el relé del Shelly, más la protección antiheladas propia de la caldera. 🔥 Contra el sobrecalentamiento: un termostato de máxima normalmente cerrado (NC), por ejemplo de 30 °C, en serie con el relé.<'),
 ]
 
 
