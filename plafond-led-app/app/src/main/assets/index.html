@@ -282,6 +282,20 @@
   .th-sw .tgl{position:relative;right:auto;bottom:auto;flex:none;display:block}
   .dev .th-line.off .th-dim{opacity:.35}
   .dev .th-err{color:var(--err);font-size:.82rem;margin-top:6px}
+  .tile.thw{grid-column:1/-1;gap:8px}
+  .thw .w-big{display:flex;align-items:baseline;gap:8px;width:100%;font-variant-numeric:tabular-nums;margin-top:2px}
+  .thw .w-big b{font-size:2.2rem;line-height:1}.thw .w-big .u{color:var(--muted);font-size:1rem}
+  .thw .w-big .ar{color:var(--muted);font-size:1.3rem;margin:0 2px}.thw .w-big .tg{font-size:1.45rem;font-weight:700;color:var(--on);white-space:nowrap}
+  .thw .w-fl{margin-left:auto;font-size:1.6rem}.thw .w-fl.test{filter:grayscale(1);opacity:.6}
+  .thw .w-sub{font-size:.78rem;color:var(--muted);margin-top:-4px;text-align:left}
+  .thw .w-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%}
+  .thw .w-row3{display:grid;grid-template-columns:56px 1fr 56px;gap:8px;width:100%}
+  .thw .wb{display:flex;align-items:center;justify-content:center;height:44px;border:1px solid var(--line);border-radius:12px;font-size:.95rem;color:var(--ink);-webkit-user-select:none;user-select:none;touch-action:manipulation}
+  .thw .wb.on{border-color:var(--on);color:var(--on)}.thw .wb:active{background:var(--line)}
+  .thw .wb.pm{font-size:1.5rem}.thw .wb.val{border:2px solid var(--on);color:var(--on);font-weight:700;font-size:1.15rem;border-radius:22px;font-variant-numeric:tabular-nums}
+  .thw .w-sw{display:flex;align-items:center;justify-content:space-between;width:100%;padding:8px 12px;border:1px solid var(--line);border-radius:12px;font-size:.95rem;color:var(--ink)}
+  .thw .w-sw .tgl{position:relative;display:block;right:auto;bottom:auto}
+  .thw.thoff .w-dim{opacity:.4}
   .tile .t-th{display:flex;align-items:center;gap:6px;font-size:.8rem;font-variant-numeric:tabular-nums;margin-top:2px;width:100%}
   .tile .t-thb{display:inline-grid;place-items:center;width:30px;height:26px;border-radius:8px;border:1px solid var(--line);font-size:1rem}
   .tile .t-thb:first-of-type{margin-left:auto}
@@ -3431,16 +3445,17 @@ function openIconPicker(cur, onPick){
 }
 function tileHtml(d){
   const L = devLive[d.ip] || {}, st = L.state;
-  const on = isOn(d), off = st === 'offline' || st === 'locked';
-  return `<button class="tile${on ? ' on' : ''}${isWater(d.icon) ? ' water' : ''}${ocCls(d)}${off ? ' offline' : ''}${L.busy ? ' busy' : ''}" data-ip="${d.ip}"${ocStyle(d)}
+  const on = isOn(d), off = st === 'offline' || st === 'locked', wide = !off && thWideOk(d);
+  return `<button class="tile${wide ? ' thw' + (devThermo[d.ip].mode === 'off' ? ' thoff' : '') : ''}${on ? ' on' : ''}${isWater(d.icon) ? ' water' : ''}${ocCls(d)}${off ? ' offline' : ''}${L.busy ? ' busy' : ''}" data-ip="${d.ip}"${ocStyle(d)}
       aria-pressed="${on}" aria-label="${esc(d.friendly || d.name || d.ip)} ${on ? 'on' : 'off'}">
     <span class="t-top"><span class="t-ico${pulseRingCls(d.ip, on)}"${pulseRingAttr(d.ip, on)}>${iconSvg(d.icon)}${pulseBadge(d.ip)}</span>
       <span class="t-st">${off ? (st === 'locked' ? 'password needed' : 'not reachable') : on ? 'On' : 'Off'}${!off && lightOf(d.ip) ? ` · <span class="tpct">${lightDot(d.ip)}${lightOf(d.ip).dim}%${TUNE_SVG.replace('13', '11').replace('13', '11')}</span>` : ''}${on && pulseLeft(d.ip) != null ? ` · <span class="pcd" data-ip="${d.ip}">${mmss(pulseLeft(d.ip))}</span>` : ''}</span></span>
     <span class="t-name">${esc(d.friendly || d.name || d.ip)}</span>
     ${!off && sensorShort(d.ip) && sensOn() && !thTile(d.ip) ? `<span class="t-sn">${esc(sensorShort(d.ip))}</span>` : ''}
-    ${!off ? thTile(d.ip) : ''}
+    ${wide ? thWide(d.ip) : !off ? thTile(d.ip) : ''}
   </button>`;
 }
+const thFirst = l => [...l.filter(thWideOk), ...l.filter(d => !thWideOk(d))];   // brede thermostaattegel bovenaan de groep
 function renderTiles(){
   const body = document.getElementById('tileBody'), devs = loadDevs(), groups = loadGroups();
   if (!devs.length){ body.innerHTML = '<div class="hint" style="padding:20px 4px">No switches saved yet. Scan the network first.</div>'; return; }
@@ -3452,11 +3467,11 @@ function renderTiles(){
       <div class="tv-gh"><span class="tv-gn${g.color ? ' tinted' : ''}" data-gid="${g.id}" title="Hold to edit">${esc(g.name)}</span><span class="grp-count">${nOn ? nOn + ' on · ' : ''}${mine.length}</span>
         <button class="tgl${nOn ? ' on' : ''}${grpBusy[g.id] ? ' busy' : ''}" role="switch" aria-checked="${!!nOn}"
           aria-label="${nOn ? 'Switch all off' : 'Switch all on'} in ${esc(g.name)}" onclick="groupPower('${g.id}')"><span></span></button></div>
-      <div class="tv-grid">${mine.map(tileHtml).join('')}</div></section>`;
+      <div class="tv-grid">${thFirst(mine).map(tileHtml).join('')}</div></section>`;
   });
   const loose = devs.filter(d => !d.group || !groups.some(g => g.id === d.group));
   if (loose.length) html += `<section class="tv-grp">${groups.length ? '<div class="tv-gh"><span class="tv-gn" style="color:var(--muted)">Not in a group</span></div>' : ''}
-    <div class="tv-grid">${loose.map(tileHtml).join('')}</div></section>`;
+    <div class="tv-grid">${thFirst(loose).map(tileHtml).join('')}</div></section>`;
   body.innerHTML = html;
   const n = devs.filter(isOn).length;
   document.getElementById('tvSub').textContent = (n ? `${n} of ${devs.length} on` : 'All off') + ' · tap to switch, hold to edit';
@@ -3471,7 +3486,7 @@ function openTiles(){
   tb.onpointerdown = e => {
     // tegel vasthouden = schakelaar bewerken; groepsnaam vasthouden = naam en kleur van de groep
     const t = e.target.closest('.tile'), g = e.target.closest('.tv-gn[data-gid]');
-    held = false; clearTimeout(holdT); if ((!t && !g) || e.target.closest('[data-th]')) return;
+    held = false; clearTimeout(holdT); if ((!t && !g) || e.target.closest('[data-th],[data-thl],[data-thw],[data-thm]')) return;
     x0 = e.clientX; y0 = e.clientY;
     holdT = setTimeout(() => { held = true; if (navigator.vibrate) try { navigator.vibrate(25); } catch(_){}
       if (t) editDev(t.dataset.ip); else renameGroup(g.dataset.gid); }, 550);
@@ -3484,6 +3499,9 @@ function openTiles(){
     const t = e.target.closest('.tile'); if (!t || t.classList.contains('busy')) return;
     if (e.target.closest('.tpct')){ openLight(t.dataset.ip); return; }   // percentage: lampvenster
     const thb = e.target.closest('[data-th]'); if (thb){ thAdj(t.dataset.ip, +thb.dataset.th); return; }   // thermostaat − / +
+    const thl = e.target.closest('[data-thl]'); if (thl){ thLevel(t.dataset.ip, thl.dataset.thl); return; }   // Comfort / Eco
+    if (e.target.closest('[data-thw]')){ thWheel(t.dataset.ip); return; }   // getal: draaiwiel
+    if (e.target.closest('[data-thm]')){ thMode(t.dataset.ip); return; }   // thermostaat aan/uit (vraagt bij uit)
     if (navigator.vibrate) try { navigator.vibrate(15); } catch(_){}
     quickToggle(t.dataset.ip);
   };
@@ -4012,6 +4030,17 @@ function thermoLine(ip){
     ${T.level ? `<span class="th-btns th-dim"><button class="th-m${!eco ? ' on' : ''}" onclick="event.stopPropagation();thLevel('${ip}','comfort')">☀️ Comfort</button><button class="th-m${eco ? ' on' : ''}" onclick="event.stopPropagation();thLevel('${ip}','eco')">🌙 Eco</button></span>` : ''}
     <span class="th-btns th-dim th-pm"><button class="th-b" aria-label="Lower" data-hold="${ip}|c-" onclick="event.stopPropagation();thAdj('${ip}',-0.1)">−</button><button class="th-b" aria-label="Higher" data-hold="${ip}|c+" onclick="event.stopPropagation();thAdj('${ip}',0.1)">+</button></span>
     <button class="th-sw" role="switch" aria-checked="${!off}" onclick="event.stopPropagation();thMode('${ip}')"><span>Thermostat</span><span class="tgl${off ? '' : ' on'}"><span></span></span></button></div>`;
+}
+// Brede thermostaattegel (over twee kolommen), opgebouwd zoals het blok op de apparaatkaart
+const thWideOk = d => { const T = devThermo[d.ip]; return !!(thermoOf(d.ip) && T && !T.err); };
+function thWide(ip){
+  const T = devThermo[ip], off = T.mode === 'off', heat = T.heating && !off, eco = T.level === 'eco';
+  const sub = off ? 'Thermostat off – no heating' : (eco ? 'Eco' : 'Comfort') + ' · ' + (heat ? (T.test ? 'would heat (test mode)' : 'heating · watchdog OK') : (T.test ? 'not heating (test mode)' : 'not heating'));
+  return `<span class="w-big w-dim"><b>${T.temp != null ? (+T.temp).toFixed(1) : '–'}</b><span class="u">°C</span><span class="ar">→</span><span class="tg">${off ? 'off' : (eco ? '🌙 ' : '☀️ ') + (+T.set).toFixed(1) + ' °C'}</span>${heat ? `<span class="w-fl${T.test ? ' test' : ''}">🔥</span>` : ''}</span>
+    <span class="w-sub">${sub}</span>
+    ${T.level ? `<span class="w-row w-dim"><span class="wb${!eco ? ' on' : ''}" data-thl="comfort" role="button">☀️ Comfort</span><span class="wb${eco ? ' on' : ''}" data-thl="eco" role="button">🌙 Eco</span></span>` : ''}
+    <span class="w-row3 w-dim"><span class="wb pm" data-th="-0.1" data-hold="${ip}|t-" role="button" aria-label="Lower">−</span><span class="wb val" data-thw="1" role="button" aria-label="Set the temperature with a wheel">${(+T.set).toFixed(1)} °C</span><span class="wb pm" data-th="0.1" data-hold="${ip}|t+" role="button" aria-label="Higher">+</span></span>
+    <span class="w-sw" data-thm="1" role="switch" aria-checked="${!off}"><span>Thermostat</span><span class="tgl${off ? '' : ' on'}"><span></span></span></span>`;
 }
 function thTile(ip){
   const T = devThermo[ip]; if (!thermoOf(ip) || !T || T.err) return '';
