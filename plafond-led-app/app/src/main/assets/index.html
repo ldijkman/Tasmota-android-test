@@ -239,6 +239,28 @@
   .thv-wide{width:100%;margin-top:12px;height:52px;border-radius:14px;border:1px solid var(--line);background:transparent;color:inherit;font:inherit;font-size:1rem}
   .thv.off .thv-dim{opacity:.35}
   .thv-links button{font-size:.88rem;height:44px;color:var(--muted)}
+  .thv-tl{text-align:center;margin-top:12px;font-size:.92rem;color:var(--muted)}
+  .thv-adj{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:6px}
+  .thv-adj .pm{flex:none;width:58px;height:58px;border-radius:50%;border:1px solid var(--line);background:transparent;color:inherit;font:inherit;font-size:1.8rem;line-height:1;touch-action:manipulation;-webkit-user-select:none;user-select:none}
+  .thv-chip{display:flex;align-items:center;gap:6px;height:58px;padding:0 18px;border-radius:29px;border:2px solid var(--on);background:transparent;color:var(--on);font:inherit;font-size:1.05rem;white-space:nowrap}
+  .thv-chip b{font-size:1.7rem;font-variant-numeric:tabular-nums}
+  .thv-hint{text-align:center;font-size:.78rem;color:var(--muted);margin-top:6px}
+  .edth-v{min-width:76px;align-self:stretch;padding:0 10px;line-height:1;border-radius:22px;border:1.5px solid var(--on);background:transparent;color:var(--ink);font:inherit;font-weight:700;font-variant-numeric:tabular-nums}
+  #edThRow{border:1px solid var(--line);border-radius:14px;padding:10px 12px}
+  #whBox{position:fixed;inset:0;z-index:40;background:rgba(0,0,0,.5)}
+  #whBox[hidden]{display:none}
+  .whsh{position:absolute;left:0;right:0;bottom:0;background:var(--card);color:var(--ink);border-radius:20px 20px 0 0;padding:10px 18px calc(env(safe-area-inset-bottom, 0px) + 18px);animation:whIn .2s ease-out}
+  @keyframes whIn{from{transform:translateY(100%)}to{transform:none}}
+  .whgrab{width:42px;height:4px;border-radius:2px;background:var(--line);margin:0 auto 12px}
+  .whhd{display:flex;align-items:center;gap:8px;font-size:1.1rem;font-weight:700}
+  .whhd button{margin-left:auto;height:42px;padding:0 20px;border-radius:12px;border:1.5px solid var(--on);background:transparent;color:var(--on);font:inherit;font-weight:700}
+  .whw{position:relative;height:220px;margin:10px 0 4px}
+  .whsc{height:100%;overflow-y:scroll;scroll-snap-type:y mandatory;scrollbar-width:none;-webkit-mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent)}
+  .whsc::-webkit-scrollbar{display:none}
+  .whit{height:44px;line-height:44px;text-align:center;scroll-snap-align:center;font-size:1.25rem;color:var(--muted);font-variant-numeric:tabular-nums}
+  .whit.on{font-size:2rem;font-weight:700;color:var(--ink)}
+  .whsel{position:absolute;left:40px;right:40px;top:88px;height:44px;border-radius:12px;border:2px solid var(--on);pointer-events:none}
+  .whst{text-align:center;font-size:.85rem;color:var(--muted);min-height:1.2em}
   .thv-row button.on{border-color:var(--on);color:var(--on)}
   .th-lv{width:100%}.th-lv .th-m{flex:1;font-size:.82rem}
   .dev .th-line{display:block;padding:8px 10px}
@@ -3421,7 +3443,7 @@ function openTiles(){
   tb.onpointerdown = e => {
     // tegel vasthouden = schakelaar bewerken; groepsnaam vasthouden = naam en kleur van de groep
     const t = e.target.closest('.tile'), g = e.target.closest('.tv-gn[data-gid]');
-    held = false; clearTimeout(holdT); if (!t && !g) return;
+    held = false; clearTimeout(holdT); if ((!t && !g) || e.target.closest('[data-th]')) return;
     x0 = e.clientX; y0 = e.clientY;
     holdT = setTimeout(() => { held = true; if (navigator.vibrate) try { navigator.vibrate(25); } catch(_){}
       if (t) editDev(t.dataset.ip); else renameGroup(g.dataset.gid); }, 550);
@@ -3814,21 +3836,76 @@ async function fetchThermo(ip){
 // thermostaat-status vaker verversen (elke 10 s) zolang de app open is
 setInterval(() => {
   if (!APP || document.hidden) return;
-  const ips = loadDevs().filter(d => d.thermo && (devLive[d.ip] || {}).state !== 'offline').map(d => d.ip);
+  const ips = loadDevs().filter(d => d.thermo && (devLive[d.ip] || {}).state !== 'offline' && !thPend[d.ip]).map(d => d.ip);
   if (ips.length) Promise.all(ips.map(fetchThermo)).then(thRedraw);
 }, 10000);
 const thRedraw = () => { renderDevs(); if (!document.getElementById('tileView').hidden) renderTiles();
   if (!document.getElementById('thermoView').hidden) renderThermo(); };
-const thSetTimers = {};
-function thAdj(ip, d){   // − / +: temperatuur van het actieve niveau (Comfort of Eco)
+const thSetTimers = {}, thPend = {};   // thPend: nog niet verstuurd, dus niet overschrijven met oude waarde
+const thClamp = v => Math.min(30, Math.max(5, Math.round(v * 10) / 10));
+function thAdj(ip, d){   // − / +: temperatuur van het actieve niveau (Comfort of Eco), stappen van 0,1
+  const T = devThermo[ip]; if (!T || T.err) return;
+  thSetTo(ip, +T.set + d, 1500);
+}
+function thSetTo(ip, v, wait){   // pas versturen als er even niet getikt/gedraaid is
   const T = devThermo[ip]; if (!T || T.err) return;
   const lv = T.level === 'eco' ? 'eco' : 'comfort';
-  T.set = T[lv] = Math.min(30, Math.max(5, Math.round((+T.set + d) * 2) / 2)); thRedraw();
-  clearTimeout(thSetTimers[ip]);   // snel na elkaar tikken: alleen de laatste waarde versturen
+  T.set = T[lv] = thClamp(v); thRedraw();
+  clearTimeout(thSetTimers[ip]); thPend[ip] = true;
   thSetTimers[ip] = setTimeout(() => thSetting('http://' + hostOf(ip), thermoOf(ip), {['th_' + lv]: T.set})
+    .finally(() => { thPend[ip] = false; })
     .then(() => fetchThermo(ip)).then(thRedraw)
-    .catch(() => { scanNote = '<span style="color:var(--err)">Could not set the thermostat temperature.</span>'; renderDevs(); }), 700);
+    .catch(() => { scanNote = '<span style="color:var(--err)">Could not set the thermostat temperature.</span>'; renderDevs(); }), wait);
 }
+function thWheel(ip){   // grote temperatuur op het thermostaatscherm: draaiwiel
+  const T = devThermo[ip]; if (!T || T.err) return;
+  const eco = T.level === 'eco';
+  wheelPick((eco ? '🌙 Eco' : '☀️ Comfort') + ' temperature', +T.set, v => thSetTo(ip, v, 0));
+}
+// ---- Draaiwiel 5,0 – 30,0 °C in stappen van 0,1 (onderblad) ----
+function wheelPick(title, value, onPick){
+  let box = document.getElementById('whBox');
+  if (!box){
+    box = document.createElement('div'); box.id = 'whBox'; box.hidden = true;
+    const v = []; for (let i = 50; i <= 300; i++) v.push((i / 10).toFixed(1));
+    box.innerHTML = `<div class="whsh" role="dialog" aria-modal="true"><div class="whgrab"></div>
+      <div class="whhd"><span id="whT"></span><button type="button" id="whDone">Done</button></div>
+      <div class="whw"><div class="whsel"></div><div class="whsc" id="whSc"><div style="height:88px"></div>${v.map(t => `<div class="whit">${t}</div>`).join('')}<div style="height:88px"></div></div></div>
+      <div class="whst" id="whSt"></div></div>`;
+    document.body.appendChild(box);
+  }
+  const sc = box.querySelector('#whSc'), st = box.querySelector('#whSt'), its = sc.querySelectorAll('.whit');
+  let last = -1, tm = null, pending = false, sent = thClamp(value);
+  const idx = () => Math.max(0, Math.min(its.length - 1, Math.round(sc.scrollTop / 44)));
+  const mark = () => { const i = idx(); if (i !== last){ if (last >= 0){ its[last].classList.remove('on'); if (navigator.vibrate) try { navigator.vibrate(4); } catch(_){} } its[i].classList.add('on'); last = i; } return i; };
+  const send = () => { clearTimeout(tm); pending = false; const val = (idx() + 50) / 10;
+    if (val !== sent){ sent = val; onPick(val); st.textContent = 'Sent to the Shelly: ' + val.toFixed(1) + ' °C'; } else st.textContent = ''; };
+  box.querySelector('#whT').textContent = title;
+  st.textContent = 'Swipe to change · sent 1.5 s after you stop';
+  box.hidden = false;
+  its.forEach(e => e.classList.remove('on'));
+  sc.scrollTop = Math.round((sent - 5) * 10) * 44; last = -1; mark();
+  sc.onscroll = () => { mark(); if (Math.round((idx() + 50)) / 10 === sent && !pending) return;
+    pending = true; st.textContent = '…'; clearTimeout(tm); tm = setTimeout(send, 1500); };
+  sc.onclick = e => { const it = e.target.closest('.whit'); if (it) sc.scrollTo({top: [...its].indexOf(it) * 44, behavior: 'smooth'}); };
+  const close = () => { if (pending) send(); box.hidden = true; sc.onscroll = null; window.__whClose = null; };
+  window.__whClose = close;
+  box.querySelector('#whDone').onclick = close;
+  box.onclick = e => { if (e.target === box) close(); };
+}
+// ---- − / + vasthouden: blijft stappen (eerst rustig, dan sneller) ----
+(() => {
+  let key = null, t1 = null, t2 = null, n = 0, rep = false;
+  const fire = () => { const el = document.querySelector(`[data-hold="${CSS.escape(key)}"]`); if (el) el.click(); else stop(); };
+  const stop = () => { clearTimeout(t1); clearTimeout(t2); key = null; };
+  const loop = () => { n++; rep = true; fire(); if (key) t2 = setTimeout(loop, n < 6 ? 220 : 90); };
+  document.addEventListener('pointerdown', e => { const el = e.target.closest('[data-hold]'); if (!el) return;
+    stop(); key = el.dataset.hold; n = 0; rep = false; t1 = setTimeout(loop, 450); }, true);
+  ['pointerup', 'pointercancel'].forEach(ev => document.addEventListener(ev, () => { if (key) setTimeout(stop, 0); }, true));
+  document.addEventListener('click', e => {   // de "echte" klik na vasthouden niet nog eens tellen
+    if (e.isTrusted && rep && e.target.closest('[data-hold]')){ e.stopPropagation(); e.preventDefault(); rep = false; } }, true);
+  document.addEventListener('contextmenu', e => { if (e.target.closest('[data-hold]')) e.preventDefault(); }, true);
+})();
 function thLevel(ip, lv){   // Comfort / Eco met de hand (tot het volgende schema)
   const T = devThermo[ip]; if (!T || T.err || T.level === lv) return;
   T.level = lv; if (T[lv] != null) T.set = T[lv]; thRedraw();
@@ -3859,8 +3936,11 @@ function renderThermo(){
       <div class="thv-n">${name}${T.test ? ' <i class="th-test">test</i>' : ''}</div>
       <div class="thv-s">${off ? 'Thermostat off – no heating' : heat ? (T.test ? 'Would heat (test mode)' : 'Heating') : 'Not heating'}${nx && !off ? ' · ' + esc(nx) : ''}</div>
       <div class="thv-big thv-dim"><b>${T.temp != null ? (+T.temp).toFixed(1) : '–'}</b><span>°C now</span>${heat ? `<span class="thv-fl${T.test ? ' test' : ''}" aria-label="${T.test ? 'would heat' : 'heating'}">🔥</span>` : ''}</div>
-      <div class="thv-to thv-dim">→ <b>${(+T.set).toFixed(1)} °C</b> ${eco ? '🌙 Eco' : '☀️ Comfort'}</div>
-      <div class="thv-row thv-dim"><button class="pm" aria-label="Lower" onclick="thAdj('${ip}',-0.5)">−</button><button class="pm" aria-label="Higher" onclick="thAdj('${ip}',0.5)">+</button></div>
+      <div class="thv-tl thv-dim">${eco ? '🌙 Eco' : '☀️ Comfort'} – heating to</div>
+      <div class="thv-adj thv-dim"><button class="pm" aria-label="Lower" data-hold="${ip}|-" onclick="thAdj('${ip}',-0.1)">−</button>
+        <button class="thv-chip" aria-label="Set the temperature with a wheel" onclick="thWheel('${ip}')">${eco ? '🌙' : '☀️'} <b>${(+T.set).toFixed(1)}</b> °C</button>
+        <button class="pm" aria-label="Higher" data-hold="${ip}|+" onclick="thAdj('${ip}',0.1)">+</button></div>
+      <div class="thv-hint">Tap the number for the wheel</div>
       <div class="thv-row thv-dim"><button class="lvb${!eco ? ' on' : ''}" onclick="thLevel('${ip}','comfort')">☀️ Comfort${T.comfort != null ? ' ' + (+T.comfort).toFixed(1) + '°' : ''}</button>
         <button class="lvb${eco ? ' on' : ''}" onclick="thLevel('${ip}','eco')">🌙 Eco${T.eco != null ? ' ' + (+T.eco).toFixed(1) + '°' : ''}</button></div>
       <button class="thv-sw" role="switch" aria-checked="${!off}" onclick="thMode('${ip}')"><span>Thermostat</span><span class="tgl${off ? '' : ' on'}"><span></span></span></button>
@@ -3897,14 +3977,14 @@ function thermoLine(ip){
     <span class="th-t th-dim">${heat ? '🔥' : '🌡️'} ${T.temp != null ? (+T.temp).toFixed(1) : '–'} °C → <b>${(+T.set).toFixed(1)} °C</b>${T.test ? '<i class="th-test">test</i>' : ''}</span>
     <span class="th-sub">${sub}</span>
     ${T.level ? `<span class="th-btns th-dim"><button class="th-m${!eco ? ' on' : ''}" onclick="event.stopPropagation();thLevel('${ip}','comfort')">☀️ Comfort</button><button class="th-m${eco ? ' on' : ''}" onclick="event.stopPropagation();thLevel('${ip}','eco')">🌙 Eco</button></span>` : ''}
-    <span class="th-btns th-dim th-pm"><button class="th-b" aria-label="Lower" onclick="event.stopPropagation();thAdj('${ip}',-0.5)">−</button><button class="th-b" aria-label="Higher" onclick="event.stopPropagation();thAdj('${ip}',0.5)">+</button></span>
+    <span class="th-btns th-dim th-pm"><button class="th-b" aria-label="Lower" data-hold="${ip}|c-" onclick="event.stopPropagation();thAdj('${ip}',-0.1)">−</button><button class="th-b" aria-label="Higher" data-hold="${ip}|c+" onclick="event.stopPropagation();thAdj('${ip}',0.1)">+</button></span>
     <button class="th-sw" role="switch" aria-checked="${!off}" onclick="event.stopPropagation();thMode('${ip}')"><span>Thermostat</span><span class="tgl${off ? '' : ' on'}"><span></span></span></button></div>`;
 }
 function thTile(ip){
   const T = devThermo[ip]; if (!thermoOf(ip) || !T || T.err) return '';
   const heat = T.heating && T.mode !== 'off';
   return `<span class="t-th"><span style="white-space:nowrap">${heat ? '🔥' : '🌡️'} ${T.temp != null ? (+T.temp).toFixed(1) : '–'}→<b>${T.mode === 'off' ? 'off' : (T.level === 'eco' ? '🌙' : T.level ? '☀️' : '') + (+T.set).toFixed(1) + '°'}</b></span>
-    <span class="t-thb" data-th="-0.5" role="button" aria-label="Lower">−</span><span class="t-thb" data-th="0.5" role="button" aria-label="Higher">+</span></span>`;
+    <span class="t-thb" data-th="-0.1" data-hold="${ip}|t-" role="button" aria-label="Lower">−</span><span class="t-thb" data-th="0.1" data-hold="${ip}|t+" role="button" aria-label="Higher">+</span></span>`;
 }
 function thEdit(ip, sh){
   const row = document.getElementById('edThRow'); if (!row) return;
@@ -3915,13 +3995,15 @@ function thEdit(ip, sh){
   let script = null, busy = false, setT = {};
   const lvV = {comfort: 20.5, eco: 16};
   const lvShow = () => { document.getElementById('edThC').textContent = lvV.comfort.toFixed(1) + ' °C'; document.getElementById('edThE').textContent = lvV.eco.toFixed(1) + ' °C'; };
-  more.querySelectorAll('[data-lv]').forEach(b => b.onclick = () => {
-    if (!script) return; const lv = b.dataset.lv;
-    lvV[lv] = Math.min(30, Math.max(5, Math.round((lvV[lv] + +b.dataset.d) * 2) / 2)); lvShow();
+  const lvSet = (lv, val, wait) => {
+    lvV[lv] = thClamp(val); lvShow();
     clearTimeout(setT[lv]); setT[lv] = setTimeout(() => thSetting(h, script.id, {['th_' + lv]: lvV[lv]})
       .then(() => { say((lv === 'eco' ? 'Eco' : 'Comfort') + ' set to ' + lvV[lv].toFixed(1) + ' °C.'); fetchThermo(ip).then(renderDevs); showState(); })
-      .catch(() => say('Could not set the temperature.', true)), 700);
-  });
+      .catch(() => say('Could not set the temperature.', true)), wait);
+  };
+  more.querySelectorAll('[data-lv]').forEach(b => b.onclick = () => { if (script) lvSet(b.dataset.lv, lvV[b.dataset.lv] + +b.dataset.d, 1500); });
+  more.querySelectorAll('[data-wh]').forEach(b => b.onclick = () => { if (!script) return; const lv = b.dataset.wh;
+    wheelPick((lv === 'eco' ? '🌙 Eco' : '☀️ Comfort') + ' temperature', lvV[lv], v => lvSet(lv, v, 0)); });
   const tg = (b, v) => { b.classList.toggle('on', v); b.setAttribute('aria-checked', v); };
   const say = (t, err) => { note.innerHTML = err ? `<span style="color:var(--err)">${esc(t)}</span>` : esc(t); };
   const showState = async () => {
@@ -4043,8 +4125,8 @@ function editDev(ip){
       <label class="t">Thermostat <span style="opacity:.7">(heating on/off with the Add-on temperature sensor)</span></label>
       <div class="detrow"><span>Use as thermostat</span><button type="button" class="tgl" id="edThOn" role="switch" aria-checked="false" aria-label="Use as thermostat"><span></span></button></div>
       <div id="edThMore" hidden>
-        <div class="detrow"><span>☀️ Comfort</span><span class="th-btns"><button type="button" class="th-b" data-lv="comfort" data-d="-0.5" aria-label="Comfort lower">−</button><b id="edThC" style="min-width:64px;text-align:center;align-self:center">20.5 °C</b><button type="button" class="th-b" data-lv="comfort" data-d="0.5" aria-label="Comfort higher">+</button></span></div>
-        <div class="detrow"><span>🌙 Eco</span><span class="th-btns"><button type="button" class="th-b" data-lv="eco" data-d="-0.5" aria-label="Eco lower">−</button><b id="edThE" style="min-width:64px;text-align:center;align-self:center">16.0 °C</b><button type="button" class="th-b" data-lv="eco" data-d="0.5" aria-label="Eco higher">+</button></span></div>
+        <div class="detrow"><span>☀️ Comfort</span><span class="th-btns"><button type="button" class="th-b" data-lv="comfort" data-d="-0.1" data-hold="ed|comfort-" aria-label="Comfort lower">−</button><button type="button" class="edth-v" id="edThC" data-wh="comfort" aria-label="Comfort: set with a wheel">20.5 °C</button><button type="button" class="th-b" data-lv="comfort" data-d="0.1" data-hold="ed|comfort+" aria-label="Comfort higher">+</button></span></div>
+        <div class="detrow"><span>🌙 Eco</span><span class="th-btns"><button type="button" class="th-b" data-lv="eco" data-d="-0.1" data-hold="ed|eco-" aria-label="Eco lower">−</button><button type="button" class="edth-v" id="edThE" data-wh="eco" aria-label="Eco: set with a wheel">16.0 °C</button><button type="button" class="th-b" data-lv="eco" data-d="0.1" data-hold="ed|eco+" aria-label="Eco higher">+</button></span></div>
         <div class="hint" style="margin:2px 2px 6px">Schedules switch between Comfort (on-time) and Eco (off-time).</div>
         <div class="detrow"><span>Sensor</span><select class="sel" id="edThSen" style="max-width:62%"></select></div>
         <div class="detrow"><span>Test mode <span style="opacity:.7">(only the log, the relay never switches)</span></span><button type="button" class="tgl" id="edThTest" role="switch" aria-checked="false" aria-label="Test mode"><span></span></button></div>
@@ -4810,6 +4892,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape'){ toggleMenu(
 window.__back = () => {
   const c = document.getElementById('confirmBox'), sh = document.getElementById('sheetBox'), m = document.getElementById('menu');
   if (!c.hidden){ document.getElementById('confirmNo').click(); return true; }
+  if (window.__whClose){ window.__whClose(); return true; }
   const pk = document.getElementById('pickBox'); if (!pk.hidden){ pk.hidden = true; return true; }
   const ib = document.getElementById('iconBox'); if (!ib.hidden){ ib.hidden = true; return true; }
   if (!document.getElementById('editView').hidden){ closeEditView(); return true; }
