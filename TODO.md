@@ -10,6 +10,7 @@ Ideas we talked about and want to build later. Nothing here is in the app yet.
 - The switching margin stays 0.3 °C.
 
 ## Thermostat: wheel picker (demo approved 27 November)
+- Wanted: **both** the wheel picker **and** − / + (not one or the other).
 - Heating screen: keep **− and +** on both sides of the target temperature, and make
   the **target number a button** that opens a **wheel picker** (bottom sheet).
 - Wheel: 5.0 – 30.0 °C in **0.1 steps**, scroll-snap, the middle value big, a highlight band.
