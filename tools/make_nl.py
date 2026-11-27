@@ -538,6 +538,7 @@ T = [
 ('Edit: the thermostat part with a border, Comfort and Eco with − / + and the wheel, sensor, test mode and the log.', 'Bewerken: het thermostaatdeel met een rand, Comfort en Eco met − / + en het draaiwiel, sensor, testmodus en het logboek.'),
 ('The log page on the Shelly: every check, sensor value and decision, with the time.', 'De logpagina op de Shelly: elke controle, sensorwaarde en beslissing, met de tijd.'),
 ('The script page on the Shelly itself: the app installed “Thermostat (Scan & Control)”.', 'De scriptpagina op de Shelly zelf: de app installeerde “Thermostat (Scan & Control)”.'),
+('<b>The thermostat, step by step</b>', '<b>De thermostaat, stap voor stap</b>'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

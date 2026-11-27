@@ -372,6 +372,7 @@ T = [
 ('Edit: the thermostat part with a border, Comfort and Eco with − / + and the wheel, sensor, test mode and the log.', 'Modifier : la partie thermostat avec une bordure, Confort et Éco avec − / + et la roue, capteur, mode test et le journal.'),
 ('The log page on the Shelly: every check, sensor value and decision, with the time.', 'La page du journal sur le Shelly : chaque contrôle, valeur du capteur et décision, avec l’heure.'),
 ('The script page on the Shelly itself: the app installed “Thermostat (Scan & Control)”.', 'La page du script sur le Shelly lui-même : l’app a installé « Thermostat (Scan & Control) ».'),
+('<b>The thermostat, step by step</b>', '<b>Le thermostat, étape par étape</b>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

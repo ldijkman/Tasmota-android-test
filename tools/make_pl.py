@@ -512,6 +512,7 @@ T = [
 ('Edit: the thermostat part with a border, Comfort and Eco with − / + and the wheel, sensor, test mode and the log.', 'Edycja: część termostatu w ramce, Komfort i Eko z − / + i kółkiem, czujnik, tryb testowy i dziennik.'),
 ('The log page on the Shelly: every check, sensor value and decision, with the time.', 'Strona dziennika na Shelly: każde sprawdzenie, wartość czujnika i decyzja, z godziną.'),
 ('The script page on the Shelly itself: the app installed “Thermostat (Scan & Control)”.', 'Strona skryptu na samym Shelly: aplikacja zainstalowała „Thermostat (Scan & Control)”.'),
+('<b>The thermostat, step by step</b>', '<b>Termostat krok po kroku</b>'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

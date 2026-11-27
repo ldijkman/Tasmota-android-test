@@ -515,6 +515,7 @@ T = [
 ('Edit: the thermostat part with a border, Comfort and Eco with − / + and the wheel, sensor, test mode and the log.', 'Editar: la parte del termostato con un borde, Confort y Eco con − / + y la rueda, sensor, modo de prueba y el registro.'),
 ('The log page on the Shelly: every check, sensor value and decision, with the time.', 'La página del registro en el Shelly: cada comprobación, valor del sensor y decisión, con la hora.'),
 ('The script page on the Shelly itself: the app installed “Thermostat (Scan & Control)”.', 'La página del script en el propio Shelly: la app instaló «Thermostat (Scan & Control)».'),
+('<b>The thermostat, step by step</b>', '<b>El termostato, paso a paso</b>'),
 ]
 
 
