@@ -527,6 +527,9 @@ T = [
 ('Easy to use scheduling: Comfort just switched to 🌙 Eco on schedule, by the Shelly itself. It already shows the next step: Comfort tomorrow at 05:00.', 'Horarios fáciles: Confort acaba de pasar a 🌙 Eco según el horario, por el propio Shelly. Ya muestra el siguiente paso: Confort mañana a las 05:00.'),
 ('The schedules behind it: ☀️ Comfort at 05:00 until 🌙 Eco at sunrise minus 15 min, and Comfort again from 18:00 to 22:05. Stored in the Shelly.', 'Los horarios detrás: ☀️ Confort a las 05:00 hasta 🌙 Eco al amanecer menos 15 min, y otra vez Confort de 18:00 a 22:05. Guardados en el Shelly.'),
 ('The hardware: a Shelly 1 Gen3 with the Sensor Add-on plugged on, and a DS18B20 temperature sensor. Together a thermostat.', 'El hardware: un Shelly 1 Gen3 con el Sensor Add-on encajado y un sensor de temperatura DS18B20. Juntos, un termostato.'),
+('More nerd stuff to come:', 'Más cosas de nerd en camino:'),
+('Store the temperature sensor data in Google Forms', 'Guardar los datos del sensor de temperatura en Google Forms'),
+('and create graphs from the temperature history 📈', 'y crear gráficos con el historial de temperaturas 📈'),
 ]
 
 

@@ -388,6 +388,9 @@ T = [
 ('Easy to use scheduling: Comfort just switched to 🌙 Eco on schedule, by the Shelly itself. It already shows the next step: Comfort tomorrow at 05:00.', 'Einfache Zeitpläne: Komfort hat gerade nach Plan auf 🌙 Eco gewechselt, durch den Shelly selbst. Der nächste Schritt steht schon da: Komfort morgen um 05:00.'),
 ('The schedules behind it: ☀️ Comfort at 05:00 until 🌙 Eco at sunrise minus 15 min, and Comfort again from 18:00 to 22:05. Stored in the Shelly.', 'Die Zeitpläne dahinter: ☀️ Komfort um 05:00 bis 🌙 Eco bei Sonnenaufgang minus 15 Min., und wieder Komfort von 18:00 bis 22:05. Im Shelly gespeichert.'),
 ('The hardware: a Shelly 1 Gen3 with the Sensor Add-on plugged on, and a DS18B20 temperature sensor. Together a thermostat.', 'Die Hardware: ein Shelly 1 Gen3 mit aufgestecktem Sensor Add-on und ein DS18B20-Temperatursensor. Zusammen ein Thermostat.'),
+('More nerd stuff to come:', 'Mehr Nerd-Zeug kommt noch:'),
+('Store the temperature sensor data in Google Forms', 'Die Temperaturdaten des Sensors in Google Forms speichern'),
+('and create graphs from the temperature history 📈', 'und Diagramme aus dem Temperaturverlauf erstellen 📈'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

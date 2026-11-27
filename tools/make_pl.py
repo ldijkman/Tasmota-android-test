@@ -524,6 +524,9 @@ T = [
 ('Easy to use scheduling: Comfort just switched to 🌙 Eco on schedule, by the Shelly itself. It already shows the next step: Comfort tomorrow at 05:00.', 'Łatwe harmonogramy: Komfort właśnie przełączył się na 🌙 Eko według harmonogramu, przez samo Shelly. Widać już następny krok: Komfort jutro o 05:00.'),
 ('The schedules behind it: ☀️ Comfort at 05:00 until 🌙 Eco at sunrise minus 15 min, and Comfort again from 18:00 to 22:05. Stored in the Shelly.', 'Harmonogramy w tle: ☀️ Komfort o 05:00 do 🌙 Eko o wschodzie słońca minus 15 min, i znowu Komfort od 18:00 do 22:05. Zapisane w Shelly.'),
 ('The hardware: a Shelly 1 Gen3 with the Sensor Add-on plugged on, and a DS18B20 temperature sensor. Together a thermostat.', 'Sprzęt: Shelly 1 Gen3 z nałożonym Sensor Add-on i czujnik temperatury DS18B20. Razem termostat.'),
+('More nerd stuff to come:', 'Więcej nerdowskich rzeczy w drodze:'),
+('Store the temperature sensor data in Google Forms', 'Zapisywanie danych z czujnika temperatury w Google Forms'),
+('and create graphs from the temperature history 📈', 'i wykresy z historii temperatur 📈'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
