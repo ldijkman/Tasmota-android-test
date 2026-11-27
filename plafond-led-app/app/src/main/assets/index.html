@@ -240,6 +240,13 @@
   .thv.off .thv-dim{opacity:.35}
   .thv-row button.on{border-color:var(--on);color:var(--on)}
   .th-lv{width:100%}.th-lv .th-m{flex:1;font-size:.82rem}
+  .dev .th-line{display:block;padding:8px 10px}
+  .dev .th-line .th-t{display:block;white-space:nowrap;font-size:1.05rem}.dev .th-line .th-t b{font-size:1.15rem}
+  .dev .th-line .th-sub{display:block;margin:1px 0 6px}
+  .dev .th-line .th-btns{display:flex;gap:6px}.dev .th-line .th-m{flex:1;white-space:nowrap;padding:0 6px;font-size:.85rem}.dev .th-line .th-btns+.th-btns{margin-top:6px}.dev .th-line .th-pm .th-b{flex:1;min-width:0}
+  .th-sw{display:flex;align-items:center;justify-content:space-between;width:100%;margin-top:8px;padding:6px 10px;border:1px solid var(--line);border-radius:10px;background:transparent;color:inherit;font:inherit;font-size:.92rem}
+  .th-sw .tgl{position:relative;right:auto;bottom:auto;flex:none;display:block}
+  .dev .th-line.off .th-dim{opacity:.35}
   .dev .th-err{color:var(--err);font-size:.82rem;margin-top:6px}
   .tile .t-th{display:flex;align-items:center;gap:6px;font-size:.8rem;font-variant-numeric:tabular-nums;margin-top:2px;width:100%}
   .tile .t-thb{display:inline-grid;place-items:center;width:30px;height:26px;border-radius:8px;border:1px solid var(--line);font-size:1rem}
@@ -3876,12 +3883,14 @@ function thermoLine(ip){
   if (T.err) return `<div class="th-err">⚠ Thermostat script is not answering</div>`;
   const off = T.mode === 'off', heat = T.heating && !off;
   const old = (+T.version || 1) < TH_VERSION;
-  const sub = old ? 'update the script in Edit' : off ? 'thermostat off' : heat ? (T.test ? 'would heat (test mode)' : 'heating · watchdog OK') : (T.test ? 'not heating (test mode)' : 'not heating');
-  return `<div class="th-line${heat && !T.test ? ' heat' : ''}" onclick="event.stopPropagation()">
-    <span class="th-t">${heat ? '🔥' : '🌡️'} ${T.temp != null ? (+T.temp).toFixed(1) : '–'} °C → <b>${(+T.set).toFixed(1)} °C</b>${T.test ? '<i class="th-test">test</i>' : ''}<span class="th-sub">${sub}</span></span>
-    ${T.level ? `<span class="th-btns th-lv"><button class="th-m${T.level !== 'eco' ? ' on' : ''}" onclick="event.stopPropagation();thLevel('${ip}','comfort')">☀️ Comfort</button><button class="th-m${T.level === 'eco' ? ' on' : ''}" onclick="event.stopPropagation();thLevel('${ip}','eco')">🌙 Eco</button></span>` : ''}
-    <span class="th-btns"><button class="th-b" aria-label="Lower" onclick="event.stopPropagation();thAdj('${ip}',-0.5)">−</button><button class="th-b" aria-label="Higher" onclick="event.stopPropagation();thAdj('${ip}',0.5)">+</button>
-    <button class="th-m${off ? '' : ' on'}" aria-label="Thermostat on or off" onclick="event.stopPropagation();thMode('${ip}')">${off ? 'Off' : 'On'}</button></span></div>`;
+  const sub = old ? 'update the script in Edit' : off ? 'thermostat off – no heating' : heat ? (T.test ? 'would heat (test mode)' : 'heating · watchdog OK') : (T.test ? 'not heating (test mode)' : 'not heating');
+  const eco = T.level === 'eco';
+  return `<div class="th-line${heat && !T.test ? ' heat' : ''}${off ? ' off' : ''}" onclick="event.stopPropagation()">
+    <span class="th-t th-dim">${heat ? '🔥' : '🌡️'} ${T.temp != null ? (+T.temp).toFixed(1) : '–'} °C → <b>${(+T.set).toFixed(1)} °C</b>${T.test ? '<i class="th-test">test</i>' : ''}</span>
+    <span class="th-sub">${sub}</span>
+    ${T.level ? `<span class="th-btns th-dim"><button class="th-m${!eco ? ' on' : ''}" onclick="event.stopPropagation();thLevel('${ip}','comfort')">☀️ Comfort</button><button class="th-m${eco ? ' on' : ''}" onclick="event.stopPropagation();thLevel('${ip}','eco')">🌙 Eco</button></span>` : ''}
+    <span class="th-btns th-dim th-pm"><button class="th-b" aria-label="Lower" onclick="event.stopPropagation();thAdj('${ip}',-0.5)">−</button><button class="th-b" aria-label="Higher" onclick="event.stopPropagation();thAdj('${ip}',0.5)">+</button></span>
+    <button class="th-sw" role="switch" aria-checked="${!off}" onclick="event.stopPropagation();thMode('${ip}')"><span>Thermostat</span><span class="tgl${off ? '' : ' on'}"><span></span></span></button></div>`;
 }
 function thTile(ip){
   const T = devThermo[ip]; if (!thermoOf(ip) || !T || T.err) return '';
