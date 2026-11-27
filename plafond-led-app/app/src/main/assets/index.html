@@ -952,7 +952,8 @@
         <button class="b-tog" style="width:100%" onclick="saveNames()">Save names to Tasmota</button>
         <div class="hint" id="nmMsg"></div>
       </div>
-      <p class="hid"><label class="t">Default password for all switches (only if a web password is set; per switch via ✎ in the list)</label><input type="text" id="pw"></p>
+      <p style="margin-top:4px"><label class="t">Default password (Tasmota web password)</label><input type="password" id="pw" autocomplete="off" placeholder="empty = no password">
+        <span class="hint" style="display:block;margin-top:4px">Scan network tries it on every password-protected Tasmota. A different password for one switch: set it in Edit. Stays on this phone.</span></p>
       <p style="margin-top:4px"><label class="t">Scan range (Scan network)</label>
         <select class="sel" id="rangePreset">
           <option value="">Automatic (phone's wifi network)</option>
@@ -4933,6 +4934,28 @@ function askConfirm(html, onYes, yesLabel = 'Yes, remove', danger = true, noLabe
 // ---- Herkennen op MAC-adres: een schakelaar die een ander IP-adres kreeg blijft dezelfde schakelaar ----
 const normMac = m => { m = String(m || '').toUpperCase().replace(/[^0-9A-F]/g, ''); return m.length === 12 ? m.match(/../g).join(':') : ''; };
 const macOf = r => normMac(r && r.StatusNET && r.StatusNET.Mac);
+// Na een scan: beveiligde Tasmota openen met het standaardwachtwoord (Instellingen) of een wachtwoord dat al bij
+// een andere schakelaar hoort. Lukt het, dan krijgt hij meteen zijn echte naam; anders blijft "Password protected".
+async function unlockFound(found, before, pws){
+  const def = pwEl.value;
+  await Promise.all(found.filter(f => f.protected && f.kind !== 'shelly').map(async f => {
+    const own = (before.find(d => d.ip === f.ip) || {}).pw;
+    const tries = [...new Set([own, def, ...pws].filter(Boolean))];
+    for (const pw of tries){
+      try {
+        const r = await appGet(`http://${hostOf(f.ip)}/cm?user=admin&password=${encodeURIComponent(pw)}&cmnd=Status`);
+        const st = r && r.Status; if (!st) continue;
+        f.protected = false;
+        if (st.DeviceName) f.name = st.DeviceName;
+        const fn = Array.isArray(st.FriendlyName) ? st.FriendlyName[0] : st.FriendlyName; if (fn) f.friendly = fn;
+        if (st.Topic) f.topic = st.Topic;
+        if (st.Power != null) f.power = String(st.Power).slice(-1) === '1' ? '1' : '0';
+        if (pw !== def) f.pw = pw;   // eigen wachtwoord van deze schakelaar onthouden
+        return;
+      } catch(e){}
+    }
+  }));
+}
 async function fetchMac(ip, pws){
   try { const m = macOf(await appGet(urlFor(ip, 'Status 5'))); if (m) return m; } catch(e){}
   for (const pw of pws || []){   // verhuisd apparaat met een eigen wachtwoord
@@ -5000,6 +5023,7 @@ async function scanNet(){
     const pre = subnet.split('.').slice(0,3).join('.') + '.';
     // MAC-adres van elk gevonden apparaat; verhuisde schakelaars volgen hun MAC naar het nieuwe adres
     const before = loadDevs(), pws = [...new Set(before.map(d => d.pw).filter(Boolean))];
+    await unlockFound(found, before, pws);   // beveiligde Tasmota: standaardwachtwoord en bekende wachtwoorden proberen
     const macs = await Promise.all(found.map(f => fetchMac(f.ip, f.protected ? pws : null)));
     found.forEach((f, i) => { if (macs[i]) f.mac = macs[i]; });
     const moves = planMoves(before, found), movedTxt = [];
