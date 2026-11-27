@@ -2,25 +2,8 @@
 
 Ideas we talked about and want to build later. Nothing here is in the app yet.
 
-## Thermostat: finer steps
-- − / + in steps of **0.1 °C** everywhere (Heating screen, device card, tile, Edit).
-- Send to the Shelly only **1.5 seconds after the last tap**, so not every tap is sent.
-  While waiting the number is shown in amber, then a short ✓ when the Shelly has it.
-- **Hold − or +** to keep stepping, first slowly, then faster.
-- The switching margin stays 0.3 °C.
-
-## Thermostat: wheel picker (demo approved 27 November)
-- Wanted: **both** the wheel picker **and** − / + (not one or the other).
-- Heating screen: keep **− and +** on both sides of the target temperature, and make
-  the **target number a button** that opens a **wheel picker** (bottom sheet).
-- Wheel: 5.0 – 30.0 °C in **0.1 steps**, scroll-snap, the middle value big, a highlight band.
-  Tap a number to jump to it. Title "Comfort temperature" or "Eco temperature" (the active level).
-- Sent to the Shelly **1.5 s after the wheel stops**; **Done** or tapping outside closes it
-  and sends right away if something is still waiting.
-- Built in HTML/CSS (scroll-snap), no library needed. WheelPickerCompose
-  (github.com/commandiron/WheelPickerCompose) was the idea, but it is Jetpack Compose and the
-  app screen is a WebView.
-- Device card and tile: only − / + (0.1, hold to repeat, send after 1.5 s), no wheel.
+## Done in 26.7
+- Thermostat 0.1 °C steps, hold − / + to repeat, send after 1.5 s, wheel picker (Heating screen and Edit), border around the Edit thermostat part.
 
 ## Heating screen: real fire
 - Replace the 🔥 emoji with a more real fire. Two options:
@@ -28,7 +11,6 @@ Ideas we talked about and want to build later. Nothing here is in the app yet.
   - a short loop made from **your own wood-stove video** (about 10 s, close up, phone steady, in the dark).
 - Only animates while it is really heating; respects "reduce motion".
 
-- device card edit: thin box outline around thermostat section
 
 ## Other ideas from earlier
 - Thermostat: Boost (warm for an hour) and Away (one low temperature until you are back).
