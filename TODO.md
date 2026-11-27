@@ -22,6 +22,16 @@ Ideas we talked about and want to build later. Nothing here is in the app yet.
 - Notes: uses the user's own Google account (the only cloud part, so optional); no internet = only that line is lost,
   the thermostat keeps working; not more often than every 5 min. Alternative: a small Google Apps Script web app.
 - Fully local alternative: keep the last 24 h in the Shelly and draw the graph in the app (see "history graph").
+- Template: Lubèrth makes the form once; the app's **Make my copy** button opens its `/copy` link, so every user
+  gets his own copy in his own Google account. Each Shelly logs to its own copy: nobody sees other people's data.
+  (Copying on a phone may need "Desktop site" in Chrome: check and put it in the how-to.)
+- Charts:
+  1. In Google Sheets itself: Insert → Chart (room temperature and target over time). No app work needed.
+  2. In the app, on the Heating screen: read the history from the user's Sheet and draw a chart:
+     day / week / month, room temperature line, target line, orange bands while the boiler was heating
+     (e.g. you see the boiler resting on wood-stove evenings).
+     The Sheet must be readable: "Publish to web → CSV" gives a secret link; the app explains that anyone
+     with that link can read the temperatures. (Alternative: a small Apps Script that returns JSON with a key.)
 - Easy setup (about 2 minutes, most Android users have a Google account):
   1. One ready-made template form (fields: temperature, target, heating). In the app a button **Make my copy**
      opens the form's `/copy` link: one tap and the user has the form in his own Google account.
