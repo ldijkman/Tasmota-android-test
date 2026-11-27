@@ -493,7 +493,7 @@ T = [
 ("'next', 'M9 5l7 7-7 7', 'Next'", "'next', 'M9 5l7 7-7 7', 'Siguiente'"),
 ('<span class="fm-lbl">Menu</span>', '<span class="fm-lbl">Menú</span>'),
 ('>Example: the thermostat as a script in the Shelly<', '>Ejemplo: el termostato como script en el Shelly<'),
-('>A little bit tested on a Shelly 1 Gen3. A first idea, not in the app.<', '>Un poco probado en un Shelly 1 Gen3. Una primera idea, no está en la app.<'),
+('>Tested on a Shelly 1 Gen3. Now built into the app: Edit → Use as thermostat installs it for you.<', '>Probado en un Shelly 1 Gen3. Ahora integrado en la app: Editar → Use as thermostat lo instala por ti.<'),
 ('>Copy<', '>Copiar<'),
 ('>Download .js<', '>Descargar .js<'),
 ('>Copied<', '>Copiado<'),
