@@ -223,7 +223,8 @@
   .thv{border:1px solid var(--line);border-radius:22px;padding:18px 18px 16px;margin:0 0 16px;background:var(--card)}
   .thv.heat{border-color:var(--on)}
   .thv-n{font-weight:700;font-size:1.05rem}.thv-s{font-size:.8rem;color:var(--muted);margin-top:2px}
-  .thv-big{display:flex;align-items:baseline;gap:10px;margin:14px 0 4px;font-variant-numeric:tabular-nums}
+  .thv-lbl{margin-top:12px;font-size:.82rem;color:var(--muted)}
+  .thv-big{display:flex;align-items:baseline;gap:10px;margin:0 0 4px;font-variant-numeric:tabular-nums}
   .thv-big b{font-size:3.4rem;line-height:1;font-weight:700}.thv-big span{font-size:1.3rem;color:var(--muted)}
   .thv-to{font-size:1.15rem;font-variant-numeric:tabular-nums}.thv-to b{font-size:1.5rem}
   .thv-row{display:flex;gap:10px;margin-top:14px}
@@ -3961,7 +3962,8 @@ function renderThermo(){
     return `<div class="thv${heat && !T.test ? ' heat' : ''}${off ? ' off' : ''}">
       <div class="thv-n">${name}${T.test ? ' <i class="th-test">test</i>' : ''}</div>
       <div class="thv-s">${off ? 'Thermostat off – no heating' : heat ? (T.test ? 'Would heat (test mode)' : 'Heating') : 'Not heating'}${nx && !off ? ' · ' + esc(nx) : ''}</div>
-      <div class="thv-big thv-dim"><b>${T.temp != null ? (+T.temp).toFixed(1) : '–'}</b><span>°C now</span>${heat ? `<span class="thv-fl${T.test ? ' test' : ''}" aria-label="${T.test ? 'would heat' : 'heating'}">🔥</span>` : ''}</div>
+      <div class="thv-lbl thv-dim">Actual Temp.</div>
+      <div class="thv-big thv-dim"><b>${T.temp != null ? (+T.temp).toFixed(1) : '–'}</b><span>°C</span>${heat ? `<span class="thv-fl${T.test ? ' test' : ''}" aria-label="${T.test ? 'would heat' : 'heating'}">🔥</span>` : ''}</div>
       <div class="thv-tl thv-dim">${eco ? '🌙 Eco' : '☀️ Comfort'} – heating to</div>
       <div class="thv-adj thv-dim"><button class="pm" aria-label="Lower" data-hold="${ip}|-" onclick="thAdj('${ip}',-0.1)">−</button>
         <button class="thv-chip" aria-label="Set the temperature with a wheel" onclick="thWheel('${ip}')">${eco ? '🌙' : '☀️'} <b>${(+T.set).toFixed(1)}</b> °C</button>
