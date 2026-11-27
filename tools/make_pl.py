@@ -504,6 +504,7 @@ T = [
 ('<b>💡 Runs inside the Shelly:</b> no browser, app or computer needs to stay open. The Shelly runs the JavaScript itself, also without internet, and starts it again after a power cut.<', '<b>💡 Działa w samym Shelly:</b> nie musi być otwarta przeglądarka, aplikacja ani komputer. Shelly sam uruchamia JavaScript, także bez internetu, i uruchamia go ponownie po zaniku prądu.<'),
 ('<b>⏱️ Watchdog in the app:</b> on the device card you’ll see an off timer counting down from 10 minutes and starting again every 30 seconds. That’s normal: the script keeps restarting it. If the script stops, the timer runs out and the Shelly switches the heating off by itself.<', '<b>⏱️ Watchdog w aplikacji:</b> na karcie urządzenia zobaczysz timer wyłączenia odliczający od 10 minut i startujący od nowa co 30 sekund. To normalne: skrypt ciągle go restartuje. Gdy skrypt się zatrzyma, timer dobiegnie końca i Shelly sam wyłączy ogrzewanie.<'),
 ('The Heating screen in the app: the thermostat itself runs as a script in the Shelly.', 'Ekran ogrzewania w aplikacji: sam termostat działa jako skrypt w Shelly.'),
+('Version 26.7: set the temperature with − / + in steps of 0.1 °C, or tap the number for a wheel. Also in Edit.', 'Wersja 26.7: ustaw temperaturę przyciskami − / + co 0,1 °C albo stuknij liczbę, aby otworzyć kółko. Także w Edycji.'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

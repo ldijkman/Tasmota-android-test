@@ -364,6 +364,7 @@ T = [
 ('<b>💡 Runs inside the Shelly:</b> no browser, app or computer needs to stay open. The Shelly runs the JavaScript itself, also without internet, and starts it again after a power cut.<', '<b>💡 Tourne dans le Shelly lui-même :</b> aucun navigateur, aucune app ni aucun ordinateur ne doit rester ouvert. Le Shelly exécute lui-même le JavaScript, même sans internet, et le relance après une coupure de courant.<'),
 ('<b>⏱️ Watchdog in the app:</b> on the device card you’ll see an off timer counting down from 10 minutes and starting again every 30 seconds. That’s normal: the script keeps restarting it. If the script stops, the timer runs out and the Shelly switches the heating off by itself.<', '<b>⏱️ Watchdog dans l’app :</b> sur la carte de l’appareil, vous voyez une minuterie d’arrêt qui décompte à partir de 10 minutes et recommence toutes les 30 secondes. C’est normal : le script la relance sans cesse. Si le script s’arrête, la minuterie arrive à zéro et le Shelly coupe lui-même le chauffage.<'),
 ('The Heating screen in the app: the thermostat itself runs as a script in the Shelly.', 'L’écran Chauffage dans l’app : le thermostat lui-même tourne comme script dans le Shelly.'),
+('Version 26.7: set the temperature with − / + in steps of 0.1 °C, or tap the number for a wheel. Also in Edit.', 'Version 26.7 : réglez la température avec − / + par pas de 0,1 °C, ou touchez le nombre pour une roue. Aussi dans Modifier.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

@@ -530,6 +530,7 @@ T = [
 ('<b>💡 Runs inside the Shelly:</b> no browser, app or computer needs to stay open. The Shelly runs the JavaScript itself, also without internet, and starts it again after a power cut.<', '<b>💡 Draait in de Shelly zelf:</b> er hoeft geen browser, app of computer open te blijven. De Shelly voert de JavaScript zelf uit, ook zonder internet, en start hem na een stroomstoring weer op.<'),
 ('<b>⏱️ Watchdog in the app:</b> on the device card you’ll see an off timer counting down from 10 minutes and starting again every 30 seconds. That’s normal: the script keeps restarting it. If the script stops, the timer runs out and the Shelly switches the heating off by itself.<', '<b>⏱️ Watchdog in de app:</b> op de apparaatkaart zie je een uit-timer die aftelt vanaf 10 minuten en elke 30 seconden opnieuw begint. Dat is normaal: het script start hem steeds opnieuw. Stopt het script, dan loopt de timer af en zet de Shelly de verwarming zelf uit.<'),
 ('The Heating screen in the app: the thermostat itself runs as a script in the Shelly.', 'Het verwarmingsscherm in de app: de thermostaat zelf draait als script in de Shelly.'),
+('Version 26.7: set the temperature with − / + in steps of 0.1 °C, or tap the number for a wheel. Also in Edit.', 'Versie 26.7: zet de temperatuur met − / + in stappen van 0,1 °C, of tik op het getal voor een draaiwiel. Ook in Bewerken.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
