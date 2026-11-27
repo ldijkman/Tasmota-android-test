@@ -452,6 +452,7 @@ section[id],#shelly-shots{scroll-margin-top:56px}
 .jsrun{margin:0 0 10px;font-size:.9rem;color:var(--ink);max-width:640px}.jsrun b{color:var(--amber)}
 .brain-shot{margin:18px 0 6px;max-width:300px}.brain-shot img{width:100%;height:auto;border-radius:18px;border:1.5px solid var(--line);display:block}.brain-shot figcaption{font-size:.85rem;color:var(--muted);margin-top:6px}
 .lead-hl{color:var(--amber)}
+footer .foot-why{text-align:center;margin:14px 0 0;width:100%;flex-basis:100%}footer .foot-why a{color:var(--amber);font-weight:700}
 .jsnote{display:block;text-align:right;margin:4px 6px 0;font-size:.78rem;color:var(--muted)}
 .jsbox-a{margin:2px 0 0;font-size:.9rem;display:flex;gap:14px;align-items:center}.jsbox-a button{background:none;border:1.5px solid var(--amber);color:var(--amber);border-radius:999px;padding:4px 14px;font:700 .88rem var(--text);cursor:pointer}.jsbox-a a{color:var(--amber)}#jsOk{color:#3ddc84}#jsOk[hidden]{display:none}
 .brain-note{margin-top:22px;max-width:640px;border:1.5px dashed var(--line);border-radius:14px;padding:14px 16px}.brain-note b{color:var(--amber);font:700 1.02rem var(--display)}.brain-note p{margin:6px 0 0;color:var(--ink)}.brain-note .aside{color:#9fb0cc}.brain-note p.brain-am{color:var(--amber);font-weight:700}
@@ -1210,6 +1211,7 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
       <li><a href="https://github.com/ldijkman/Tasmota-android-test/blob/main/tailscale.md">Guide Tailscale</a></li>
       <li><a href="https://tasmota.github.io/docs/">À propos de Tasmota</a></li>
     </ul>
+    <p class="foot-why"><a href="#" id="footWhy">Pourquoi gratuit ?</a></p>
   </div>
   <p class="fun"><a href="https://youtu.be/r6FVk2k4qsM" rel="noopener" id="funLink" data-yt="r6FVk2k4qsM">2 Unlimited</a><br>OverKill</p>
 </footer>
@@ -1521,6 +1523,7 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
 // Deel deze pagina: WhatsApp, Facebook, Reddit, Telegram, X, e-mail of link kopiëren
 if (/Android/i.test(navigator.userAgent)) document.querySelectorAll('#fmList .openapp').forEach(li => li.hidden = false);
 document.getElementById('fmChg').addEventListener('click', e => { e.preventDefault(); document.getElementById('chg').showModal(); });
+document.getElementById('footWhy').addEventListener('click', e => { e.preventDefault(); document.getElementById('why').showModal(); });
 document.getElementById('fmWhy').addEventListener('click', e => { e.preventDefault(); document.getElementById('why').showModal(); });
 (() => { const box = document.getElementById('fmShare'); if (!box) return;
   const u = location.origin + location.pathname, t = box.dataset.t, U = encodeURIComponent(u), T = encodeURIComponent(t);
