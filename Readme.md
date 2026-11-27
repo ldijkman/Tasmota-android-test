@@ -54,7 +54,7 @@ website
 
 ---
 
-## What it can do (version 26.5)
+## What it can do (version 26.6)
 
 **Find and control**
 - Scans your network and finds Tasmota switches and sockets in about 10 seconds
