@@ -362,14 +362,40 @@
       'in App Tap <i>Scan network</i> to find Tasmota Devices. <br>The protected one uses password <code>demo</code>. <br>' +
       '<a href="https://github.com/ldijkman/Tasmota-android-test/releases/latest" style="display:block;text-align:center;margin-top:8px;color:#3ddc84;font-weight:700">Get the Android app</a>' +
       '<a href="../#videos" style="display:block;text-align:center;margin-top:6px;color:#f0a630;font-weight:700">A video says more than a thousand words ▶</a>' +
+      '<a href="#" onclick="event.preventDefault();demoWhy()" style="display:block;text-align:center;margin-top:6px;color:#b48cff;font-weight:700">Why free?</a>' +
       '<br><button type="button" class="b-tog" style="margin-top:10px" onclick="demoReset()">Reset demo</button></div>');
     // also in the hamburger menu
     const menu = document.getElementById('menu');
     if (menu) menu.insertAdjacentHTML('beforeend',
       '<button role="menuitem" onclick="demoReset()">' +
       '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 12a9 9 0 1 0 3-6.7L3 8M3 3v5h5"/></svg>' +
-      'Reset demo</button>');
+      'Reset demo</button>' +
+      '<button role="menuitem" onclick="demoWhy()">' +
+      '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg>' +
+      'Why free?</button>');
   });
+
+  // "Why free?" (same text as on the website)
+  window.demoWhy = function () {
+    let d = document.getElementById('demoWhyDlg');
+    if (!d) {
+      d = document.createElement('dialog'); d.id = 'demoWhyDlg';
+      d.style.cssText = 'max-width:440px;width:calc(100% - 32px);border:1px solid var(--line,#333);border-radius:16px;padding:20px 20px 14px;background:var(--card,#fff);color:var(--ink,#111);line-height:1.5';
+      d.innerHTML = '<button type="button" aria-label="Close" style="position:absolute;top:8px;right:10px;width:40px;height:40px;border:0;background:transparent;color:inherit;font-size:1.2rem" onclick="this.closest(\'dialog\').close()">✕</button>' +
+        '<h3 style="margin:0 0 8px">Why free?</h3>' +
+        '<p>I made this app for my own home, for fun. I’m a handy guy with the lowest possible education, and I like home automation that just works. If it helps you too, that makes me happy.</p>' +
+        '<h4 style="margin:12px 0 2px">Why no tracking?</h4><p style="margin:0">The app talks to your own switches on your own Wi-Fi. No analytics: nothing about you or your home is sent anywhere. It only goes online to check GitHub for a new version, and for icon search if you use it.</p>' +
+        '<h4 style="margin:12px 0 2px">Why no account?</h4><p style="margin:0">There is no server to log in to. Your switches, your phone, your home.</p>' +
+        '<h4 style="margin:12px 0 2px">Why no ads?</h4><p style="margin:0">Ads bring tracking and clutter. The app stays small and quiet.</p>' +
+        '<p style="margin:16px 0 4px;text-align:center">Like the app? <a href="https://paypal.me/ldijkman" target="_blank" rel="noopener" style="color:#f0a630;font-weight:700">☕ Buy me a coffee</a><br><small style="opacity:.7">Never required, always appreciated.</small></p>' +
+        '<p style="margin:10px 0 4px;text-align:center"><a href="https://youtu.be/AmGVAu9lk6I" target="_blank" rel="noopener" style="color:#b48cff">Money didn’t matter yesterday</a></p>' +
+        '<p style="margin:10px 0 0;text-align:right;font-style:italic">Lubèrth</p>';
+      d.addEventListener('click', e => { if (e.target === d) d.close(); });
+      document.body.appendChild(d);
+    }
+    const m = document.getElementById('menu'); if (m && !m.hidden && typeof closeMenu === 'function') try { closeMenu(); } catch (e) {}
+    d.showModal();
+  };
 
   // Forget everything the demo saved in this browser (only this app's own settings, keys starting with "tas_")
   window.demoReset = function () {
