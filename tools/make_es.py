@@ -520,6 +520,7 @@ T = [
 ('Each schedule is a Shelly <code>Schedule</code> job, stored on the Shelly itself. At the on-time it runs <code>KVS.Set th_level = "comfort"</code>, at the off-time <code>KVS.Set th_level = "eco"</code>.', 'Cada horario es una tarea <code>Schedule</code> del Shelly, guardada en el propio Shelly. A la hora de encendido ejecuta <code>KVS.Set th_level = "comfort"</code>, a la hora de apagado <code>KVS.Set th_level = "eco"</code>.'),
 ('The thermostat script reads <code>th_level</code> from the KVS before every check (every 30 s, and on every sensor temperature change), uses <code>th_comfort</code> or <code>th_eco</code> as the target and switches the relay with a 0.3 °C margin. The Comfort / Eco buttons in the app write the same <code>th_level</code> by hand, until the next job overwrites it.', 'El script del termostato lee <code>th_level</code> del KVS antes de cada comprobación (cada 30 s y con cada nueva temperatura del sensor), usa <code>th_comfort</code> o <code>th_eco</code> como objetivo y conmuta el relé con un margen de 0,3 °C. Los botones Confort / Eco de la app escriben el mismo <code>th_level</code> a mano, hasta la siguiente tarea.'),
 ('The jobs, the KVS and the script all live on the Shelly: no phone, app, cloud or internet needed. The phone is only for changing settings.', 'Las tareas, el KVS y el script están en el Shelly: no hace falta móvil, app, nube ni internet. El móvil solo sirve para cambiar los ajustes.'),
+('Holy crap, that’s some next-level nerd stuff 🤓', 'Madre mía, esto es de nerd de otro nivel 🤓'),
 ]
 
 
