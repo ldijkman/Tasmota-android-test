@@ -3140,6 +3140,8 @@ function parsePulse(r){
 }
 async function fetchPulse(ip){
   try { const p = parsePulse(await appGet(urlFor(ip, 'PulseTime1')));
+    // thermostaat zonder auto-off: de ring komt van de watchdog (het script zet "uit over 10 min" steeds opnieuw)
+    if (p && !p.set && thermoOf(ip) && p.rem > 0){ p.set = (devThermo[ip] && +devThermo[ip].watchdog) || 600; p.wd = true; }
     if (p){ devPulse[ip] = Object.assign(p, {at: Date.now()});
       // ook de schakelaar-widget laten aftellen
       if (window.Tasmota.widgetPulse && p.rem != null && (devLive[ip] || {}).state === 'on') try { window.Tasmota.widgetPulse(ip, p.rem); } catch(e){} }
@@ -3169,7 +3171,7 @@ function pulseLine(ip){
 const HOURGLASS = 'M6,2H18V8H18V8L14,12L18,16V16H18V22H6V16H6V16L10,12L6,8V8H6V2M16,16.5L12,12.5L8,16.5V20H16V16.5M12,11.5L16,7.5V4H8V7.5L12,11.5M10,6H14V6.75L12,8.75L10,6.75V6Z';
 function pulseBadge(ip){
   const P = devPulse[ip]; if (!P || !P.set) return '';
-  return `<span class="pbadge" title="Auto-off after ${Math.round(P.set / 60)} min"><svg width="11" height="11" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${HOURGLASS}"/></svg></span>`;
+  return `<span class="pbadge" title="${P.wd ? 'Watchdog: the heating switches off by itself if the script stops' : 'Auto-off after ' + Math.round(P.set / 60) + ' min'}"><svg width="11" height="11" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${HOURGLASS}"/></svg></span>`;
 }
 const pulseFrac = ip => { const P = devPulse[ip], l = pulseLeft(ip); return P && P.set && l != null ? Math.max(0, Math.min(1, l / P.set)) : null; };
 const pulseRingCls = (ip, on) => on && pulseFrac(ip) != null ? ' pring' : '';
@@ -5200,6 +5202,15 @@ function setupRelaySelects(key){
 function showPulseNote(ip){
   const el = document.getElementById('schedPulseNote'); if (!el) return;
   const P = devPulse[ip];
+  if (thermoOf(ip)){   // thermostaat: schema's schakelen Comfort/Eco, de watchdog beveiligt
+    const ao = P && P.set && !P.wd;
+    el.hidden = false;
+    el.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${HOURGLASS}"/></svg>
+      <span><b>Thermostat.</b> The on-time switches to ☀️ Comfort, the off-time to 🌙 Eco. The watchdog switches the heating off by itself if the script stops.
+      ${ao ? `<br>Auto-off (${fmtPulse(P.set)}) is also on in the Shelly: not needed, the watchdog does this.
+      <button type="button" class="b-tog pnote-btn" onclick="editAutoOff('${ip}')"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${HOURGLASS}"/></svg>Change auto-off</button>` : ''}</span>`;
+    return;
+  }
   if (!P || !P.set){ el.hidden = true; return; }
   const t = P.set >= 3600 ? (P.set / 3600).toFixed(P.set % 3600 ? 1 : 0) + ' h' : Math.round(P.set / 60) + ' min';
   el.hidden = false;
