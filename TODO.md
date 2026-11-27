@@ -9,6 +9,18 @@ Ideas we talked about and want to build later. Nothing here is in the app yet.
 - **Hold − or +** to keep stepping, first slowly, then faster.
 - The switching margin stays 0.3 °C.
 
+## Thermostat: wheel picker (demo approved 27 November)
+- Heating screen: keep **− and +** on both sides of the target temperature, and make
+  the **target number a button** that opens a **wheel picker** (bottom sheet).
+- Wheel: 5.0 – 30.0 °C in **0.1 steps**, scroll-snap, the middle value big, a highlight band.
+  Tap a number to jump to it. Title "Comfort temperature" or "Eco temperature" (the active level).
+- Sent to the Shelly **1.5 s after the wheel stops**; **Done** or tapping outside closes it
+  and sends right away if something is still waiting.
+- Built in HTML/CSS (scroll-snap), no library needed. WheelPickerCompose
+  (github.com/commandiron/WheelPickerCompose) was the idea, but it is Jetpack Compose and the
+  app screen is a WebView.
+- Device card and tile: only − / + (0.1, hold to repeat, send after 1.5 s), no wheel.
+
 ## Heating screen: real fire
 - Replace the 🔥 emoji with a more real fire. Two options:
   - a live **particle fire** (glowing particles that rise and cool down, drawn in the app, almost no extra size), or
