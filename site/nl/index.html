@@ -951,63 +951,54 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
       <p class="jsbox-a"><button type="button" id="jsCopy">Kopiëren</button> <a href="https://ldijkman.github.io/Tasmota-android-test/shelly-thermostat-example.js" download>.js downloaden</a><span id="jsOk" hidden>Gekopieerd</span></p>
     </div>
     <div class="jsbox jslogbox">
-      <p class="jsbox-h"><b>Voorbeeld-log (gesimuleerd) van het script met één DS18B20</b><br><span>TEST_MODE = false: de kamer koelt af, de verwarming gaat aan met de watchdog, en boven 20,3 °C weer uit.</span></p>
+      <p class="jsbox-h"><b>Voorbeeld-log (gesimuleerd) van het script met één DS18B20</b><br><span>Script versie 4, testmodus uit: Comfort 20,5 °C verwarmt met de watchdog, stopt boven 20,8 °C, daarna schakelt een schema naar Eco.</span></p>
       <pre class="jslog" lang="en" translate="no"><code>Thermostat log (simulated, newest at the bottom)
 
 <span class="lu">06:30:00</span> <span>log page: <span class="ll">http://192.168.1.50/script/1/log</span></span>
-<span class="lu">06:30:00</span> <span>script started · TEST MODE OFF (relay really switches!) · room 20.0 °C · margin 0.3 · no frost guard (use a mechanical one)</span>
-<span class="lu">06:30:00</span> <span>sensor 100 · check every 30 s · wait 3 min between switching · safety off after 10 min · relay is now OFF</span>
-<span class="lu">06:30:00</span> <span>reading settings from KVS ...</span>
-<span class="lu">06:30:00</span> <span>KVS th_set not found (error -105), keep setpoint 20</span>
-<span class="lu">06:30:00</span> <span>KVS th_mode not found, keep mode on</span>
-<span class="lu">06:30:00</span> <span class="lh">---- check 1 · setpoint 20 °C · mode on · heating OFF ----</span>
+<span class="lu">06:30:00</span> <span>script started · TEST MODE on (relay is never switched) · Comfort 20.5 °C · Eco 16.0 °C · margin 0.3 · no frost guard (use a mechanical one)</span>
+<span class="lu">06:30:00</span> <span>sensor 100 (KVS th_sensor can change it) · check every 30 s · wait 0 min between switching · safety off after 10 min · relay is now OFF</span>
+<span class="lu">06:30:00</span> <span>TEST MODE changed: OFF (relay really switches!)</span>
+<span class="lu">06:30:00</span> <span class="lh">---- check 1 · comfort 20.5 °C · mode on · heating OFF ----</span>
 <span class="lu">06:30:00</span> <span>sensor 100: 19.9 °C</span>
-<span class="lu">06:30:00</span> <span>heat below 19.7 °C, stop above 20.3 °C</span>
-<span class="lu">06:30:00</span> <span>19.9 °C is between 19.7 and 20.3: no change (heating stays OFF)</span>
-<span class="lu">06:30:30</span> <span class="lh">---- check 2 · setpoint 20 °C · mode on · heating OFF ----</span>
+<span class="lu">06:30:00</span> <span>heat below 20.2 °C, stop above 20.8 °C</span>
+<span class="lu">06:30:00</span> <span class="lt">switching heating ON (19.9 &lt; 20.2), watchdog 600 s</span>
+<span class="lu">06:30:00</span> <span class="lt">relay switched ON, was OFF</span>
+<span class="lu">06:30:00</span> <span>watchdog refreshed: relay turns off by itself in 600 s if the script stops</span>
+<span class="lu">06:30:12</span> <span>new temperature from the sensor</span>
+<span class="lu">06:30:12</span> <span class="lh">---- check 2 · comfort 20.5 °C · mode on · heating ON ----</span>
+<span class="lu">06:30:12</span> <span>sensor 100: 19.8 °C</span>
+<span class="lu">06:30:12</span> <span>heat below 20.2 °C, stop above 20.8 °C</span>
+<span class="lu">06:30:12</span> <span>heating stays ON (19.8 &lt; 20.2)</span>
+<span class="lu">06:30:12</span> <span>watchdog refreshed: relay turns off by itself in 600 s if the script stops</span>
+<span class="lu">06:30:30</span> <span class="lh">---- check 3 · comfort 20.5 °C · mode on · heating ON ----</span>
 <span class="lu">06:30:30</span> <span>sensor 100: 19.8 °C</span>
-<span class="lu">06:30:30</span> <span>heat below 19.7 °C, stop above 20.3 °C</span>
-<span class="lu">06:30:30</span> <span>19.8 °C is between 19.7 and 20.3: no change (heating stays OFF)</span>
-<span class="lu">06:31:00</span> <span class="lh">---- check 3 · setpoint 20 °C · mode on · heating OFF ----</span>
-<span class="lu">06:31:00</span> <span>sensor 100: 19.6 °C</span>
-<span class="lu">06:31:00</span> <span>heat below 19.7 °C, stop above 20.3 °C</span>
-<span class="lu">06:31:00</span> <span class="lt">switching heating ON (19.6 &lt; 19.7), watchdog 600 s</span>
-<span class="lu">06:31:00</span> <span class="lt">relay switched ON, was OFF</span>
-<span class="lu">06:31:00</span> <span>watchdog refreshed: relay turns off by itself in 600 s if the script stops</span>
-<span class="lu">06:31:30</span> <span class="lh">---- check 4 · setpoint 20 °C · mode on · heating ON ----</span>
-<span class="lu">06:31:30</span> <span>sensor 100: 19.6 °C</span>
-<span class="lu">06:31:30</span> <span>heat below 19.7 °C, stop above 20.3 °C</span>
-<span class="lu">06:31:30</span> <span>heating stays ON (19.6 &lt; 19.7)</span>
+<span class="lu">06:30:30</span> <span>heat below 20.2 °C, stop above 20.8 °C</span>
+<span class="lu">06:30:30</span> <span>heating stays ON (19.8 &lt; 20.2)</span>
+<span class="lu">06:30:30</span> <span>watchdog refreshed: relay turns off by itself in 600 s if the script stops</span>
+<span class="lu">06:30:55</span> <span>new temperature from the sensor</span>
+<span class="lu">06:30:55</span> <span class="lh">---- check 4 · comfort 20.5 °C · mode on · heating ON ----</span>
+<span class="lu">06:30:55</span> <span>sensor 100: 20.1 °C</span>
+<span class="lu">06:30:55</span> <span>heat below 20.2 °C, stop above 20.8 °C</span>
+<span class="lu">06:30:55</span> <span>heating stays ON (20.1 &lt; 20.2)</span>
+<span class="lu">06:30:55</span> <span>watchdog refreshed: relay turns off by itself in 600 s if the script stops</span>
+<span class="lu">06:31:30</span> <span>new temperature from the sensor</span>
+<span class="lu">06:31:30</span> <span class="lh">---- check 5 · comfort 20.5 °C · mode on · heating ON ----</span>
+<span class="lu">06:31:30</span> <span>sensor 100: 20.6 °C</span>
+<span class="lu">06:31:30</span> <span>heat below 20.2 °C, stop above 20.8 °C</span>
+<span class="lu">06:31:30</span> <span>20.6 °C is between 20.2 and 20.8: no change (heating stays ON)</span>
 <span class="lu">06:31:30</span> <span>watchdog refreshed: relay turns off by itself in 600 s if the script stops</span>
-<span class="lu">06:32:00</span> <span class="lh">---- check 5 · setpoint 20 °C · mode on · heating ON ----</span>
-<span class="lu">06:32:00</span> <span>sensor 100: 19.7 °C</span>
-<span class="lu">06:32:00</span> <span>heat below 19.7 °C, stop above 20.3 °C</span>
-<span class="lu">06:32:00</span> <span>19.7 °C is between 19.7 and 20.3: no change (heating stays ON)</span>
-<span class="lu">06:32:00</span> <span>watchdog refreshed: relay turns off by itself in 600 s if the script stops</span>
-<span class="lu">06:32:30</span> <span class="lh">---- check 6 · setpoint 20 °C · mode on · heating ON ----</span>
-<span class="lu">06:32:30</span> <span>sensor 100: 19.9 °C</span>
-<span class="lu">06:32:30</span> <span>heat below 19.7 °C, stop above 20.3 °C</span>
-<span class="lu">06:32:30</span> <span>19.9 °C is between 19.7 and 20.3: no change (heating stays ON)</span>
-<span class="lu">06:32:30</span> <span>watchdog refreshed: relay turns off by itself in 600 s if the script stops</span>
-<span class="lu">06:33:00</span> <span class="lh">---- check 7 · setpoint 20 °C · mode on · heating ON ----</span>
-<span class="lu">06:33:00</span> <span>sensor 100: 20.1 °C</span>
-<span class="lu">06:33:00</span> <span>heat below 19.7 °C, stop above 20.3 °C</span>
-<span class="lu">06:33:00</span> <span>20.1 °C is between 19.7 and 20.3: no change (heating stays ON)</span>
-<span class="lu">06:33:00</span> <span>watchdog refreshed: relay turns off by itself in 600 s if the script stops</span>
-<span class="lu">06:33:30</span> <span class="lh">---- check 8 · setpoint 20 °C · mode on · heating ON ----</span>
-<span class="lu">06:33:30</span> <span>sensor 100: 20.2 °C</span>
-<span class="lu">06:33:30</span> <span>heat below 19.7 °C, stop above 20.3 °C</span>
-<span class="lu">06:33:30</span> <span>20.2 °C is between 19.7 and 20.3: no change (heating stays ON)</span>
-<span class="lu">06:33:30</span> <span>watchdog refreshed: relay turns off by itself in 600 s if the script stops</span>
-<span class="lu">06:34:00</span> <span class="lh">---- check 9 · setpoint 20 °C · mode on · heating ON ----</span>
-<span class="lu">06:34:00</span> <span>sensor 100: 20.4 °C</span>
-<span class="lu">06:34:00</span> <span>heat below 19.7 °C, stop above 20.3 °C</span>
-<span class="lu">06:34:00</span> <span class="lt">switching heating OFF (20.4 &gt; 20.3)</span>
-<span class="lu">06:34:00</span> <span class="lt">relay switched OFF, was ON</span>
-<span class="lu">06:34:30</span> <span class="lh">---- check 10 · setpoint 20 °C · mode on · heating OFF ----</span>
-<span class="lu">06:34:30</span> <span>sensor 100: 20.4 °C</span>
-<span class="lu">06:34:30</span> <span>heat below 19.7 °C, stop above 20.3 °C</span>
-<span class="lu">06:34:30</span> <span>heating stays OFF (20.4 &gt; 20.3)</span></code></pre>
+<span class="lu">06:32:30</span> <span>new temperature from the sensor</span>
+<span class="lu">06:32:30</span> <span class="lh">---- check 6 · comfort 20.5 °C · mode on · heating ON ----</span>
+<span class="lu">06:32:30</span> <span>sensor 100: 20.9 °C</span>
+<span class="lu">06:32:30</span> <span>heat below 20.2 °C, stop above 20.8 °C</span>
+<span class="lu">06:32:30</span> <span class="lt">switching heating OFF (20.9 &gt; 20.8)</span>
+<span class="lu">06:32:30</span> <span class="lt">relay switched OFF, was ON</span>
+<span class="lu">06:33:10</span> <span class="lt">schedule: level comfort -&gt; eco</span>
+<span class="lu">06:33:10</span> <span class="lt">now eco: 16.0 °C</span>
+<span class="lu">06:33:10</span> <span class="lh">---- check 7 · eco 16.0 °C · mode on · heating OFF ----</span>
+<span class="lu">06:33:10</span> <span>sensor 100: 20.9 °C</span>
+<span class="lu">06:33:10</span> <span>heat below 15.7 °C, stop above 16.3 °C</span>
+<span class="lu">06:33:10</span> <span>heating stays OFF (20.9 &gt; 16.3)</span></code></pre>
     </div>
   </div>
 </section>

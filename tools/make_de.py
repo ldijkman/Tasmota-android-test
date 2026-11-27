@@ -360,7 +360,7 @@ T = [
 ('>Copied<', '>Kopiert<'),
 ('>Drag the corner to resize ↘<', '>Ecke ziehen zum Vergrößern ↘<'),
 ('>Example log (simulated) of the script with one DS18B20<', '>Beispiel-Log (simuliert) des Skripts mit einem DS18B20<'),
-('>TEST_MODE = false: the room cools down, the heating goes on with the watchdog, and off again above 20.3 °C.<', '>TEST_MODE = false: Der Raum kühlt ab, die Heizung geht mit dem Watchdog an und über 20,3 °C wieder aus.<'),
+('>Script version 4, test mode off: Comfort 20.5 °C heats with the watchdog, stops above 20.8 °C, then a schedule switches to Eco.<', '>Skript Version 4, Testmodus aus: Comfort 20,5 °C heizt mit dem Watchdog, stoppt über 20,8 °C, dann schaltet ein Zeitplan auf Eco.<'),
 ('>Sorry!, Nerd Alert Section 🤓<', '>Sorry!, Nerd-Alarm 🤓<'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Überspringen</a>'),
 ('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">App öffnen</a>'),

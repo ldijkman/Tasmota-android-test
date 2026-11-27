@@ -499,7 +499,7 @@ T = [
 ('>Copied<', '>Copiado<'),
 ('>Drag the corner to resize ↘<', '>Arrastra la esquina para cambiar el tamaño ↘<'),
 ('>Example log (simulated) of the script with one DS18B20<', '>Ejemplo de registro (simulado) del script con un DS18B20<'),
-('>TEST_MODE = false: the room cools down, the heating goes on with the watchdog, and off again above 20.3 °C.<', '>TEST_MODE = false: la habitación se enfría, la calefacción se enciende con el watchdog y se apaga por encima de 20,3 °C.<'),
+('>Script version 4, test mode off: Comfort 20.5 °C heats with the watchdog, stops above 20.8 °C, then a schedule switches to Eco.<', '>Script versión 4, modo de prueba desactivado: Confort 20,5 °C calienta con el watchdog, para por encima de 20,8 °C y luego un horario cambia a Eco.<'),
 ('>Sorry!, Nerd Alert Section 🤓<', '>¡Perdón!, Alerta nerd 🤓<'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Saltar</a>'),
 ('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">Abrir la app</a>'),
