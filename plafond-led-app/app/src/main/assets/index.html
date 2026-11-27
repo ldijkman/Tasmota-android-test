@@ -238,6 +238,7 @@
   .thv-sw .tgl{position:relative;right:auto;bottom:auto;flex:none;display:block}
   .thv-wide{width:100%;margin-top:12px;height:52px;border-radius:14px;border:1px solid var(--line);background:transparent;color:inherit;font:inherit;font-size:1rem}
   .thv.off .thv-dim{opacity:.35}
+  .thv-links button{font-size:.88rem;height:44px;color:var(--muted)}
   .thv-row button.on{border-color:var(--on);color:var(--on)}
   .th-lv{width:100%}.th-lv .th-m{flex:1;font-size:.82rem}
   .dev .th-line{display:block;padding:8px 10px}
@@ -3864,7 +3865,14 @@ function renderThermo(){
         <button class="lvb${eco ? ' on' : ''}" onclick="thLevel('${ip}','eco')">🌙 Eco${T.eco != null ? ' ' + (+T.eco).toFixed(1) + '°' : ''}</button></div>
       <button class="thv-sw" role="switch" aria-checked="${!off}" onclick="thMode('${ip}')"><span>Thermostat</span><span class="tgl${off ? '' : ' on'}"><span></span></span></button>
       <button class="thv-wide" onclick="closeThermo();openSchedView('${ip}')">Schedules</button>
+      <div class="thv-row thv-links"><button onclick="thOpen('${ip}','log')">📜 Open log</button><button onclick="thOpen('${ip}','script')">⚙️ Script page</button></div>
     </div>`; }).join('');
+}
+// log-pagina van het script, of de script-pagina op de eigen webpagina van de Shelly
+function thOpen(ip, what){
+  const id = thermoOf(ip); if (!id) return;
+  const h = 'http://' + hostOf(ip), u = what === 'log' ? `${h}/script/${id}/log` : `${h}/#/script/${id}`;
+  if (window.Tasmota && window.Tasmota.openUrl) window.Tasmota.openUrl(u); else window.open(u, '_blank');
 }
 function openThermo(){
   const v = document.getElementById('thermoView'); renderThermo();
