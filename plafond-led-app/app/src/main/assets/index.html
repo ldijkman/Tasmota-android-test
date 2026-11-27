@@ -264,6 +264,14 @@
   .thv-row button.on{border-color:var(--on);color:var(--on)}
   .th-lv{width:100%}.th-lv .th-m{flex:1;font-size:.82rem}
   .dev .th-line{display:block;padding:8px 10px}
+  /* thermostaat over de hele breedte van de kaart; het aan/uit-pictogram staat dan rechtsboven, onder ✎ en × */
+  .dev.has-th .th-sp{float:right;width:0;height:92px}
+  .dev.has-th .th-line{clear:right;margin-right:-72px}
+  .h-edit .dev.has-th .th-line{margin-right:-60px}
+  .dev.has-th .dpow{top:44px;bottom:auto}
+  .h-edit .dev.has-th .dpow{top:10px}.h-edit .dev.has-th .th-sp{height:58px}
+  .dev .snb{background:transparent;font-family:inherit;cursor:pointer}
+  .dev .snb:active{background:var(--line)}
   .dev .th-line .th-t{display:block;white-space:nowrap;font-size:1.05rem}.dev .th-line .th-t b{font-size:1.15rem}
   .dev .th-line .th-sub{display:block;margin:1px 0 6px}
   .dev .th-line .th-btns{display:flex;gap:6px}.dev .th-line .th-m{flex:1;white-space:nowrap;padding:0 6px;font-size:.85rem}.dev .th-line .th-btns+.th-btns{margin-top:6px}.dev .th-line .th-pm .th-b{flex:1;min-width:0}
@@ -1438,9 +1446,10 @@ const BIN_SVG  = '<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="t
 // MAC-adres van de schakelaar (relais 2, 3 … delen dat van hun apparaat)
 function devMac(key){ const h = hostOf(key), d = loadDevs().find(x => x.ip === h); return (d && d.mac) || ''; }
 function devCard(d, cur, grip){
-  const lr = lightRow(d);
+  const lr = lightRow(d), th = thermoLine(d.ip);
   return `
-    <div class="dev${d.missing?' gone':''}${lr ? ' dimmable' : ''}" data-ip="${d.ip}" data-fn="${esc(d.friendly||d.name||d.ip)}">
+    <div class="dev${d.missing?' gone':''}${lr ? ' dimmable' : ''}${th ? ' has-th' : ''}" data-ip="${d.ip}" data-fn="${esc(d.friendly||d.name||d.ip)}">
+      ${th ? '<i class="th-sp" aria-hidden="true"></i>' : ''}
       ${grip ? `<div class="grip" aria-label="Drag to move" onpointerdown="startDrag(event,this)" onclick="event.stopPropagation()">${GRIP_SVG}</div>` : ''}
       <button class="ed" aria-label="Edit" onclick="event.stopPropagation();editDev('${d.ip}')">${PEN_SVG}</button>
       <button class="x" aria-label="Remove" onclick="event.stopPropagation();removeDev('${d.ip}')">×</button>
@@ -1458,7 +1467,7 @@ function devCard(d, cur, grip){
       ${pulseLine(d.ip)}
       ${energyLine(d.ip)}
       ${sensorLine(d.ip)}
-      ${thermoLine(d.ip)}
+      ${th}
       ${devTimeLine(d.ip)}
       ${devMeta(d.ip)}
       ${devWarn(d.ip)}
@@ -1761,8 +1770,10 @@ async function shellyLight({c, h, g, a}){
     if (ext.length){
       let cfg = null; try { cfg = await get(`${h}/rpc/Shelly.GetConfig`); } catch(e){}
       const nameOf = id => { const n = cfg && ((cfg['temperature:' + id] || {}).name || (cfg['humidity:' + id] || {}).name); return n ? String(n) : 'Temperature (' + id + ')'; };
+      const ids = shAddonIds[h.replace(/^\w+:\/\//, '')] = {};
       ext.forEach(k => {
         const [t, id] = k.split(':'), v = s[k] || {}, o = out[nameOf(id)] || (out[nameOf(id)] = {});
+        (ids[nameOf(id)] = ids[nameOf(id)] || {})[t === 'temperature' ? 'temp' : 'hum'] = t + '/' + id;
         if (t === 'temperature' && v.tC != null) o.Temperature = +v.tC;
         if (t === 'humidity' && v.rh != null) o.Humidity = +v.rh;
       });
@@ -2227,14 +2238,23 @@ function parseSensors(sns){
   return out.slice(0, 6);
 }
 const fmtSens = x => (x.t === 'hum' ? x.v + x.u : x.v + (x.u.startsWith('°') ? ' ' : ' ') + x.u).replace('.', '.');
+const shAddonIds = {};   // Shelly-adres -> {sensornaam: {temp: 'temperature/100', hum: 'humidity/100'}}
+// tik op een Add-on sensor: de instellingen van die sensor op de Shelly openen (naam, offset, drempel)
+function openSensor(ip, path){
+  const u = `http://${hostOf(ip)}/#/${path}/settings`;
+  if (APP && window.Tasmota.openUrl) window.Tasmota.openUrl(u); else window.open(u, '_blank');
+}
 function sensorLine(ip){
   const S = devSens[ip], st = (devLive[ip] || {}).state;
   if (!S || !S.length || st === 'offline' || st === 'locked') return '';
   // één regel per sensor (naam erbij als er meer dan één is); de eigen temperatuur van de Shelly op een eigen regel
   const many = new Set(S.map(x => x.n)).size > 1;
-  const chip = x => `<span class="snc"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${SENS_ICON[x.t]}"/></svg>${many ? `<i class="snn">${esc(x.n)}</i>` : ''}${esc(fmtSens(x))}</span>`;
+  const ids = shellyOf(ip) && shAddonIds[hostOf(ip)] || {};
+  const chip = x => { const pth = (ids[x.n] || {})[x.t]; return pth
+    ? `<button type="button" class="snc snb" aria-label="Sensor settings on the Shelly: ${esc(x.n)}" onclick="event.stopPropagation();openSensor('${ip}','${pth}')"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${SENS_ICON[x.t]}"/></svg>${many && !x.nn ? `<i class="snn">${esc(x.n)}</i>` : ''}${esc(fmtSens(x))}</button>`
+    : `<span class="snc"><svg width="13" height="13" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${SENS_ICON[x.t]}"/></svg>${many && !x.nn ? `<i class="snn">${esc(x.n)}</i>` : ''}${esc(fmtSens(x))}</span>`; };
   const rows = []; S.forEach(x => { const r = rows.find(r => r[0].n === x.n); r ? r.push(x) : rows.push([x]); });
-  return rows.map(r => `<div class="sn">${r.map((x, k) => chip(Object.assign({}, x, k ? {n: ''} : {}))).join('')}</div>`).join('');
+  return rows.map(r => `<div class="sn">${r.map((x, k) => chip(Object.assign({}, x, k ? {nn: 1} : {}))).join('')}</div>`).join('');
 }
 // korte tekst voor de tegels: temperatuur en vocht van de eerste sensor
 const sensOn = () => { try { return !!showOpts().sensors || localStorage.getItem('tas_details') === '1'; } catch(e){ return true; } };

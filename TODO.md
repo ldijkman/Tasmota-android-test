@@ -2,13 +2,6 @@
 
 Ideas we talked about and want to build later. Nothing here is in the app yet.
 
-## Device card: thermostat block too narrow (seen 27 November, S21)
-- On the device card the thermostat block is too narrow on the phone: "23.0 °C" (the target
-  after the arrow) sticks out past the right edge of the box, and "Comfort" runs past the edge
-  of its button.
-- Fix idea: let the block use the full card width, or make the target text smaller / let it wrap,
-  and let the Comfort / Eco buttons shrink (smaller text or only the ☀️ / 🌙 icon when narrow).
-
 ## Done in 26.7
 - Thermostat 0.1 °C steps, hold − / + to repeat, send after 1.5 s, wheel picker (Heating screen and Edit), border around the Edit thermostat part.
 
