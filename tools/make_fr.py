@@ -373,6 +373,10 @@ T = [
 ('The log page on the Shelly: every check, sensor value and decision, with the time.', 'La page du journal sur le Shelly : chaque contrôle, valeur du capteur et décision, avec l’heure.'),
 ('The script page on the Shelly itself: the app installed “Thermostat (Scan & Control)”.', 'La page du script sur le Shelly lui-même : l’app a installé « Thermostat (Scan & Control) ».'),
 ('<b>The thermostat, step by step</b>', '<b>Le thermostat, étape par étape</b>'),
+('How the schedules switch Comfort and Eco', 'Comment les plannings passent en Confort et Éco'),
+('Each schedule is a Shelly <code>Schedule</code> job, stored on the Shelly itself. At the on-time it runs <code>KVS.Set th_level = "comfort"</code>, at the off-time <code>KVS.Set th_level = "eco"</code>.', 'Chaque planning est une tâche <code>Schedule</code> du Shelly, enregistrée dans le Shelly lui-même. À l’heure de marche elle exécute <code>KVS.Set th_level = "comfort"</code>, à l’heure d’arrêt <code>KVS.Set th_level = "eco"</code>.'),
+('The thermostat script reads <code>th_level</code> from the KVS before every check (every 30 s, and on every sensor temperature change), uses <code>th_comfort</code> or <code>th_eco</code> as the target and switches the relay with a 0.3 °C margin. The Comfort / Eco buttons in the app write the same <code>th_level</code> by hand, until the next job overwrites it.', 'Le script du thermostat lit <code>th_level</code> dans le KVS avant chaque contrôle (toutes les 30 s, et à chaque nouvelle température du capteur), prend <code>th_comfort</code> ou <code>th_eco</code> comme cible et commute le relais avec une marge de 0,3 °C. Les boutons Confort / Éco de l’app écrivent le même <code>th_level</code> à la main, jusqu’à la tâche suivante.'),
+('The jobs, the KVS and the script all live on the Shelly: no phone, app, cloud or internet needed. The phone is only for changing settings.', 'Les tâches, le KVS et le script sont tous dans le Shelly : ni téléphone, ni app, ni cloud, ni internet nécessaires. Le téléphone sert seulement à changer les réglages.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

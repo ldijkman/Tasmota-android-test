@@ -513,6 +513,10 @@ T = [
 ('The log page on the Shelly: every check, sensor value and decision, with the time.', 'Strona dziennika na Shelly: każde sprawdzenie, wartość czujnika i decyzja, z godziną.'),
 ('The script page on the Shelly itself: the app installed “Thermostat (Scan & Control)”.', 'Strona skryptu na samym Shelly: aplikacja zainstalowała „Thermostat (Scan & Control)”.'),
 ('<b>The thermostat, step by step</b>', '<b>Termostat krok po kroku</b>'),
+('How the schedules switch Comfort and Eco', 'Jak harmonogramy przełączają Komfort i Eko'),
+('Each schedule is a Shelly <code>Schedule</code> job, stored on the Shelly itself. At the on-time it runs <code>KVS.Set th_level = "comfort"</code>, at the off-time <code>KVS.Set th_level = "eco"</code>.', 'Każdy harmonogram to zadanie <code>Schedule</code> Shelly, zapisane w samym Shelly. O godzinie włączenia wykonuje <code>KVS.Set th_level = "comfort"</code>, o godzinie wyłączenia <code>KVS.Set th_level = "eco"</code>.'),
+('The thermostat script reads <code>th_level</code> from the KVS before every check (every 30 s, and on every sensor temperature change), uses <code>th_comfort</code> or <code>th_eco</code> as the target and switches the relay with a 0.3 °C margin. The Comfort / Eco buttons in the app write the same <code>th_level</code> by hand, until the next job overwrites it.', 'Skrypt termostatu odczytuje <code>th_level</code> z KVS przed każdym sprawdzeniem (co 30 s i przy każdej nowej temperaturze z czujnika), bierze <code>th_comfort</code> albo <code>th_eco</code> jako cel i przełącza przekaźnik z marginesem 0,3 °C. Przyciski Komfort / Eko w aplikacji zapisują ten sam <code>th_level</code> ręcznie, do następnego zadania.'),
+('The jobs, the KVS and the script all live on the Shelly: no phone, app, cloud or internet needed. The phone is only for changing settings.', 'Zadania, KVS i skrypt są w Shelly: nie potrzeba telefonu, aplikacji, chmury ani internetu. Telefon służy tylko do zmiany ustawień.'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

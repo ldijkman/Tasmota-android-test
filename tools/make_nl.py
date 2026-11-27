@@ -539,6 +539,10 @@ T = [
 ('The log page on the Shelly: every check, sensor value and decision, with the time.', 'De logpagina op de Shelly: elke controle, sensorwaarde en beslissing, met de tijd.'),
 ('The script page on the Shelly itself: the app installed “Thermostat (Scan & Control)”.', 'De scriptpagina op de Shelly zelf: de app installeerde “Thermostat (Scan & Control)”.'),
 ('<b>The thermostat, step by step</b>', '<b>De thermostaat, stap voor stap</b>'),
+('How the schedules switch Comfort and Eco', 'Hoe de schema’s Comfort en Eco schakelen'),
+('Each schedule is a Shelly <code>Schedule</code> job, stored on the Shelly itself. At the on-time it runs <code>KVS.Set th_level = "comfort"</code>, at the off-time <code>KVS.Set th_level = "eco"</code>.', 'Elk schema is een Shelly <code>Schedule</code>-taak, opgeslagen in de Shelly zelf. Op de aan-tijd voert hij <code>KVS.Set th_level = "comfort"</code> uit, op de uit-tijd <code>KVS.Set th_level = "eco"</code>.'),
+('The thermostat script reads <code>th_level</code> from the KVS before every check (every 30 s, and on every sensor temperature change), uses <code>th_comfort</code> or <code>th_eco</code> as the target and switches the relay with a 0.3 °C margin. The Comfort / Eco buttons in the app write the same <code>th_level</code> by hand, until the next job overwrites it.', 'Het thermostaatscript leest <code>th_level</code> uit de KVS vóór elke controle (elke 30 s, en bij elke nieuwe temperatuur van de sensor), gebruikt <code>th_comfort</code> of <code>th_eco</code> als doel en schakelt het relais met een marge van 0,3 °C. De knoppen Comfort / Eco in de app schrijven dezelfde <code>th_level</code> met de hand, tot de volgende taak hem overschrijft.'),
+('The jobs, the KVS and the script all live on the Shelly: no phone, app, cloud or internet needed. The phone is only for changing settings.', 'De taken, de KVS en het script staan allemaal op de Shelly: geen telefoon, app, cloud of internet nodig. De telefoon is alleen om instellingen te wijzigen.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
