@@ -383,6 +383,7 @@ T = [
 ('The device card: the thermostat block over the full width, and a thermometer on the icon.', 'La carte de l’appareil : le bloc thermostat sur toute la largeur, et un thermomètre sur l’icône.'),
 ('Easy to use scheduling: Comfort just switched to 🌙 Eco on schedule, by the Shelly itself. It already shows the next step: Comfort tomorrow at 05:00.', 'Planification simple : Confort vient de passer en 🌙 Éco selon le planning, par le Shelly lui-même. L’étape suivante est déjà affichée : Confort demain à 05:00.'),
 ('The schedules behind it: ☀️ Comfort at 05:00 until 🌙 Eco at sunrise minus 15 min, and Comfort again from 18:00 to 22:05. Stored in the Shelly.', 'Les plannings derrière : ☀️ Confort à 05:00 jusqu’à 🌙 Éco au lever du soleil moins 15 min, puis Confort de 18:00 à 22:05. Enregistrés dans le Shelly.'),
+('The hardware: a Shelly 1 Gen3 with the Sensor Add-on plugged on, and a DS18B20 temperature sensor. Together a thermostat.', 'Le matériel : un Shelly 1 Gen3 avec le Sensor Add-on enfiché, et une sonde de température DS18B20. Ensemble, un thermostat.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
