@@ -22,6 +22,15 @@
       localStorage.setItem('tas_groups', JSON.stringify([{ id: 'living', name: 'Living', color: '#3ccf6e' }]));
       localStorage.setItem('tas_devs_ordered', '1');
     }
+    // the thermostat Shelly (also added once for people who opened the demo before)
+    if (!localStorage.getItem('tas_demo_th1')) {
+      const devs = JSON.parse(localStorage.getItem('tas_devs') || '[]');
+      if (!devs.some(d => d.ip === '10.10.100.153')) devs.push({ ip: '10.10.100.153', kind: 'shelly', gen: 3, comp: 'switch', model: 'S1G3',
+        name: 'shelly1g3-ecda3bc1e2f0', friendly: 'Living room', mac: 'EC:DA:3B:C1:E2:F0', icon: 'fire', oncolor: '#ff6a1f', group: 'living', thermo: 1 });
+      localStorage.setItem('tas_devs', JSON.stringify(devs));
+      if (!localStorage.getItem('tas_groups')) localStorage.setItem('tas_groups', JSON.stringify([{ id: 'living', name: 'Living', color: '#3ccf6e' }]));
+      localStorage.setItem('tas_demo_th1', '1');
+    }
   } catch (e) {}
 
   const SUBNET = '10.10.100.';
@@ -133,9 +142,64 @@
     [SUBNET + '150']: { on: false, comp: 'switch', app: 'Plus1PM', model: 'SNSW-001P16EU', gen: 2, id: 'shellyplus1pm-a8032ab1c2d4', mac: 'A8032AB1C2D4' },
     [SUBNET + '151']: { on: false, comp: 'cct', app: 'DuoBulbG3', model: 'S3BL-D010009AEU', gen: 3, id: 'shellyduobulbg3-e4b063b1a2c4', mac: 'E4B063B1A2C4', bri: 70, ct: 3000 },
     [SUBNET + '152']: { on: false, comp: 'rgbcct', app: 'RGBCCTBulbG3', model: 'S3BL-C010007AEU', gen: 3, id: 'shellyrgbcctbulbg3-e4b063b1d7f0', mac: 'E4B063B1D7F0', bri: 80, ct: 4000, rgb: [255, 80, 0], mode: 'rgb' },
+    // Shelly 1 Gen3 with the Sensor Add-on + 1 DS18B20, the thermostat script already installed (runs here in the browser)
+    [SUBNET + '153']: { on: false, comp: 'switch', app: 'S1G3', model: 'S3SW-001X16EU', gen: 3, id: 'shelly1g3-ecda3bc1e2f0', mac: 'ECDA3BC1E2F0', name: 'Living room', room: 19.6, thermo: true, radio: { ap: false, open: false, ble: false } },
   };
   const NS = { switch: 'Switch', cct: 'CCT', rgbcct: 'RGBCCT' };
-  Object.values(shellies).forEach(sh => Object.assign(sh, { kvs: {}, jobs: [], nextJob: 1, rev: 1, ver: '1.7.1', loc: { lat: 52.37, lon: 4.9, tz: 'Europe/Amsterdam' } }));
+  Object.values(shellies).forEach(sh => Object.assign(sh, { kvs: {}, jobs: [], nextJob: 1, rev: 1, ver: '1.7.1', loc: { lat: 52.37, lon: 4.9, tz: 'Europe/Amsterdam' }, scripts: {}, nextScript: 1, handlers: [] }));
+  const ipOf = sh => Object.keys(shellies).find(ip => shellies[ip] === sh);
+  const r1 = x => Math.round(x * 10) / 10;
+
+  // ---- A tiny Shelly script runtime: the real thermostat script (thermostat-script.js) runs in this page ----
+  function startScript(sh, sc) {
+    stopScript(sc); sc.ep = {}; sc.tm = [];
+    const call = (m, a, cb) => {
+      const u = new URL('http://' + ipOf(sh) + '/rpc/' + m);
+      Object.keys(a || {}).forEach(k => u.searchParams.set(k, JSON.stringify(a[k])));
+      const res = shellyApi(sh, u);
+      setTimeout(() => { if (cb) { if (res && res.__err) cb(null, -1, res.__err); else cb(res, 0, ''); } }, 20);
+    };
+    const comp = (k, id) => {
+      if (k === 'sys') { const d = new Date(); return { uptime: Math.floor((Date.now() - T0) / 1000) + 86400, time: pad(d.getHours()) + ':' + pad(d.getMinutes()), unixtime: Math.floor(Date.now() / 1000) }; }
+      if (k === 'wifi') return { sta_ip: ipOf(sh), status: 'got ip' };
+      if (k === 'switch') return { id: 0, output: sh.on };
+      if (k === 'temperature') return sh.room != null && +id === 100 ? { id: 100, tC: r1(sh.room) } : null;
+      return null;
+    };
+    const env = {
+      Shelly: { call, getComponentStatus: comp, getCurrentScriptId: () => sc.id, addStatusHandler: f => { sh.handlers.push(f); sc.hs = (sc.hs || []).concat(f); } },
+      Timer: { set: (ms, rep, f) => { const h = rep ? setInterval(f, ms) : setTimeout(f, ms); sc.tm.push(h); return h; }, clear: h => { clearInterval(h); clearTimeout(h); } },
+      HTTPServer: { registerEndpoint: (n, f) => { sc.ep[n] = f; } },
+      console: { log: () => {} }
+    };
+    try { new Function('Shelly', 'Timer', 'HTTPServer', 'console', sc.code)(env.Shelly, env.Timer, env.HTTPServer, env.console); sc.running = true; }
+    catch (e) { sc.running = false; console.warn('demo script error', e); }
+  }
+  function stopScript(sc) {
+    (sc.tm || []).forEach(h => { clearInterval(h); clearTimeout(h); }); sc.tm = []; sc.ep = {}; sc.running = false;
+    Object.values(shellies).forEach(sh => { sh.handlers = sh.handlers.filter(f => !(sc.hs || []).includes(f)); }); sc.hs = [];
+  }
+  const T0 = Date.now();
+  // install the thermostat once the page has the script code (option A: it is there from the start)
+  function ensureThermo(sh) {
+    if (!sh.thermo || sh.thInstalled || !window.SH_THERMO_CODE) return;
+    sh.thInstalled = true;
+    Object.assign(sh.kvs, { th_comfort: 21, th_eco: 17, th_level: 'comfort', th_mode: 'on', th_test: 'off', th_sensor: 100 });
+    const sc = sh.scripts[1] = { id: 1, name: 'Thermostat (Scan & Control)', code: window.SH_THERMO_CODE, enable: true, running: false };
+    sh.nextScript = 2; startScript(sh, sc);
+  }
+  document.addEventListener('DOMContentLoaded', () => Object.values(shellies).forEach(ensureThermo));
+  // the room: warms up while the heating is on, cools down slowly when it is off; the sensor reports every 0.1 °C
+  setInterval(() => {
+    Object.values(shellies).forEach(sh => {
+      if (sh.room == null) return;
+      if (sh.tgAt && Date.now() / 1000 >= sh.tgAt) { sh.on = !sh.on; sh.tgAt = null; }   // watchdog: toggle_after ran out
+      const before = r1(sh.room);
+      sh.room = Math.max(14, Math.min(27, sh.room + (sh.on ? 0.1 : -0.04)));
+      const now = r1(sh.room);
+      if (now !== before) sh.handlers.slice().forEach(f => { try { f({ component: 'temperature:100', id: 100, delta: { id: 100, tC: now } }); } catch (e) {} });
+    });
+  }, 5000);
   shellies[SUBNET + '152'].errors = ['overtemp'];   // demo: the colour bulb shows a warning
   function shellyApi(sh, u) {
     const p = u.pathname, q = k => u.searchParams.get(k), js = k => { try { return JSON.parse(q(k)); } catch (e) { return q(k); } };
@@ -147,14 +211,36 @@
         : { brightness: sh.bri, ct: sh.ct, apower: sh.on ? +(sh.bri * 0.09).toFixed(1) : 0, temperature: { tC: sh.comp === 'cct' ? 47.5 : 52.1 } },
       sh.errors ? { errors: sh.errors } : {},
       sh.comp === 'rgbcct' ? { mode: sh.mode, rgb: sh.rgb } : {},
-      sh.offAt ? { timer_started_at: sh.started, timer_duration: sh.autoOff } : {});
+      sh.offAt ? { timer_started_at: sh.started, timer_duration: sh.autoOff } : {},
+      sh.tgAt ? { timer_started_at: sh.tgStart, timer_duration: sh.tgDur } : {});
     if (p === '/shelly') return { name: sh.name || null, id: sh.id, mac: sh.mac, model: sh.model, gen: sh.gen, fw_id: '20250924-062743/1.7.1-gd336f31', ver: '1.7.1', app: sh.app, auth_en: false };
     if (p === '/rpc/Shelly.GetDeviceInfo') return { name: sh.name || null, id: sh.id, mac: sh.mac, model: sh.model, gen: sh.gen, fw_id: '20250924-062743/' + sh.ver + '-gd336f31', ver: sh.ver, app: sh.app, auth_en: false };
     if (p === '/rpc/Shelly.Update') { sh.updating = Date.now(); setTimeout(() => { sh.ver = '1.7.2'; sh.updating = 0; }, 4000); return null; }
+    ensureThermo(sh);
+    if (sh.tgAt && Date.now() / 1000 >= sh.tgAt) { sh.on = !sh.on; sh.tgAt = null; }
+    const sp = p.match(/^\/script\/(\d+)\/(\w+)$/);
+    if (sp) {
+      const sc = sh.scripts[sp[1]], f = sc && sc.running && sc.ep[sp[2]];
+      if (!f) return { __err: 'HTTP 404 Not Found' };
+      const res = { code: 200, body: '', send() { this.sent = true; } }; f({ query: '' }, res);
+      try { return JSON.parse(res.body); } catch (e) { return { __raw: res.body }; }
+    }
+    if (p === '/rpc/Script.List') return { scripts: Object.values(sh.scripts).map(x => ({ id: x.id, name: x.name, enable: x.enable, running: x.running })) };
+    if (p === '/rpc/Script.Create') { const id = sh.nextScript++; sh.scripts[id] = { id, name: js('name') || 'script_' + id, code: '', enable: false, running: false }; return { id }; }
+    if (p === '/rpc/Script.PutCode') { const x = sh.scripts[js('id')]; if (!x) return { __err: 'HTTP 500 {"code":-105,"message":"Script not found"}' }; x.code = js('append') ? x.code + js('code') : js('code'); return { len: x.code.length }; }
+    if (p === '/rpc/Script.SetConfig') { const x = sh.scripts[js('id')]; if (x) { const c = js('config') || {}; if ('enable' in c) x.enable = !!c.enable; if (c.name) x.name = c.name; } return { restart_required: false }; }
+    if (p === '/rpc/Script.Start') { const x = sh.scripts[js('id')]; if (!x) return { __err: 'HTTP 500 {"code":-105,"message":"Script not found"}' }; const was = x.running; startScript(sh, x); return { was_running: was }; }
+    if (p === '/rpc/Script.Stop') { const x = sh.scripts[js('id')]; if (x) { const was = x.running; stopScript(x); return { was_running: was }; } return { __err: 'HTTP 500 {"code":-105,"message":"Script not found"}' }; }
+    if (p === '/rpc/Script.Delete') { const x = sh.scripts[js('id')]; if (x) { stopScript(x); delete sh.scripts[js('id')]; } return null; }
+    if (p === '/rpc/KVS.Delete') { delete sh.kvs[js('key')]; return { rev: ++sh.rev }; }
+    if (p === '/rpc/Shelly.GetStatus' && sh.room != null) return { sys: { uptime: 86400 * 3 + 5123, available_updates: sh.ver === '1.7.2' ? {} : { stable: { version: '1.7.2' } } }, wifi: { sta_ip: u.hostname, status: 'got ip', ssid: 'Demo-WiFi', rssi: -55 },
+      mqtt: { connected: !!(sh.mqtt && sh.mqtt.enable && sh.mqtt.connected) }, 'switch:0': status(), 'temperature:100': { id: 100, tC: r1(sh.room) } };
     if (p === '/rpc/Shelly.GetStatus') return { sys: { uptime: 86400 * 3 + 5123, available_updates: sh.ver === '1.7.2' ? {} : { stable: { version: '1.7.2' } } }, wifi: { sta_ip: u.hostname, status: 'got ip', ssid: 'Demo-WiFi', rssi: -58 }, mqtt: { connected: !!(sh.mqtt && sh.mqtt.enable && sh.mqtt.connected) }, [sh.comp + ':0']: status() };
     if (p === '/rpc/Sys.SetConfig') { try { const c = JSON.parse(q('config') || '{}'); if (c.device && 'name' in c.device) sh.name = c.device.name; if (c.location) Object.assign(sh.loc, c.location); } catch (e) {} return { restart_required: false }; }
     if (!sh.radio) sh.radio = sh.comp === 'switch' ? { ap: true, open: true, ble: true } : { ap: false, open: false, ble: true };
     if (!sh.mqtt) sh.mqtt = sh.comp === 'switch' ? { enable: true, server: '10.10.100.2:1883', connected: true } : sh.comp === 'rgbcct' ? { enable: true, server: '10.10.100.9:1883', connected: false } : { enable: false, server: null, connected: false };
+    if (p === '/rpc/Shelly.GetConfig' && sh.room != null) return { ble: { enable: sh.radio.ble, rpc: { enable: sh.radio.ble } }, wifi: { ap: { ssid: 'Shelly-' + sh.mac, is_open: sh.radio.open, enable: sh.radio.ap }, sta: { ssid: 'Demo-WiFi', enable: true } },
+      sys: { device: { name: sh.name || null } }, mqtt: { enable: sh.mqtt.enable, server: sh.mqtt.server, client_id: sh.id }, 'temperature:100': { id: 100, name: 'Living room' } };
     if (p === '/rpc/Shelly.GetConfig') return { ble: sh.comp === 'switch' ? { rpc: { enable: sh.radio.ble } } : { enable: sh.radio.ble, rpc: { enable: true } }, wifi: { ap: { ssid: 'Shelly-' + sh.mac, is_open: sh.radio.open, enable: sh.radio.ap }, sta: { ssid: 'Demo-WiFi', enable: true } }, sys: { device: { name: sh.name || null } }, mqtt: { enable: sh.mqtt.enable, server: sh.mqtt.server, client_id: sh.id } };
     if (p === '/rpc/Wifi.SetConfig') { try { const c = JSON.parse(q('config') || '{}'); if (c.ap && 'enable' in c.ap) sh.radio.ap = !!c.ap.enable; } catch (e) {} return { restart_required: false }; }
     if (p === '/rpc/BLE.SetConfig') { try { const c = JSON.parse(q('config') || '{}'); if ('enable' in c) sh.radio.ble = !!c.enable; if (c.rpc && 'enable' in c.rpc) sh.radio.ble = !!c.rpc.enable; } catch (e) {} return { restart_required: true }; }
@@ -177,6 +263,8 @@
     if (p === `/rpc/${ns}.Set`) {
       const was = sh.on;
       if (q('on') != null) sh.on = q('on') === 'true';
+      const ta = +js('toggle_after') || 0;   // the thermostat's watchdog: switch back after ta seconds
+      if (q('on') != null) { sh.tgAt = ta ? Date.now() / 1000 + ta : null; sh.tgStart = ta ? Date.now() / 1000 : null; sh.tgDur = ta || null; }
       if (q('brightness') != null) sh.bri = Math.max(0, Math.min(100, +q('brightness')));
       if (q('ct') != null) sh.ct = Math.max(2700, Math.min(6500, +q('ct')));
       if (q('rgb') != null) sh.rgb = js('rgb');
@@ -208,12 +296,20 @@
     get(url, id) {
       let u; try { u = new URL(url, 'http://' + SUBNET + '114/'); } catch (e) { return reply(id, false, 'java.net.MalformedURLException'); }
       const sh = shellies[u.hostname];
-      if (sh) { const r = shellyApi(sh, u); return r && r.__err ? reply(id, false, r.__err) : reply(id, true, JSON.stringify(r)); }
+      if (sh) { const r = shellyApi(sh, u); return r && r.__err ? reply(id, false, r.__err) : reply(id, true, r && r.__raw != null ? r.__raw : JSON.stringify(r)); }
       const d = devices[u.hostname];
       if (!d) return reply(id, false, `java.net.SocketTimeoutException: failed to connect to /${u.hostname}`, 1500);
       if (d.protected && u.searchParams.get('password') !== 'demo')
         return reply(id, false, 'HTTP 401 {"WARNING":"Need user=<username>&password=<password>"}');
       reply(id, true, JSON.stringify(command(d, u.searchParams.get('cmnd') || '')));
+    },
+    post(url, body, id) {   // Shelly RPC with a JSON body (the app uploads the thermostat script this way)
+      let u; try { u = new URL(url); } catch (e) { return reply(id, false, 'java.net.MalformedURLException'); }
+      const sh = shellies[u.hostname];
+      if (!sh) return reply(id, false, `java.net.SocketTimeoutException: failed to connect to /${u.hostname}`, 1500);
+      let b = {}; try { b = JSON.parse(body || '{}'); } catch (e) {}
+      Object.keys(b).forEach(k => u.searchParams.set(k, JSON.stringify(b[k])));
+      const r = shellyApi(sh, u); return r && r.__err ? reply(id, false, r.__err) : reply(id, true, JSON.stringify(r));
     },
     scan(id) { this.scanRange('', id); },
     scanRange(range, id) {
@@ -233,6 +329,16 @@
     location(id) { reply(id, true, JSON.stringify({ lat: 52.37, lon: 4.89, acc: 25 }), 600); },
     appInfo() { return JSON.stringify({ version: 'demo', code: 0, date: 'browser demo (simulated switches)' }); },
     openUrl(url) {
+      const lm = url.match(/^http:\/\/([\d.]+)\/script\/(\d+)\/log$/), sh0 = lm && shellies[lm[1]];
+      if (sh0) {   // the thermostat log: shown from the script running in this page
+        const r = shellyApi(sh0, new URL(url)), txt = r && r.__raw != null ? r.__raw : 'No log: the script is not running.';
+        const w = window.open('', '_blank');
+        if (w) { w.document.title = 'Thermostat log (demo)'; const pre = w.document.createElement('pre'); pre.textContent = txt;
+          pre.style.cssText = 'font:13px/1.45 monospace;white-space:pre-wrap;margin:10px;color:#ddd'; w.document.body.style.background = '#111'; w.document.body.appendChild(pre); }
+        else demoNote('The log page could not open (pop-up blocked).');
+        return;
+      }
+      if (/\/#\/script\/\d+$/.test(url)) return demoNote('In the app this opens the script page on the Shelly itself, where you can see and stop the script. Not available in the demo.');
       if (/^https:\/\//.test(url)) window.open(url, '_blank', 'noopener');
       else demoNote('In the app this opens the switch\'s own Tasmota web page. Not available in the demo.');
     },
