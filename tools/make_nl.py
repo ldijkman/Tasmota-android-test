@@ -535,6 +535,9 @@ T = [
 ('Tap the number: swipe the wheel, it is sent to the Shelly 1.5 s after you stop.', 'Tik op het getal: draai het wiel, het gaat 1,5 s nadat je stopt naar de Shelly.'),
 ('The device card: the thermostat with Comfort / Eco, − / + and the Thermostat switch.', 'De apparaatkaart: de thermostaat met Comfort / Eco, − / + en de Thermostaat-schakelaar.'),
 ('The Tiles screen: the thermostat tile with − / +, next to the other switches.', 'Het Tegels-scherm: de thermostaattegel met − / +, naast de andere schakelaars.'),
+('Edit: the thermostat part with a border, Comfort and Eco with − / + and the wheel, sensor, test mode and the log.', 'Bewerken: het thermostaatdeel met een rand, Comfort en Eco met − / + en het draaiwiel, sensor, testmodus en het logboek.'),
+('The log page on the Shelly: every check, sensor value and decision, with the time.', 'De logpagina op de Shelly: elke controle, sensorwaarde en beslissing, met de tijd.'),
+('The script page on the Shelly itself: the app installed “Thermostat (Scan & Control)”.', 'De scriptpagina op de Shelly zelf: de app installeerde “Thermostat (Scan & Control)”.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

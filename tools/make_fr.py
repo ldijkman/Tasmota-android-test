@@ -369,6 +369,9 @@ T = [
 ('Tap the number: swipe the wheel, it is sent to the Shelly 1.5 s after you stop.', 'Touchez le nombre : faites tourner la roue, envoyé au Shelly 1,5 s après l’arrêt.'),
 ('The device card: the thermostat with Comfort / Eco, − / + and the Thermostat switch.', 'La carte de l’appareil : le thermostat avec Confort / Éco, − / + et l’interrupteur Thermostat.'),
 ('The Tiles screen: the thermostat tile with − / +, next to the other switches.', 'L’écran Tuiles : la tuile du thermostat avec − / +, à côté des autres interrupteurs.'),
+('Edit: the thermostat part with a border, Comfort and Eco with − / + and the wheel, sensor, test mode and the log.', 'Modifier : la partie thermostat avec une bordure, Confort et Éco avec − / + et la roue, capteur, mode test et le journal.'),
+('The log page on the Shelly: every check, sensor value and decision, with the time.', 'La page du journal sur le Shelly : chaque contrôle, valeur du capteur et décision, avec l’heure.'),
+('The script page on the Shelly itself: the app installed “Thermostat (Scan & Control)”.', 'La page du script sur le Shelly lui-même : l’app a installé « Thermostat (Scan & Control) ».'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

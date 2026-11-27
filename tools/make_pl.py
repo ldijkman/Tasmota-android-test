@@ -509,6 +509,9 @@ T = [
 ('Tap the number: swipe the wheel, it is sent to the Shelly 1.5 s after you stop.', 'Stuknij liczbę: przewiń kółko, wartość trafia do Shelly 1,5 s po zatrzymaniu.'),
 ('The device card: the thermostat with Comfort / Eco, − / + and the Thermostat switch.', 'Karta urządzenia: termostat z Komfort / Eko, − / + i przełącznikiem Termostat.'),
 ('The Tiles screen: the thermostat tile with − / +, next to the other switches.', 'Ekran Kafelki: kafelek termostatu z − / +, obok innych przełączników.'),
+('Edit: the thermostat part with a border, Comfort and Eco with − / + and the wheel, sensor, test mode and the log.', 'Edycja: część termostatu w ramce, Komfort i Eko z − / + i kółkiem, czujnik, tryb testowy i dziennik.'),
+('The log page on the Shelly: every check, sensor value and decision, with the time.', 'Strona dziennika na Shelly: każde sprawdzenie, wartość czujnika i decyzja, z godziną.'),
+('The script page on the Shelly itself: the app installed “Thermostat (Scan & Control)”.', 'Strona skryptu na samym Shelly: aplikacja zainstalowała „Thermostat (Scan & Control)”.'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

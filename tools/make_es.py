@@ -512,6 +512,9 @@ T = [
 ('Tap the number: swipe the wheel, it is sent to the Shelly 1.5 s after you stop.', 'Toca el número: gira la rueda, se envía al Shelly 1,5 s después de parar.'),
 ('The device card: the thermostat with Comfort / Eco, − / + and the Thermostat switch.', 'La tarjeta del dispositivo: el termostato con Confort / Eco, − / + y el interruptor Termostato.'),
 ('The Tiles screen: the thermostat tile with − / +, next to the other switches.', 'La pantalla Mosaicos: el mosaico del termostato con − / +, junto a los otros interruptores.'),
+('Edit: the thermostat part with a border, Comfort and Eco with − / + and the wheel, sensor, test mode and the log.', 'Editar: la parte del termostato con un borde, Confort y Eco con − / + y la rueda, sensor, modo de prueba y el registro.'),
+('The log page on the Shelly: every check, sensor value and decision, with the time.', 'La página del registro en el Shelly: cada comprobación, valor del sensor y decisión, con la hora.'),
+('The script page on the Shelly itself: the app installed “Thermostat (Scan & Control)”.', 'La página del script en el propio Shelly: la app instaló «Thermostat (Scan & Control)».'),
 ]
 
 
