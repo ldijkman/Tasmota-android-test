@@ -453,7 +453,7 @@ T = [
 ('<span>Source code</span>', '<span>Kod źródłowy</span>'),
 ('Shelly Plus Add-on: on their way', 'Shelly Plus Add-on: w drodze'),
 ('Sensor inputs: temperature, humidity, digital and analog.', 'Wejścia czujników: temperatura, wilgotność, cyfrowe i analogowe.'),
-('Please let me sleep 😴<br>Ideas we are thinking about.<br>They are not in the app yet.', 'Pozwól mi spać 😴<br>Pomysły, nad którymi myślimy.<br>Nie ma ich jeszcze w aplikacji.'),
+('Please let me sleep 😴<br>Ideas we are thinking about.<br><span class="lead-hl">The thermostat is now in the app, tested a little.</span>', 'Pozwól mi spać 😴<br>Pomysły, nad którymi myślimy.<br><span class="lead-hl">Termostat jest już w aplikacji, trochę przetestowany.</span>'),
 ('<b>Idea: a thermostat for central heating</b>', '<b>Pomysł: termostat do centralnego ogrzewania</b>'),
 ('Idea: your old tablet as the thermostat on the wall', 'Pomysł: stary tablet jako termostat na ścianie'),
 ('Give an old tablet a second life.<br><i class="aside">(Or a good reason to buy a new tablet and reuse the old.)</i><br>On the wall it shows the room temperature in big numbers, a 🔥 when the boiler is heating, and big Boost and Away buttons that everyone in the house can tap. The thermostat itself runs in the Shelly, so the heating keeps working even when the tablet is off.', 'Daj staremu tabletowi drugie życie.<br><i class="aside">(Albo dobry powód, by kupić nowy, a stary wykorzystać ponownie.)</i><br>Na ścianie pokazuje temperaturę w pokoju dużymi cyframi, 🔥 gdy kocioł grzeje, oraz duże przyciski Boost i Nieobecny, które każdy domownik może nacisnąć. Sam termostat działa w Shelly, więc ogrzewanie działa dalej, nawet gdy tablet jest wyłączony.'),
