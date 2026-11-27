@@ -548,6 +548,7 @@ T = [
 ('The Heating screen: “Actual Temp.” with the flame beside it.', 'Het verwarmingsscherm: “Actual Temp.” met de vlam ernaast.'),
 ('The device card: the thermostat block over the full width, and a thermometer on the icon.', 'De apparaatkaart: het thermostaatblok over de hele breedte, en een thermometer op het pictogram.'),
 ('Easy to use scheduling: Comfort just switched to 🌙 Eco on schedule, by the Shelly itself. It already shows the next step: Comfort tomorrow at 05:00.', 'Makkelijk plannen: Comfort ging net volgens schema naar 🌙 Eco, door de Shelly zelf. Hij laat al de volgende stap zien: Comfort morgen om 05:00.'),
+('The schedules behind it: ☀️ Comfort at 05:00 until 🌙 Eco at sunrise minus 15 min, and Comfort again from 18:00 to 22:05. Stored in the Shelly.', 'De schema’s erachter: ☀️ Comfort om 05:00 tot 🌙 Eco bij zonsopkomst min 15 min, en weer Comfort van 18:00 tot 22:05. Opgeslagen in de Shelly.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

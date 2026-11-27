@@ -522,6 +522,7 @@ T = [
 ('The Heating screen: “Actual Temp.” with the flame beside it.', 'Ekran ogrzewania: „Actual Temp.” z płomieniem obok.'),
 ('The device card: the thermostat block over the full width, and a thermometer on the icon.', 'Karta urządzenia: blok termostatu na całą szerokość i termometr na ikonie.'),
 ('Easy to use scheduling: Comfort just switched to 🌙 Eco on schedule, by the Shelly itself. It already shows the next step: Comfort tomorrow at 05:00.', 'Łatwe harmonogramy: Komfort właśnie przełączył się na 🌙 Eko według harmonogramu, przez samo Shelly. Widać już następny krok: Komfort jutro o 05:00.'),
+('The schedules behind it: ☀️ Comfort at 05:00 until 🌙 Eco at sunrise minus 15 min, and Comfort again from 18:00 to 22:05. Stored in the Shelly.', 'Harmonogramy w tle: ☀️ Komfort o 05:00 do 🌙 Eko o wschodzie słońca minus 15 min, i znowu Komfort od 18:00 do 22:05. Zapisane w Shelly.'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
