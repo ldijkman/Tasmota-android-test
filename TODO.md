@@ -12,6 +12,17 @@ Ideas we talked about and want to build later. Nothing here is in the app yet.
 - Only animates while it is really heating; respects "reduce motion".
 
 
+## Thermostat: sensor log to Google Forms / Sheets (optional, off by default)
+- Idea from Lubèrth (did this before with an Arduino): the thermostat script sends every 5–10 min
+  an HTTPS request to a Google Form; each send becomes a row in a Google Sheet -> make a graph there.
+- Script: `Shelly.call("HTTP.GET", {url: FORM + "?entry.111=" + temp + "&entry.222=" + target + "&entry.333=" + heating, timeout: 15})`
+  (`FORM` = `https://docs.google.com/forms/d/e/<form id>/formResponse`; field numbers from the form's "pre-filled link").
+- App: in Edit (thermostat part) a field for the form link + the entry numbers, stored in KVS (e.g. `th_glog`);
+  the script only sends when it is filled in. Short how-to (make form, find entry numbers, Insert → Chart).
+- Notes: uses the user's own Google account (the only cloud part, so optional); no internet = only that line is lost,
+  the thermostat keeps working; not more often than every 5 min. Alternative: a small Google Apps Script web app.
+- Fully local alternative: keep the last 24 h in the Shelly and draw the graph in the app (see "history graph").
+
 ## Other ideas from earlier
 - Thermostat: Boost (warm for an hour) and Away (one low temperature until you are back).
 - Temperature history graph (hourly min/max kept by the script, longer history on the phone or wall panel).
