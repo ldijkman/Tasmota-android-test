@@ -524,6 +524,7 @@ T = [
 ('Version 27.3: the wide thermostat tile, with Comfort / Eco, big − / + and the Thermostat switch.', 'Versión 27.3: el mosaico ancho del termostato, con Confort / Eco, − / + grandes y el interruptor Termostato.'),
 ('The Heating screen: “Actual Temp.” with the flame beside it.', 'La pantalla de calefacción: «Actual Temp.» con la llama al lado.'),
 ('The device card: the thermostat block over the full width, and a thermometer on the icon.', 'La tarjeta del dispositivo: el bloque del termostato a todo lo ancho, y un termómetro en el icono.'),
+('Easy to use scheduling: Comfort just switched to 🌙 Eco on schedule, by the Shelly itself. It already shows the next step: Comfort tomorrow at 05:00.', 'Horarios fáciles: Confort acaba de pasar a 🌙 Eco según el horario, por el propio Shelly. Ya muestra el siguiente paso: Confort mañana a las 05:00.'),
 ]
 
 

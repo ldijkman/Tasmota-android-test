@@ -381,6 +381,7 @@ T = [
 ('Version 27.3: the wide thermostat tile, with Comfort / Eco, big − / + and the Thermostat switch.', 'Version 27.3 : la grande tuile du thermostat, avec Confort / Éco, grands − / + et l’interrupteur Thermostat.'),
 ('The Heating screen: “Actual Temp.” with the flame beside it.', 'L’écran Chauffage : « Actual Temp. » avec la flamme à côté.'),
 ('The device card: the thermostat block over the full width, and a thermometer on the icon.', 'La carte de l’appareil : le bloc thermostat sur toute la largeur, et un thermomètre sur l’icône.'),
+('Easy to use scheduling: Comfort just switched to 🌙 Eco on schedule, by the Shelly itself. It already shows the next step: Comfort tomorrow at 05:00.', 'Planification simple : Confort vient de passer en 🌙 Éco selon le planning, par le Shelly lui-même. L’étape suivante est déjà affichée : Confort demain à 05:00.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

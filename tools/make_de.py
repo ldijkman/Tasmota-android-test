@@ -385,6 +385,7 @@ T = [
 ('Version 27.3: the wide thermostat tile, with Comfort / Eco, big − / + and the Thermostat switch.', 'Version 27.3: die breite Thermostat-Kachel mit Komfort / Eco, großem − / + und dem Thermostat-Schalter.'),
 ('The Heating screen: “Actual Temp.” with the flame beside it.', 'Der Heizungsbildschirm: „Actual Temp.“ mit der Flamme daneben.'),
 ('The device card: the thermostat block over the full width, and a thermometer on the icon.', 'Die Gerätekarte: der Thermostat-Block über die ganze Breite und ein Thermometer am Symbol.'),
+('Easy to use scheduling: Comfort just switched to 🌙 Eco on schedule, by the Shelly itself. It already shows the next step: Comfort tomorrow at 05:00.', 'Einfache Zeitpläne: Komfort hat gerade nach Plan auf 🌙 Eco gewechselt, durch den Shelly selbst. Der nächste Schritt steht schon da: Komfort morgen um 05:00.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
