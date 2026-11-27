@@ -544,6 +544,9 @@ T = [
 ('The thermostat script reads <code>th_level</code> from the KVS before every check (every 30 s, and on every sensor temperature change), uses <code>th_comfort</code> or <code>th_eco</code> as the target and switches the relay with a 0.3 °C margin. The Comfort / Eco buttons in the app write the same <code>th_level</code> by hand, until the next job overwrites it.', 'Het thermostaatscript leest <code>th_level</code> uit de KVS vóór elke controle (elke 30 s, en bij elke nieuwe temperatuur van de sensor), gebruikt <code>th_comfort</code> of <code>th_eco</code> als doel en schakelt het relais met een marge van 0,3 °C. De knoppen Comfort / Eco in de app schrijven dezelfde <code>th_level</code> met de hand, tot de volgende taak hem overschrijft.'),
 ('The jobs, the KVS and the script all live on the Shelly: no phone, app, cloud or internet needed. The phone is only for changing settings.', 'De taken, de KVS en het script staan allemaal op de Shelly: geen telefoon, app, cloud of internet nodig. De telefoon is alleen om instellingen te wijzigen.'),
 ('Holy crap, that’s some next-level nerd stuff 🤓', 'Holy crap, dat is next-level nerdwerk 🤓'),
+('Version 27.3: the wide thermostat tile, with Comfort / Eco, big − / + and the Thermostat switch.', 'Versie 27.3: de brede thermostaattegel, met Comfort / Eco, grote − / + en de Thermostaat-schakelaar.'),
+('The Heating screen: “Actual Temp.” with the flame beside it.', 'Het verwarmingsscherm: “Actual Temp.” met de vlam ernaast.'),
+('The device card: the thermostat block over the full width, and a thermometer on the icon.', 'De apparaatkaart: het thermostaatblok over de hele breedte, en een thermometer op het pictogram.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

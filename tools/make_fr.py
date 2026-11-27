@@ -378,6 +378,9 @@ T = [
 ('The thermostat script reads <code>th_level</code> from the KVS before every check (every 30 s, and on every sensor temperature change), uses <code>th_comfort</code> or <code>th_eco</code> as the target and switches the relay with a 0.3 °C margin. The Comfort / Eco buttons in the app write the same <code>th_level</code> by hand, until the next job overwrites it.', 'Le script du thermostat lit <code>th_level</code> dans le KVS avant chaque contrôle (toutes les 30 s, et à chaque nouvelle température du capteur), prend <code>th_comfort</code> ou <code>th_eco</code> comme cible et commute le relais avec une marge de 0,3 °C. Les boutons Confort / Éco de l’app écrivent le même <code>th_level</code> à la main, jusqu’à la tâche suivante.'),
 ('The jobs, the KVS and the script all live on the Shelly: no phone, app, cloud or internet needed. The phone is only for changing settings.', 'Les tâches, le KVS et le script sont tous dans le Shelly : ni téléphone, ni app, ni cloud, ni internet nécessaires. Le téléphone sert seulement à changer les réglages.'),
 ('Holy crap, that’s some next-level nerd stuff 🤓', 'Mince alors, c’est du niveau nerd suprême 🤓'),
+('Version 27.3: the wide thermostat tile, with Comfort / Eco, big − / + and the Thermostat switch.', 'Version 27.3 : la grande tuile du thermostat, avec Confort / Éco, grands − / + et l’interrupteur Thermostat.'),
+('The Heating screen: “Actual Temp.” with the flame beside it.', 'L’écran Chauffage : « Actual Temp. » avec la flamme à côté.'),
+('The device card: the thermostat block over the full width, and a thermometer on the icon.', 'La carte de l’appareil : le bloc thermostat sur toute la largeur, et un thermomètre sur l’icône.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

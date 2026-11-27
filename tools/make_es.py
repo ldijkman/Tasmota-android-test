@@ -521,6 +521,9 @@ T = [
 ('The thermostat script reads <code>th_level</code> from the KVS before every check (every 30 s, and on every sensor temperature change), uses <code>th_comfort</code> or <code>th_eco</code> as the target and switches the relay with a 0.3 °C margin. The Comfort / Eco buttons in the app write the same <code>th_level</code> by hand, until the next job overwrites it.', 'El script del termostato lee <code>th_level</code> del KVS antes de cada comprobación (cada 30 s y con cada nueva temperatura del sensor), usa <code>th_comfort</code> o <code>th_eco</code> como objetivo y conmuta el relé con un margen de 0,3 °C. Los botones Confort / Eco de la app escriben el mismo <code>th_level</code> a mano, hasta la siguiente tarea.'),
 ('The jobs, the KVS and the script all live on the Shelly: no phone, app, cloud or internet needed. The phone is only for changing settings.', 'Las tareas, el KVS y el script están en el Shelly: no hace falta móvil, app, nube ni internet. El móvil solo sirve para cambiar los ajustes.'),
 ('Holy crap, that’s some next-level nerd stuff 🤓', 'Madre mía, esto es de nerd de otro nivel 🤓'),
+('Version 27.3: the wide thermostat tile, with Comfort / Eco, big − / + and the Thermostat switch.', 'Versión 27.3: el mosaico ancho del termostato, con Confort / Eco, − / + grandes y el interruptor Termostato.'),
+('The Heating screen: “Actual Temp.” with the flame beside it.', 'La pantalla de calefacción: «Actual Temp.» con la llama al lado.'),
+('The device card: the thermostat block over the full width, and a thermometer on the icon.', 'La tarjeta del dispositivo: el bloque del termostato a todo lo ancho, y un termómetro en el icono.'),
 ]
 
 

@@ -518,6 +518,9 @@ T = [
 ('The thermostat script reads <code>th_level</code> from the KVS before every check (every 30 s, and on every sensor temperature change), uses <code>th_comfort</code> or <code>th_eco</code> as the target and switches the relay with a 0.3 °C margin. The Comfort / Eco buttons in the app write the same <code>th_level</code> by hand, until the next job overwrites it.', 'Skrypt termostatu odczytuje <code>th_level</code> z KVS przed każdym sprawdzeniem (co 30 s i przy każdej nowej temperaturze z czujnika), bierze <code>th_comfort</code> albo <code>th_eco</code> jako cel i przełącza przekaźnik z marginesem 0,3 °C. Przyciski Komfort / Eko w aplikacji zapisują ten sam <code>th_level</code> ręcznie, do następnego zadania.'),
 ('The jobs, the KVS and the script all live on the Shelly: no phone, app, cloud or internet needed. The phone is only for changing settings.', 'Zadania, KVS i skrypt są w Shelly: nie potrzeba telefonu, aplikacji, chmury ani internetu. Telefon służy tylko do zmiany ustawień.'),
 ('Holy crap, that’s some next-level nerd stuff 🤓', 'O kurczę, to już nerdowski kosmos 🤓'),
+('Version 27.3: the wide thermostat tile, with Comfort / Eco, big − / + and the Thermostat switch.', 'Wersja 27.3: szeroki kafelek termostatu z Komfort / Eko, dużymi − / + i przełącznikiem Termostat.'),
+('The Heating screen: “Actual Temp.” with the flame beside it.', 'Ekran ogrzewania: „Actual Temp.” z płomieniem obok.'),
+('The device card: the thermostat block over the full width, and a thermometer on the icon.', 'Karta urządzenia: blok termostatu na całą szerokość i termometr na ikonie.'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
