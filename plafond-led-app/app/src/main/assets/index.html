@@ -223,16 +223,17 @@
   .thv{border:1px solid var(--line);border-radius:22px;padding:18px 18px 16px;margin:0 0 16px;background:var(--card)}
   .thv.heat{border-color:var(--on)}
   .thv-n{font-weight:700;font-size:1.05rem}.thv-s{font-size:.8rem;color:var(--muted);margin-top:2px}
-  .thv-lbl{margin-top:12px;font-size:.82rem;color:var(--muted);text-align:center}
-  .thv-big{display:flex;align-items:baseline;justify-content:center;gap:10px;margin:0 0 4px;font-variant-numeric:tabular-nums}
-  .thv{position:relative}
+  .thv-big{display:flex;align-items:flex-end;justify-content:center;gap:14px;margin:12px 0 4px;font-variant-numeric:tabular-nums}
+  .thv-tw .thv-lbl{font-size:.82rem;color:var(--muted);margin-bottom:2px}
+  .thv-tw b{margin-right:8px}
+  .thv-nofl{visibility:hidden}
   .thv-big b{font-size:3.4rem;line-height:1;font-weight:700}.thv-big span{font-size:1.3rem;color:var(--muted)}
   .thv-to{font-size:1.15rem;font-variant-numeric:tabular-nums}.thv-to b{font-size:1.5rem}
   .thv-row{display:flex;gap:10px;margin-top:14px}
   .thv-row button{flex:1;height:54px;border-radius:14px;border:1px solid var(--line);background:transparent;color:inherit;font:inherit;font-size:1rem}
   .thv-row .pm{font-size:1.8rem;line-height:1}
   .thv-row .lvb{font-size:.92rem;white-space:nowrap;padding:0 6px}
-  .thv-big .thv-fl{position:absolute;right:14px;top:10px;font-size:3.4rem;line-height:1;transform-origin:50% 90%}
+  .thv-big .thv-fl{font-size:3.4rem;line-height:1;transform-origin:50% 90%}
   .thv-fl.test{filter:grayscale(1);opacity:.55;font-size:2.4rem}
   @media (prefers-reduced-motion: no-preference){ .thv-fl:not(.test){animation:thvfl 1.1s ease-in-out infinite alternate} }
   @keyframes thvfl{from{transform:scale(1) rotate(0)}to{transform:scale(1.08) rotate(-3deg)}}
@@ -3963,8 +3964,7 @@ function renderThermo(){
     return `<div class="thv${heat && !T.test ? ' heat' : ''}${off ? ' off' : ''}">
       <div class="thv-n">${name}${T.test ? ' <i class="th-test">test</i>' : ''}</div>
       <div class="thv-s">${off ? 'Thermostat off – no heating' : heat ? (T.test ? 'Would heat (test mode)' : 'Heating') : 'Not heating'}${nx && !off ? ' · ' + esc(nx) : ''}</div>
-      <div class="thv-lbl thv-dim">Actual Temp.</div>
-      <div class="thv-big thv-dim"><b>${T.temp != null ? (+T.temp).toFixed(1) : '–'}</b><span>°C</span>${heat ? `<span class="thv-fl${T.test ? ' test' : ''}" aria-label="${T.test ? 'would heat' : 'heating'}">🔥</span>` : ''}</div>
+      <div class="thv-big thv-dim"><div class="thv-tw"><div class="thv-lbl">Actual Temp.</div><b>${T.temp != null ? (+T.temp).toFixed(1) : '–'}</b><span>°C</span></div>${heat ? `<span class="thv-fl${T.test ? ' test' : ''}" aria-label="${T.test ? 'would heat' : 'heating'}">🔥</span>` : '<span class="thv-fl thv-nofl" aria-hidden="true">🔥</span>'}</div>
       <div class="thv-tl thv-dim">${eco ? '🌙 Eco' : '☀️ Comfort'} – heating to</div>
       <div class="thv-adj thv-dim"><button class="pm" aria-label="Lower" data-hold="${ip}|-" onclick="thAdj('${ip}',-0.1)">−</button>
         <button class="thv-chip" aria-label="Set the temperature with a wheel" onclick="thWheel('${ip}')">${eco ? '🌙' : '☀️'} <b>${(+T.set).toFixed(1)}</b> °C</button>
