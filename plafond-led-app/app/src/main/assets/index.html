@@ -3734,7 +3734,7 @@ function startDrag(e, grip){
 // ---- Thermostaat: een script in de Shelly zelf (Gen2+, met temperatuursensor op de Add-on) ----
 // De app installeert het script (assets/thermostat-script.js) en zet instellingen in KVS:
 // th_set (temperatuur), th_mode (on/off), th_sensor (nummer), th_test (on/off). Het script heeft /state en /reload.
-const TH_NAME = 'Thermostat (Scan & Control)', TH_VERSION = 3;   // TH_VERSION = VERSION in het script
+const TH_NAME = 'Thermostat (Scan & Control)', TH_VERSION = 4;   // TH_VERSION = VERSION in het script
 const thRpc = (h, m, p) => appCall('get', [`${h}/rpc/${m}${p ? '?' + Object.keys(p).map(k => k + '=' + encodeURIComponent(JSON.stringify(p[k]))).join('&') : ''}`], 9000);
 const thPost = (h, m, body) => appCall('post', [`${h}/rpc/${m}`, JSON.stringify(body)], 15000);
 async function thFind(h){ const r = await thRpc(h, 'Script.List'); return ((r && r.scripts) || []).find(x => x.name === TH_NAME) || null; }

@@ -34,7 +34,7 @@ let SAFETY_OFF_MINUTES  = 10;   // relay turns off by itself if the script stops
 
 // ================= do not change below this line =================
 
-let VERSION = 3;                // the app checks this to offer an update of the script
+let VERSION = 4;                // the app checks this to offer an update of the script
 
 let CFG = {
   dryRun: TEST_MODE,
@@ -97,45 +97,44 @@ function useLevel() {   // the temperature the thermostat heats to: Comfort or E
   if (t !== CFG.setpoint) log("now " + CFG.level + ": " + f1(t) + " °C");
   CFG.setpoint = t;
 }
+// all settings in ONE call: a Shelly allows only a few calls at the same time
 function loadSettings(then) {
-  let left = 6;
-  let done = function () { left--; if (left === 0) { useLevel(); if (then) then(); } };
-  kvs("th_comfort", function (v) {
-    let n = temp(v); if (n === null) { log("KVS th_comfort = " + v + " is out of range (5-30), ignored"); return; }
-    if (n !== CFG.comfort) log("Comfort changed: " + f1(CFG.comfort) + " -> " + f1(n) + " °C");
-    CFG.comfort = n;
-  }, done);
-  kvs("th_eco", function (v) {
-    let n = temp(v); if (n === null) { log("KVS th_eco = " + v + " is out of range (5-30), ignored"); return; }
-    if (n !== CFG.eco) log("Eco changed: " + f1(CFG.eco) + " -> " + f1(n) + " °C");
-    CFG.eco = n;
-  }, done);
-  kvs("th_level", function (v) {
-    if (v === "comfort" || v === "eco") {
-      if (v !== CFG.level) log("level changed: " + CFG.level + " -> " + v);
-      CFG.level = v;
-    } else log("KVS th_level = " + v + " is not comfort/eco, ignored");
-  }, done);
-  kvs("th_mode", function (v) {
-    if (v === "on" || v === "off") {
-      if (v !== state.mode) log("mode changed: " + state.mode + " -> " + v);
-      state.mode = v;
-    } else log("KVS th_mode = " + v + " is not on/off, ignored");
-  }, done);
-  kvs("th_sensor", function (v) {
-    let n = Number(v);
-    if (n >= 100 && n <= 199) {
-      if (n !== CFG.sensor) log("sensor changed: " + CFG.sensor + " -> " + n);
-      CFG.sensor = n;
-    } else log("KVS th_sensor = " + v + " is not 100-199, ignored");
-  }, done);
-  kvs("th_test", function (v) {
+  Shelly.call("KVS.GetMany", { match: "th_*" }, function (r, err) {
+    let kv = {};
+    if (!err && r && r.items) {
+      if (r.items.length !== undefined) {           // newer firmware: a list
+        for (let i = 0; i < r.items.length; i++) kv[r.items[i].key] = String(r.items[i].value);
+      } else {                                      // older firmware: an object
+        for (let k in r.items) kv[k] = String(r.items[k].value);
+      }
+    } else if (err) log("could not read the settings (error " + err + "), keep the old ones");
+    if (kv.th_comfort !== undefined) {
+      let n = temp(kv.th_comfort);
+      if (n === null) log("KVS th_comfort = " + kv.th_comfort + " is out of range (5-30), ignored");
+      else { if (n !== CFG.comfort) log("Comfort changed: " + f1(CFG.comfort) + " -> " + f1(n) + " °C"); CFG.comfort = n; }
+    }
+    if (kv.th_eco !== undefined) {
+      let n = temp(kv.th_eco);
+      if (n === null) log("KVS th_eco = " + kv.th_eco + " is out of range (5-30), ignored");
+      else { if (n !== CFG.eco) log("Eco changed: " + f1(CFG.eco) + " -> " + f1(n) + " °C"); CFG.eco = n; }
+    }
+    let v = kv.th_level;
+    if (v === "comfort" || v === "eco") { if (v !== CFG.level) log("level changed: " + CFG.level + " -> " + v); CFG.level = v; }
+    v = kv.th_mode;
+    if (v === "on" || v === "off") { if (v !== state.mode) log("mode changed: " + state.mode + " -> " + v); state.mode = v; }
+    if (kv.th_sensor !== undefined) {
+      let n = Number(kv.th_sensor);
+      if (n >= 100 && n <= 199) { if (n !== CFG.sensor) log("sensor changed: " + CFG.sensor + " -> " + n); CFG.sensor = n; }
+    }
+    v = kv.th_test;
     if (v === "on" || v === "off") {
       let test = v === "on";
       if (test !== CFG.dryRun) log("TEST MODE changed: " + (test ? "on (relay is never switched)" : "OFF (relay really switches!)"));
       CFG.dryRun = test;
-    } else log("KVS th_test = " + v + " is not on/off, ignored");
-  }, done);
+    }
+    useLevel();
+    if (then) then();
+  });
 }
 
 // the schedules write th_level; read it at every check (reading KVS does not wear the flash)
@@ -214,8 +213,11 @@ function refreshWatchdog() {
   });
 }
 
+let busy = false;   // one check at a time (a Shelly allows only a few calls at once)
 function check() {
-  loadLevel(doCheck);
+  if (busy) return;
+  busy = true;
+  loadLevel(function () { busy = false; doCheck(); });
 }
 function doCheck() {
   state.round++;

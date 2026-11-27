@@ -703,7 +703,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 
 <span class="jc">// ================= do not change below this line =================</span>
 
-<span class="jk">let</span> VERSION = <span class="jn">3</span>;                <span class="jc">// the app checks this to offer an update of the script</span>
+<span class="jk">let</span> VERSION = <span class="jn">4</span>;                <span class="jc">// the app checks this to offer an update of the script</span>
 
 <span class="jk">let</span> CFG = {
   dryRun: TEST_MODE,
@@ -766,45 +766,44 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   <span class="jk">if</span> (t !== CFG.setpoint) log(<span class="js">&quot;now &quot;</span> + CFG.level + <span class="js">&quot;: &quot;</span> + f1(t) + <span class="js">&quot; °C&quot;</span>);
   CFG.setpoint = t;
 }
+<span class="jc">// all settings in ONE call: a Shelly allows only a few calls at the same time</span>
 <span class="jk">function</span> loadSettings(then) {
-  <span class="jk">let</span> left = <span class="jn">6</span>;
-  <span class="jk">let</span> done = <span class="jk">function</span> () { left--; <span class="jk">if</span> (left === <span class="jn">0</span>) { useLevel(); <span class="jk">if</span> (then) then(); } };
-  kvs(<span class="js">&quot;th_comfort&quot;</span>, <span class="jk">function</span> (v) {
-    <span class="jk">let</span> n = temp(v); <span class="jk">if</span> (n === <span class="jk">null</span>) { log(<span class="js">&quot;KVS th_comfort = &quot;</span> + v + <span class="js">&quot; is out of range (5-30), ignored&quot;</span>); <span class="jk">return</span>; }
-    <span class="jk">if</span> (n !== CFG.comfort) log(<span class="js">&quot;Comfort changed: &quot;</span> + f1(CFG.comfort) + <span class="js">&quot; -&gt; &quot;</span> + f1(n) + <span class="js">&quot; °C&quot;</span>);
-    CFG.comfort = n;
-  }, done);
-  kvs(<span class="js">&quot;th_eco&quot;</span>, <span class="jk">function</span> (v) {
-    <span class="jk">let</span> n = temp(v); <span class="jk">if</span> (n === <span class="jk">null</span>) { log(<span class="js">&quot;KVS th_eco = &quot;</span> + v + <span class="js">&quot; is out of range (5-30), ignored&quot;</span>); <span class="jk">return</span>; }
-    <span class="jk">if</span> (n !== CFG.eco) log(<span class="js">&quot;Eco changed: &quot;</span> + f1(CFG.eco) + <span class="js">&quot; -&gt; &quot;</span> + f1(n) + <span class="js">&quot; °C&quot;</span>);
-    CFG.eco = n;
-  }, done);
-  kvs(<span class="js">&quot;th_level&quot;</span>, <span class="jk">function</span> (v) {
-    <span class="jk">if</span> (v === <span class="js">&quot;comfort&quot;</span> || v === <span class="js">&quot;eco&quot;</span>) {
-      <span class="jk">if</span> (v !== CFG.level) log(<span class="js">&quot;level changed: &quot;</span> + CFG.level + <span class="js">&quot; -&gt; &quot;</span> + v);
-      CFG.level = v;
-    } <span class="jk">else</span> log(<span class="js">&quot;KVS th_level = &quot;</span> + v + <span class="js">&quot; is not comfort/eco, ignored&quot;</span>);
-  }, done);
-  kvs(<span class="js">&quot;th_mode&quot;</span>, <span class="jk">function</span> (v) {
-    <span class="jk">if</span> (v === <span class="js">&quot;on&quot;</span> || v === <span class="js">&quot;off&quot;</span>) {
-      <span class="jk">if</span> (v !== state.mode) log(<span class="js">&quot;mode changed: &quot;</span> + state.mode + <span class="js">&quot; -&gt; &quot;</span> + v);
-      state.mode = v;
-    } <span class="jk">else</span> log(<span class="js">&quot;KVS th_mode = &quot;</span> + v + <span class="js">&quot; is not on/off, ignored&quot;</span>);
-  }, done);
-  kvs(<span class="js">&quot;th_sensor&quot;</span>, <span class="jk">function</span> (v) {
-    <span class="jk">let</span> n = <span class="jf">Number</span>(v);
-    <span class="jk">if</span> (n &gt;= <span class="jn">100</span> &amp;&amp; n &lt;= <span class="jn">199</span>) {
-      <span class="jk">if</span> (n !== CFG.sensor) log(<span class="js">&quot;sensor changed: &quot;</span> + CFG.sensor + <span class="js">&quot; -&gt; &quot;</span> + n);
-      CFG.sensor = n;
-    } <span class="jk">else</span> log(<span class="js">&quot;KVS th_sensor = &quot;</span> + v + <span class="js">&quot; is not 100-199, ignored&quot;</span>);
-  }, done);
-  kvs(<span class="js">&quot;th_test&quot;</span>, <span class="jk">function</span> (v) {
+  <span class="jf">Shelly</span>.call(<span class="js">&quot;KVS.GetMany&quot;</span>, { match: <span class="js">&quot;th_*&quot;</span> }, <span class="jk">function</span> (r, err) {
+    <span class="jk">let</span> kv = {};
+    <span class="jk">if</span> (!err &amp;&amp; r &amp;&amp; r.items) {
+      <span class="jk">if</span> (r.items.length !== <span class="jk">undefined</span>) {           <span class="jc">// newer firmware: a list</span>
+        <span class="jk">for</span> (<span class="jk">let</span> i = <span class="jn">0</span>; i &lt; r.items.length; i++) kv[r.items[i].key] = <span class="jf">String</span>(r.items[i].value);
+      } <span class="jk">else</span> {                                      <span class="jc">// older firmware: an object</span>
+        <span class="jk">for</span> (<span class="jk">let</span> k in r.items) kv[k] = <span class="jf">String</span>(r.items[k].value);
+      }
+    } <span class="jk">else</span> <span class="jk">if</span> (err) log(<span class="js">&quot;could not read the settings (error &quot;</span> + err + <span class="js">&quot;), keep the old ones&quot;</span>);
+    <span class="jk">if</span> (kv.th_comfort !== <span class="jk">undefined</span>) {
+      <span class="jk">let</span> n = temp(kv.th_comfort);
+      <span class="jk">if</span> (n === <span class="jk">null</span>) log(<span class="js">&quot;KVS th_comfort = &quot;</span> + kv.th_comfort + <span class="js">&quot; is out of range (5-30), ignored&quot;</span>);
+      <span class="jk">else</span> { <span class="jk">if</span> (n !== CFG.comfort) log(<span class="js">&quot;Comfort changed: &quot;</span> + f1(CFG.comfort) + <span class="js">&quot; -&gt; &quot;</span> + f1(n) + <span class="js">&quot; °C&quot;</span>); CFG.comfort = n; }
+    }
+    <span class="jk">if</span> (kv.th_eco !== <span class="jk">undefined</span>) {
+      <span class="jk">let</span> n = temp(kv.th_eco);
+      <span class="jk">if</span> (n === <span class="jk">null</span>) log(<span class="js">&quot;KVS th_eco = &quot;</span> + kv.th_eco + <span class="js">&quot; is out of range (5-30), ignored&quot;</span>);
+      <span class="jk">else</span> { <span class="jk">if</span> (n !== CFG.eco) log(<span class="js">&quot;Eco changed: &quot;</span> + f1(CFG.eco) + <span class="js">&quot; -&gt; &quot;</span> + f1(n) + <span class="js">&quot; °C&quot;</span>); CFG.eco = n; }
+    }
+    <span class="jk">let</span> v = kv.th_level;
+    <span class="jk">if</span> (v === <span class="js">&quot;comfort&quot;</span> || v === <span class="js">&quot;eco&quot;</span>) { <span class="jk">if</span> (v !== CFG.level) log(<span class="js">&quot;level changed: &quot;</span> + CFG.level + <span class="js">&quot; -&gt; &quot;</span> + v); CFG.level = v; }
+    v = kv.th_mode;
+    <span class="jk">if</span> (v === <span class="js">&quot;on&quot;</span> || v === <span class="js">&quot;off&quot;</span>) { <span class="jk">if</span> (v !== state.mode) log(<span class="js">&quot;mode changed: &quot;</span> + state.mode + <span class="js">&quot; -&gt; &quot;</span> + v); state.mode = v; }
+    <span class="jk">if</span> (kv.th_sensor !== <span class="jk">undefined</span>) {
+      <span class="jk">let</span> n = <span class="jf">Number</span>(kv.th_sensor);
+      <span class="jk">if</span> (n &gt;= <span class="jn">100</span> &amp;&amp; n &lt;= <span class="jn">199</span>) { <span class="jk">if</span> (n !== CFG.sensor) log(<span class="js">&quot;sensor changed: &quot;</span> + CFG.sensor + <span class="js">&quot; -&gt; &quot;</span> + n); CFG.sensor = n; }
+    }
+    v = kv.th_test;
     <span class="jk">if</span> (v === <span class="js">&quot;on&quot;</span> || v === <span class="js">&quot;off&quot;</span>) {
       <span class="jk">let</span> test = v === <span class="js">&quot;on&quot;</span>;
       <span class="jk">if</span> (test !== CFG.dryRun) log(<span class="js">&quot;TEST MODE changed: &quot;</span> + (test ? <span class="js">&quot;on (relay is never switched)&quot;</span> : <span class="js">&quot;OFF (relay really switches!)&quot;</span>));
       CFG.dryRun = test;
-    } <span class="jk">else</span> log(<span class="js">&quot;KVS th_test = &quot;</span> + v + <span class="js">&quot; is not on/off, ignored&quot;</span>);
-  }, done);
+    }
+    useLevel();
+    <span class="jk">if</span> (then) then();
+  });
 }
 
 <span class="jc">// the schedules write th_level; read it at every check (reading KVS does not wear the flash)</span>
@@ -883,8 +882,11 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   });
 }
 
+<span class="jk">let</span> busy = <span class="jk">false</span>;   <span class="jc">// one check at a time (a Shelly allows only a few calls at once)</span>
 <span class="jk">function</span> check() {
-  loadLevel(doCheck);
+  <span class="jk">if</span> (busy) <span class="jk">return</span>;
+  busy = <span class="jk">true</span>;
+  loadLevel(<span class="jk">function</span> () { busy = <span class="jk">false</span>; doCheck(); });
 }
 <span class="jk">function</span> doCheck() {
   state.round++;
