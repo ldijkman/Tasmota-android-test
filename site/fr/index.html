@@ -308,6 +308,7 @@ footer a{color:var(--muted)}
 @media (hover:hover) and (pointer:fine){.swipe .sw-t{display:none}.swipe .sw-p{display:inline}}
 
 .strip.sh-strip{padding:14px 2px 18px;margin:0 0 6px}
+.strip.brain-strip{padding:14px 2px 18px;margin:6px 0;gap:16px}.strip.brain-strip figure{width:220px}.strip.brain-strip figcaption{font-size:.85rem}
 .sh-fact{margin:0 0 36px}
 .sh-strip figure{width:200px}
 @media (max-width:560px){.sh-row{gap:10px}.sh-row .pl span{font-size:.85rem}}
@@ -654,6 +655,10 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <div class="brain-note"><b>Idée : votre vieille tablette comme thermostat mural</b><p>Offrez une seconde vie à une vieille tablette.<br><i class="aside">(Ou une bonne raison d’en acheter une nouvelle et de réutiliser l’ancienne.)</i><br>Au mur, elle affiche la température de la pièce en grands chiffres, un 🔥 quand la chaudière chauffe, et de grands boutons Boost et Absent que toute la maison peut toucher. Le thermostat lui-même tourne dans le Shelly : le chauffage continue même quand la tablette est éteinte.</p><p class="brain-am">Avec les mêmes programmes faciles à régler que vous connaissez déjà.</p></div>
     <figure class="brain-shot"><img src="../img/thermostat-heating-screen.jpg?v=2" alt="L’écran Chauffage dans l’app : le thermostat lui-même tourne comme script dans le Shelly." loading="lazy" width="540" height="895"><figcaption>L’écran Chauffage dans l’app : le thermostat lui-même tourne comme script dans le Shelly.</figcaption></figure>
     <figure class="brain-shot brain-wide"><img src="../img/thermostat-wheel-picker.jpg" alt="Version 26.7 : réglez la température avec − / + par pas de 0,1 °C, ou touchez le nombre pour une roue. Aussi dans Modifier." loading="lazy" width="1100" height="760"><figcaption>Version 26.7 : réglez la température avec − / + par pas de 0,1 °C, ou touchez le nombre pour une roue. Aussi dans Modifier.</figcaption></figure>
+    <div class="strip brain-strip" tabindex="0" aria-label="Thermostat screenshots, scroll sideways">
+      <figure><img src="../img/thermostat-heating-26-7.jpg" alt="L’écran Chauffage en version 26.7 sur mon téléphone : − / + par pas de 0,1 °C." loading="lazy" width="540" height="1170"><figcaption>L’écran Chauffage en version 26.7 sur mon téléphone : − / + par pas de 0,1 °C.</figcaption></figure>
+      <figure><img src="../img/thermostat-wheel-26-7.jpg" alt="Touchez le nombre : faites tourner la roue, envoyé au Shelly 1,5 s après l’arrêt." loading="lazy" width="540" height="1170"><figcaption>Touchez le nombre : faites tourner la roue, envoyé au Shelly 1,5 s après l’arrêt.</figcaption></figure>
+    </div>
     <div class="jsbox">
       <p class="jsbox-h"><b>Exemple : le thermostat comme script dans le Shelly</b><br><span>Testé sur un Shelly 1 Gen3. Désormais intégré à l’app : Modifier → Use as thermostat l’installe pour vous.</span></p>
       <p class="jsfrost">❄️ Pas de hors-gel dans le script : un script peut s’arrêter. Pour la protection contre le gel, utilisez du matériel mécanique : un thermostat hors-gel à bilame en parallèle du relais Shelly, plus la protection antigel de la chaudière. 🔥 Contre la surchauffe : un thermostat de sécurité maximum normalement fermé (NF), par exemple 30 °C, en série avec le relais.</p>
@@ -1649,7 +1654,7 @@ document.getElementById('jsCopy').addEventListener('click', () => {
   const ph = document.querySelector('.stage .phone'); if (!ph || getComputedStyle(ph).display === 'none') return;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const base = ph.querySelector('img');
-  const list = [...new Set([base.getAttribute('src')].concat([...document.querySelectorAll('.strip img[width="540"]')]
+  const list = [...new Set([base.getAttribute('src')].concat([...document.querySelectorAll('.strip:not(.brain-strip) img[width="540"]')]
     .map(i => i.getAttribute('src')).filter(s => !/hand/.test(s))))];
   if (list.length < 2) return;
   const top = document.createElement('img'); top.className = 'ph2'; top.alt = ''; ph.append(top);

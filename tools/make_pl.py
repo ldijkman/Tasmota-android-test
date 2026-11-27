@@ -505,6 +505,8 @@ T = [
 ('<b>⏱️ Watchdog in the app:</b> on the device card you’ll see an off timer counting down from 10 minutes and starting again every 30 seconds. That’s normal: the script keeps restarting it. If the script stops, the timer runs out and the Shelly switches the heating off by itself.<', '<b>⏱️ Watchdog w aplikacji:</b> na karcie urządzenia zobaczysz timer wyłączenia odliczający od 10 minut i startujący od nowa co 30 sekund. To normalne: skrypt ciągle go restartuje. Gdy skrypt się zatrzyma, timer dobiegnie końca i Shelly sam wyłączy ogrzewanie.<'),
 ('The Heating screen in the app: the thermostat itself runs as a script in the Shelly.', 'Ekran ogrzewania w aplikacji: sam termostat działa jako skrypt w Shelly.'),
 ('Version 26.7: set the temperature with − / + in steps of 0.1 °C, or tap the number for a wheel. Also in Edit.', 'Wersja 26.7: ustaw temperaturę przyciskami − / + co 0,1 °C albo stuknij liczbę, aby otworzyć kółko. Także w Edycji.'),
+('The Heating screen in version 26.7 on my phone: − / + in steps of 0.1 °C.', 'Ekran ogrzewania w wersji 26.7 na moim telefonie: − / + co 0,1 °C.'),
+('Tap the number: swipe the wheel, it is sent to the Shelly 1.5 s after you stop.', 'Stuknij liczbę: przewiń kółko, wartość trafia do Shelly 1,5 s po zatrzymaniu.'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

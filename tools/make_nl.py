@@ -531,6 +531,8 @@ T = [
 ('<b>⏱️ Watchdog in the app:</b> on the device card you’ll see an off timer counting down from 10 minutes and starting again every 30 seconds. That’s normal: the script keeps restarting it. If the script stops, the timer runs out and the Shelly switches the heating off by itself.<', '<b>⏱️ Watchdog in de app:</b> op de apparaatkaart zie je een uit-timer die aftelt vanaf 10 minuten en elke 30 seconden opnieuw begint. Dat is normaal: het script start hem steeds opnieuw. Stopt het script, dan loopt de timer af en zet de Shelly de verwarming zelf uit.<'),
 ('The Heating screen in the app: the thermostat itself runs as a script in the Shelly.', 'Het verwarmingsscherm in de app: de thermostaat zelf draait als script in de Shelly.'),
 ('Version 26.7: set the temperature with − / + in steps of 0.1 °C, or tap the number for a wheel. Also in Edit.', 'Versie 26.7: zet de temperatuur met − / + in stappen van 0,1 °C, of tik op het getal voor een draaiwiel. Ook in Bewerken.'),
+('The Heating screen in version 26.7 on my phone: − / + in steps of 0.1 °C.', 'Het verwarmingsscherm in versie 26.7 op mijn telefoon: − / + in stappen van 0,1 °C.'),
+('Tap the number: swipe the wheel, it is sent to the Shelly 1.5 s after you stop.', 'Tik op het getal: draai het wiel, het gaat 1,5 s nadat je stopt naar de Shelly.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

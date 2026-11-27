@@ -308,6 +308,7 @@ footer a{color:var(--muted)}
 @media (hover:hover) and (pointer:fine){.swipe .sw-t{display:none}.swipe .sw-p{display:inline}}
 
 .strip.sh-strip{padding:14px 2px 18px;margin:0 0 6px}
+.strip.brain-strip{padding:14px 2px 18px;margin:6px 0;gap:16px}.strip.brain-strip figure{width:220px}.strip.brain-strip figcaption{font-size:.85rem}
 .sh-fact{margin:0 0 36px}
 .sh-strip figure{width:200px}
 @media (max-width:560px){.sh-row{gap:10px}.sh-row .pl span{font-size:.85rem}}
@@ -654,6 +655,10 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <div class="brain-note"><b>Idea: tu tablet antigua como termostato en la pared</b><p>Dale una segunda vida a una tablet antigua.<br><i class="aside">(O una buena razón para comprar una nueva y reutilizar la antigua.)</i><br>En la pared muestra la temperatura de la habitación en números grandes, un 🔥 cuando la caldera calienta, y grandes botones de Boost y Ausente que cualquiera en casa puede tocar. El termostato funciona dentro del Shelly, así que la calefacción sigue funcionando aunque la tablet esté apagada.</p><p class="brain-am">Con los mismos horarios fáciles de configurar que ya conoces.</p></div>
     <figure class="brain-shot"><img src="../img/thermostat-heating-screen.jpg?v=2" alt="La pantalla de calefacción en la app: el termostato funciona como script dentro del Shelly." loading="lazy" width="540" height="895"><figcaption>La pantalla de calefacción en la app: el termostato funciona como script dentro del Shelly.</figcaption></figure>
     <figure class="brain-shot brain-wide"><img src="../img/thermostat-wheel-picker.jpg" alt="Versión 26.7: ajusta la temperatura con − / + en pasos de 0,1 °C, o toca el número para una rueda. También en Editar." loading="lazy" width="1100" height="760"><figcaption>Versión 26.7: ajusta la temperatura con − / + en pasos de 0,1 °C, o toca el número para una rueda. También en Editar.</figcaption></figure>
+    <div class="strip brain-strip" tabindex="0" aria-label="Thermostat screenshots, scroll sideways">
+      <figure><img src="../img/thermostat-heating-26-7.jpg" alt="La pantalla de calefacción en la versión 26.7 en mi móvil: − / + en pasos de 0,1 °C." loading="lazy" width="540" height="1170"><figcaption>La pantalla de calefacción en la versión 26.7 en mi móvil: − / + en pasos de 0,1 °C.</figcaption></figure>
+      <figure><img src="../img/thermostat-wheel-26-7.jpg" alt="Toca el número: gira la rueda, se envía al Shelly 1,5 s después de parar." loading="lazy" width="540" height="1170"><figcaption>Toca el número: gira la rueda, se envía al Shelly 1,5 s después de parar.</figcaption></figure>
+    </div>
     <div class="jsbox">
       <p class="jsbox-h"><b>Ejemplo: el termostato como script en el Shelly</b><br><span>Probado en un Shelly 1 Gen3. Ahora integrado en la app: Editar → Use as thermostat lo instala por ti.</span></p>
       <p class="jsfrost">❄️ Sin protección antiheladas en el script: un script puede detenerse. Para la protección antiheladas usa hardware mecánico: un termostato antiheladas bimetálico en paralelo con el relé del Shelly, más la protección antiheladas propia de la caldera. 🔥 Contra el sobrecalentamiento: un termostato de máxima normalmente cerrado (NC), por ejemplo de 30 °C, en serie con el relé.</p>
@@ -1649,7 +1654,7 @@ document.getElementById('jsCopy').addEventListener('click', () => {
   const ph = document.querySelector('.stage .phone'); if (!ph || getComputedStyle(ph).display === 'none') return;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const base = ph.querySelector('img');
-  const list = [...new Set([base.getAttribute('src')].concat([...document.querySelectorAll('.strip img[width="540"]')]
+  const list = [...new Set([base.getAttribute('src')].concat([...document.querySelectorAll('.strip:not(.brain-strip) img[width="540"]')]
     .map(i => i.getAttribute('src')).filter(s => !/hand/.test(s))))];
   if (list.length < 2) return;
   const top = document.createElement('img'); top.className = 'ph2'; top.alt = ''; ph.append(top);

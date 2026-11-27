@@ -308,6 +308,7 @@ footer a{color:var(--muted)}
 @media (hover:hover) and (pointer:fine){.swipe .sw-t{display:none}.swipe .sw-p{display:inline}}
 
 .strip.sh-strip{padding:14px 2px 18px;margin:0 0 6px}
+.strip.brain-strip{padding:14px 2px 18px;margin:6px 0;gap:16px}.strip.brain-strip figure{width:220px}.strip.brain-strip figcaption{font-size:.85rem}
 .sh-fact{margin:0 0 36px}
 .sh-strip figure{width:200px}
 @media (max-width:560px){.sh-row{gap:10px}.sh-row .pl span{font-size:.85rem}}
@@ -654,6 +655,10 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <div class="brain-note"><b>Idee: je oude tablet als thermostaat aan de muur</b><p>Geef een oude tablet een tweede leven.<br><i class="aside">(Of een goede reden om een nieuwe te kopen en de oude te hergebruiken.)</i><br>Aan de muur toont hij de kamertemperatuur in grote cijfers, een 🔥 als de ketel stookt, en grote knoppen voor Boost en Weg die iedereen in huis kan aantikken. De thermostaat zelf draait in de Shelly, dus de verwarming blijft werken, ook als de tablet uit staat.</p><p class="brain-am">Met dezelfde makkelijk in te stellen schema’s die je al kent.</p></div>
     <figure class="brain-shot"><img src="../img/thermostat-heating-screen.jpg?v=2" alt="Het verwarmingsscherm in de app: de thermostaat zelf draait als script in de Shelly." loading="lazy" width="540" height="895"><figcaption>Het verwarmingsscherm in de app: de thermostaat zelf draait als script in de Shelly.</figcaption></figure>
     <figure class="brain-shot brain-wide"><img src="../img/thermostat-wheel-picker.jpg" alt="Versie 26.7: zet de temperatuur met − / + in stappen van 0,1 °C, of tik op het getal voor een draaiwiel. Ook in Bewerken." loading="lazy" width="1100" height="760"><figcaption>Versie 26.7: zet de temperatuur met − / + in stappen van 0,1 °C, of tik op het getal voor een draaiwiel. Ook in Bewerken.</figcaption></figure>
+    <div class="strip brain-strip" tabindex="0" aria-label="Thermostat screenshots, scroll sideways">
+      <figure><img src="../img/thermostat-heating-26-7.jpg" alt="Het verwarmingsscherm in versie 26.7 op mijn telefoon: − / + in stappen van 0,1 °C." loading="lazy" width="540" height="1170"><figcaption>Het verwarmingsscherm in versie 26.7 op mijn telefoon: − / + in stappen van 0,1 °C.</figcaption></figure>
+      <figure><img src="../img/thermostat-wheel-26-7.jpg" alt="Tik op het getal: draai het wiel, het gaat 1,5 s nadat je stopt naar de Shelly." loading="lazy" width="540" height="1170"><figcaption>Tik op het getal: draai het wiel, het gaat 1,5 s nadat je stopt naar de Shelly.</figcaption></figure>
+    </div>
     <div class="jsbox">
       <p class="jsbox-h"><b>Voorbeeld: de thermostaat als script in de Shelly</b><br><span>Getest op een Shelly 1 Gen3. Nu ingebouwd in de app: Bewerken → Use as thermostat installeert hem voor je.</span></p>
       <p class="jsfrost">❄️ Geen vorstbeveiliging in het script: een script kan stoppen. Gebruik voor vorstbeveiliging mechanische hardware: een bimetaal-vorstthermostaat parallel aan het Shelly-relais, plus de eigen vorstbeveiliging van de ketel. 🔥 Tegen oververhitting: een normaal gesloten (NC) maximaalthermostaat, bijvoorbeeld 30 °C, in serie met het relais.</p>
@@ -1649,7 +1654,7 @@ document.getElementById('jsCopy').addEventListener('click', () => {
   const ph = document.querySelector('.stage .phone'); if (!ph || getComputedStyle(ph).display === 'none') return;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const base = ph.querySelector('img');
-  const list = [...new Set([base.getAttribute('src')].concat([...document.querySelectorAll('.strip img[width="540"]')]
+  const list = [...new Set([base.getAttribute('src')].concat([...document.querySelectorAll('.strip:not(.brain-strip) img[width="540"]')]
     .map(i => i.getAttribute('src')).filter(s => !/hand/.test(s))))];
   if (list.length < 2) return;
   const top = document.createElement('img'); top.className = 'ph2'; top.alt = ''; ph.append(top);

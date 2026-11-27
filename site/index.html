@@ -307,6 +307,7 @@ footer a{color:var(--muted)}
 @media (hover:hover) and (pointer:fine){.swipe .sw-t{display:none}.swipe .sw-p{display:inline}}
 
 .strip.sh-strip{padding:14px 2px 18px;margin:0 0 6px}
+.strip.brain-strip{padding:14px 2px 18px;margin:6px 0;gap:16px}.strip.brain-strip figure{width:220px}.strip.brain-strip figcaption{font-size:.85rem}
 .sh-fact{margin:0 0 36px}
 .sh-strip figure{width:200px}
 @media (max-width:560px){.sh-row{gap:10px}.sh-row .pl span{font-size:.85rem}}
@@ -653,6 +654,10 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <div class="brain-note"><b>Idea: your old tablet as the thermostat on the wall</b><p>Give an old tablet a second life.<br><i class="aside">(Or a good reason to buy a new tablet and reuse the old.)</i><br>On the wall it shows the room temperature in big numbers, a 🔥 when the boiler is heating, and big Boost and Away buttons that everyone in the house can tap. The thermostat itself runs in the Shelly, so the heating keeps working even when the tablet is off.</p><p class="brain-am">With the same easy-to-set schedules you’re already familiar with.</p></div>
     <figure class="brain-shot"><img src="img/thermostat-heating-screen.jpg?v=2" alt="The Heating screen in the app: the thermostat itself runs as a script in the Shelly." loading="lazy" width="540" height="895"><figcaption>The Heating screen in the app: the thermostat itself runs as a script in the Shelly.</figcaption></figure>
     <figure class="brain-shot brain-wide"><img src="img/thermostat-wheel-picker.jpg" alt="Version 26.7: set the temperature with − / + in steps of 0.1 °C, or tap the number for a wheel. Also in Edit." loading="lazy" width="1100" height="760"><figcaption>Version 26.7: set the temperature with − / + in steps of 0.1 °C, or tap the number for a wheel. Also in Edit.</figcaption></figure>
+    <div class="strip brain-strip" tabindex="0" aria-label="Thermostat screenshots, scroll sideways">
+      <figure><img src="img/thermostat-heating-26-7.jpg" alt="The Heating screen in version 26.7 on my phone: − / + in steps of 0.1 °C." loading="lazy" width="540" height="1170"><figcaption>The Heating screen in version 26.7 on my phone: − / + in steps of 0.1 °C.</figcaption></figure>
+      <figure><img src="img/thermostat-wheel-26-7.jpg" alt="Tap the number: swipe the wheel, it is sent to the Shelly 1.5 s after you stop." loading="lazy" width="540" height="1170"><figcaption>Tap the number: swipe the wheel, it is sent to the Shelly 1.5 s after you stop.</figcaption></figure>
+    </div>
     <div class="jsbox">
       <p class="jsbox-h"><b>Example: the thermostat as a script in the Shelly</b><br><span>Tested on a Shelly 1 Gen3. Now built into the app: Edit → Use as thermostat installs it for you.</span></p>
       <p class="jsfrost">❄️ No frost guard in the script: a script can stop. For frost protection use mechanical hardware: a bimetal frost thermostat wired in parallel with the Shelly relay, plus the boiler’s own frost protection. 🔥 Against overheating: a normally closed (NC) max thermostat, for example 30 °C, in series with the relay.</p>
@@ -1648,7 +1653,7 @@ document.getElementById('jsCopy').addEventListener('click', () => {
   const ph = document.querySelector('.stage .phone'); if (!ph || getComputedStyle(ph).display === 'none') return;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const base = ph.querySelector('img');
-  const list = [...new Set([base.getAttribute('src')].concat([...document.querySelectorAll('.strip img[width="540"]')]
+  const list = [...new Set([base.getAttribute('src')].concat([...document.querySelectorAll('.strip:not(.brain-strip) img[width="540"]')]
     .map(i => i.getAttribute('src')).filter(s => !/hand/.test(s))))];
   if (list.length < 2) return;
   const top = document.createElement('img'); top.className = 'ph2'; top.alt = ''; ph.append(top);

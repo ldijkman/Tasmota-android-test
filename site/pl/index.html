@@ -308,6 +308,7 @@ footer a{color:var(--muted)}
 @media (hover:hover) and (pointer:fine){.swipe .sw-t{display:none}.swipe .sw-p{display:inline}}
 
 .strip.sh-strip{padding:14px 2px 18px;margin:0 0 6px}
+.strip.brain-strip{padding:14px 2px 18px;margin:6px 0;gap:16px}.strip.brain-strip figure{width:220px}.strip.brain-strip figcaption{font-size:.85rem}
 .sh-fact{margin:0 0 36px}
 .sh-strip figure{width:200px}
 @media (max-width:560px){.sh-row{gap:10px}.sh-row .pl span{font-size:.85rem}}
@@ -654,6 +655,10 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <div class="brain-note"><b>Pomysł: stary tablet jako termostat na ścianie</b><p>Daj staremu tabletowi drugie życie.<br><i class="aside">(Albo dobry powód, by kupić nowy, a stary wykorzystać ponownie.)</i><br>Na ścianie pokazuje temperaturę w pokoju dużymi cyframi, 🔥 gdy kocioł grzeje, oraz duże przyciski Boost i Nieobecny, które każdy domownik może nacisnąć. Sam termostat działa w Shelly, więc ogrzewanie działa dalej, nawet gdy tablet jest wyłączony.</p><p class="brain-am">Z tymi samymi łatwymi w ustawieniu harmonogramami, które już znasz.</p></div>
     <figure class="brain-shot"><img src="../img/thermostat-heating-screen.jpg?v=2" alt="Ekran ogrzewania w aplikacji: sam termostat działa jako skrypt w Shelly." loading="lazy" width="540" height="895"><figcaption>Ekran ogrzewania w aplikacji: sam termostat działa jako skrypt w Shelly.</figcaption></figure>
     <figure class="brain-shot brain-wide"><img src="../img/thermostat-wheel-picker.jpg" alt="Wersja 26.7: ustaw temperaturę przyciskami − / + co 0,1 °C albo stuknij liczbę, aby otworzyć kółko. Także w Edycji." loading="lazy" width="1100" height="760"><figcaption>Wersja 26.7: ustaw temperaturę przyciskami − / + co 0,1 °C albo stuknij liczbę, aby otworzyć kółko. Także w Edycji.</figcaption></figure>
+    <div class="strip brain-strip" tabindex="0" aria-label="Thermostat screenshots, scroll sideways">
+      <figure><img src="../img/thermostat-heating-26-7.jpg" alt="Ekran ogrzewania w wersji 26.7 na moim telefonie: − / + co 0,1 °C." loading="lazy" width="540" height="1170"><figcaption>Ekran ogrzewania w wersji 26.7 na moim telefonie: − / + co 0,1 °C.</figcaption></figure>
+      <figure><img src="../img/thermostat-wheel-26-7.jpg" alt="Stuknij liczbę: przewiń kółko, wartość trafia do Shelly 1,5 s po zatrzymaniu." loading="lazy" width="540" height="1170"><figcaption>Stuknij liczbę: przewiń kółko, wartość trafia do Shelly 1,5 s po zatrzymaniu.</figcaption></figure>
+    </div>
     <div class="jsbox">
       <p class="jsbox-h"><b>Przykład: termostat jako skrypt w Shelly</b><br><span>Przetestowany na Shelly 1 Gen3. Teraz wbudowany w aplikację: Edytuj → Use as thermostat instaluje go za ciebie.</span></p>
       <p class="jsfrost">❄️ Brak ochrony przed mrozem w skrypcie: skrypt może się zatrzymać. Do ochrony przed mrozem użyj sprzętu mechanicznego: bimetalicznego termostatu przeciwmrozowego równolegle z przekaźnikiem Shelly oraz własnej ochrony przeciwmrozowej kotła. 🔥 Przeciw przegrzaniu: normalnie zamknięty (NC) termostat maksymalny, na przykład 30 °C, szeregowo z przekaźnikiem.</p>
@@ -1649,7 +1654,7 @@ document.getElementById('jsCopy').addEventListener('click', () => {
   const ph = document.querySelector('.stage .phone'); if (!ph || getComputedStyle(ph).display === 'none') return;
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   const base = ph.querySelector('img');
-  const list = [...new Set([base.getAttribute('src')].concat([...document.querySelectorAll('.strip img[width="540"]')]
+  const list = [...new Set([base.getAttribute('src')].concat([...document.querySelectorAll('.strip:not(.brain-strip) img[width="540"]')]
     .map(i => i.getAttribute('src')).filter(s => !/hand/.test(s))))];
   if (list.length < 2) return;
   const top = document.createElement('img'); top.className = 'ph2'; top.alt = ''; ph.append(top);
