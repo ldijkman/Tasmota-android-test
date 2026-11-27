@@ -22,6 +22,14 @@ Ideas we talked about and want to build later. Nothing here is in the app yet.
 - Notes: uses the user's own Google account (the only cloud part, so optional); no internet = only that line is lost,
   the thermostat keeps working; not more often than every 5 min. Alternative: a small Google Apps Script web app.
 - Fully local alternative: keep the last 24 h in the Shelly and draw the graph in the app (see "history graph").
+- Easy setup (about 2 minutes, most Android users have a Google account):
+  1. One ready-made template form (fields: temperature, target, heating). In the app a button **Make my copy**
+     opens the form's `/copy` link: one tap and the user has the form in his own Google account.
+  2. In the form: Send → copy link, paste that link in the app.
+  3. The app reads the form page itself and finds the `entry.` numbers automatically (nobody needs to know them).
+     Fallback: if Google changes its page and this fails, the app asks for the numbers by hand.
+  4. The user links the Sheet once (Responses → Link to Sheets) and makes the chart (Insert → Chart),
+     with a short how-to and a small picture in the app.
 
 ## Other ideas from earlier
 - Thermostat: Boost (warm for an hour) and Away (one low temperature until you are back).
