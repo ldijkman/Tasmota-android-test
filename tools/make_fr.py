@@ -367,6 +367,8 @@ T = [
 ('Version 26.7: set the temperature with − / + in steps of 0.1 °C, or tap the number for a wheel. Also in Edit.', 'Version 26.7 : réglez la température avec − / + par pas de 0,1 °C, ou touchez le nombre pour une roue. Aussi dans Modifier.'),
 ('The Heating screen in version 26.7 on my phone: − / + in steps of 0.1 °C.', 'L’écran Chauffage en version 26.7 sur mon téléphone : − / + par pas de 0,1 °C.'),
 ('Tap the number: swipe the wheel, it is sent to the Shelly 1.5 s after you stop.', 'Touchez le nombre : faites tourner la roue, envoyé au Shelly 1,5 s après l’arrêt.'),
+('The device card: the thermostat with Comfort / Eco, − / + and the Thermostat switch.', 'La carte de l’appareil : le thermostat avec Confort / Éco, − / + et l’interrupteur Thermostat.'),
+('The Tiles screen: the thermostat tile with − / +, next to the other switches.', 'L’écran Tuiles : la tuile du thermostat avec − / +, à côté des autres interrupteurs.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

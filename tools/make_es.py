@@ -510,6 +510,8 @@ T = [
 ('Version 26.7: set the temperature with − / + in steps of 0.1 °C, or tap the number for a wheel. Also in Edit.', 'Versión 26.7: ajusta la temperatura con − / + en pasos de 0,1 °C, o toca el número para una rueda. También en Editar.'),
 ('The Heating screen in version 26.7 on my phone: − / + in steps of 0.1 °C.', 'La pantalla de calefacción en la versión 26.7 en mi móvil: − / + en pasos de 0,1 °C.'),
 ('Tap the number: swipe the wheel, it is sent to the Shelly 1.5 s after you stop.', 'Toca el número: gira la rueda, se envía al Shelly 1,5 s después de parar.'),
+('The device card: the thermostat with Comfort / Eco, − / + and the Thermostat switch.', 'La tarjeta del dispositivo: el termostato con Confort / Eco, − / + y el interruptor Termostato.'),
+('The Tiles screen: the thermostat tile with − / +, next to the other switches.', 'La pantalla Mosaicos: el mosaico del termostato con − / +, junto a los otros interruptores.'),
 ]
 
 

@@ -507,6 +507,8 @@ T = [
 ('Version 26.7: set the temperature with − / + in steps of 0.1 °C, or tap the number for a wheel. Also in Edit.', 'Wersja 26.7: ustaw temperaturę przyciskami − / + co 0,1 °C albo stuknij liczbę, aby otworzyć kółko. Także w Edycji.'),
 ('The Heating screen in version 26.7 on my phone: − / + in steps of 0.1 °C.', 'Ekran ogrzewania w wersji 26.7 na moim telefonie: − / + co 0,1 °C.'),
 ('Tap the number: swipe the wheel, it is sent to the Shelly 1.5 s after you stop.', 'Stuknij liczbę: przewiń kółko, wartość trafia do Shelly 1,5 s po zatrzymaniu.'),
+('The device card: the thermostat with Comfort / Eco, − / + and the Thermostat switch.', 'Karta urządzenia: termostat z Komfort / Eko, − / + i przełącznikiem Termostat.'),
+('The Tiles screen: the thermostat tile with − / +, next to the other switches.', 'Ekran Kafelki: kafelek termostatu z − / +, obok innych przełączników.'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

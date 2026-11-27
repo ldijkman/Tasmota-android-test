@@ -371,6 +371,8 @@ T = [
 ('Version 26.7: set the temperature with − / + in steps of 0.1 °C, or tap the number for a wheel. Also in Edit.', 'Version 26.7: Temperatur mit − / + in Schritten von 0,1 °C einstellen, oder auf die Zahl tippen für ein Drehrad. Auch in Bearbeiten.'),
 ('The Heating screen in version 26.7 on my phone: − / + in steps of 0.1 °C.', 'Der Heizungsbildschirm in Version 26.7 auf meinem Handy: − / + in Schritten von 0,1 °C.'),
 ('Tap the number: swipe the wheel, it is sent to the Shelly 1.5 s after you stop.', 'Auf die Zahl tippen: Rad drehen, 1,5 s nach dem Stoppen geht es an den Shelly.'),
+('The device card: the thermostat with Comfort / Eco, − / + and the Thermostat switch.', 'Die Gerätekarte: der Thermostat mit Komfort / Eco, − / + und dem Thermostat-Schalter.'),
+('The Tiles screen: the thermostat tile with − / +, next to the other switches.', 'Der Kacheln-Bildschirm: die Thermostat-Kachel mit − / +, neben den anderen Schaltern.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
