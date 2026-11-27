@@ -3934,8 +3934,13 @@ function thLevel(ip, lv){   // Comfort / Eco met de hand (tot het volgende schem
     .then(() => new Promise(r => setTimeout(r, 1000))).then(() => fetchThermo(ip)).then(thRedraw)
     .catch(() => { scanNote = '<span style="color:var(--err)">Could not change Comfort/Eco.</span>'; renderDevs(); });
 }
-function thMode(ip){
+function thMode(ip, sure){
   const T = devThermo[ip]; if (!T || T.err) return;
+  if (T.mode !== 'off' && !sure){   // uitzetten: eerst vragen (de verwarming blijft dan uit)
+    const d = loadDevs().find(x => x.ip === ip), nm = esc((d && (d.friendly || d.name)) || hostOf(ip));
+    return askConfirm(`<b>Turn off the thermostat?</b><br>${nm}: the heating stays off until you turn it on again.`,
+      () => thMode(ip, true), 'Yes, turn off', true, 'No');
+  }
   T.mode = T.mode === 'off' ? 'on' : 'off'; if (T.mode === 'off') T.heating = false; thRedraw();
   thSetting('http://' + hostOf(ip), thermoOf(ip), {th_mode: T.mode})
     .then(() => new Promise(r => setTimeout(r, 1200))).then(() => fetchThermo(ip)).then(thRedraw)
