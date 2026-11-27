@@ -3003,7 +3003,8 @@ function updWaiting(){
 }
 async function installAgain(){
   updSay('Opening the install screen…');
-  try { await appCall('installDownloaded', [], 30000); updWaiting(); }
+  // eerst het (al gemaakte) Android-bevestigingsscherm opnieuw tonen, anders de APK direct openen
+  try { await appCall('installOpen', [], 15000); updSay('Tap <b>Install</b> (or <b>Update</b>) in the Android screen.'); }
   catch(e){ updSay(`<span style="color:var(--err)">Could not start the install.</span><br><span style="font-size:.7rem;opacity:.8">${esc(String(e && e.message || e).slice(0, 140))}</span>`); }
 }
 // Status van Android (PackageInstaller): -1 = bevestigen, 0 = gelukt, 3 = geannuleerd, anders mislukt

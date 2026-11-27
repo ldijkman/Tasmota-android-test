@@ -23,7 +23,16 @@ public class UpdateReceiver extends BroadcastReceiver {
             else confirm = intent.getParcelableExtra(Intent.EXTRA_INTENT);
             if (confirm != null) {
                 confirm.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                try { ctx.startActivity(confirm); } catch (Exception e) { msg = e.toString(); status = -998; }
+                MainActivity a = MainActivity.instance;
+                // vanuit het open app-scherm starten: sommige telefoons (bijv. Samsung A40, Android 11)
+                // laten het bevestigingsscherm vanuit een receiver niet zien
+                if (a != null) {
+                    final Intent c = confirm;
+                    a.pendingConfirm = c;
+                    a.runOnUiThread(() -> { try { a.startActivity(c); } catch (Exception e) { a.updateStatus(-998, e.toString()); } });
+                } else {
+                    try { ctx.startActivity(confirm); } catch (Exception e) { msg = e.toString(); status = -998; }
+                }
             }
         }
         MainActivity a = MainActivity.instance;

@@ -160,6 +160,8 @@ public class MainActivity extends Activity {
 
     /** Laatst geopende app-scherm, zodat de installatie-status terug kan naar de pagina */
     static volatile MainActivity instance;
+    /** Laatste bevestigingsscherm van Android (voor "Open the install screen again") */
+    volatile android.content.Intent pendingConfirm;
 
     /**
      * Installeren via de PackageInstaller-sessie van Android (betrouwbaarder dan het APK "openen").
@@ -617,6 +619,27 @@ public class MainActivity extends Activity {
             java.io.File f = ApkProvider.apkFile(MainActivity.this);
             if (!f.exists() || f.length() < 10000) { callback(id, false, "no download"); return; }
             new Thread(() -> installApk(f, id)).start();
+        }
+
+        /** Tasmota.installOpen(id): het installatiescherm direct openen (zonder sessie), als het andere niet verschijnt */
+        @JavascriptInterface
+        public void installOpen(final String id) {
+            runOnUiThread(() -> {
+                try {
+                    android.content.Intent c = pendingConfirm;
+                    if (c != null) { pendingConfirm = null; startActivity(c); callback(id, true, "\"ok\""); return; }
+                } catch (Exception ignored) { }
+                try {
+                    java.io.File f = ApkProvider.apkFile(MainActivity.this);
+                    if (!f.exists() || f.length() < 10000) { callback(id, false, "no download"); return; }
+                    android.content.Intent i = new android.content.Intent(android.content.Intent.ACTION_VIEW)
+                            .setDataAndType(ApkProvider.uri(), ApkProvider.MIME)
+                            .addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION
+                                    | android.content.Intent.FLAG_ACTIVITY_NEW_TASK);
+                    startActivity(i);
+                    callback(id, true, "\"ok\"");
+                } catch (Exception e) { callback(id, false, e.toString()); }
+            });
         }
 
         /** Tasmota.syncScenes(json): scènes voor de scène-widget */
