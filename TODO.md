@@ -15,6 +15,8 @@ Ideas we talked about and want to build later. Nothing here is in the app yet.
   - a short loop made from **your own wood-stove video** (about 10 s, close up, phone steady, in the dark).
 - Only animates while it is really heating; respects "reduce motion".
 
+- device card edit: thin box outline around thermostat section
+
 ## Other ideas from earlier
 - Thermostat: Boost (warm for an hour) and Away (one low temperature until you are back).
 - Temperature history graph (hourly min/max kept by the script, longer history on the phone or wall panel).
