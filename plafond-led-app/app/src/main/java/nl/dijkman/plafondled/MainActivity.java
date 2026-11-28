@@ -44,6 +44,7 @@ public class MainActivity extends Activity {
 
         WebSettings s = web.getSettings();
         s.setJavaScriptEnabled(true);
+        s.setMediaPlaybackRequiresUserGesture(false);   // thermostaat-waarschuwing mag piepen zonder eerst te tikken
         s.setDomStorageEnabled(true);
         s.setAllowFileAccess(true);
         // standaard laat de WebView geen tekst kleiner dan 8px toe; de IP op de kaarten is bewust heel klein

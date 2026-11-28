@@ -247,6 +247,10 @@
   .td-thi{vertical-align:-2px;color:#ff6a1f;flex:none}
   .th-alarm{margin:8px 0 0;padding:8px 10px;border-radius:10px;background:rgba(229,72,77,.14);color:var(--err);font-weight:700;font-size:.9rem}
   .thw .w-sub.w-alarm{color:var(--err);font-weight:700}
+  .th-sub-al{color:var(--err);font-weight:700}
+  .th-silr{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+  .th-silb{height:36px;padding:0 12px;border-radius:10px;border:1px solid var(--err);background:transparent;color:var(--err);font:inherit;font-size:.85rem;font-weight:700}
+  .th-silent{display:inline-block;margin-left:6px;font-size:.8rem;font-weight:400;opacity:.8}
   .thv-adj{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:6px}
   .thv-adj .pm{flex:none;width:58px;height:58px;border-radius:50%;border:1px solid var(--line);background:transparent;color:inherit;font:inherit;font-size:1.8rem;line-height:1;touch-action:manipulation;-webkit-user-select:none;user-select:none}
   .thv-chip{display:flex;align-items:center;gap:6px;height:58px;padding:0 18px;border-radius:29px;border:2px solid var(--on);background:transparent;color:var(--on);font:inherit;font-size:1.05rem;white-space:nowrap}
@@ -3992,6 +3996,35 @@ function thAlarm(T){
   return '';
 }
 const thMargin = T => (T && +T.margin) || 0.3;
+// ---- waarschuwingsgeluid: zolang er een thermostaat-waarschuwing is "piep piep" elke 30 s (alleen als de app open is) ----
+const thBeepOn = () => localStorage.getItem('tas_thbeep') !== '0';
+const thSil = JSON.parse(localStorage.getItem('tas_thsil') || '{}');   // ip -> tot wanneer stil (ms), of -1 = tot de waarschuwing weg is
+const thSilSave = () => localStorage.setItem('tas_thsil', JSON.stringify(thSil));
+function thSilence(ip, until){ thSil[ip] = until; thSilSave(); thRedraw(); showToast(until === -1 ? 'Warning sound off until the warning is gone' : 'Warning sound off for 1 hour', 3000); }
+let thAC = null, thLastBeep = 0;
+function thBeep(){
+  try {
+    thAC = thAC || new (window.AudioContext || window.webkitAudioContext)();
+    if (thAC.state === 'suspended') thAC.resume();
+    [0, 0.25].forEach(t0 => { const o = thAC.createOscillator(), g = thAC.createGain(), t = thAC.currentTime + t0;
+      o.type = 'square'; o.frequency.value = 1760; g.gain.setValueAtTime(0.0001, t); g.gain.exponentialRampToValueAtTime(0.25, t + 0.01);
+      g.gain.setValueAtTime(0.25, t + 0.14); g.gain.exponentialRampToValueAtTime(0.0001, t + 0.16); o.connect(g).connect(thAC.destination); o.start(t); o.stop(t + 0.17); });
+  } catch(e){}
+  if (navigator.vibrate) try { navigator.vibrate([150, 100, 150]); } catch(_){}
+}
+const thSilent = ip => { const u = thSil[ip]; return u === -1 || (u && u > Date.now()); };
+setInterval(() => {
+  let any = false, changed = false;
+  Object.keys(devThermo).forEach(ip => { const T = devThermo[ip], a = !!(thermoOf(ip) && thAlarm(T));
+    if (!a && thSil[ip]){ delete thSil[ip]; changed = true; }          // waarschuwing weg: stilte vergeten
+    if (a && !thSilent(ip)) any = true; });
+  if (changed) thSilSave();
+  if (any && thBeepOn() && document.visibilityState === 'visible' && Date.now() - thLastBeep >= 29000){ thLastBeep = Date.now(); thBeep(); }
+}, 2000);
+document.addEventListener('pointerdown', () => { try { if (thAC && thAC.state === 'suspended') thAC.resume(); } catch(e){} }, true);
+const thSilBtns = (ip, small) => thSilent(ip) ? `<span class="th-silent">🔕 silenced</span>`
+  : small ? `<button type="button" class="th-silb" onclick="event.stopPropagation();thSilence('${ip}',-1)" aria-label="Silence the warning sound">🔕</button>`
+  : `<span class="th-silr"><button type="button" class="th-silb" onclick="thSilence('${ip}',Date.now()+3600000)">🔕 Silence 1 h</button><button type="button" class="th-silb" onclick="thSilence('${ip}',-1)">🔕 Until fixed</button></span>`;
 // airco (script versie 6, th_kind = cool): zelfde thermostaat, maar het relais gaat aan als het te warm is
 const thCool = T => !!T && T.kind === 'cool';
 const thFx = T => thCool(T) ? '❄️' : '🔥';
@@ -4014,7 +4047,7 @@ function renderThermo(){
     return `<div class="thv${heat && !T.test ? (thCool(T) ? ' cool' : ' heat') : ''}${off ? ' off' : ''}">
       <div class="thv-n">${name}${T.test ? ' <i class="th-test">test</i>' : ''}</div>
       <div class="thv-s">${off ? 'Thermostat off – no ' + thW(T) : thSt(T, heat, true)}${nx && !off ? ' · ' + esc(nx) : ''}</div>
-      ${thAlarm(T) ? `<div class="th-alarm">${thAlarm(T)}</div>` : ''}
+      ${thAlarm(T) ? `<div class="th-alarm">${thAlarm(T)}${thBeepOn() ? thSilBtns(ip) : ''}</div>` : ''}
       <div class="thv-big thv-dim"><div class="thv-tw"><div class="thv-lbl">Actual Temp.</div><b>${T.temp != null ? (+T.temp).toFixed(1) : '–'}</b><span>°C</span></div>${heat ? `<span class="thv-fl${T.test ? ' test' : ''}" aria-label="${thSt(T, true)}">${thFx(T)}</span>` : `<span class="thv-fl thv-nofl" aria-hidden="true">${thFx(T)}</span>`}</div>
       <div class="thv-tl thv-dim">${eco ? '🌙 Eco' : '☀️ Comfort'} – ${thW(T)} to</div>
       <div class="thv-adj thv-dim"><button class="pm" aria-label="Lower" data-hold="${ip}|-" onclick="thAdj('${ip}',-0.1)">−</button>
@@ -4055,7 +4088,7 @@ function thermoLine(ip){
   const eco = T.level === 'eco';
   return `<div class="th-line${heat && !T.test ? (thCool(T) ? ' cool' : ' heat') : ''}${off ? ' off' : ''}" onclick="event.stopPropagation()">
     <span class="th-t th-dim">${heat ? thFx(T) : '🌡️'} ${T.temp != null ? (+T.temp).toFixed(1) : '–'} °C → <b>${(+T.set).toFixed(1)} °C</b>${T.test ? '<i class="th-test">test</i>' : ''}</span>
-    <span class="th-sub">${sub}</span>
+    <span class="th-sub${thAlarm(T) ? ' th-sub-al' : ''}">${sub}${thAlarm(T) && thBeepOn() ? ' ' + thSilBtns(ip, true) : ''}</span>
     ${T.level ? `<span class="th-btns th-dim"><button class="th-m${!eco ? ' on' : ''}" onclick="event.stopPropagation();thLevel('${ip}','comfort')">☀️ Comfort</button><button class="th-m${eco ? ' on' : ''}" onclick="event.stopPropagation();thLevel('${ip}','eco')">🌙 Eco</button></span>` : ''}
     <span class="th-btns th-dim th-pm"><button class="th-b" aria-label="Lower" data-hold="${ip}|c-" onclick="event.stopPropagation();thAdj('${ip}',-0.1)">−</button><button class="th-b" aria-label="Higher" data-hold="${ip}|c+" onclick="event.stopPropagation();thAdj('${ip}',0.1)">+</button></span>
     <button class="th-sw" role="switch" aria-checked="${!off}" onclick="event.stopPropagation();thMode('${ip}')"><span>Thermostat</span><span class="tgl${off ? '' : ' on'}"><span></span></span></button></div>`;
@@ -4066,7 +4099,7 @@ function thWide(ip){
   const T = devThermo[ip], off = T.mode === 'off', heat = T.heating && !off, eco = T.level === 'eco';
   const sub = thAlarm(T) ? thAlarm(T) : off ? 'Thermostat off – no ' + thW(T) : (eco ? 'Eco' : 'Comfort') + ' · ' + (heat && !T.test ? thSt(T, heat) + ' · watchdog OK' : thSt(T, heat));
   return `<span class="w-big w-dim"><b>${T.temp != null ? (+T.temp).toFixed(1) : '–'}</b><span class="u">°C</span><span class="ar">→</span><span class="tg">${off ? 'off' : (eco ? '🌙 ' : '☀️ ') + (+T.set).toFixed(1) + ' °C'}</span>${heat ? `<span class="w-fl${T.test ? ' test' : ''}">${thFx(T)}</span>` : ''}</span>
-    <span class="w-sub${thAlarm(T) ? ' w-alarm' : ''}">${sub}</span>
+    <span class="w-sub${thAlarm(T) ? ' w-alarm' : ''}">${sub}${thAlarm(T) && thBeepOn() ? ' ' + thSilBtns(ip, true) : ''}</span>
     ${T.level ? `<span class="w-row w-dim"><span class="wb${!eco ? ' on' : ''}" data-thl="comfort" role="button">☀️ Comfort</span><span class="wb${eco ? ' on' : ''}" data-thl="eco" role="button">🌙 Eco</span></span>` : ''}
     <span class="w-row3 w-dim"><span class="wb pm" data-th="-0.1" data-hold="${ip}|t-" role="button" aria-label="Lower">−</span><span class="wb val" data-thw="1" role="button" aria-label="Set the temperature with a wheel">${(+T.set).toFixed(1)} °C</span><span class="wb pm" data-th="0.1" data-hold="${ip}|t+" role="button" aria-label="Higher">+</span></span>
     <span class="w-sw" data-thm="1" role="switch" aria-checked="${!off}"><span>Thermostat</span><span class="tgl${off ? '' : ' on'}"><span></span></span></span>`;
@@ -4106,6 +4139,11 @@ function thEdit(ip, sh){
   kindEl.onchange = () => { if (!script) return; const k = kindEl.value; kindShow(k);
     thSetting(h, script.id, {th_kind: k}).then(() => { say(k === 'cool' ? 'Now cooling (airco): on when too warm.' : 'Now heating: on when too cold.'); fetchThermo(ip).then(renderDevs); showState(); })
       .catch(() => say('Could not set the mode.', true)); };
+  const beepEl = document.getElementById('edThBeep');
+  const beepShow = v => { beepEl.classList.toggle('on', v); beepEl.setAttribute('aria-checked', String(v)); };
+  beepShow(thBeepOn());
+  beepEl.onclick = () => { const v = !thBeepOn(); localStorage.setItem('tas_thbeep', v ? '1' : '0'); beepShow(v); if (v) thBeep();
+    say(v ? 'Warning sound on (this phone): beep beep every 30 s while a warning is active and the app is open.' : 'Warning sound off (this phone).'); thRedraw(); };
   stuckEl.onchange = () => { if (!script) return; const n = +stuckEl.value;
     thSetting(h, script.id, {th_stuck: n}).then(() => say(n ? `Warns when it heats ${n} min without getting warmer.` : 'Not-getting-warmer warning off.'))
       .catch(() => say('Could not set the warning.', true)); };
@@ -4253,6 +4291,7 @@ function editDev(ip){
         <div class="hint" id="edThMgHint" style="margin:2px 2px 6px">Heats below target − 0.3, stops above target + 0.3. Smaller = steadier, but the boiler switches more often.</div>
         <div class="detrow"><span>Sensor</span><select class="sel" id="edThSen" style="max-width:62%"></select></div>
         <div class="detrow"><span id="edThStuckL">Warn if not getting warmer <span style="opacity:.7">(heating, but the room does not rise 0.2 °C)</span></span><select class="sel" id="edThStuck" style="max-width:38%"><option value="0">Off</option><option value="30">30 min</option><option value="45">45 min</option><option value="60">60 min</option><option value="90">90 min</option><option value="120">2 h</option></select></div>
+        <div class="detrow"><span>Warning sound <span style="opacity:.7">(beep beep every 30 s while the app is open)</span></span><button type="button" class="tgl" id="edThBeep" role="switch" aria-checked="true" aria-label="Warning sound"><span></span></button></div>
         <div class="detrow"><span>Test mode <span style="opacity:.7">(only the log, the relay never switches)</span></span><button type="button" class="tgl" id="edThTest" role="switch" aria-checked="false" aria-label="Test mode"><span></span></button></div>
         <div class="detrow"><span id="edThState"></span><button type="button" class="b-tog edbtn" id="edThLog" style="flex:none;width:auto;padding:8px 16px">Open log</button></div>
         <div class="detrow" id="edThUpdRow" hidden><span>A newer thermostat script is in the app.</span><button type="button" class="b-tog edbtn" id="edThUpd" style="flex:none;width:auto;padding:8px 16px">Update script</button></div>
