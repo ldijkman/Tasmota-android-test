@@ -14,7 +14,7 @@
 // (the exact address is in the first log line).
 // The app "Shelly & Tasmota Scan & Control" can install this script and change the settings
 // through KVS: th_comfort, th_eco (temperatures), th_level (comfort/eco), th_mode (on/off),
-// th_sensor (number), th_test (on/off). The app's schedules set th_level at the switch times.
+// th_sensor (number), th_test (on/off), th_margin (0.1-1.0), th_stuck (minutes, 0 = off). The app's schedules set th_level at the switch times.
 
 // ================= SETTINGS: change these =================
 
@@ -24,17 +24,18 @@ let TEST_MODE        = true;    // true  = only write in the log, never switch t
 let COMFORT          = 20.5;    // Comfort temperature (°C), app: KVS "th_comfort"
 let ECO              = 16.0;    // Eco temperature (°C), app: KVS "th_eco"
 let LEVEL            = "comfort";  // "comfort" or "eco": set by the schedules in the Shelly, app: KVS "th_level"
-let SWITCH_MARGIN    = 0.3;     // heat below 19.7, stop above 20.3
+let SWITCH_MARGIN    = 0.3;     // heat below 20.2, stop above 20.8 (0.1 - 1.0), app: KVS "th_margin"
 
 let SENSOR           = 100;     // Add-on sensor number (see the Shelly page: Temperature (100)), app: KVS "th_sensor"
 
 let CHECK_EVERY_SECONDS = 30;   // how often to look at the temperature
 let MIN_MINUTES_BETWEEN = 0;    // 0 = react directly; some boilers want e.g. 3 minutes between switching
 let SAFETY_OFF_MINUTES  = 10;   // relay turns off by itself if the script stops
+let STUCK_MINUTES       = 60;   // warn if heating this long without the room getting 0.2 °C warmer (0 = off), app: KVS "th_stuck"
 
 // ================= do not change below this line =================
 
-let VERSION = 4;                // the app checks this to offer an update of the script
+let VERSION = 5;                // the app checks this to offer an update of the script
 
 let CFG = {
   dryRun: TEST_MODE,
@@ -46,10 +47,11 @@ let CFG = {
   hyst: SWITCH_MARGIN,
   minSwitchSec: MIN_MINUTES_BETWEEN * 60,
   everySec: CHECK_EVERY_SECONDS,
-  watchdogSec: SAFETY_OFF_MINUTES * 60
+  watchdogSec: SAFETY_OFF_MINUTES * 60,
+  stuckSec: STUCK_MINUTES * 60
 };
 
-let state = { heating: false, lastSwitch: 0, mode: "on", round: 0 };  // mode: "on" or "off" (KVS "th_mode")
+let state = { heating: false, lastSwitch: 0, mode: "on", round: 0, alarm: "" };   // alarm: "", "sensor" or "stuck"  // mode: "on" or "off" (KVS "th_mode")
 
 // clock time for the log: "04:43:12" (local time of the Shelly),
 // or the seconds since start ("29332s") as long as the Shelly does not know the time yet
@@ -126,6 +128,15 @@ function loadSettings(then) {
       let n = Number(kv.th_sensor);
       if (n >= 100 && n <= 199) { if (n !== CFG.sensor) log("sensor changed: " + CFG.sensor + " -> " + n); CFG.sensor = n; }
     }
+    if (kv.th_margin !== undefined) {
+      let n = Math.round(Number(kv.th_margin) * 10) / 10;
+      if (n >= 0.1 && n <= 1) { if (n !== CFG.hyst) log("margin changed: " + CFG.hyst + " -> " + n + " °C"); CFG.hyst = n; }
+      else log("KVS th_margin = " + kv.th_margin + " is out of range (0.1-1.0), ignored");
+    }
+    if (kv.th_stuck !== undefined) {
+      let n = Math.round(Number(kv.th_stuck));
+      if (n >= 0 && n <= 240) { if (n * 60 !== CFG.stuckSec) log("not-rising warning changed: " + (n ? n + " min" : "off")); CFG.stuckSec = n * 60; }
+    }
     v = kv.th_test;
     if (v === "on" || v === "off") {
       let test = v === "on";
@@ -145,13 +156,16 @@ function loadLevel(then) {
 
 // state page for the app: http://<shelly-ip>/script/<script-number>/state  (JSON)
 let lastTemp = null, lastCheck = 0;
+let heatFrom = 0, heatT0 = null;   // since when it heats without the room getting warmer, and the temperature at that moment
+function upNow() { let s = Shelly.getComponentStatus("sys"); return s && s.uptime ? s.uptime : 0; }
 HTTPServer.registerEndpoint("state", function (req, res) {
   res.code = 200;
   res.headers = [["Content-Type", "application/json"]];
   res.body = JSON.stringify({ thermostat: 1, temp: lastTemp, set: CFG.setpoint, comfort: CFG.comfort, eco: CFG.eco,
     level: CFG.level, margin: CFG.hyst, mode: state.mode,
     heating: state.heating, test: CFG.dryRun, sensor: CFG.sensor, round: state.round, checked: lastCheck,
-    watchdog: CFG.watchdogSec, version: VERSION });
+    watchdog: CFG.watchdogSec, alarm: state.alarm, stuck: CFG.stuckSec / 60, heatMin: heatFrom ? Math.round((upNow() - heatFrom) / 60) : 0,
+    version: VERSION });
   res.send();
 });
 
@@ -237,10 +251,12 @@ function doCheck() {
   let sys = Shelly.getComponentStatus("sys");
   lastCheck = sys && sys.unixtime ? sys.unixtime : 0;
   if (t === null) {                       // no sensor works: heating off
-    log("no temperature: heating off for safety");
+    if (state.alarm !== "sensor") log("WARNING: the sensor gives no temperature: heating off for safety");
+    state.alarm = "sensor"; heatFrom = 0;
     setHeating(false, "safety");
     return;
   }
+  if (state.alarm === "sensor") { log("the sensor works again"); state.alarm = ""; }
   if (state.mode === "off") {
     setHeating(false, "mode off");
     return;
@@ -250,7 +266,29 @@ function doCheck() {
   if (t < low) setHeating(true, f1(t) + " < " + f1(low));
   else if (t > high) setHeating(false, f1(t) + " > " + f1(high));
   else log(f1(t) + " °C is between " + f1(low) + " and " + f1(high) + ": no change (heating stays " + (state.heating ? "ON" : "OFF") + ")");
+  watchRise(t);
   refreshWatchdog();
+}
+
+// warning (only a warning, the heating keeps running): it heats for STUCK_MINUTES but the room does not get
+// 0.2 °C warmer. Then the sensor fell off / sits in the wrong place, or the boiler does not heat.
+function watchRise(t) {
+  if (!state.heating || CFG.dryRun || !CFG.stuckSec) {
+    heatFrom = 0;
+    if (state.alarm === "stuck") { log("not-rising warning cleared (heating off)"); state.alarm = ""; }
+    return;
+  }
+  let now = upNow();
+  if (!heatFrom || t >= heatT0 + 0.2) {          // started heating, or the room got warmer: start counting again
+    if (heatFrom && state.alarm === "stuck") { log("temperature rises again (" + f1(heatT0) + " -> " + f1(t) + " °C): warning cleared"); state.alarm = ""; }
+    heatFrom = now; heatT0 = t;
+    return;
+  }
+  if (now - heatFrom >= CFG.stuckSec && state.alarm !== "stuck") {
+    state.alarm = "stuck";
+    log("WARNING: heating for " + Math.round((now - heatFrom) / 60) + " min but the room did not get warmer (" + f1(heatT0) + " -> " + f1(t) +
+        " °C): check the sensor and the boiler. Heating keeps running.");
+  }
 }
 
 // start: read the relay as it is now, then check every 30 s (settings every 5 min)
@@ -259,7 +297,7 @@ log("log page: http://" + (wifi && wifi.sta_ip ? wifi.sta_ip : "<shelly-ip>") + 
 let sw = Shelly.getComponentStatus("switch", 0);
 state.heating = !!(sw && sw.output);
 log("script started · TEST MODE " + (TEST_MODE ? "on (relay is never switched)" : "OFF (relay really switches!)") +
-    " · Comfort " + f1(COMFORT) + " °C · Eco " + f1(ECO) + " °C · margin " + SWITCH_MARGIN + " · no frost guard (use a mechanical one)");
+    " · Comfort " + f1(COMFORT) + " °C · Eco " + f1(ECO) + " °C · margin " + SWITCH_MARGIN + " · warn if not rising after " + STUCK_MINUTES + " min · no frost guard (use a mechanical one)");
 log("sensor " + SENSOR + " (KVS th_sensor can change it) · check every " + CHECK_EVERY_SECONDS + " s · wait " + MIN_MINUTES_BETWEEN +
     " min between switching · safety off after " + SAFETY_OFF_MINUTES + " min · relay is now " + (state.heating ? "ON" : "OFF"));
 // react at once when the sensor reports a new temperature (every change of its threshold, e.g. 0.1 °C);
