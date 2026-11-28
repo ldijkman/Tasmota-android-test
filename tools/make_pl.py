@@ -531,6 +531,7 @@ T = [
 ('Congratulations, you’re a die-hard: you made it all the way through! 👍', 'Gratulacje, jesteś twardzielem: dotarłeś do samego końca! 👍'),
 ('Update the app', 'Zaktualizuj aplikację'),
 ('>🔥 Live thermostat demo<', '>🔥 Demo termostatu na żywo<'),
+('>Thermostat screenshots</a></li>', '>Zrzuty ekranu termostatu</a></li>'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

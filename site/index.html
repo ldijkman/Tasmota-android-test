@@ -307,7 +307,7 @@ footer a{color:var(--muted)}
 @media (hover:hover) and (pointer:fine){.swipe .sw-t{display:none}.swipe .sw-p{display:inline}}
 
 .strip.sh-strip{padding:14px 2px 18px;margin:0 0 6px}
-.strip.brain-strip{padding:14px 2px 18px;margin:6px 0;gap:16px}.strip.brain-strip figure{width:220px}.strip.brain-strip figcaption{font-size:.85rem}
+#thermo-shots{scroll-margin-top:90px}.strip.brain-strip{padding:14px 2px 18px;margin:6px 0;gap:16px}.strip.brain-strip figure{width:220px}.strip.brain-strip figcaption{font-size:.85rem}
 .sh-fact{margin:0 0 36px}
 .sh-strip figure{width:200px}
 @media (max-width:560px){.sh-row{gap:10px}.sh-row .pl span{font-size:.85rem}}
@@ -657,7 +657,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <div class="brain-note"><b>Idea: your old tablet as the thermostat on the wall</b><p>Give an old tablet a second life.<br><i class="aside">(Or a good reason to buy a new tablet and reuse the old.)</i><br>On the wall it shows the room temperature in big numbers, a 🔥 when the boiler is heating, and big Boost and Away buttons that everyone in the house can tap. The thermostat itself runs in the Shelly, so the heating keeps working even when the tablet is off.</p><p class="brain-am">With the same easy-to-set schedules you’re already familiar with.</p></div>
     <figure class="brain-shot"><img src="img/thermostat-heating-screen.jpg?v=2" alt="The Heating screen in the app: the thermostat itself runs as a script in the Shelly." loading="lazy" width="540" height="895"><figcaption>The Heating screen in the app: the thermostat itself runs as a script in the Shelly.</figcaption></figure>
     <figure class="brain-shot brain-wide"><img src="img/thermostat-wheel-picker.jpg" alt="Version 26.7: set the temperature with − / + in steps of 0.1 °C, or tap the number for a wheel. Also in Edit." loading="lazy" width="1100" height="760"><figcaption>Version 26.7: set the temperature with − / + in steps of 0.1 °C, or tap the number for a wheel. Also in Edit.</figcaption></figure>
-    <div class="strip brain-strip" tabindex="0" aria-label="Thermostat screenshots, scroll sideways">
+    <div class="strip brain-strip" id="thermo-shots" tabindex="0" aria-label="Thermostat screenshots, scroll sideways">
       <figure><img src="img/thermostat-schedule-eco.jpg" alt="Easy to use scheduling: Comfort just switched to 🌙 Eco on schedule, by the Shelly itself. It already shows the next step: Comfort tomorrow at 05:00." loading="lazy" width="540" height="1170"><figcaption>Easy to use scheduling: Comfort just switched to 🌙 Eco on schedule, by the Shelly itself. It already shows the next step: Comfort tomorrow at 05:00.</figcaption></figure>
       <figure><img src="img/thermostat-schedules.jpg" alt="The schedules behind it: ☀️ Comfort at 05:00 until 🌙 Eco at sunrise minus 15 min, and Comfort again from 18:00 to 22:05. Stored in the Shelly." loading="lazy" width="540" height="1170"><figcaption>The schedules behind it: ☀️ Comfort at 05:00 until 🌙 Eco at sunrise minus 15 min, and Comfort again from 18:00 to 22:05. Stored in the Shelly.</figcaption></figure>
       <figure><img src="img/shelly-thermostat-hardware.jpg" alt="The hardware: a Shelly 1 Gen3 with the Sensor Add-on plugged on, and a DS18B20 temperature sensor. Together a thermostat." loading="lazy" width="540" height="1170"><figcaption>The hardware: a Shelly 1 Gen3 with the Sensor Add-on plugged on, and a DS18B20 temperature sensor. Together a thermostat.</figcaption></figure>
@@ -1518,6 +1518,7 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
     <li><a href="#features">Features</a></li>
     <li class="fm-cmt"><a href="#videos">Videos</a></li>
     <li><a href="#brainstorm">Brainstorm 💡🤯</a></li>
+    <li><a href="#thermo-shots">Thermostat screenshots</a></li>
     <li><a href="#shots">Tasmota screenshots</a></li>
     <li><a href="#shelly-shots">Shelly screenshots</a></li>
     <li><a href="#faq">Questions</a></li>

@@ -308,7 +308,7 @@ footer a{color:var(--muted)}
 @media (hover:hover) and (pointer:fine){.swipe .sw-t{display:none}.swipe .sw-p{display:inline}}
 
 .strip.sh-strip{padding:14px 2px 18px;margin:0 0 6px}
-.strip.brain-strip{padding:14px 2px 18px;margin:6px 0;gap:16px}.strip.brain-strip figure{width:220px}.strip.brain-strip figcaption{font-size:.85rem}
+#thermo-shots{scroll-margin-top:90px}.strip.brain-strip{padding:14px 2px 18px;margin:6px 0;gap:16px}.strip.brain-strip figure{width:220px}.strip.brain-strip figcaption{font-size:.85rem}
 .sh-fact{margin:0 0 36px}
 .sh-strip figure{width:200px}
 @media (max-width:560px){.sh-row{gap:10px}.sh-row .pl span{font-size:.85rem}}
@@ -658,7 +658,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <div class="brain-note"><b>Idee: je oude tablet als thermostaat aan de muur</b><p>Geef een oude tablet een tweede leven.<br><i class="aside">(Of een goede reden om een nieuwe te kopen en de oude te hergebruiken.)</i><br>Aan de muur toont hij de kamertemperatuur in grote cijfers, een 🔥 als de ketel stookt, en grote knoppen voor Boost en Weg die iedereen in huis kan aantikken. De thermostaat zelf draait in de Shelly, dus de verwarming blijft werken, ook als de tablet uit staat.</p><p class="brain-am">Met dezelfde makkelijk in te stellen schema’s die je al kent.</p></div>
     <figure class="brain-shot"><img src="../img/thermostat-heating-screen.jpg?v=2" alt="Het verwarmingsscherm in de app: de thermostaat zelf draait als script in de Shelly." loading="lazy" width="540" height="895"><figcaption>Het verwarmingsscherm in de app: de thermostaat zelf draait als script in de Shelly.</figcaption></figure>
     <figure class="brain-shot brain-wide"><img src="../img/thermostat-wheel-picker.jpg" alt="Versie 26.7: zet de temperatuur met − / + in stappen van 0,1 °C, of tik op het getal voor een draaiwiel. Ook in Bewerken." loading="lazy" width="1100" height="760"><figcaption>Versie 26.7: zet de temperatuur met − / + in stappen van 0,1 °C, of tik op het getal voor een draaiwiel. Ook in Bewerken.</figcaption></figure>
-    <div class="strip brain-strip" tabindex="0" aria-label="Thermostat screenshots, scroll sideways">
+    <div class="strip brain-strip" id="thermo-shots" tabindex="0" aria-label="Thermostat screenshots, scroll sideways">
       <figure><img src="../img/thermostat-schedule-eco.jpg" alt="Makkelijk plannen: Comfort ging net volgens schema naar 🌙 Eco, door de Shelly zelf. Hij laat al de volgende stap zien: Comfort morgen om 05:00." loading="lazy" width="540" height="1170"><figcaption>Makkelijk plannen: Comfort ging net volgens schema naar 🌙 Eco, door de Shelly zelf. Hij laat al de volgende stap zien: Comfort morgen om 05:00.</figcaption></figure>
       <figure><img src="../img/thermostat-schedules.jpg" alt="De schema’s erachter: ☀️ Comfort om 05:00 tot 🌙 Eco bij zonsopkomst min 15 min, en weer Comfort van 18:00 tot 22:05. Opgeslagen in de Shelly." loading="lazy" width="540" height="1170"><figcaption>De schema’s erachter: ☀️ Comfort om 05:00 tot 🌙 Eco bij zonsopkomst min 15 min, en weer Comfort van 18:00 tot 22:05. Opgeslagen in de Shelly.</figcaption></figure>
       <figure><img src="../img/shelly-thermostat-hardware.jpg" alt="De hardware: een Shelly 1 Gen3 met de Sensor Add-on erop geklikt, en een DS18B20 temperatuursensor. Samen een thermostaat." loading="lazy" width="540" height="1170"><figcaption>De hardware: een Shelly 1 Gen3 met de Sensor Add-on erop geklikt, en een DS18B20 temperatuursensor. Samen een thermostaat.</figcaption></figure>
@@ -1519,6 +1519,7 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
     <li><a href="#features">Functies</a></li>
     <li class="fm-cmt"><a href="#videos">Videos</a></li>
     <li><a href="#brainstorm">Brainstorm 💡🤯</a></li>
+    <li><a href="#thermo-shots">Thermostaat-schermafdrukken</a></li>
     <li><a href="#shots">Tasmota-screenshots</a></li>
     <li><a href="#shelly-shots">Shelly-screenshots</a></li>
     <li><a href="#faq">Vragen</a></li>

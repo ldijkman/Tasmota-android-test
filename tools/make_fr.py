@@ -391,6 +391,7 @@ T = [
 ('Congratulations, you’re a die-hard: you made it all the way through! 👍', 'Félicitations, vous êtes un pur et dur : vous êtes allé jusqu’au bout ! 👍'),
 ('Update the app', 'Mettre à jour l’app'),
 ('>🔥 Live thermostat demo<', '>🔥 Démo en direct du thermostat<'),
+('>Thermostat screenshots</a></li>', '>Captures du thermostat</a></li>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

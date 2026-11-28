@@ -308,7 +308,7 @@ footer a{color:var(--muted)}
 @media (hover:hover) and (pointer:fine){.swipe .sw-t{display:none}.swipe .sw-p{display:inline}}
 
 .strip.sh-strip{padding:14px 2px 18px;margin:0 0 6px}
-.strip.brain-strip{padding:14px 2px 18px;margin:6px 0;gap:16px}.strip.brain-strip figure{width:220px}.strip.brain-strip figcaption{font-size:.85rem}
+#thermo-shots{scroll-margin-top:90px}.strip.brain-strip{padding:14px 2px 18px;margin:6px 0;gap:16px}.strip.brain-strip figure{width:220px}.strip.brain-strip figcaption{font-size:.85rem}
 .sh-fact{margin:0 0 36px}
 .sh-strip figure{width:200px}
 @media (max-width:560px){.sh-row{gap:10px}.sh-row .pl span{font-size:.85rem}}
@@ -658,7 +658,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <div class="brain-note"><b>Pomysł: stary tablet jako termostat na ścianie</b><p>Daj staremu tabletowi drugie życie.<br><i class="aside">(Albo dobry powód, by kupić nowy, a stary wykorzystać ponownie.)</i><br>Na ścianie pokazuje temperaturę w pokoju dużymi cyframi, 🔥 gdy kocioł grzeje, oraz duże przyciski Boost i Nieobecny, które każdy domownik może nacisnąć. Sam termostat działa w Shelly, więc ogrzewanie działa dalej, nawet gdy tablet jest wyłączony.</p><p class="brain-am">Z tymi samymi łatwymi w ustawieniu harmonogramami, które już znasz.</p></div>
     <figure class="brain-shot"><img src="../img/thermostat-heating-screen.jpg?v=2" alt="Ekran ogrzewania w aplikacji: sam termostat działa jako skrypt w Shelly." loading="lazy" width="540" height="895"><figcaption>Ekran ogrzewania w aplikacji: sam termostat działa jako skrypt w Shelly.</figcaption></figure>
     <figure class="brain-shot brain-wide"><img src="../img/thermostat-wheel-picker.jpg" alt="Wersja 26.7: ustaw temperaturę przyciskami − / + co 0,1 °C albo stuknij liczbę, aby otworzyć kółko. Także w Edycji." loading="lazy" width="1100" height="760"><figcaption>Wersja 26.7: ustaw temperaturę przyciskami − / + co 0,1 °C albo stuknij liczbę, aby otworzyć kółko. Także w Edycji.</figcaption></figure>
-    <div class="strip brain-strip" tabindex="0" aria-label="Thermostat screenshots, scroll sideways">
+    <div class="strip brain-strip" id="thermo-shots" tabindex="0" aria-label="Thermostat screenshots, scroll sideways">
       <figure><img src="../img/thermostat-schedule-eco.jpg" alt="Łatwe harmonogramy: Komfort właśnie przełączył się na 🌙 Eko według harmonogramu, przez samo Shelly. Widać już następny krok: Komfort jutro o 05:00." loading="lazy" width="540" height="1170"><figcaption>Łatwe harmonogramy: Komfort właśnie przełączył się na 🌙 Eko według harmonogramu, przez samo Shelly. Widać już następny krok: Komfort jutro o 05:00.</figcaption></figure>
       <figure><img src="../img/thermostat-schedules.jpg" alt="Harmonogramy w tle: ☀️ Komfort o 05:00 do 🌙 Eko o wschodzie słońca minus 15 min, i znowu Komfort od 18:00 do 22:05. Zapisane w Shelly." loading="lazy" width="540" height="1170"><figcaption>Harmonogramy w tle: ☀️ Komfort o 05:00 do 🌙 Eko o wschodzie słońca minus 15 min, i znowu Komfort od 18:00 do 22:05. Zapisane w Shelly.</figcaption></figure>
       <figure><img src="../img/shelly-thermostat-hardware.jpg" alt="Sprzęt: Shelly 1 Gen3 z nałożonym Sensor Add-on i czujnik temperatury DS18B20. Razem termostat." loading="lazy" width="540" height="1170"><figcaption>Sprzęt: Shelly 1 Gen3 z nałożonym Sensor Add-on i czujnik temperatury DS18B20. Razem termostat.</figcaption></figure>
@@ -1519,6 +1519,7 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
     <li><a href="#features">Funkcje</a></li>
     <li class="fm-cmt"><a href="#videos">Filmy</a></li>
     <li><a href="#brainstorm">Brainstorm 💡🤯</a></li>
+    <li><a href="#thermo-shots">Zrzuty ekranu termostatu</a></li>
     <li><a href="#shots">Zrzuty ekranu Tasmota</a></li>
     <li><a href="#shelly-shots">Zrzuty ekranu Shelly</a></li>
     <li><a href="#faq">Pytania</a></li>

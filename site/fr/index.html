@@ -308,7 +308,7 @@ footer a{color:var(--muted)}
 @media (hover:hover) and (pointer:fine){.swipe .sw-t{display:none}.swipe .sw-p{display:inline}}
 
 .strip.sh-strip{padding:14px 2px 18px;margin:0 0 6px}
-.strip.brain-strip{padding:14px 2px 18px;margin:6px 0;gap:16px}.strip.brain-strip figure{width:220px}.strip.brain-strip figcaption{font-size:.85rem}
+#thermo-shots{scroll-margin-top:90px}.strip.brain-strip{padding:14px 2px 18px;margin:6px 0;gap:16px}.strip.brain-strip figure{width:220px}.strip.brain-strip figcaption{font-size:.85rem}
 .sh-fact{margin:0 0 36px}
 .sh-strip figure{width:200px}
 @media (max-width:560px){.sh-row{gap:10px}.sh-row .pl span{font-size:.85rem}}
@@ -658,7 +658,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <div class="brain-note"><b>Idée : votre vieille tablette comme thermostat mural</b><p>Offrez une seconde vie à une vieille tablette.<br><i class="aside">(Ou une bonne raison d’en acheter une nouvelle et de réutiliser l’ancienne.)</i><br>Au mur, elle affiche la température de la pièce en grands chiffres, un 🔥 quand la chaudière chauffe, et de grands boutons Boost et Absent que toute la maison peut toucher. Le thermostat lui-même tourne dans le Shelly : le chauffage continue même quand la tablette est éteinte.</p><p class="brain-am">Avec les mêmes programmes faciles à régler que vous connaissez déjà.</p></div>
     <figure class="brain-shot"><img src="../img/thermostat-heating-screen.jpg?v=2" alt="L’écran Chauffage dans l’app : le thermostat lui-même tourne comme script dans le Shelly." loading="lazy" width="540" height="895"><figcaption>L’écran Chauffage dans l’app : le thermostat lui-même tourne comme script dans le Shelly.</figcaption></figure>
     <figure class="brain-shot brain-wide"><img src="../img/thermostat-wheel-picker.jpg" alt="Version 26.7 : réglez la température avec − / + par pas de 0,1 °C, ou touchez le nombre pour une roue. Aussi dans Modifier." loading="lazy" width="1100" height="760"><figcaption>Version 26.7 : réglez la température avec − / + par pas de 0,1 °C, ou touchez le nombre pour une roue. Aussi dans Modifier.</figcaption></figure>
-    <div class="strip brain-strip" tabindex="0" aria-label="Thermostat screenshots, scroll sideways">
+    <div class="strip brain-strip" id="thermo-shots" tabindex="0" aria-label="Thermostat screenshots, scroll sideways">
       <figure><img src="../img/thermostat-schedule-eco.jpg" alt="Planification simple : Confort vient de passer en 🌙 Éco selon le planning, par le Shelly lui-même. L’étape suivante est déjà affichée : Confort demain à 05:00." loading="lazy" width="540" height="1170"><figcaption>Planification simple : Confort vient de passer en 🌙 Éco selon le planning, par le Shelly lui-même. L’étape suivante est déjà affichée : Confort demain à 05:00.</figcaption></figure>
       <figure><img src="../img/thermostat-schedules.jpg" alt="Les plannings derrière : ☀️ Confort à 05:00 jusqu’à 🌙 Éco au lever du soleil moins 15 min, puis Confort de 18:00 à 22:05. Enregistrés dans le Shelly." loading="lazy" width="540" height="1170"><figcaption>Les plannings derrière : ☀️ Confort à 05:00 jusqu’à 🌙 Éco au lever du soleil moins 15 min, puis Confort de 18:00 à 22:05. Enregistrés dans le Shelly.</figcaption></figure>
       <figure><img src="../img/shelly-thermostat-hardware.jpg" alt="Le matériel : un Shelly 1 Gen3 avec le Sensor Add-on enfiché, et une sonde de température DS18B20. Ensemble, un thermostat." loading="lazy" width="540" height="1170"><figcaption>Le matériel : un Shelly 1 Gen3 avec le Sensor Add-on enfiché, et une sonde de température DS18B20. Ensemble, un thermostat.</figcaption></figure>
@@ -1519,6 +1519,7 @@ ghJson('https://api.github.com/repos/ldijkman/Tasmota-android-test/releases/late
     <li><a href="#features">Fonctions</a></li>
     <li class="fm-cmt"><a href="#videos">Vidéos</a></li>
     <li><a href="#brainstorm">Brainstorm 💡🤯</a></li>
+    <li><a href="#thermo-shots">Captures du thermostat</a></li>
     <li><a href="#shots">Captures Tasmota</a></li>
     <li><a href="#shelly-shots">Captures Shelly</a></li>
     <li><a href="#faq">Questions</a></li>

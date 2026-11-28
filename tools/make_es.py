@@ -534,6 +534,7 @@ T = [
 ('Congratulations, you’re a die-hard: you made it all the way through! 👍', '¡Enhorabuena, eres un incondicional: has llegado hasta el final! 👍'),
 ('Update the app', 'Actualizar la app'),
 ('>🔥 Live thermostat demo<', '>🔥 Demo en vivo del termostato<'),
+('>Thermostat screenshots</a></li>', '>Capturas del termostato</a></li>'),
 ]
 
 
