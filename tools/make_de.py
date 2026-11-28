@@ -290,7 +290,7 @@ T = [
 ('<b>Shelly 1 Gen3: the tiny button</b>', '<b>Shelly 1 Gen3: die kleine Taste</b>'),
 ('Tasmota and Shelly side by side: a Shelly Christmas tree between Tasmota lamps, in one room.', 'Tasmota und Shelly nebeneinander: ein Shelly-Weihnachtsbaum zwischen Tasmota-Lampen, in einem Raum.'),
 ('Well, 1 million+ Shelly app users<br>waste more time on hard-to-set schedules.', 'Na ja, über 1 Million Nutzer der Shelly-App<br>verschwenden mehr Zeit mit schwer einzustellenden Zeitplänen.'),
-('<p class="lead copynote"><b>Copy schedules between devices:</b> set them once, then copy them to another switch. Even from a Tasmota to a Shelly, and back. <b class="wow">Wow, that’s easy!</b></p>', '<p class="lead copynote"><b>Zeitpläne zwischen Geräten kopieren:</b> einmal einstellen, dann auf einen anderen Schalter kopieren. Sogar von einem Tasmota auf einen Shelly und zurück. <b class="wow">Wow, ist das einfach!</b></p>'),
+('<p class="lead copynote"><b>Copy schedules between devices:</b> set them once, then copy them to another switch. Even from a Tasmota to a Shelly, and back.<br><b class="wow">Wow, that’s easy!</b></p>', '<p class="lead copynote"><b>Zeitpläne zwischen Geräten kopieren:</b> einmal einstellen, dann auf einen anderen Schalter kopieren. Sogar von einem Tasmota auf einen Shelly und zurück.<br><b class="wow">Wow, ist das einfach!</b></p>'),
 ('Open on CodePen', 'Auf CodePen öffnen'),
 ('>Close</button></div>\n    <iframe id="cpf"', '>Schließen</button></div>\n    <iframe id="cpf"'),
 ('<small>Free, for Android 7 and newer</small>', '<small>Kostenlos, für Android 7 und neuer</small>'),
