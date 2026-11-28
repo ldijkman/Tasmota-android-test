@@ -569,6 +569,7 @@ T = [
 ('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Waterdichte temperatuursensor, kabel van 1 m. Gaat in de Add-on.'),
 ("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️", "Dit maakt een Wi&#8209;Fi Slimme Thermostaat van +/- 30 euro<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️"),
 ('Share this thermostat</button>', 'Deel deze thermostaat</button>'),
+('Nerd stuff, part 1 done: the Shelly sends its temperature every 5 minutes to a Google Form, and every send becomes a row in my own Google Sheet. Next: graphs.', 'Nerd-werk, deel 1 klaar: de Shelly stuurt elke 5 minuten zijn temperatuur naar een Google Formulier, en elke keer wordt dat een regel in mijn eigen Google Spreadsheet. Volgende stap: grafieken.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
