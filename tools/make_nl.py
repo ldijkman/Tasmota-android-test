@@ -566,6 +566,8 @@ T = [
 ('<b>Heat or cool: airco mode</b>', '<b>Verwarmen of koelen: airco-modus</b>'),
 ('The warning, for real: heating for 103 minutes and the room stays at 16.6 °C. The thermostat tells you to check the sensor or the boiler.', 'De waarschuwing, echt gebeurd: 103 minuten verwarmen en de kamer blijft op 16,6 °C. De thermostaat zegt: controleer de sensor of de ketel.'),
 ('Version 27.8: beep beep every 30 seconds while the app is open and a thermostat warns. 🔕 Silence 1 h or 🔕 Until fixed.', 'Versie 27.8: piep piep elke 30 seconden zolang de app open is en een thermostaat waarschuwt. 🔕 Stil 1 uur of 🔕 Tot het opgelost is.'),
+('DS18B20 temperature sensor in a stainless steel tube on a 1 metre cable', 'DS18B20-temperatuursensor in een rvs-buisje aan een kabel van 1 meter'),
+('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Waterdichte temperatuursensor, kabel van 1 m. Gaat in de Add-on.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

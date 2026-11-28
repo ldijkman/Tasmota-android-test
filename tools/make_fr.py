@@ -400,6 +400,8 @@ T = [
 ('<b>Heat or cool: airco mode</b>', '<b>Chauffer ou refroidir : mode clim</b>'),
 ('The warning, for real: heating for 103 minutes and the room stays at 16.6 °C. The thermostat tells you to check the sensor or the boiler.', 'L’alerte, pour de vrai : 103 minutes de chauffe et la pièce reste à 16,6 °C. Le thermostat dit de vérifier la sonde ou la chaudière.'),
 ('Version 27.8: beep beep every 30 seconds while the app is open and a thermostat warns. 🔕 Silence 1 h or 🔕 Until fixed.', 'Version 27.8 : bip bip toutes les 30 secondes tant que l’app est ouverte et qu’un thermostat signale un problème. 🔕 Silence 1 h ou 🔕 Jusqu’à réparation.'),
+('DS18B20 temperature sensor in a stainless steel tube on a 1 metre cable', 'Sonde de température DS18B20 dans un tube inox sur un câble de 1 mètre'),
+('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Sonde de température étanche, câble de 1 m. Se branche sur l’Add-on.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

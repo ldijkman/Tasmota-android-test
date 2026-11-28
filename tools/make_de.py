@@ -404,6 +404,8 @@ T = [
 ('<b>Heat or cool: airco mode</b>', '<b>Heizen oder kühlen: Klimaanlagen-Modus</b>'),
 ('The warning, for real: heating for 103 minutes and the room stays at 16.6 °C. The thermostat tells you to check the sensor or the boiler.', 'Die Warnung, ganz echt: 103 Minuten Heizen und der Raum bleibt bei 16,6 °C. Der Thermostat sagt: Sensor oder Heizkessel prüfen.'),
 ('Version 27.8: beep beep every 30 seconds while the app is open and a thermostat warns. 🔕 Silence 1 h or 🔕 Until fixed.', 'Version 27.8: Piep piep alle 30 Sekunden, solange die App offen ist und ein Thermostat warnt. 🔕 1 Std. stumm oder 🔕 Bis behoben.'),
+('DS18B20 temperature sensor in a stainless steel tube on a 1 metre cable', 'DS18B20-Temperatursensor in einer Edelstahlhülse an einem 1-Meter-Kabel'),
+('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Wasserdichter Temperatursensor, 1 m Kabel. Kommt in das Add-on.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

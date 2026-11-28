@@ -540,6 +540,8 @@ T = [
 ('<b>Heat or cool: airco mode</b>', '<b>Grzanie albo chłodzenie: tryb klimatyzacji</b>'),
 ('The warning, for real: heating for 103 minutes and the room stays at 16.6 °C. The thermostat tells you to check the sensor or the boiler.', 'Ostrzeżenie naprawdę: 103 minuty grzania, a w pokoju wciąż 16,6 °C. Termostat każe sprawdzić czujnik albo kocioł.'),
 ('Version 27.8: beep beep every 30 seconds while the app is open and a thermostat warns. 🔕 Silence 1 h or 🔕 Until fixed.', 'Wersja 27.8: pip pip co 30 sekund, gdy aplikacja jest otwarta, a termostat ostrzega. 🔕 Wycisz na 1 h lub 🔕 Do naprawy.'),
+('DS18B20 temperature sensor in a stainless steel tube on a 1 metre cable', 'Czujnik temperatury DS18B20 w rurce ze stali nierdzewnej na kablu 1 m'),
+('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Wodoodporny czujnik temperatury, kabel 1 m. Podłącza się do Add-on.'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
