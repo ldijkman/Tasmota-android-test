@@ -243,6 +243,20 @@
   .thv-wide{width:100%;margin-top:12px;height:52px;border-radius:14px;border:1px solid var(--line);background:transparent;color:inherit;font:inherit;font-size:1rem}
   .thv.off .thv-dim{opacity:.35}
   .thv-links button{font-size:.88rem;height:44px;color:var(--muted)}
+  .hv-step{border:1px solid var(--line);border-radius:14px;padding:12px 14px;margin:10px 0;background:var(--card)}
+  .hv-step b.n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--on);color:var(--on-ink);font-size:.85rem;margin-right:8px}
+  .hv-step p{margin:6px 0 8px;color:var(--muted);font-size:.92rem;line-height:1.45}
+  .hv-step input{width:100%;box-sizing:border-box;height:44px;border-radius:10px;border:1px solid var(--line);background:var(--bg);color:inherit;font:inherit;font-size:.9rem;padding:0 10px}
+  .hv-btn{display:block;width:100%;margin-top:8px;height:46px;border-radius:12px;border:1px solid var(--on);background:transparent;color:var(--on);font:inherit;font-weight:600}
+  .hv-btn.sec{border-color:var(--line);color:var(--muted);font-weight:400}
+  .hv-msg{font-size:.88rem;margin-top:6px;min-height:1.2em}
+  .hv-rng{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 10px}.hv-rng button,.hv-leg button{font:inherit;font-size:.85rem;padding:6px 12px;border-radius:999px;border:1px solid var(--line);background:none;color:inherit}
+  .hv-rng button.on{border-color:var(--on);color:var(--on);font-weight:600}
+  .hv-box{position:relative;border:1px solid var(--line);border-radius:14px;background:var(--card);padding:8px 6px 4px}.hv-box svg{display:block;width:100%;height:280px;touch-action:pan-y}
+  .hv-tip{position:absolute;top:6px;pointer-events:none;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:.82rem;white-space:nowrap;transform:translateX(-50%);line-height:1.5}
+  .hv-leg{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.hv-leg button::before{content:"";display:inline-block;width:16px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle;background:var(--c)}
+  .hv-leg button[data-kind=bar]::before{height:10px}.hv-leg button[aria-pressed=false]{opacity:.5;text-decoration:line-through}
+  .hv-src{font-size:.85rem;color:var(--muted);margin:2px 0 6px}
   .thv-tl{text-align:center;margin-top:12px;font-size:.92rem;color:var(--muted)}
   .td-thi{vertical-align:-2px;color:#ff6a1f;flex:none}
   .th-alarm{margin:8px 0 0;padding:8px 10px;border-radius:10px;background:rgba(229,72,77,.14);color:var(--err);font-weight:700;font-size:.9rem}
@@ -1214,6 +1228,14 @@
     <div class="sv-t"><div class="tv-title">Thermostat</div><div class="sv-sub">Comfort or Eco · − / + changes the active one</div></div>
   </div>
   <div class="tv-body" id="thermoBody"></div>
+</div>
+<div class="schedview" id="histView" role="dialog" aria-modal="true" aria-label="Temperature history" hidden>
+  <div class="sv-head">
+    <button class="sv-back" aria-label="Back" onclick="closeHist()">
+      <svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" d="M15 5l-7 7 7 7"/></svg></button>
+    <div class="sv-t"><div class="tv-title">📈 History</div><div class="sv-sub" id="histSub"></div></div>
+  </div>
+  <div class="tv-body" id="histBody"></div>
 </div>
 
 <div class="schedview" id="tileView" role="dialog" aria-modal="true" aria-label="Tiles" hidden>
@@ -4058,6 +4080,7 @@ function renderThermo(){
         <button class="lvb${eco ? ' on' : ''}" onclick="thLevel('${ip}','eco')">🌙 Eco${T.eco != null ? ' ' + (+T.eco).toFixed(1) + '°' : ''}</button></div>
       <button class="thv-sw" role="switch" aria-checked="${!off}" onclick="thMode('${ip}')"><span>Thermostat</span><span class="tgl${off ? '' : ' on'}"><span></span></span></button>
       <button class="thv-wide" onclick="closeThermo();openSchedView('${ip}')">Schedules</button>
+      <button class="thv-wide" onclick="openHist('${ip}')">📈 History</button>
       <div class="thv-row thv-links"><button onclick="thOpen('${ip}','log')">📜 Open log</button><button onclick="thOpen('${ip}','script')">⚙️ Script page</button></div>
     </div>`; }).join('');
 }
@@ -4066,6 +4089,186 @@ function thOpen(ip, what){
   const id = thermoOf(ip); if (!id) return;
   const h = 'http://' + hostOf(ip), u = what === 'log' ? `${h}/script/${id}/log` : `${h}/#/script/${id}`;
   if (window.Tasmota && window.Tasmota.openUrl) window.Tasmota.openUrl(u); else window.open(u, '_blank');
+}
+// ---- Temperature history: the Shelly logs to the user's own Google Sheet, the app draws the chart ----
+// Setup: Make my copy (template Sheet + Form) → form link in KVS th_glog + log script on the Shelly → CSV link in KVS th_gcsv.
+const LOG_NAME = 'Temperature log (Scan & Control)';
+const LOG_COPY = 'https://docs.google.com/spreadsheets/d/1HCsWZXrQn0fVuhQW6h_RPt0pYqiIyfdxY6s1mQtsV7g/copy';
+const HV = {ip: null, h: null, rows: [], hours: 24, on: {}, names: {}, chips: false};
+const HV_KEYS = ['temp', 'target', 't2', 't3', 't4', 't5', 'humidity', 'analog', 'volt', 'shelly_c', 'heating', 'input'];
+const HV_ORDER = ['device', 'temp', 'target', 'heating', 'level', 't2', 't3', 't4', 't5', 'humidity', 'input', 'analog', 'volt', 'shelly_c'];
+const HV_SER = {temp: ['#5b9bff', 'Room temperature'], target: ['#6cc36c', 'Target'], heating: ['#f0a630', 'Heating on 🔥', 'bar'],
+  t2: ['#e46fd0', 'Sensor 2'], t3: ['#39c5c8', 'Sensor 3'], t4: ['#ff8a65', 'Sensor 4'], t5: ['#b39ddb', 'Sensor 5'],
+  humidity: ['#7fd3ff', 'Humidity %'], input: ['#ffe066', 'Input on', 'bar'], analog: ['#c5e1a5', 'Analog %'], volt: ['#ef9a9a', 'Volt'], shelly_c: ['#9aa3b5', 'Shelly °C']};
+const HV_OFF = {humidity: 1, analog: 1, volt: 1, shelly_c: 1};
+async function logFind(h){ const r = await thRpc(h, 'Script.List'); return ((r && r.scripts) || []).find(x => x.name === LOG_NAME) || null; }
+async function logInstall(h, form){
+  if (!window.SH_LOG_CODE) throw new Error('log script missing in the app');
+  await thKvs(h, {th_glog: form});
+  let s = await logFind(h), id;
+  if (s){ id = s.id; if (s.running) await thRpc(h, 'Script.Stop', {id}); }
+  else id = (await thRpc(h, 'Script.Create', {name: LOG_NAME})).id;
+  const code = window.SH_LOG_CODE;
+  for (let i = 0; i < code.length; i += 1024) await thPost(h, 'Script.PutCode', {id, code: code.slice(i, i + 1024), append: i > 0});
+  await thRpc(h, 'Script.SetConfig', {id, config: {enable: true}});
+  await thRpc(h, 'Script.Start', {id});
+}
+async function logRemove(h){
+  const s = await logFind(h);
+  if (s){ if (s.running) await thRpc(h, 'Script.Stop', {id: s.id}).catch(() => {}); await thRpc(h, 'Script.Delete', {id: s.id}); }
+  for (const k of ['th_glog', 'th_gcsv']) await thRpc(h, 'KVS.Delete', {key: k}).catch(() => {});
+}
+async function logKvs(h){
+  const r = await thRpc(h, 'KVS.GetMany', {match: 'th_g*'}), kv = {};
+  if (r && r.items){ if (Array.isArray(r.items)) r.items.forEach(i => kv[i.key] = String(i.value)); else for (const k in r.items) kv[k] = String(r.items[k].value); }
+  return kv;
+}
+const hvOpenUrl = u => { if (window.Tasmota && window.Tasmota.openUrl) window.Tasmota.openUrl(u); else window.open(u, '_blank'); };
+// form link: ".../forms/d/e/<id>/viewform?..." → stored as ".../formResponse"
+function hvForm(t){ const m = String(t).match(/https:\/\/docs\.google\.com\/forms\/d\/e\/[\w-]+/); return m ? m[0] + '/formResponse' : ''; }
+// CSV link: "Publish to web" link, or the Sheet's own link (shared "anyone with the link") → gviz CSV of the first tab
+function hvCsv(t){ t = String(t).trim();
+  if (/^https:\/\/docs\.google\.com\/spreadsheets\/d\/e\/[\w-]+\/pub/.test(t)) return t.includes('output=csv') ? t : t.replace(/output=\w+/, '') + (t.includes('?') ? '&' : '?') + 'output=csv';
+  const m = t.match(/https:\/\/docs\.google\.com\/spreadsheets\/d\/([\w-]{20,})/);
+  if (m){ const g = t.match(/gid=(\d+)/); return `https://docs.google.com/spreadsheets/d/${m[1]}/gviz/tq?tqx=out:csv${g ? '&gid=' + g[1] : ''}`; }
+  return ''; }
+function openHist(ip){
+  HV.ip = ip; HV.h = 'http://' + hostOf(ip); HV.rows = []; HV.chips = false; HV.on = {};
+  const d = loadDevs().find(x => x.ip === ip) || {};
+  document.getElementById('histSub').textContent = d.friendly || d.name || ip;
+  document.getElementById('histBody').innerHTML = '<p class="hint">Reading…</p>';
+  const v = document.getElementById('histView'); v.hidden = false; v.scrollTop = 0; document.body.classList.add('noscroll');
+  hvLoad();
+}
+function closeHist(){
+  const v = document.getElementById('histView'); if (v.hidden) return; v.hidden = true;
+  if (document.getElementById('thermoView').hidden && document.getElementById('schedView').hidden && document.getElementById('editView').hidden) document.body.classList.remove('noscroll');
+}
+async function hvLoad(){
+  const body = document.getElementById('histBody'), h = HV.h;
+  let kv = {}, script = null;
+  try { [kv, script] = await Promise.all([logKvs(h), logFind(h)]); }
+  catch(e){ body.innerHTML = `<p class="hint" style="color:var(--err)">⚠ Could not reach the Shelly (${esc(e.message)}).</p>`; return; }
+  if (kv.th_gcsv && script) return hvChart(kv);
+  hvSetup(kv, script);
+}
+function hvSetup(kv, script){
+  const body = document.getElementById('histBody'), logging = !!(kv.th_glog && script);
+  body.innerHTML = `<p class="hint">Every 10 minutes the Shelly writes its temperatures to <b>your own</b> Google Sheet. The app draws the chart from it. You need a Google account; it takes about 3 minutes, once.</p>
+    <div class="hv-step"><b class="n">1</b><b>Make your own copy</b><p>Google opens. Tap <b>Make a copy</b>. You get your own Sheet with a Form, in your own Google account: nobody else sees your data.</p>
+      <button class="hv-btn" onclick="hvOpenUrl(LOG_COPY)">Make my copy</button></div>
+    <div class="hv-step"><b class="n">2</b><b>Form link → Shelly</b><p>In your copy: <b>Tools → Manage form → Go to live form</b>. Copy the address of that page and paste it here.</p>
+      <input id="hvForm" inputmode="url" autocomplete="off" placeholder="https://docs.google.com/forms/d/e/…/viewform" value="${esc(kv.th_glog || '')}">
+      <button class="hv-btn" id="hvFormB">${logging ? 'Logging is on ✓ · save again' : 'Start logging'}</button><div class="hv-msg" id="hvFormM"></div></div>
+    <div class="hv-step"><b class="n">3</b><b>CSV link → chart</b><p>In your copy: <b>File → Share → Publish to web</b>. Choose <b>Form Responses 1</b> and <b>Comma-separated values (.csv)</b>, then <b>Publish</b>. Copy the link and paste it here. <i>Anyone with this link can read the temperatures.</i></p>
+      <input id="hvCsv" inputmode="url" autocomplete="off" placeholder="https://docs.google.com/spreadsheets/d/e/…/pub?output=csv" value="${esc(kv.th_gcsv || '')}">
+      <button class="hv-btn" id="hvCsvB">Show chart</button><div class="hv-msg" id="hvCsvM"></div></div>
+    <p class="hint">Tip on a phone: if Google opens its app and hides a menu, open the link in Chrome and tick <b>Desktop site</b> in Chrome's ⋮ menu.</p>
+    ${logging ? '<button class="hv-btn sec" id="hvStop">Stop logging and remove the log script</button>' : ''}`;
+  const fm = document.getElementById('hvFormM'), cm = document.getElementById('hvCsvM');
+  const msg = (el, t, err) => { el.innerHTML = err ? `<span style="color:var(--err)">${esc(t)}</span>` : esc(t); };
+  document.getElementById('hvFormB').onclick = async () => {
+    const f = hvForm(document.getElementById('hvForm').value);
+    if (!f) return msg(fm, 'That is not a form link. It starts with https://docs.google.com/forms/d/e/…', true);
+    msg(fm, 'Installing the log script on the Shelly…');
+    try { await logInstall(HV.h, f); msg(fm, '✓ Logging is on. The first row arrives in your Sheet within a minute, then every 10 minutes.'); }
+    catch(e){ msg(fm, 'Could not install: ' + e.message, true); }
+  };
+  document.getElementById('hvCsvB').onclick = async () => {
+    const c = hvCsv(document.getElementById('hvCsv').value);
+    if (!c) return msg(cm, 'That is not a Sheet link. Use the "Publish to web" link (…/pub?output=csv).', true);
+    msg(cm, 'Reading your Sheet…');
+    try { const rows = hvParse(await appGetText(c, 30000));
+      if (!rows.length) msg(cm, 'The Sheet was read, but it has no temperatures yet. Wait for the first row (step 2) and try again. Google can take 5 minutes to publish.', true);
+      await thKvs(HV.h, {th_gcsv: c});
+      if (rows.length && await logFind(HV.h)) hvLoad(); else if (rows.length) msg(cm, '✓ Saved. Now do step 2 as well.');
+    } catch(e){ msg(cm, 'Could not read that link: ' + e.message, true); }
+  };
+  const st = document.getElementById('hvStop');
+  if (st) st.onclick = () => askConfirm('Stop logging?<br><span style="opacity:.75">The log script is removed from the Shelly. Your Google Sheet stays as it is.</span>', async () => {
+    try { await logRemove(HV.h); hvSetup({}, null); } catch(e){ showToast('Could not remove: ' + esc(e.message)); } }, 'Yes, stop');
+}
+function hvTime(t){
+  const m = t.match(/^(\d{1,4})[\/.-](\d{1,2})[\/.-](\d{1,4})[ T]+(\d{1,2}):(\d{2})(?::(\d{2}))?/);
+  if (m){ let a = +m[1], b = +m[2], c = +m[3], y, mo, d;
+    if (a > 999){ y = a; mo = b; d = c; } else { y = c; if (t.includes('/') && a <= 12){ mo = a; d = b; } else { d = a; mo = b; } }
+    return new Date(y, mo - 1, d, +m[4], +m[5], +(m[6] || 0)).getTime(); }
+  const n = Date.parse(t); return isNaN(n) ? null : n;
+}
+function hvParse(text){
+  const lines = String(text || '').trim().split(/\r?\n/); if (lines.length < 2) return [];
+  const split = l => (l.match(/("([^"]|"")*"|[^,]*)(,|$)/g) || []).map(x => x.replace(/,$/, '').replace(/^"|"$/g, '').replace(/""/g, '"'));
+  const raw = split(lines.shift()).map(x => x.trim()), head = raw.map(x => x.toLowerCase());
+  const cT = head.indexOf('timestamp'), cD = head.indexOf('device'), col = {};
+  const known = x => x === 'timestamp' || HV_ORDER.some(k => x === k || x.startsWith(k + ' '));
+  HV_KEYS.forEach(k => { let c = head.findIndex(x => x === k || x.startsWith(k + ' '));
+    if (c < 0){ const p = HV_ORDER.indexOf(k) + 1; if (p > 0 && p < head.length && !known(head[p])) c = p; }   // question renamed in the form
+    col[k] = c; });
+  const num = v => { v = String(v == null ? '' : v).trim().replace(',', '.'); return v === '' ? NaN : Number(v); };
+  return lines.map(l => { const f = split(l), r = {t: hvTime(f[cT] || ''), dev: f[cD] || ''};
+    HV_KEYS.forEach(k => r[k] = col[k] < 0 ? NaN : num(f[col[k]])); r.heat = r.heating === 1; r.inp = r.input === 1; return r; })
+    .filter(r => r.t && !isNaN(r.temp) && r.dev !== 'test').sort((a, b) => a.t - b.t);
+}
+async function hvChart(kv){
+  const body = document.getElementById('histBody');
+  body.innerHTML = `<p class="hv-src" id="hvSrc">Reading your Google Sheet…</p>
+    <div class="hv-rng">${[[6, '6 h'], [24, '24 h'], [168, '7 days'], [720, '30 days'], [0, 'All']].map(([v, l]) => `<button data-h="${v}"${v === HV.hours ? ' class="on"' : ''}>${l}</button>`).join('')}</div>
+    <div class="hv-box"><svg id="hvSvg" role="img" aria-label="Temperature history"></svg><div class="hv-tip" id="hvTip" hidden></div></div>
+    <div class="hv-leg" id="hvLeg">${HV_KEYS.map(k => `<button data-k="${k}" data-kind="${HV_SER[k][2] || 'line'}" style="--c:${HV_SER[k][0]}" aria-pressed="true" hidden>${HV_SER[k][1]}</button>`).join('')}</div>
+    <p class="hint" style="margin-top:12px">Touch the chart to see the values. Sensor names come from the Shelly (Add-on settings).</p>
+    <button class="hv-btn sec" id="hvRe">⟳ Reload</button><button class="hv-btn sec" id="hvSet">Settings: links, stop logging</button>`;
+  body.querySelectorAll('.hv-rng button').forEach(b => b.onclick = () => { HV.hours = +b.dataset.h; body.querySelectorAll('.hv-rng button').forEach(x => x.classList.toggle('on', x === b)); hvDraw(); });
+  body.querySelectorAll('#hvLeg button').forEach(b => b.onclick = () => { const k = b.dataset.k; HV.on[k] = !HV.on[k]; b.setAttribute('aria-pressed', HV.on[k]); hvDraw(); });
+  document.getElementById('hvRe').onclick = () => hvChart(kv);
+  document.getElementById('hvSet').onclick = async () => hvSetup(kv, await logFind(HV.h).catch(() => null));
+  // sensor names from the Shelly: t2–t5 are the other DS18B20s in order (as the log script numbers them)
+  try { const sen = await thSensors(HV.h), main = +(devThermo[HV.ip] && devThermo[HV.ip].sensor) || 100;
+    sen.filter(x => x.id !== main).slice(0, 4).forEach((x, i) => { if (!/^Temperature \(\d+\)$/.test(x.name)) HV.names['t' + (i + 2)] = x.name; }); } catch(e){}
+  const src = document.getElementById('hvSrc');
+  try { HV.rows = hvParse(await appGetText(kv.th_gcsv, 30000)); }
+  catch(e){ src.innerHTML = `<span style="color:var(--err)">⚠ Could not read your Google Sheet (${esc(e.message)}).</span>`; return; }
+  if (HV.rows.length < 2){ src.textContent = 'No data yet: the first rows arrive every 10 minutes (Google publishes with up to 5 minutes delay).'; return; }
+  const last = HV.rows[HV.rows.length - 1].t;
+  src.textContent = `${HV.rows.length} readings · last one ${new Date(last).toLocaleString([], {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false})}`;
+  HV_KEYS.forEach(k => { const b = document.querySelector(`#hvLeg [data-k="${k}"]`), has = HV.rows.some(r => !isNaN(r[k]));
+    b.hidden = !has; if (HV.names[k]) b.textContent = HV.names[k]; if (!HV.chips) HV.on[k] = has && !HV_OFF[k]; b.setAttribute('aria-pressed', !!HV.on[k]); });
+  HV.chips = true; hvDraw();
+}
+function hvDraw(){
+  const svg = document.getElementById('hvSvg'), tip = document.getElementById('hvTip'); if (!svg) return;
+  const NS = 'http://www.w3.org/2000/svg', el = (n, a) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); svg.appendChild(e); return e; };
+  const cs = getComputedStyle(document.documentElement), mut = cs.getPropertyValue('--muted').trim() || '#888', grid = cs.getPropertyValue('--line').trim() || '#333';
+  svg.innerHTML = ''; tip.hidden = true;
+  const W = svg.clientWidth || 360, H = 280, L = 30, R = 8, T = 10, B = 26; svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  let d = HV.rows; if (HV.hours && d.length){ const from = d[d.length - 1].t - HV.hours * 3600e3; d = d.filter(r => r.t >= from); }
+  if (d.length < 2){ el('text', {x: W / 2, y: H / 2, 'text-anchor': 'middle', fill: mut, 'font-size': 14}).textContent = 'Not enough data in this period'; return; }
+  const lines = HV_KEYS.filter(k => HV.on[k] && k !== 'heating' && k !== 'input');
+  const t0 = d[0].t, t1 = d[d.length - 1].t, vals = d.flatMap(r => lines.map(k => r[k]).filter(v => !isNaN(v)));
+  let lo = Math.min(0, ...vals.map(v => Math.floor(v / 5) * 5)), hi = Math.ceil(((vals.length ? Math.max(...vals) : 20) + 1) / 5) * 5; if (hi - lo < 10) hi = lo + 10;
+  const X = t => L + (t - t0) / (t1 - t0) * (W - L - R), Y = v => T + (hi - v) / (hi - lo) * (H - T - B), step = hi - lo > 60 ? 10 : 5;
+  for (let v = lo; v <= hi; v += step){ el('line', {x1: L, x2: W - R, y1: Y(v), y2: Y(v), stroke: grid}); el('text', {x: L - 5, y: Y(v) + 4, 'text-anchor': 'end', fill: mut, 'font-size': 11}).textContent = v; }
+  const bar = (key, from, to, fill) => { for (let i = 0; i < d.length; i++) if (d[i][key]){ let j = i; while (j + 1 < d.length && d[j + 1][key]) j++;
+    const x0 = X(d[i].t), x1 = j < d.length - 1 ? X(d[j + 1].t) : W - R; el('rect', {x: x0, y: Y(to), width: Math.max(2, Math.min(x1, W - R) - x0), height: Y(from) - Y(to), fill}); i = j; } };
+  if (HV.on.heating) bar('heat', 0, 5, HV_SER.heating[0]);
+  if (HV.on.input) bar('inp', 5, 10, HV_SER.input[0]);
+  const span = t1 - t0, n = Math.min(5, Math.max(2, Math.floor((W - L - R) / 80))),
+        hm = t => new Date(t).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', hour12: false}), dm = t => new Date(t).toLocaleDateString([], {day: 'numeric', month: 'short'});
+  for (let i = 0; i <= n; i++){ const t = t0 + span * i / n; el('text', {x: X(t), y: H - 7, 'text-anchor': i === 0 ? 'start' : i === n ? 'end' : 'middle', fill: mut, 'font-size': 11}).textContent = span > 36 * 3600e3 ? dm(t) : hm(t); }
+  lines.slice().reverse().forEach(k => { let g = '', prev = NaN;
+    d.forEach(r => { const v = r[k]; if (isNaN(v)){ prev = NaN; return; } g += isNaN(prev) ? `M${X(r.t)} ${Y(v)} ` : (k === 'target' ? `L${X(r.t)} ${Y(prev)} ` : '') + `L${X(r.t)} ${Y(v)} `; prev = v; });
+    if (g) el('path', {d: g, fill: 'none', stroke: HV_SER[k][0], 'stroke-width': k === 'temp' ? 2.6 : 2, 'stroke-linejoin': 'round', 'stroke-dasharray': HV_OFF[k] ? '5 4' : 'none'}); });
+  const cur = el('line', {y1: T, y2: H - B, stroke: mut, 'stroke-dasharray': '3 3', visibility: 'hidden'}), dot = el('circle', {r: 4.5, fill: HV_SER.temp[0], visibility: 'hidden'});
+  const lab = k => HV.names[k] || HV_SER[k][1], unit = k => ({humidity: '%', analog: '%', volt: ' V'})[k] || ' °C';
+  const show = ev => { const b = svg.getBoundingClientRect(), x = (ev.clientX - b.left) * W / b.width; let k = 0, best = 1e9;
+    d.forEach((r, i) => { const dd = Math.abs(X(r.t) - x); if (dd < best){ best = dd; k = i; } }); const r = d[k];
+    cur.setAttribute('x1', X(r.t)); cur.setAttribute('x2', X(r.t)); cur.setAttribute('visibility', 'visible');
+    dot.setAttribute('cx', X(r.t)); dot.setAttribute('cy', Y(r.temp)); dot.setAttribute('visibility', HV.on.temp ? 'visible' : 'hidden');
+    let h = `${span > 36 * 3600e3 ? dm(r.t) + ' ' : ''}${hm(r.t)} · <b>${r.temp.toFixed(1)} °C</b> · 🎯 ${isNaN(r.target) ? '–' : r.target} · ${r.heat ? '🔥' : 'off'}`;
+    lines.filter(q => q !== 'temp' && q !== 'target' && !isNaN(r[q])).forEach(q => { h += `<br><span style="color:${HV_SER[q][0]}">●</span> ${esc(lab(q).replace(/ %$/, ''))}: ${r[q]}${unit(q)}`; });
+    if (HV.on.input && !isNaN(r.input)) h += `<br><span style="color:${HV_SER.input[0]}">●</span> Input: ${r.inp ? 'on' : 'off'}`;
+    tip.hidden = false; tip.innerHTML = h; const hw = tip.offsetWidth / 2 + 2; tip.style.left = Math.min(Math.max(X(r.t) * b.width / W, hw), b.width - hw) + 'px'; };
+  svg.onpointermove = show; svg.onpointerdown = show;
+  svg.onpointerleave = () => { cur.setAttribute('visibility', 'hidden'); dot.setAttribute('visibility', 'hidden'); tip.hidden = true; };
 }
 function openThermo(){
   const v = document.getElementById('thermoView'); renderThermo();
@@ -5060,6 +5263,7 @@ window.__back = () => {
   const ib = document.getElementById('iconBox'); if (!ib.hidden){ ib.hidden = true; return true; }
   if (!document.getElementById('editView').hidden){ closeEditView(); return true; }
   if (!document.getElementById('tileView').hidden){ closeTiles(); return true; }
+  if (!document.getElementById('histView').hidden){ closeHist(); return true; }
   if (!document.getElementById('thermoView').hidden){ closeThermo(); return true; }
   if (!document.getElementById('sceneView').hidden){ closeSceneView(); return true; }
   if (!document.getElementById('scenesView').hidden){ closeScenes(); return true; }

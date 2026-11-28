@@ -152,6 +152,7 @@
 
   // ---- A tiny Shelly script runtime: the real thermostat script (thermostat-script.js) runs in this page ----
   function startScript(sh, sc) {
+    if (sc.name === 'Temperature log (Scan & Control)') { sc.running = true; return; }   // the log script only sends to Google: not run here
     stopScript(sc); sc.ep = {}; sc.tm = [];
     const call = (m, a, cb) => {
       const u = new URL('http://' + ipOf(sh) + '/rpc/' + m);
@@ -197,6 +198,9 @@
     Object.assign(sh.kvs, { th_comfort: 21, th_eco: 17, th_level: comfort ? 'comfort' : 'eco', th_mode: 'on', th_test: 'off', th_sensor: 100 });
     const sc = sh.scripts[1] = { id: 1, name: 'Thermostat (Scan & Control)', code: window.SH_THERMO_CODE, enable: true, running: false };
     sh.nextScript = 2; startScript(sh, sc);
+    // temperature log to Google: already set up in the demo, the CSV below stands in for the user's Google Sheet
+    Object.assign(sh.kvs, { th_glog: 'https://docs.google.com/forms/d/e/DEMO/formResponse', th_gcsv: 'https://docs.google.com/spreadsheets/d/e/DEMO/pub?output=csv' });
+    sh.scripts[2] = { id: 2, name: 'Temperature log (Scan & Control)', code: window.SH_LOG_CODE || '', enable: true, running: true }; sh.nextScript = 3;
   }
   document.addEventListener('DOMContentLoaded', () => Object.values(shellies).forEach(ensureThermo));
   // a link to a screen: wait until the app (and for the Heating screen the thermostat) is ready, then open it
@@ -326,9 +330,24 @@
   // for recordings: make a running auto-off end in a few seconds
   window.__demoPulseSoon = (ip, sec) => { const d = devices[ip]; if (d && d.offAt) d.offAt = Date.now() + sec * 1000; };
 
+  // three days of made-up readings every 10 minutes: schedule Comfort 21 / Eco 17, boiler on when below target, a woodstove in the evening
+  function demoCsv() {
+    const out = ['Timestamp,device,temp,target,heating,level,t2,t3,t4,t5,humidity,input,analog,volt,shelly_c'];
+    const step = 600e3, end = Math.floor(Date.now() / step) * step; let room = 18.5, heat = false;
+    for (let t = end - 3 * 86400e3; t <= end; t += step) {
+      const d = new Date(t), m = d.getHours() * 60 + d.getMinutes(), comfort = (m >= 390 && m < 510) || (m >= 1020 && m < 1350);
+      const target = comfort ? 21 : 17, stove = m >= 1140 && m < 1380, outside = 4 + 3 * Math.sin((m - 540) / 1440 * 2 * Math.PI);
+      heat = !stove && (heat ? room < target + 0.3 : room < target - 0.3);   // with the switch margin, like the real script
+      room += (heat ? 0.45 : 0) + (stove ? 0.15 : 0) - (room - outside) * 0.006; room = Math.min(room, 27);
+      const p = n => String(n).padStart(2, '0');
+      out.push(`${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${d.getHours()}:${p(d.getMinutes())}:02,Living room,${room.toFixed(1)},${target},${heat ? 1 : 0},${comfort ? 'comfort' : 'eco'},${outside.toFixed(1)},,,,,,,,${(41 + (heat ? 3 : 0)).toFixed(1)}`);
+    }
+    return out.join('\n');
+  }
   window.Tasmota = {
     get(url, id) {
       let u; try { u = new URL(url, 'http://' + SUBNET + '114/'); } catch (e) { return reply(id, false, 'java.net.MalformedURLException'); }
+      if (u.hostname === 'docs.google.com') return reply(id, true, demoCsv(), 600);   // the demo's 'Google Sheet'
       const sh = shellies[u.hostname];
       if (sh) { const r = shellyApi(sh, u); return r && r.__err ? reply(id, false, r.__err) : reply(id, true, r && r.__raw != null ? r.__raw : JSON.stringify(r)); }
       const d = devices[u.hostname];
