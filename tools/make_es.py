@@ -546,7 +546,8 @@ T = [
 ('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Sensor de temperatura resistente al agua, cable de 1 m. Se conecta al Add-on.'),
 ("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️", "Esto hace un termostato inteligente Wi&#8209;Fi de +/- 30 euros<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️"),
 ('Share this thermostat</button>', 'Compartir este termostato</button>'),
-('Nerd stuff, part 1 done: the Shelly sends its temperature every 5 minutes to a Google Form, and every send becomes a row in my own Google Sheet. Next: graphs.', 'Cosas de nerd, parte 1 hecha: el Shelly envía su temperatura cada 5 minutos a un Formulario de Google, y cada envío se convierte en una fila de mi propia Hoja de Google. Siguiente: gráficos.'),
+('Nerd stuff, part 1 done: a new Shelly script<br>sends its temperature every 5 minutes to a Google&nbsp;Form,<br>and every send becomes a row in my own Google&nbsp;Sheet.<br>Next: graphs.', 'Cosas de nerd, parte 1 hecha: un nuevo script de Shelly<br>envía su temperatura cada 5 minutos a un Formulario de Google,<br>y cada envío se convierte en una fila de mi propia Hoja de Google.<br>Siguiente: gráficos.'),
+('Nerd stuff, part 1 done: a new Shelly script sends its temperature every 5 minutes to a Google Form, and every send becomes a row in my own Google Sheet. Next: graphs.', 'Cosas de nerd, parte 1 hecha: un nuevo script de Shelly envía su temperatura cada 5 minutos a un Formulario de Google, y cada envío se convierte en una fila de mi propia Hoja de Google. Siguiente: gráficos.'),
 ]
 
 

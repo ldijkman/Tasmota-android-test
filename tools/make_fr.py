@@ -403,7 +403,8 @@ T = [
 ('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Sonde de température étanche, câble de 1 m. Se branche sur l’Add-on.'),
 ("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️", "Cela fait un thermostat intelligent Wi&#8209;Fi à +/- 30 euros<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️"),
 ('Share this thermostat</button>', 'Partager ce thermostat</button>'),
-('Nerd stuff, part 1 done: the Shelly sends its temperature every 5 minutes to a Google Form, and every send becomes a row in my own Google Sheet. Next: graphs.', 'Trucs de geek, partie 1 terminée : le Shelly envoie sa température toutes les 5 minutes à un Google Form, et chaque envoi devient une ligne dans mon propre Google Sheet. Prochaine étape : des graphiques.'),
+('Nerd stuff, part 1 done: a new Shelly script<br>sends its temperature every 5 minutes to a Google&nbsp;Form,<br>and every send becomes a row in my own Google&nbsp;Sheet.<br>Next: graphs.', 'Trucs de geek, partie 1 terminée : un nouveau script Shelly<br>envoie sa température toutes les 5 minutes à un Google Form,<br>et chaque envoi devient une ligne dans mon propre Google Sheet.<br>Prochaine étape : des graphiques.'),
+('Nerd stuff, part 1 done: a new Shelly script sends its temperature every 5 minutes to a Google Form, and every send becomes a row in my own Google Sheet. Next: graphs.', 'Trucs de geek, partie 1 terminée : un nouveau script Shelly envoie sa température toutes les 5 minutes à un Google Form, et chaque envoi devient une ligne dans mon propre Google Sheet. Prochaine étape : des graphiques.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

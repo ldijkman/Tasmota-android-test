@@ -543,7 +543,8 @@ T = [
 ('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Wodoodporny czujnik temperatury, kabel 1 m. Podłącza się do Add-on.'),
 ("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️", "To tworzy inteligentny termostat Wi&#8209;Fi za +/- 30 euro<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️"),
 ('Share this thermostat</button>', 'Udostępnij ten termostat</button>'),
-('Nerd stuff, part 1 done: the Shelly sends its temperature every 5 minutes to a Google Form, and every send becomes a row in my own Google Sheet. Next: graphs.', 'Nerdowskie sprawy, część 1 gotowa: Shelly co 5 minut wysyła temperaturę do Formularza Google, a każda wysyłka staje się wierszem w moim własnym Arkuszu Google. Dalej: wykresy.'),
+('Nerd stuff, part 1 done: a new Shelly script<br>sends its temperature every 5 minutes to a Google&nbsp;Form,<br>and every send becomes a row in my own Google&nbsp;Sheet.<br>Next: graphs.', 'Nerdowskie sprawy, część 1 gotowa: nowy skrypt Shelly<br>co 5 minut wysyła temperaturę do Formularza Google,<br>a każda wysyłka staje się wierszem w moim własnym Arkuszu Google.<br>Dalej: wykresy.'),
+('Nerd stuff, part 1 done: a new Shelly script sends its temperature every 5 minutes to a Google Form, and every send becomes a row in my own Google Sheet. Next: graphs.', 'Nerdowskie sprawy, część 1 gotowa: nowy skrypt Shelly co 5 minut wysyła temperaturę do Formularza Google, a każda wysyłka staje się wierszem w moim własnym Arkuszu Google. Dalej: wykresy.'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
