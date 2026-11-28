@@ -399,6 +399,8 @@ T = [
 ('Version 27.5: set the hysteresis (switch margin) yourself, and a warning when the sensor fails or the room does not get warmer. Edit → Update script puts version 5 on the Shelly.', 'Version 27.5: Hysterese (Schaltspanne) selbst einstellen, und eine Warnung, wenn der Sensor ausfällt oder es nicht wärmer wird. Bearbeiten → Update script bringt Version 5 auf den Shelly.'),
 ('Version 27.6: on the Today screen the thermostat has a small thermometer, and its schedule says ☀️ Comfort / 🌙 Eco instead of on / off.', 'Version 27.6: im Heute-Bildschirm hat der Thermostat ein kleines Thermometer, und sein Zeitplan zeigt ☀️ Komfort / 🌙 Eco statt an / aus.'),
 ('37.7 °C in the living room: too hot, we’ve got a wood stove! 🔥 It’s either sitting in your insulated overalls or in a rubber thong 😄', '37,7 °C im Wohnzimmer: zu warm, wir haben einen Holzofen! 🔥 Entweder sitzt du im Thermo-Overall oder im Gummi-String 😄'),
+('Climate change, extreme summers: version 27.7 adds an airco mode. Edit → Mode → ❄️ Cooling (airco): the relay switches on when it is too warm.', 'Klimawandel, extreme Sommer: Version 27.7 hat einen Klimaanlagen-Modus. Bearbeiten → Mode → ❄️ Cooling (airco): das Relais schaltet ein, wenn es zu warm ist.'),
+('Airco mode on the Heating screen: a ❄️ instead of the 🔥, “cooling to 21.0”, cools above 21.2 and stops below 20.8.', 'Klimaanlagen-Modus auf dem Heizungsbildschirm: ein ❄️ statt der 🔥, „cooling to 21.0“, kühlt über 21,2 und stoppt unter 20,8.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
