@@ -41,6 +41,13 @@ Ideas we talked about and want to build later. Nothing here is in the app yet.
   4. The user links the Sheet once (Responses → Link to Sheets) and makes the chart (Insert → Chart),
      with a short how-to and a small picture in the app.
 
+## Thermostat warning: also when the app is closed
+- 27.8 beeps only while the app is open (option A).
+- B: Android background notification: a small foreground service polls each thermostat's /state every few minutes
+  and shows a notification with sound when `alarm` is set (needs notification permission, uses some battery).
+- C: the Shelly script itself sends a push (ntfy.sh, Pushover or Telegram) when the alarm starts; works with the phone off,
+  but needs internet and a topic/token set in Edit (KVS e.g. `th_push`).
+
 ## Other ideas from earlier
 - Thermostat: Boost (warm for an hour) and Away (one low temperature until you are back).
 - Temperature history graph (hourly min/max kept by the script, longer history on the phone or wall panel).
