@@ -541,6 +541,7 @@ T = [
 ('Climate change, extreme summers: version 27.7 adds an airco mode. Edit → Mode → ❄️ Cooling (airco): the relay switches on when it is too warm.', 'Cambio climático, veranos extremos: la versión 27.7 añade un modo aire acondicionado. Editar → Mode → ❄️ Cooling (airco): el relé se enciende cuando hace demasiado calor.'),
 ('Airco mode on the Heating screen: a ❄️ instead of the 🔥, “cooling to 21.0”, cools above 21.2 and stops below 20.8.', 'Modo aire acondicionado en la pantalla de calefacción: un ❄️ en vez del 🔥, «cooling to 21.0», enfría por encima de 21,2 y para por debajo de 20,8.'),
 ('<b>Heat or cool: airco mode</b>', '<b>Calentar o enfriar: modo aire acondicionado</b>'),
+('The warning, for real: heating for 103 minutes and the room stays at 16.6 °C. The thermostat tells you to check the sensor or the boiler.', 'El aviso, de verdad: 103 minutos calentando y la sala sigue a 16,6 °C. El termostato dice que revises el sensor o la caldera.'),
 ]
 
 
