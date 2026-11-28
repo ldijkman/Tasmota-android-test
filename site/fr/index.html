@@ -447,7 +447,7 @@ section[id],#shelly-shots{scroll-margin-top:56px}
 .jscode{margin:0;height:260px;min-height:120px;overflow:auto;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#d6deeb;tab-size:2;overscroll-behavior:contain}
 .jscode .jc{color:#7f8ea8;font-style:italic}.jscode .js{color:#ecc48d}.jscode .jn{color:#f78c6c}.jscode .jk{color:#c792ea}.jscode .jf{color:#82aaff}
 .jsgrip{position:absolute;right:3px;bottom:3px;width:30px;height:30px;display:grid;place-items:center;cursor:ns-resize;touch-action:none;color:#56617d;user-select:none;border-radius:8px}.jsgrip svg{width:18px;height:18px}.jsgrip:hover,.jsgrip.on{color:var(--amber)}
-.jslog{margin:0;height:240px;min-height:120px;overflow:auto;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#c3cee3;overscroll-behavior:contain;max-width:640px}.jslog .lu{color:#5d6a85}.jslog .lh{color:#c792ea}.jslog .lt{color:var(--amber)}.jslog .ll{color:#82aaff;text-decoration:underline;text-underline-offset:2px}
+.jslog{margin:0;height:240px;min-height:120px;overflow:auto;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#c3cee3;overscroll-behavior:contain;max-width:640px}.jslog .lu{color:#5d6a85}.jslog .lh{color:#c792ea}.jslog .lt{color:var(--amber)}.jslog .lw{color:#ff6b6b;font-weight:700}.jslog .ll{color:#82aaff;text-decoration:underline;text-underline-offset:2px}
 .jsfrost{margin:0 0 10px;font-size:.88rem;color:#9fd3ff;max-width:640px}
 .wiring{margin:0 0 14px;max-width:640px}.wiring svg{width:100%;height:auto;display:block;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;font-family:var(--text)}
 .jsrun{margin:0 0 10px;font-size:.9rem;color:var(--ink);max-width:640px}.jsrun b{color:var(--amber)}
@@ -1063,7 +1063,21 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
 <span class="lu">06:33:10</span> <span class="lh">---- check 7 · eco 16.0 °C · mode on · heating OFF ----</span>
 <span class="lu">06:33:10</span> <span>sensor 100: 20.9 °C</span>
 <span class="lu">06:33:10</span> <span>heat below 15.7 °C, stop above 16.3 °C</span>
-<span class="lu">06:33:10</span> <span>heating stays OFF (20.9 &gt; 16.3)</span></code></pre><div class="jsgrip" title="Drag to resize" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 9L9 21M21 15l-6 6M21 3L3 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div></div></div>
+<span class="lu">06:33:10</span> <span>heating stays OFF (20.9 &gt; 16.3)</span>
+
+<span class="lh">· · · later that morning: the new things in version 5 · · ·</span>
+<span class="lu">07:15:00</span> <span>settings reload asked (by the app)</span>
+<span class="lu">07:15:00</span> <span>margin changed: 0.3 -&gt; 0.5 °C</span>
+<span class="lu">07:15:00</span> <span class="lh">---- check 41 · comfort 20.5 °C · mode on · heating ON ----</span>
+<span class="lu">07:15:00</span> <span>heat below 20.0 °C, stop above 21.0 °C</span>
+<span class="lu">08:20:00</span> <span class="lw">WARNING: heating for 60 min but the room did not get warmer (19.4 -&gt; 19.4 °C): check the sensor and the boiler. Heating keeps running.</span>
+<span class="lu">08:23:10</span> <span>new temperature from the sensor</span>
+<span class="lu">08:23:10</span> <span class="lt">temperature rises again (19.4 -&gt; 19.7 °C): warning cleared</span>
+<span class="lu">08:40:00</span> <span>sensor 100: NO VALUE (not connected, wrong number or broken?)</span>
+<span class="lu">08:40:00</span> <span class="lw">WARNING: the sensor gives no temperature: heating off for safety</span>
+<span class="lu">08:40:00</span> <span class="lt">switching heating OFF (safety)</span>
+<span class="lu">08:41:00</span> <span>sensor 100: 19.8 °C</span>
+<span class="lu">08:41:00</span> <span class="lt">the sensor works again</span></code></pre><div class="jsgrip" title="Drag to resize" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 9L9 21M21 15l-6 6M21 3L3 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div></div></div>
     </div>
     <p class="nerd-die">Félicitations, vous êtes un pur et dur : vous avez traversé tout le Storm ! 👍</p>
     <p class="nerd-honey">Well, honey, what do you think of it!?</p>
