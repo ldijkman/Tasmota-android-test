@@ -683,7 +683,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <p class="brain-demo"><a class="btn" href="../demo/#thermostat">🔥 Pruébalo ahora: demo en vivo del termostato</a></p>
     <div class="brain-note brain-tech"><b>Cómo los horarios cambian entre Confort y Eco</b><p>Cada horario es una tarea <code>Schedule</code> del Shelly, guardada en el propio Shelly. A la hora de encendido ejecuta <code>KVS.Set th_level = "comfort"</code>, a la hora de apagado <code>KVS.Set th_level = "eco"</code>.</p><p>El script del termostato lee <code>th_level</code> del KVS antes de cada comprobación (cada 30 s y con cada nueva temperatura del sensor), usa <code>th_comfort</code> o <code>th_eco</code> como objetivo y conmuta el relé con un margen de 0,3 °C. Los botones Confort / Eco de la app escriben el mismo <code>th_level</code> a mano, hasta la siguiente tarea.</p><p class="brain-am">Las tareas, el KVS y el script están en el Shelly: no hace falta móvil, app, nube ni internet. El móvil solo sirve para cambiar los ajustes.</p></div>
     <div class="jsbox">
-      <p class="jsbox-h"><b>Ejemplo: el termostato como script en el Shelly</b><br><span>Probado en un Shelly 1 Gen3. Ahora integrado en la app: Editar → Use as thermostat lo instala por ti.</span></p>
+      <p class="jsbox-h"><b>Ejemplo: el termostato como script en el Shelly</b><br><span>Probado en un Shelly 1 Gen3. Ahora integrado en la app: Editar → Use as thermostat lo instala por ti. Versión 6: calefacción o ❄️ aire acondicionado (refrigeración).</span></p>
       <p class="jsfrost">❄️ Sin protección antiheladas en el script: un script puede detenerse. Para la protección antiheladas usa hardware mecánico: un termostato antiheladas bimetálico en paralelo con el relé del Shelly, más la protección antiheladas propia de la caldera. 🔥 Contra el sobrecalentamiento: un termostato de máxima normalmente cerrado (NC), por ejemplo de 30 °C, en serie con el relé.</p>
       <figure class="wiring" lang="en" translate="no"><svg viewBox="20 -34 640 384" role="img" aria-label="Heating on/off thermostat wiring: boiler on/off contact through a normally closed bimetal max switch in series, then the potential-free relay contact of a Shelly 1 Gen3 and a normally open bimetal frost switch in parallel. A DS18B20 sensor on the Shelly Sensor Add-on measures the room temperature.">
 <text x="40" y="-12" fill="#f5b301" font-size="17" font-weight="700" dominant-baseline="central">Heating on/off thermostat</text>
@@ -1035,11 +1035,11 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
       <p class="jsbox-a"><button type="button" id="jsCopy">Copiar</button> <a href="https://ldijkman.github.io/Tasmota-android-test/shelly-thermostat-example.js" download>Descargar .js</a><span id="jsOk" hidden>Copiado</span></p>
     </div>
     <div class="jsbox jslogbox">
-      <p class="jsbox-h"><b>Ejemplo de registro (simulado) del script con un DS18B20</b><br><span>Script versión 5, modo de prueba desactivado: Confort 20,5 °C calienta con el watchdog, para por encima de 20,8 °C y luego un horario cambia a Eco.</span></p>
+      <p class="jsbox-h"><b>Ejemplo de registro (simulado) del script con un DS18B20</b><br><span>Script versión 6, modo de prueba desactivado: Confort 20,5 °C calienta con el watchdog, para por encima de 20,8 °C y luego un horario cambia a Eco.</span></p>
       <div class="jswrap"><div class="jsin"><pre class="jslog" lang="en" translate="no"><code>Thermostat log (simulated, newest at the bottom)
 
 <span class="lu">06:30:00</span> <span>log page: <span class="ll">http://192.168.1.50/script/1/log</span></span>
-<span class="lu">06:30:00</span> <span>script started · TEST MODE on (relay is never switched) · Comfort 20.5 °C · Eco 16.0 °C · margin 0.3 · warn if not rising after 60 min · no frost guard (use a mechanical one)</span>
+<span class="lu">06:30:00</span> <span>script started · heating · TEST MODE on (relay is never switched) · Comfort 20.5 °C · Eco 16.0 °C · margin 0.3 · warn if not rising after 60 min · no frost guard (use a mechanical one)</span>
 <span class="lu">06:30:00</span> <span>sensor 100 (KVS th_sensor can change it) · check every 30 s · wait 0 min between switching · safety off after 10 min · relay is now OFF</span>
 <span class="lu">06:30:00</span> <span>TEST MODE changed: OFF (relay really switches!)</span>
 <span class="lu">06:30:00</span> <span class="lh">---- check 1 · comfort 20.5 °C · mode on · heating OFF ----</span>
@@ -1096,7 +1096,16 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
 <span class="lu">08:40:00</span> <span class="lw">WARNING: the sensor gives no temperature: heating off for safety</span>
 <span class="lu">08:40:00</span> <span class="lt">switching heating OFF (safety)</span>
 <span class="lu">08:41:00</span> <span>sensor 100: 19.8 °C</span>
-<span class="lu">08:41:00</span> <span class="lt">the sensor works again</span></code></pre><div class="jsgrip" title="Drag to resize" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 9L9 21M21 15l-6 6M21 3L3 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div></div></div>
+<span class="lu">08:41:00</span> <span class="lt">the sensor works again</span>
+
+<span class="lh">· · · a hot summer day: the same Shelly in ❄️ airco mode (version 6) · · ·</span>
+<span class="lu">14:02:00</span> <span class="lt">kind changed: COOLING (airco): relay on when too warm</span>
+<span class="lu">14:02:00</span> <span class="lh">---- check 912 · comfort 24.0 °C · mode on · cooling OFF ----</span>
+<span class="lu">14:02:00</span> <span>sensor 100: 26.1 °C</span>
+<span class="lu">14:02:00</span> <span>cool above 24.3 °C, stop below 23.7 °C</span>
+<span class="lu">14:02:00</span> <span class="lt">switching cooling ON (26.1 &gt; 24.3), watchdog 600 s</span>
+<span class="lu">14:47:30</span> <span class="lt">switching cooling OFF (23.6 &lt; 23.7)</span>
+<span class="lu">14:49:00</span> <span>want cooling ON but last switch was 90 s ago, wait until 180 s</span></code></pre><div class="jsgrip" title="Drag to resize" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 9L9 21M21 15l-6 6M21 3L3 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div></div></div>
     </div>
     <p class="nerd-die">¡Enhorabuena, eres un incondicional: has atravesado todo el Storm! 👍</p>
     <p class="nerd-honey">Well, honey, what do you think of it!?</p>

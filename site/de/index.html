@@ -683,7 +683,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
     <p class="brain-demo"><a class="btn" href="../demo/#thermostat">🔥 Jetzt ausprobieren: Live-Demo Thermostat</a></p>
     <div class="brain-note brain-tech"><b>Wie die Zeitpläne Komfort und Eco schalten</b><p>Jeder Zeitplan ist ein Shelly-<code>Schedule</code>-Job, gespeichert im Shelly selbst. Zur Einschaltzeit führt er <code>KVS.Set th_level = "comfort"</code> aus, zur Ausschaltzeit <code>KVS.Set th_level = "eco"</code>.</p><p>Das Thermostat-Skript liest <code>th_level</code> vor jeder Prüfung aus dem KVS (alle 30 s und bei jeder neuen Sensortemperatur), nimmt <code>th_comfort</code> oder <code>th_eco</code> als Ziel und schaltet das Relais mit 0,3 °C Spielraum. Die Tasten Komfort / Eco in der App schreiben dasselbe <code>th_level</code> von Hand, bis der nächste Job es überschreibt.</p><p class="brain-am">Jobs, KVS und Skript liegen alle auf dem Shelly: kein Handy, keine App, keine Cloud, kein Internet nötig. Das Handy braucht man nur zum Ändern der Einstellungen.</p></div>
     <div class="jsbox">
-      <p class="jsbox-h"><b>Beispiel: der Thermostat als Skript im Shelly</b><br><span>Getestet auf einem Shelly 1 Gen3. Jetzt in die App eingebaut: Bearbeiten → Use as thermostat installiert es für dich.</span></p>
+      <p class="jsbox-h"><b>Beispiel: der Thermostat als Skript im Shelly</b><br><span>Getestet auf einem Shelly 1 Gen3. Jetzt in die App eingebaut: Bearbeiten → Use as thermostat installiert es für dich. Version 6: Heizung oder ❄️ Klimaanlage (Kühlen).</span></p>
       <p class="jsfrost">❄️ Kein Frostschutz im Skript: Ein Skript kann anhalten. Für Frostschutz mechanische Hardware verwenden: einen Bimetall-Frostschutzthermostat parallel zum Shelly-Relais, dazu den eigenen Frostschutz des Kessels. 🔥 Gegen Überhitzung: ein Öffner-Maximalthermostat (NC), zum Beispiel 30 °C, in Reihe mit dem Relais.</p>
       <figure class="wiring" lang="en" translate="no"><svg viewBox="20 -34 640 384" role="img" aria-label="Heating on/off thermostat wiring: boiler on/off contact through a normally closed bimetal max switch in series, then the potential-free relay contact of a Shelly 1 Gen3 and a normally open bimetal frost switch in parallel. A DS18B20 sensor on the Shelly Sensor Add-on measures the room temperature.">
 <text x="40" y="-12" fill="#f5b301" font-size="17" font-weight="700" dominant-baseline="central">Heating on/off thermostat</text>
@@ -1035,11 +1035,11 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
       <p class="jsbox-a"><button type="button" id="jsCopy">Kopieren</button> <a href="https://ldijkman.github.io/Tasmota-android-test/shelly-thermostat-example.js" download>.js herunterladen</a><span id="jsOk" hidden>Kopiert</span></p>
     </div>
     <div class="jsbox jslogbox">
-      <p class="jsbox-h"><b>Beispiel-Log (simuliert) des Skripts mit einem DS18B20</b><br><span>Skript Version 5, Testmodus aus: Comfort 20,5 °C heizt mit dem Watchdog, stoppt über 20,8 °C, dann schaltet ein Zeitplan auf Eco.</span></p>
+      <p class="jsbox-h"><b>Beispiel-Log (simuliert) des Skripts mit einem DS18B20</b><br><span>Skript Version 6, Testmodus aus: Comfort 20,5 °C heizt mit dem Watchdog, stoppt über 20,8 °C, dann schaltet ein Zeitplan auf Eco.</span></p>
       <div class="jswrap"><div class="jsin"><pre class="jslog" lang="en" translate="no"><code>Thermostat log (simulated, newest at the bottom)
 
 <span class="lu">06:30:00</span> <span>log page: <span class="ll">http://192.168.1.50/script/1/log</span></span>
-<span class="lu">06:30:00</span> <span>script started · TEST MODE on (relay is never switched) · Comfort 20.5 °C · Eco 16.0 °C · margin 0.3 · warn if not rising after 60 min · no frost guard (use a mechanical one)</span>
+<span class="lu">06:30:00</span> <span>script started · heating · TEST MODE on (relay is never switched) · Comfort 20.5 °C · Eco 16.0 °C · margin 0.3 · warn if not rising after 60 min · no frost guard (use a mechanical one)</span>
 <span class="lu">06:30:00</span> <span>sensor 100 (KVS th_sensor can change it) · check every 30 s · wait 0 min between switching · safety off after 10 min · relay is now OFF</span>
 <span class="lu">06:30:00</span> <span>TEST MODE changed: OFF (relay really switches!)</span>
 <span class="lu">06:30:00</span> <span class="lh">---- check 1 · comfort 20.5 °C · mode on · heating OFF ----</span>
@@ -1096,7 +1096,16 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
 <span class="lu">08:40:00</span> <span class="lw">WARNING: the sensor gives no temperature: heating off for safety</span>
 <span class="lu">08:40:00</span> <span class="lt">switching heating OFF (safety)</span>
 <span class="lu">08:41:00</span> <span>sensor 100: 19.8 °C</span>
-<span class="lu">08:41:00</span> <span class="lt">the sensor works again</span></code></pre><div class="jsgrip" title="Drag to resize" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 9L9 21M21 15l-6 6M21 3L3 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div></div></div>
+<span class="lu">08:41:00</span> <span class="lt">the sensor works again</span>
+
+<span class="lh">· · · a hot summer day: the same Shelly in ❄️ airco mode (version 6) · · ·</span>
+<span class="lu">14:02:00</span> <span class="lt">kind changed: COOLING (airco): relay on when too warm</span>
+<span class="lu">14:02:00</span> <span class="lh">---- check 912 · comfort 24.0 °C · mode on · cooling OFF ----</span>
+<span class="lu">14:02:00</span> <span>sensor 100: 26.1 °C</span>
+<span class="lu">14:02:00</span> <span>cool above 24.3 °C, stop below 23.7 °C</span>
+<span class="lu">14:02:00</span> <span class="lt">switching cooling ON (26.1 &gt; 24.3), watchdog 600 s</span>
+<span class="lu">14:47:30</span> <span class="lt">switching cooling OFF (23.6 &lt; 23.7)</span>
+<span class="lu">14:49:00</span> <span>want cooling ON but last switch was 90 s ago, wait until 180 s</span></code></pre><div class="jsgrip" title="Drag to resize" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 9L9 21M21 15l-6 6M21 3L3 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div></div></div>
     </div>
     <p class="nerd-die">Glückwunsch, du bist ein echter Die-hard: du hast den ganzen Storm überstanden! 👍</p>
     <p class="nerd-honey">Well, honey, what do you think of it!?</p>
