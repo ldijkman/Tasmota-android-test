@@ -522,7 +522,7 @@ T = [
 ('>Copied<', '>Gekopieerd<'),
 ('>Drag the corner to resize ↘<', '>Sleep de hoek om te vergroten ↘<'),
 ('>Example log (simulated) of the script with one DS18B20<', '>Voorbeeld-log (gesimuleerd) van het script met één DS18B20<'),
-('>Script version 4, test mode off: Comfort 20.5 °C heats with the watchdog, stops above 20.8 °C, then a schedule switches to Eco.<', '>Script versie 4, testmodus uit: Comfort 20,5 °C verwarmt met de watchdog, stopt boven 20,8 °C, daarna schakelt een schema naar Eco.<'),
+('>Script version 5, test mode off: Comfort 20.5 °C heats with the watchdog, stops above 20.8 °C, then a schedule switches to Eco.<', '>Script versie 5, testmodus uit: Comfort 20,5 °C verwarmt met de watchdog, stopt boven 20,8 °C, daarna schakelt een schema naar Eco.<'),
 ('>Sorry!, Nerd Alert Section 🤓<', '>Sorry!, Nerd-alarm 🤓<'),
 ('<a href="#shots">Skip</a>', '<a href="#shots">Overslaan</a>'),
 ('PlafondLED.apk;end">Open app</a>', 'PlafondLED.apk;end">App openen</a>'),
