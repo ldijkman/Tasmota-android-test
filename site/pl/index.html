@@ -1577,8 +1577,13 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
     const cT = head.indexOf('timestamp'), cD = head.indexOf('device');
     // a column may carry its own name after the key: "t2 Woodstove pipe" → key t2, name "Woodstove pipe"
     const colOf = {}; NAMES = {};
-    KEYS.forEach(k => { const c = head.findIndex(h => h === k || h.startsWith(k + ' ')); colOf[k] = c;
-      if (c >= 0 && raw[c].length > k.length) NAMES[k] = raw[c].slice(k.length).trim(); });
+    const ORDER = ['device', 'temp', 'target', 'heating', 'level', 't2', 't3', 't4', 't5', 'humidity', 'input', 'analog', 'volt', 'shelly_c'];
+    const known = h => ORDER.some(k => h === k || h.startsWith(k + ' ')) || h === 'timestamp';
+    KEYS.forEach(k => { let c = head.findIndex(h => h === k || h.startsWith(k + ' '));
+      if (c >= 0){ if (raw[c].length > k.length) NAMES[k] = raw[c].slice(k.length).trim(); }
+      else { const p = ORDER.indexOf(k) + 1;                     // renamed question ("Living 2"): same place as in the template
+        if (p > 0 && p < head.length && !known(head[p])){ c = p; NAMES[k] = raw[p]; } }
+      colOf[k] = c; });
     return lines.map(l => { const f = l.match(/("([^"]|"")*"|[^,]*)(,|$)/g).map(x => x.replace(/,$/, '').replace(/^"|"$/g, '').replace(/""/g, '"'));
       const r = { t: parseTime(f[cT] || ''), dev: f[cD] || '' };
       KEYS.forEach(k => { const c = colOf[k]; r[k] = c < 0 ? NaN : num(f[c]); });
