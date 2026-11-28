@@ -529,6 +529,8 @@ T = [
 ('and create graphs from the temperature history 📈', 'i wykresy z historii temperatur 📈'),
 ('Try it now: live demo thermostat', 'Wypróbuj teraz: demo termostatu na żywo'),
 ('Congratulations, you’re a die-hard: you made it all the way through! 👍', 'Gratulacje, jesteś twardzielem: dotarłeś do samego końca! 👍'),
+('Update the app', 'Zaktualizuj aplikację'),
+('Opens the app and checks for a new version (Android)', 'Otwiera aplikację i sprawdza nową wersję (Android)'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

@@ -2891,6 +2891,10 @@ window.__openLink = () => { try {
   if (h === 'scenes'){ if (typeof closeTiles === 'function') closeTiles(); openScenes(); }
   else if (h === 'tiles'){ if (typeof closeScenes === 'function') closeScenes(); openTiles(); }
   else if (h === 'thermostat'){ closeTiles(); closeScenes(); openThermo(); }
+  else if (h === 'update'){   // "Update the app" op de website: Over-scherm openen en meteen zoeken
+    if (typeof closeTiles === 'function') closeTiles(); if (typeof closeScenes === 'function') closeScenes();
+    openSheet('about'); if (window.Tasmota.installUpdate) checkUpdate();
+  }
 } catch(e){} };
 function gotSetup(text){
   let o = null; try { o = JSON.parse(text); } catch(e){}

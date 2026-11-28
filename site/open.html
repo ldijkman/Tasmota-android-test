@@ -30,8 +30,8 @@
   <p class="small"><a class="alt" href="./">Website, videos and demo</a></p>
 </main>
 <script>
-  // open.html#thermostat, #tiles, #scenes or nothing (= just open the app)
-  const screens = {thermostat: 'Heating screen', tiles: 'Tiles', scenes: 'Scenes'};
+  // open.html#thermostat, #tiles, #scenes, #update or nothing (= just open the app)
+  const screens = {thermostat: 'Heating screen', tiles: 'Tiles', scenes: 'Scenes', update: 'Check for update'};
   const h = (location.hash || '').slice(1).toLowerCase(), host = screens[h] ? h : 'open';
   const apk = 'https://github.com/ldijkman/Tasmota-android-test/releases/latest/download/PlafondLED.apk';
   const intent = 'intent://' + host + '#Intent;scheme=tasmotascan;package=nl.dijkman.plafondled;S.browser_fallback_url=' + encodeURIComponent(apk) + ';end';

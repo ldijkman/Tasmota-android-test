@@ -393,6 +393,8 @@ T = [
 ('and create graphs from the temperature history 📈', 'und Diagramme aus dem Temperaturverlauf erstellen 📈'),
 ('Try it now: live demo thermostat', 'Jetzt ausprobieren: Live-Demo Thermostat'),
 ('Congratulations, you’re a die-hard: you made it all the way through! 👍', 'Glückwunsch, du bist ein echter Die-hard: du hast es bis zum Ende geschafft! 👍'),
+('Update the app', 'App aktualisieren'),
+('Opens the app and checks for a new version (Android)', 'Öffnet die App und sucht nach einer neuen Version (Android)'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

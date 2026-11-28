@@ -89,7 +89,7 @@ public class MainActivity extends Activity {
         if (i == null) return;
         android.net.Uri u = null;
         if (android.content.Intent.ACTION_VIEW.equals(i.getAction())) u = i.getData();
-        // link vanaf de website: tasmotascan://open, tasmotascan://scenes, tasmotascan://tiles
+        // link vanaf de website: tasmotascan://open, ://scenes, ://tiles, ://thermostat, ://update
         if (u != null && "tasmotascan".equals(u.getScheme())) {
             String h = String.valueOf(u.getHost()).toLowerCase(java.util.Locale.ROOT);
             if (!h.matches("[a-z]{1,20}")) h = "open";
