@@ -542,6 +542,7 @@ T = [
 ('Airco mode on the Heating screen: a ❄️ instead of the 🔥, “cooling to 21.0”, cools above 21.2 and stops below 20.8.', 'Modo aire acondicionado en la pantalla de calefacción: un ❄️ en vez del 🔥, «cooling to 21.0», enfría por encima de 21,2 y para por debajo de 20,8.'),
 ('<b>Heat or cool: airco mode</b>', '<b>Calentar o enfriar: modo aire acondicionado</b>'),
 ('The warning, for real: heating for 103 minutes and the room stays at 16.6 °C. The thermostat tells you to check the sensor or the boiler.', 'El aviso, de verdad: 103 minutos calentando y la sala sigue a 16,6 °C. El termostato dice que revises el sensor o la caldera.'),
+('Version 27.8: beep beep every 30 seconds while the app is open and a thermostat warns. 🔕 Silence 1 h or 🔕 Until fixed.', 'Versión 27.8: bip bip cada 30 segundos mientras la app está abierta y un termostato avisa. 🔕 Silenciar 1 h o 🔕 Hasta que se arregle.'),
 ]
 
 
