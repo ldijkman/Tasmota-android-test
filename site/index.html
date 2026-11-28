@@ -185,7 +185,7 @@ dialog form.pbar{display:flex;align-items:center;gap:6px;margin-bottom:8px}
 dialog form.pbar button{padding:8px 11px;white-space:nowrap}
 #pShare{width:40px;height:40px;padding:0;border-radius:50%;background:var(--amber);border-color:var(--amber);display:grid;place-items:center;flex:none}
 .vcard .vsh{position:absolute;right:7px;top:7px;width:24px;height:24px;border-radius:50%;background:var(--amber);display:grid;place-items:center;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.4)}
-#thermo-shots figure{position:relative}#thermo-shots .vsh.fsh{position:absolute;right:8px;top:8px;width:36px;height:36px;border-radius:50%;background:var(--amber);color:#1a1205;display:grid;place-items:center;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.45);cursor:pointer}#thermo-shots .vsh.fsh svg{width:18px;height:18px}#thermo-shots figure.fsh-hit img{outline:3px solid var(--amber);outline-offset:2px}
+.strip figure.has-fsh{position:relative}.strip .vsh.fsh{position:absolute;right:8px;top:8px;width:36px;height:36px;border-radius:50%;background:var(--amber);color:#1a1205;display:grid;place-items:center;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.45);cursor:pointer}.strip .vsh.fsh svg{width:18px;height:18px}.strip figure.fsh-hit img{outline:3px solid var(--amber);outline-offset:2px}
 
 .vcard .vsh:active{transform:scale(.92)}
 .vcard .vsh svg{width:12px!important;height:12px!important}
@@ -1422,9 +1422,11 @@ async function shareVideo(b){
 }
 pSh.addEventListener('click', () => shareVideo(vcards[vi]));
 // Brainstorm-strip: deelknop op elke schermafdruk (het plaatje zelf + de uitleg + een link naar precies dit plaatje)
-document.querySelectorAll('#thermo-shots figure').forEach(fig => {
+document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip figure').forEach(fig => {
   const img = fig.querySelector('img'); if (!img) return;
-  fig.id = 'shot-' + img.getAttribute('src').replace(/^.*\//, '').replace(/\.\w+$/, '');
+  let id = 'shot-' + img.getAttribute('src').replace(/^.*\//, '').replace(/\.\w+$/, ''), n = 2;
+  while (document.getElementById(id)) id = id.replace(/-\d+$/, '') + '-' + n++;
+  fig.id = id; fig.classList.add('has-fsh');
   const cap = ((fig.querySelector('figcaption') || {}).textContent || '').trim();
   const x = document.createElement('span'); x.className = 'vsh fsh'; x.setAttribute('role', 'button'); x.tabIndex = 0;
   x.setAttribute('aria-label', pSh.getAttribute('aria-label') + ': ' + cap.slice(0, 60)); x.innerHTML = pSh.innerHTML;
