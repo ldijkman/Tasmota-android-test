@@ -390,7 +390,6 @@ T = [
 ('Try it now: live demo thermostat', 'Essayez maintenant : démo en direct du thermostat'),
 ('Congratulations, you’re a die-hard: you made it all the way through! 👍', 'Félicitations, vous êtes un pur et dur : vous êtes allé jusqu’au bout ! 👍'),
 ('Update the app', 'Mettre à jour l’app'),
-('Opens the app and checks for a new version (Android)', 'Ouvre l’app et cherche une nouvelle version (Android)'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
