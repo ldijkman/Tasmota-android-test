@@ -528,6 +528,7 @@ T = [
 ('Store the temperature sensor data in Google Forms', 'Zapisywanie danych z czujnika temperatury w Google Forms'),
 ('and create graphs from the temperature history 📈', 'i wykresy z historii temperatur 📈'),
 ('Try it now: live demo thermostat', 'Wypróbuj teraz: demo termostatu na żywo'),
+('Congratulations, you’re a die-hard: you made it all the way through! 👍', 'Gratulacje, jesteś twardzielem: dotarłeś do samego końca! 👍'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

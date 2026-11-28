@@ -554,6 +554,7 @@ T = [
 ('Store the temperature sensor data in Google Forms', 'De temperatuur van de sensor opslaan in Google Forms'),
 ('and create graphs from the temperature history 📈', 'en grafieken maken van de temperatuurgeschiedenis 📈'),
 ('Try it now: live demo thermostat', 'Probeer het nu: live demo thermostaat'),
+('Congratulations, you’re a die-hard: you made it all the way through! 👍', 'Gefeliciteerd, je bent een die-hard: je hebt het helemaal uitgelezen! 👍'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

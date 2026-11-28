@@ -531,6 +531,7 @@ T = [
 ('Store the temperature sensor data in Google Forms', 'Guardar los datos del sensor de temperatura en Google Forms'),
 ('and create graphs from the temperature history 📈', 'y crear gráficos con el historial de temperaturas 📈'),
 ('Try it now: live demo thermostat', 'Pruébalo ahora: demo en vivo del termostato'),
+('Congratulations, you’re a die-hard: you made it all the way through! 👍', '¡Enhorabuena, eres un incondicional: has llegado hasta el final! 👍'),
 ]
 
 
