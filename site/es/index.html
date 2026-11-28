@@ -1654,7 +1654,10 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
     sc.src = url.replace(/([?&])tqx=out:csv/, '$1tqx=responseHandler:' + cb) + '&t=' + Date.now(); document.head.appendChild(sc);
   }); }
   async function load(){
-    if (CSV_URL){ try { const txt = CSV_URL.includes('/gviz/') ? await gviz(CSV_URL) : await (await fetch(CSV_URL, {cache: 'no-store'})).text(); { const x = parse(txt); if (x.length > 1){ rows = x; setupChips(); const src = document.getElementById('tlogSrc'); src.textContent = src.dataset.live.replace('{n}', x.length).replace('{t}', new Date(x[x.length - 1].t).toLocaleString([], {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false})); draw(); return; } } } catch(e){} }
+    if (CSV_URL){ let why = ''; try { let txt = '';
+      if (CSV_URL.includes('/gviz/')) try { txt = await gviz(CSV_URL); } catch(e){ why = 'gviz ' + e; }
+      if (!txt) try { txt = await (await fetch(CSV_URL, {cache: 'no-store'})).text(); } catch(e){ why += ' · csv ' + e; }
+      if (why) console.warn('temperature history:', why); { const x = parse(txt); if (x.length > 1){ rows = x; setupChips(); const src = document.getElementById('tlogSrc'); src.textContent = src.dataset.live.replace('{n}', x.length).replace('{t}', new Date(x[x.length - 1].t).toLocaleString([], {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false})); draw(); return; } } } catch(e){} }
     rows = parse(document.getElementById('tlogSample').textContent); setupChips(); draw();
   }
   load(); if (CSV_URL) setInterval(load, 10 * 60e3);
