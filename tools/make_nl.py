@@ -577,6 +577,7 @@ T = [
 ('The page reads the Google Sheet as comma-separated values (CSV) and draws the chart itself. For now: the evening of 28 November.', 'De pagina leest de Google Spreadsheet als kommagescheiden waarden (CSV) en tekent de grafiek zelf. Voor nu: de avond van 28 november.'),
 ('<span class="lt">Room temperature</span><span class="lg">Target</span><span class="lh">Heating on</span>', '<span class="lt">Kamertemperatuur</span><span class="lg">Doel</span><span class="lh">Verwarming aan</span>'),
 ('data-h="168">7 days</button><button type="button" data-h="0" class="on">All</button>', 'data-h="168">7 dagen</button><button type="button" data-h="0" class="on">Alles</button>'),
+('Live from my Shelly, through my own Google Sheet (CSV): {n} readings, the last one at {t}. Updates every 5 minutes.', 'Live van mijn Shelly, via mijn eigen Google Spreadsheet (CSV): {n} metingen, de laatste om {t}. Ververst elke 5 minuten.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

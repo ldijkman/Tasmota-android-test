@@ -1131,7 +1131,7 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
     <figure class="nerd-shot"><img src="../img/thermostat-google-sheet-graph.jpg?v=5" alt="Pierwszy wykres z mojego własnego Arkusza Google: temperatura w pokoju (niebieska), cel (zielony) i ogrzewanie wł./wył. (czerwone, 1 = wł.). Normalnie obie linie idą razem: ogrzewanie doprowadza pokój do celu. Ale mam piec na drewno, więc nic tu nie ma sensu: 29,7 °C, a cel to 10." loading="lazy" width="967" height="514"><figcaption>Pierwszy wykres z mojego własnego Arkusza&nbsp;Google:<br>temperatura w pokoju (niebieska), cel (zielony) i ogrzewanie wł./wył. (czerwone, 1 = wł.).<br>Normalnie obie linie idą razem: ogrzewanie doprowadza pokój do celu.<br>Ale mam piec na drewno 🔥, więc nic tu nie ma sensu: 29,7 °C, a cel to 10.</figcaption></figure>
     <div class="tlog" id="temp-history">
       <h3 class="tlog-h">📈 Historia temperatury, narysowana tutaj na stronie</h3>
-      <p class="tlog-sub" id="tlogSrc">Strona czyta Arkusz Google jako wartości rozdzielone przecinkami (CSV) i sama rysuje wykres. Na razie: wieczór 28 listopada.</p>
+      <p class="tlog-sub" id="tlogSrc" data-live="Na żywo z mojego Shelly, przez mój własny Arkusz Google (CSV): {n} pomiarów, ostatni o {t}. Odświeża się co 5 minut.">Strona czyta Arkusz Google jako wartości rozdzielone przecinkami (CSV) i sama rysuje wykres. Na razie: wieczór 28 listopada.</p>
       <div class="tlog-rng" role="group" aria-label="Time range"><button type="button" data-h="6">6 h</button><button type="button" data-h="24">24 h</button><button type="button" data-h="168">7 dni</button><button type="button" data-h="0" class="on">Wszystko</button></div>
       <div class="tlog-box"><svg id="tlogSvg" role="img" aria-label="Room temperature, target and heating over time"></svg><div class="tlog-tip" id="tlogTip" hidden></div></div>
       <p class="tlog-leg"><span class="lt">Temperatura w pokoju</span><span class="lg">Cel</span><span class="lh">Ogrzewanie wł.</span></p>
@@ -1551,7 +1551,7 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
 })();
 // Temperature history: read the Google Sheet as CSV and draw the chart here (no library)
 (() => {
-  const CSV_URL = '';   // published CSV link of the Google Sheet; empty = the sample below
+  const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQwst1LYa5O9XRyJGIYhLqjDdHr00miYzsMMjN9KZtsglfZey3RF-Av_Jsr4c19yiQN0ZpjwtkdcFAL/pub?output=csv';   // published CSV link of my Google Sheet; if it fails: the sample below
   const box = document.getElementById('temp-history'); if (!box) return;
   const svg = document.getElementById('tlogSvg'), tip = document.getElementById('tlogTip'), NS = 'http://www.w3.org/2000/svg';
   let rows = [], hours = 0;
@@ -1601,7 +1601,7 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
   box.querySelectorAll('.tlog-rng button').forEach(b => b.addEventListener('click', () => {
     box.querySelectorAll('.tlog-rng button').forEach(x => x.classList.toggle('on', x === b)); hours = +b.dataset.h; draw(); }));
   async function load(){
-    if (CSV_URL){ try { const r = await fetch(CSV_URL, {cache: 'no-store'}); if (r.ok){ rows = parse(await r.text()); draw(); return; } } catch(e){} }
+    if (CSV_URL){ try { const r = await fetch(CSV_URL, {cache: 'no-store'}); if (r.ok){ const x = parse(await r.text()); if (x.length > 1){ rows = x; const src = document.getElementById('tlogSrc'); src.textContent = src.dataset.live.replace('{n}', x.length).replace('{t}', new Date(x[x.length - 1].t).toLocaleString([], {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false})); draw(); return; } } } catch(e){} }
     rows = parse(document.getElementById('tlogSample').textContent); draw();
   }
   load(); if (CSV_URL) setInterval(load, 5 * 60e3);
