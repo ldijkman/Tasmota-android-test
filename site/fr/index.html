@@ -709,7 +709,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 <span class="jc">// (the exact address is in the first log line).</span>
 <span class="jc">// The app &quot;Shelly &amp; Tasmota Scan &amp; Control&quot; can install this script and change the settings</span>
 <span class="jc">// through KVS: th_comfort, th_eco (temperatures), th_level (comfort/eco), th_mode (on/off),</span>
-<span class="jc">// th_sensor (number), th_test (on/off). The app&#x27;s schedules set th_level at the switch times.</span>
+<span class="jc">// th_sensor (number), th_test (on/off), th_margin (0.1-1.0), th_stuck (minutes, 0 = off). The app&#x27;s schedules set th_level at the switch times.</span>
 
 <span class="jc">// ================= SETTINGS: change these =================</span>
 
@@ -719,17 +719,18 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 <span class="jk">let</span> COMFORT          = <span class="jn">20.5</span>;    <span class="jc">// Comfort temperature (°C), app: KVS &quot;th_comfort&quot;</span>
 <span class="jk">let</span> ECO              = <span class="jn">16.0</span>;    <span class="jc">// Eco temperature (°C), app: KVS &quot;th_eco&quot;</span>
 <span class="jk">let</span> LEVEL            = <span class="js">&quot;comfort&quot;</span>;  <span class="jc">// &quot;comfort&quot; or &quot;eco&quot;: set by the schedules in the Shelly, app: KVS &quot;th_level&quot;</span>
-<span class="jk">let</span> SWITCH_MARGIN    = <span class="jn">0.3</span>;     <span class="jc">// heat below 19.7, stop above 20.3</span>
+<span class="jk">let</span> SWITCH_MARGIN    = <span class="jn">0.3</span>;     <span class="jc">// heat below 20.2, stop above 20.8 (0.1 - 1.0), app: KVS &quot;th_margin&quot;</span>
 
 <span class="jk">let</span> SENSOR           = <span class="jn">100</span>;     <span class="jc">// Add-on sensor number (see the Shelly page: Temperature (100)), app: KVS &quot;th_sensor&quot;</span>
 
 <span class="jk">let</span> CHECK_EVERY_SECONDS = <span class="jn">30</span>;   <span class="jc">// how often to look at the temperature</span>
 <span class="jk">let</span> MIN_MINUTES_BETWEEN = <span class="jn">0</span>;    <span class="jc">// 0 = react directly; some boilers want e.g. 3 minutes between switching</span>
 <span class="jk">let</span> SAFETY_OFF_MINUTES  = <span class="jn">10</span>;   <span class="jc">// relay turns off by itself if the script stops</span>
+<span class="jk">let</span> STUCK_MINUTES       = <span class="jn">60</span>;   <span class="jc">// warn if heating this long without the room getting 0.2 °C warmer (0 = off), app: KVS &quot;th_stuck&quot;</span>
 
 <span class="jc">// ================= do not change below this line =================</span>
 
-<span class="jk">let</span> VERSION = <span class="jn">4</span>;                <span class="jc">// the app checks this to offer an update of the script</span>
+<span class="jk">let</span> VERSION = <span class="jn">5</span>;                <span class="jc">// the app checks this to offer an update of the script</span>
 
 <span class="jk">let</span> CFG = {
   dryRun: TEST_MODE,
@@ -741,10 +742,11 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   hyst: SWITCH_MARGIN,
   minSwitchSec: MIN_MINUTES_BETWEEN * <span class="jn">60</span>,
   everySec: CHECK_EVERY_SECONDS,
-  watchdogSec: SAFETY_OFF_MINUTES * <span class="jn">60</span>
+  watchdogSec: SAFETY_OFF_MINUTES * <span class="jn">60</span>,
+  stuckSec: STUCK_MINUTES * <span class="jn">60</span>
 };
 
-<span class="jk">let</span> state = { heating: <span class="jk">false</span>, lastSwitch: <span class="jn">0</span>, mode: <span class="js">&quot;on&quot;</span>, round: <span class="jn">0</span> };  <span class="jc">// mode: &quot;on&quot; or &quot;off&quot; (KVS &quot;th_mode&quot;)</span>
+<span class="jk">let</span> state = { heating: <span class="jk">false</span>, lastSwitch: <span class="jn">0</span>, mode: <span class="js">&quot;on&quot;</span>, round: <span class="jn">0</span>, alarm: <span class="js">&quot;&quot;</span> };   <span class="jc">// alarm: &quot;&quot;, &quot;sensor&quot; or &quot;stuck&quot;  // mode: &quot;on&quot; or &quot;off&quot; (KVS &quot;th_mode&quot;)</span>
 
 <span class="jc">// clock time for the log: &quot;04:43:12&quot; (local time of the Shelly),</span>
 <span class="jc">// or the seconds since start (&quot;29332s&quot;) as long as the Shelly does not know the time yet</span>
@@ -800,7 +802,7 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       <span class="jk">if</span> (r.items.length !== <span class="jk">undefined</span>) {           <span class="jc">// newer firmware: a list</span>
         <span class="jk">for</span> (<span class="jk">let</span> i = <span class="jn">0</span>; i &lt; r.items.length; i++) kv[r.items[i].key] = <span class="jf">String</span>(r.items[i].value);
       } <span class="jk">else</span> {                                      <span class="jc">// older firmware: an object</span>
-        <span class="jk">for</span> (<span class="jk">let</span> k in r.items) kv[k] = <span class="jf">String</span>(r.items[k].value);
+        <span class="jk">for</span> (<span class="jk">let</span> k <span class="jk">in</span> r.items) kv[k] = <span class="jf">String</span>(r.items[k].value);
       }
     } <span class="jk">else</span> <span class="jk">if</span> (err) log(<span class="js">&quot;could not read the settings (error &quot;</span> + err + <span class="js">&quot;), keep the old ones&quot;</span>);
     <span class="jk">if</span> (kv.th_comfort !== <span class="jk">undefined</span>) {
@@ -821,6 +823,15 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       <span class="jk">let</span> n = <span class="jf">Number</span>(kv.th_sensor);
       <span class="jk">if</span> (n &gt;= <span class="jn">100</span> &amp;&amp; n &lt;= <span class="jn">199</span>) { <span class="jk">if</span> (n !== CFG.sensor) log(<span class="js">&quot;sensor changed: &quot;</span> + CFG.sensor + <span class="js">&quot; -&gt; &quot;</span> + n); CFG.sensor = n; }
     }
+    <span class="jk">if</span> (kv.th_margin !== <span class="jk">undefined</span>) {
+      <span class="jk">let</span> n = <span class="jf">Math</span>.round(<span class="jf">Number</span>(kv.th_margin) * <span class="jn">10</span>) / <span class="jn">10</span>;
+      <span class="jk">if</span> (n &gt;= <span class="jn">0.1</span> &amp;&amp; n &lt;= <span class="jn">1</span>) { <span class="jk">if</span> (n !== CFG.hyst) log(<span class="js">&quot;margin changed: &quot;</span> + CFG.hyst + <span class="js">&quot; -&gt; &quot;</span> + n + <span class="js">&quot; °C&quot;</span>); CFG.hyst = n; }
+      <span class="jk">else</span> log(<span class="js">&quot;KVS th_margin = &quot;</span> + kv.th_margin + <span class="js">&quot; is out of range (0.1-1.0), ignored&quot;</span>);
+    }
+    <span class="jk">if</span> (kv.th_stuck !== <span class="jk">undefined</span>) {
+      <span class="jk">let</span> n = <span class="jf">Math</span>.round(<span class="jf">Number</span>(kv.th_stuck));
+      <span class="jk">if</span> (n &gt;= <span class="jn">0</span> &amp;&amp; n &lt;= <span class="jn">240</span>) { <span class="jk">if</span> (n * <span class="jn">60</span> !== CFG.stuckSec) log(<span class="js">&quot;not-rising warning changed: &quot;</span> + (n ? n + <span class="js">&quot; min&quot;</span> : <span class="js">&quot;off&quot;</span>)); CFG.stuckSec = n * <span class="jn">60</span>; }
+    }
     v = kv.th_test;
     <span class="jk">if</span> (v === <span class="js">&quot;on&quot;</span> || v === <span class="js">&quot;off&quot;</span>) {
       <span class="jk">let</span> test = v === <span class="js">&quot;on&quot;</span>;
@@ -840,13 +851,16 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
 
 <span class="jc">// state page for the app: http://&lt;shelly-ip&gt;/script/&lt;script-number&gt;/state  (JSON)</span>
 <span class="jk">let</span> lastTemp = <span class="jk">null</span>, lastCheck = <span class="jn">0</span>;
+<span class="jk">let</span> heatFrom = <span class="jn">0</span>, heatT0 = <span class="jk">null</span>;   <span class="jc">// since when it heats without the room getting warmer, and the temperature at that moment</span>
+<span class="jk">function</span> upNow() { <span class="jk">let</span> s = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;sys&quot;</span>); <span class="jk">return</span> s &amp;&amp; s.uptime ? s.uptime : <span class="jn">0</span>; }
 <span class="jf">HTTPServer</span>.registerEndpoint(<span class="js">&quot;state&quot;</span>, <span class="jk">function</span> (req, res) {
   res.code = <span class="jn">200</span>;
   res.headers = [[<span class="js">&quot;Content-Type&quot;</span>, <span class="js">&quot;application/json&quot;</span>]];
   res.body = <span class="jf">JSON</span>.stringify({ thermostat: <span class="jn">1</span>, temp: lastTemp, set: CFG.setpoint, comfort: CFG.comfort, eco: CFG.eco,
     level: CFG.level, margin: CFG.hyst, mode: state.mode,
     heating: state.heating, test: CFG.dryRun, sensor: CFG.sensor, round: state.round, checked: lastCheck,
-    watchdog: CFG.watchdogSec, version: VERSION });
+    watchdog: CFG.watchdogSec, alarm: state.alarm, stuck: CFG.stuckSec / <span class="jn">60</span>, heatMin: heatFrom ? <span class="jf">Math</span>.round((upNow() - heatFrom) / <span class="jn">60</span>) : <span class="jn">0</span>,
+    version: VERSION });
   res.send();
 });
 
@@ -932,10 +946,12 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   <span class="jk">let</span> sys = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;sys&quot;</span>);
   lastCheck = sys &amp;&amp; sys.unixtime ? sys.unixtime : <span class="jn">0</span>;
   <span class="jk">if</span> (t === <span class="jk">null</span>) {                       <span class="jc">// no sensor works: heating off</span>
-    log(<span class="js">&quot;no temperature: heating off for safety&quot;</span>);
+    <span class="jk">if</span> (state.alarm !== <span class="js">&quot;sensor&quot;</span>) log(<span class="js">&quot;WARNING: the sensor gives no temperature: heating off for safety&quot;</span>);
+    state.alarm = <span class="js">&quot;sensor&quot;</span>; heatFrom = <span class="jn">0</span>;
     setHeating(<span class="jk">false</span>, <span class="js">&quot;safety&quot;</span>);
     <span class="jk">return</span>;
   }
+  <span class="jk">if</span> (state.alarm === <span class="js">&quot;sensor&quot;</span>) { log(<span class="js">&quot;the sensor works again&quot;</span>); state.alarm = <span class="js">&quot;&quot;</span>; }
   <span class="jk">if</span> (state.mode === <span class="js">&quot;off&quot;</span>) {
     setHeating(<span class="jk">false</span>, <span class="js">&quot;mode off&quot;</span>);
     <span class="jk">return</span>;
@@ -945,7 +961,29 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
   <span class="jk">if</span> (t &lt; low) setHeating(<span class="jk">true</span>, f1(t) + <span class="js">&quot; &lt; &quot;</span> + f1(low));
   <span class="jk">else</span> <span class="jk">if</span> (t &gt; high) setHeating(<span class="jk">false</span>, f1(t) + <span class="js">&quot; &gt; &quot;</span> + f1(high));
   <span class="jk">else</span> log(f1(t) + <span class="js">&quot; °C is between &quot;</span> + f1(low) + <span class="js">&quot; and &quot;</span> + f1(high) + <span class="js">&quot;: no change (heating stays &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>) + <span class="js">&quot;)&quot;</span>);
+  watchRise(t);
   refreshWatchdog();
+}
+
+<span class="jc">// warning (only a warning, the heating keeps running): it heats for STUCK_MINUTES but the room does not get</span>
+<span class="jc">// 0.2 °C warmer. Then the sensor fell off / sits in the wrong place, or the boiler does not heat.</span>
+<span class="jk">function</span> watchRise(t) {
+  <span class="jk">if</span> (!state.heating || CFG.dryRun || !CFG.stuckSec) {
+    heatFrom = <span class="jn">0</span>;
+    <span class="jk">if</span> (state.alarm === <span class="js">&quot;stuck&quot;</span>) { log(<span class="js">&quot;not-rising warning cleared (heating off)&quot;</span>); state.alarm = <span class="js">&quot;&quot;</span>; }
+    <span class="jk">return</span>;
+  }
+  <span class="jk">let</span> now = upNow();
+  <span class="jk">if</span> (!heatFrom || t &gt;= heatT0 + <span class="jn">0.2</span>) {          <span class="jc">// started heating, or the room got warmer: start counting again</span>
+    <span class="jk">if</span> (heatFrom &amp;&amp; state.alarm === <span class="js">&quot;stuck&quot;</span>) { log(<span class="js">&quot;temperature rises again (&quot;</span> + f1(heatT0) + <span class="js">&quot; -&gt; &quot;</span> + f1(t) + <span class="js">&quot; °C): warning cleared&quot;</span>); state.alarm = <span class="js">&quot;&quot;</span>; }
+    heatFrom = now; heatT0 = t;
+    <span class="jk">return</span>;
+  }
+  <span class="jk">if</span> (now - heatFrom &gt;= CFG.stuckSec &amp;&amp; state.alarm !== <span class="js">&quot;stuck&quot;</span>) {
+    state.alarm = <span class="js">&quot;stuck&quot;</span>;
+    log(<span class="js">&quot;WARNING: heating for &quot;</span> + <span class="jf">Math</span>.round((now - heatFrom) / <span class="jn">60</span>) + <span class="js">&quot; min but the room did not get warmer (&quot;</span> + f1(heatT0) + <span class="js">&quot; -&gt; &quot;</span> + f1(t) +
+        <span class="js">&quot; °C): check the sensor and the boiler. Heating keeps running.&quot;</span>);
+  }
 }
 
 <span class="jc">// start: read the relay as it is now, then check every 30 s (settings every 5 min)</span>
@@ -954,7 +992,7 @@ log(<span class="js">&quot;log page: http://&quot;</span> + (wifi &amp;&amp; wif
 <span class="jk">let</span> sw = <span class="jf">Shelly</span>.getComponentStatus(<span class="js">&quot;switch&quot;</span>, <span class="jn">0</span>);
 state.heating = !!(sw &amp;&amp; sw.output);
 log(<span class="js">&quot;script started · TEST MODE &quot;</span> + (TEST_MODE ? <span class="js">&quot;on (relay is never switched)&quot;</span> : <span class="js">&quot;OFF (relay really switches!)&quot;</span>) +
-    <span class="js">&quot; · Comfort &quot;</span> + f1(COMFORT) + <span class="js">&quot; °C · Eco &quot;</span> + f1(ECO) + <span class="js">&quot; °C · margin &quot;</span> + SWITCH_MARGIN + <span class="js">&quot; · no frost guard (use a mechanical one)&quot;</span>);
+    <span class="js">&quot; · Comfort &quot;</span> + f1(COMFORT) + <span class="js">&quot; °C · Eco &quot;</span> + f1(ECO) + <span class="js">&quot; °C · margin &quot;</span> + SWITCH_MARGIN + <span class="js">&quot; · warn if not rising after &quot;</span> + STUCK_MINUTES + <span class="js">&quot; min · no frost guard (use a mechanical one)&quot;</span>);
 log(<span class="js">&quot;sensor &quot;</span> + SENSOR + <span class="js">&quot; (KVS th_sensor can change it) · check every &quot;</span> + CHECK_EVERY_SECONDS + <span class="js">&quot; s · wait &quot;</span> + MIN_MINUTES_BETWEEN +
     <span class="js">&quot; min between switching · safety off after &quot;</span> + SAFETY_OFF_MINUTES + <span class="js">&quot; min · relay is now &quot;</span> + (state.heating ? <span class="js">&quot;ON&quot;</span> : <span class="js">&quot;OFF&quot;</span>));
 <span class="jc">// react at once when the sensor reports a new temperature (every change of its threshold, e.g. 0.1 °C);</span>
@@ -1246,8 +1284,8 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
   <button type="button" class="gdc-x" aria-label="Close" onclick="this.closest('dialog').close()">✕</button>
   <h3 id="chg-h">Dernières modifications de l’app</h3>
   <div class="chg-body">
-  <h4>28 November <span>· 27.4</span></h4>
-  <ul><li>“Mettre à jour l’app” button on the website: opens the app and starts Check for update right away.</li></ul>
+  <h4>28 November <span>· 27.4 – 27.5</span></h4>
+  <ul><li>Thermostat script version 5 (Edit → Update script): set the switch margin yourself (± 0.1 – 1.0 °C), a warning when it heats a long time but the room does not get warmer (check sensor / boiler), and a warning when the sensor fails. The Heating screen shows “heats below … · stops above …”.</li><li>“Mettre à jour l’app” button on the website: opens the app and starts Check for update right away.</li></ul>
   <h4>27 November <span>· 26.1 – 27.3</span></h4>
   <ul><li>Tiles: the thermostat gets a wide double tile, laid out like the device card: room and target temperature, Comfort / Eco, big − / + (tap the number for the wheel) and the Thermostat on/off switch.</li><li>Thermostat: the countdown ring now comes from the watchdog, so it also shows when auto-off is off on the Shelly (auto-off is not needed for a thermostat).</li><li>Thermostat: a small thermometer on the icon instead of the hourglass, and the schedule screen explains on-time = Comfort, off-time = Eco.</li><li>Heating screen: a small “Actual Temp.” label above the big temperature, with the flame right beside it.</li><li>Thermostat: the app asks “Turn off the thermostat?” before switching it off, on the device card and on the Heating screen.</li><li>Device card: the thermostat block uses the full width, so the temperatures and buttons fit.</li><li>Tap a Shelly Add-on sensor on the device card to open its settings on the Shelly (name, offset, threshold).</li><li>Default Tasmota password in Settings: Scan network tries it on every password-protected Tasmota, so they show up with their real name and work straight away. A different password per switch stays possible in Edit.</li><li>Thermostat temperature in steps of 0.1 °C: tap the number on the Heating screen or in Edit for a wheel, or use − / + (hold to keep going). Sent to the Shelly 1.5 seconds after you stop.</li><li>Edit: a thin border around the thermostat part.</li><li>Heating screen: 📜 Open log and ⚙️ Script page at the bottom of each thermostat.</li><li>Comfort and Eco: two temperatures for the thermostat. The app’s schedules switch between them (on-time = Comfort, off-time = Eco), stored in the Shelly itself.</li><li>Heating screen: a new button in the top bar with a big view per thermostat, ☀️ Comfort / 🌙 Eco, − / +, a Thermostat switch and a flickering flame while heating.</li><li>Device card: the thermostat block has a Thermostat switch instead of “On”.</li><li>Thermostat script fixed: it no longer stops with “Too many calls in progress”.</li><li>App update: the Android install screen now also opens on phones like the Samsung A40.</li></ul>
   <h4>26 November <span>· 25.7 – 26.0</span></h4>
