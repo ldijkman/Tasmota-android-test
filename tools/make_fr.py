@@ -392,6 +392,7 @@ T = [
 ('Update the app', 'Mettre à jour l’app'),
 ('>🔥 Live thermostat demo<', '>🔥 Démo en direct du thermostat<'),
 ('>Thermostat screenshots</a></li>', '>Captures du thermostat</a></li>'),
+('Version 27.5: set the hysteresis (switch margin) yourself, and a warning when the sensor fails or the room does not get warmer. Edit → Update script puts version 5 on the Shelly.', 'Version 27.5 : réglez vous-même l’hystérésis (marge de commutation), et une alerte si la sonde tombe en panne ou si la pièce ne chauffe pas. Modifier → Update script installe la version 5 sur le Shelly.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

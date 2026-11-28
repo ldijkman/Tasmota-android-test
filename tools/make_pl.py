@@ -532,6 +532,7 @@ T = [
 ('Update the app', 'Zaktualizuj aplikację'),
 ('>🔥 Live thermostat demo<', '>🔥 Demo termostatu na żywo<'),
 ('>Thermostat screenshots</a></li>', '>Zrzuty ekranu termostatu</a></li>'),
+('Version 27.5: set the hysteresis (switch margin) yourself, and a warning when the sensor fails or the room does not get warmer. Edit → Update script puts version 5 on the Shelly.', 'Wersja 27.5: sam ustaw histerezę (margines przełączania), oraz ostrzeżenie, gdy czujnik zawiedzie lub nie robi się cieplej. Edycja → Update script wgrywa wersję 5 na Shelly.'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

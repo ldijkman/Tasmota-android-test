@@ -535,6 +535,7 @@ T = [
 ('Update the app', 'Actualizar la app'),
 ('>🔥 Live thermostat demo<', '>🔥 Demo en vivo del termostato<'),
 ('>Thermostat screenshots</a></li>', '>Capturas del termostato</a></li>'),
+('Version 27.5: set the hysteresis (switch margin) yourself, and a warning when the sensor fails or the room does not get warmer. Edit → Update script puts version 5 on the Shelly.', 'Versión 27.5: ajusta tú mismo la histéresis (margen de conmutación), y un aviso cuando el sensor falla o no se calienta la sala. Editar → Update script pone la versión 5 en el Shelly.'),
 ]
 
 

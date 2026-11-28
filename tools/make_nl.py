@@ -558,6 +558,7 @@ T = [
 ('Update the app', 'Werk de app bij'),
 ('>🔥 Live thermostat demo<', '>🔥 Live demo thermostaat<'),
 ('>Thermostat screenshots</a></li>', '>Thermostaat-schermafdrukken</a></li>'),
+('Version 27.5: set the hysteresis (switch margin) yourself, and a warning when the sensor fails or the room does not get warmer. Edit → Update script puts version 5 on the Shelly.', 'Versie 27.5: stel de hysterese (schakelmarge) zelf in, en een waarschuwing als de sensor faalt of het niet warmer wordt. Bewerken → Update script zet versie 5 op de Shelly.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
