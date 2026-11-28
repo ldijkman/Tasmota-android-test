@@ -538,7 +538,6 @@ T = [
 ('Climate change, extreme summers: version 27.7 adds an airco mode. Edit → Mode → ❄️ Cooling (airco): the relay switches on when it is too warm.', 'Zmiany klimatu, ekstremalne lata: wersja 27.7 ma tryb klimatyzacji. Edycja → Mode → ❄️ Cooling (airco): przekaźnik włącza się, gdy jest za ciepło.'),
 ('Airco mode on the Heating screen: a ❄️ instead of the 🔥, “cooling to 21.0”, cools above 21.2 and stops below 20.8.', 'Tryb klimatyzacji na ekranie ogrzewania: ❄️ zamiast 🔥, „cooling to 21.0”, chłodzi powyżej 21,2 i przestaje poniżej 20,8.'),
 ('<b>Heat or cool: airco mode</b>', '<b>Grzanie albo chłodzenie: tryb klimatyzacji</b>'),
-('▶ Watch the video: heating or airco with one Shelly thermostat', '▶ Obejrzyj film: ogrzewanie albo klimatyzacja z jednym termostatem Shelly'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

@@ -402,7 +402,6 @@ T = [
 ('Climate change, extreme summers: version 27.7 adds an airco mode. Edit → Mode → ❄️ Cooling (airco): the relay switches on when it is too warm.', 'Klimawandel, extreme Sommer: Version 27.7 hat einen Klimaanlagen-Modus. Bearbeiten → Mode → ❄️ Cooling (airco): das Relais schaltet ein, wenn es zu warm ist.'),
 ('Airco mode on the Heating screen: a ❄️ instead of the 🔥, “cooling to 21.0”, cools above 21.2 and stops below 20.8.', 'Klimaanlagen-Modus auf dem Heizungsbildschirm: ein ❄️ statt der 🔥, „cooling to 21.0“, kühlt über 21,2 und stoppt unter 20,8.'),
 ('<b>Heat or cool: airco mode</b>', '<b>Heizen oder kühlen: Klimaanlagen-Modus</b>'),
-('▶ Watch the video: heating or airco with one Shelly thermostat', '▶ Video ansehen: Heizung oder Klimaanlage mit einem Shelly-Thermostat'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
