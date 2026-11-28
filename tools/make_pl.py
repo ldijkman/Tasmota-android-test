@@ -552,6 +552,8 @@ T = [
 ('<span class="lt">Room temperature</span><span class="lg">Target</span><span class="lh">Heating on 🔥</span>', '<span class="lt">Temperatura w pokoju</span><span class="lg">Cel</span><span class="lh">Ogrzewanie wł. 🔥</span>'),
 ('data-h="168">7 days</button><button type="button" data-h="0" class="on">All</button>', 'data-h="168">7 dni</button><button type="button" data-h="0" class="on">Wszystko</button>'),
 ('Live from my LivingRoom Shelly, through my own Google Sheet (CSV): {n} readings, the last one at {t}. Updates every 10 minutes.', 'Na żywo z mojego Shelly LivingRoom, przez mój własny Arkusz Google (CSV): {n} pomiarów, ostatni o {t}. Odświeża się co 10 minut.'),
+('👆 Move your mouse or finger over the chart to see the values.', '👆 Przesuń myszką lub palcem po wykresie, aby zobaczyć wartości.'),
+('data-stop="😵 Stop it! I can\'t take it anymore!"', 'data-stop="😵 Przestań! Nie mogę już tego znieść!"'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

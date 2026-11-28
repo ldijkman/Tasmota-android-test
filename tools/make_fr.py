@@ -412,6 +412,8 @@ T = [
 ('<span class="lt">Room temperature</span><span class="lg">Target</span><span class="lh">Heating on 🔥</span>', '<span class="lt">Température de la pièce</span><span class="lg">Consigne</span><span class="lh">Chauffage en marche 🔥</span>'),
 ('data-h="168">7 days</button><button type="button" data-h="0" class="on">All</button>', 'data-h="168">7 jours</button><button type="button" data-h="0" class="on">Tout</button>'),
 ('Live from my LivingRoom Shelly, through my own Google Sheet (CSV): {n} readings, the last one at {t}. Updates every 10 minutes.', 'En direct de mon Shelly LivingRoom, via mon propre Google Sheet (CSV) : {n} mesures, la dernière à {t}. Mise à jour toutes les 10 minutes.'),
+('👆 Move your mouse or finger over the chart to see the values.', '👆 Passez la souris ou le doigt sur le graphique pour voir les valeurs.'),
+('data-stop="😵 Stop it! I can\'t take it anymore!"', 'data-stop="😵 Arrête ! Je n’en peux plus !"'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

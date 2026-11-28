@@ -204,6 +204,8 @@ dialog button{background:none;border:1.5px solid #3a4a70;color:#fff;border-radiu
 .tlog-rng{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.tlog-rng button{font:inherit;font-size:.9rem;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line);background:none;color:var(--ink);cursor:pointer}.tlog-rng button.on{border-color:var(--amber);color:var(--amber);font-weight:700}
 .tlog-box{position:relative}.tlog-box svg{display:block;width:100%;height:260px;touch-action:pan-y}
 .tlog-tip{position:absolute;top:4px;pointer-events:none;background:#0b1120;border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:.85rem;color:var(--ink);white-space:nowrap;transform:translateX(-50%)}
+.tlog-hint{margin:6px 0 0;text-align:center;color:var(--muted);font-size:.85rem;transition:color .2s}.tlog-hint.dizzy{color:var(--amber);font-weight:700;animation:tlogShake .4s 2}
+@keyframes tlogShake{25%{transform:translateX(-4px) rotate(-1deg)}75%{transform:translateX(4px) rotate(1deg)}}@media (prefers-reduced-motion:reduce){.tlog-hint.dizzy{animation:none}}
 .tlog-leg{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 0;font-size:.85rem;color:var(--muted)}.tlog-leg span::before{content:"";display:inline-block;width:18px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
 .tlog-leg .lt::before{background:#5b9bff}.tlog-leg .lg::before{background:#6cc36c}.tlog-leg .lh::before{height:10px;background:#f0a630}
 .nerd-shot{margin:18px auto 0;max-width:620px}.nerd-shot img{width:100%;height:auto;border-radius:14px;border:1.5px solid var(--line)}.nerd-shot figcaption{text-align:center;margin-top:8px;font-size:.9rem;color:var(--muted,#aab)}
@@ -1134,6 +1136,7 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
       <p class="tlog-sub" id="tlogSrc" data-live="En directo desde mi Shelly LivingRoom, a través de mi propia Hoja de Google (CSV): {n} mediciones, la última a las {t}. Se actualiza cada 10 minutos.">La página lee la Hoja de Google como valores separados por comas (CSV) y dibuja el gráfico ella misma. Por ahora: la tarde del 28 de noviembre.</p>
       <div class="tlog-rng" role="group" aria-label="Time range"><button type="button" data-h="6">6 h</button><button type="button" data-h="24">24 h</button><button type="button" data-h="168">7 días</button><button type="button" data-h="0" class="on">Todo</button></div>
       <div class="tlog-box"><svg id="tlogSvg" role="img" aria-label="Room temperature, target and heating over time"></svg><div class="tlog-tip" id="tlogTip" hidden></div></div>
+      <p class="tlog-hint" id="tlogHint" data-stop="😵 ¡Para ya! ¡No puedo más!">👆 Mueve el ratón o el dedo sobre el gráfico para ver los valores.</p>
       <p class="tlog-leg"><span class="lt">Temperatura de la sala</span><span class="lg">Objetivo</span><span class="lh">Calefacción encendida 🔥</span></p>
       <script type="text/csv" id="tlogSample">Timestamp,device,temp,target,heating,level
 11/28/2026 18:06:16,Living room,29.7,21,0,comfort
@@ -1598,9 +1601,14 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
       dot.setAttribute('cx', X(r.t)); dot.setAttribute('cy', Y(r.temp)); dot.setAttribute('visibility', 'visible');
       tip.hidden = false; tip.innerHTML = `${hm(r.t)} · <b>${r.temp.toFixed(1)} °C</b> · 🎯 ${isNaN(r.target) ? '–' : r.target} · ${r.heat ? '🔥' : 'off'}`;
       const hw = tip.offsetWidth / 2 + 2; tip.style.left = Math.min(Math.max(X(r.t) * b.width / W, hw), b.width - hw) + 'px'; };
-    svg.onpointermove = show; svg.onpointerdown = show;
+    svg.onpointermove = ev => { show(ev); tickle(); }; svg.onpointerdown = show;
     svg.onpointerleave = () => { cur.setAttribute('visibility', 'hidden'); dot.setAttribute('visibility', 'hidden'); tip.hidden = true; };
   }
+  // keep wiggling over the chart for a while and it protests
+  const hint = document.getElementById('tlogHint'), calm = hint.textContent; let busy = 0, lastMove = 0, rest;
+  function tickle(){ const now = Date.now(); busy = now - lastMove < 400 ? busy + (now - lastMove) : 0; lastMove = now;
+    if (busy > 7000 && !hint.classList.contains('dizzy')){ hint.textContent = hint.dataset.stop; hint.classList.add('dizzy'); }
+    clearTimeout(rest); rest = setTimeout(() => { busy = 0; hint.textContent = calm; hint.classList.remove('dizzy'); }, 2500); }
   box.querySelectorAll('.tlog-rng button').forEach(b => b.addEventListener('click', () => {
     box.querySelectorAll('.tlog-rng button').forEach(x => x.classList.toggle('on', x === b)); hours = +b.dataset.h; draw(); }));
   async function load(){

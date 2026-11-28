@@ -555,6 +555,8 @@ T = [
 ('<span class="lt">Room temperature</span><span class="lg">Target</span><span class="lh">Heating on 🔥</span>', '<span class="lt">Temperatura de la sala</span><span class="lg">Objetivo</span><span class="lh">Calefacción encendida 🔥</span>'),
 ('data-h="168">7 days</button><button type="button" data-h="0" class="on">All</button>', 'data-h="168">7 días</button><button type="button" data-h="0" class="on">Todo</button>'),
 ('Live from my LivingRoom Shelly, through my own Google Sheet (CSV): {n} readings, the last one at {t}. Updates every 10 minutes.', 'En directo desde mi Shelly LivingRoom, a través de mi propia Hoja de Google (CSV): {n} mediciones, la última a las {t}. Se actualiza cada 10 minutos.'),
+('👆 Move your mouse or finger over the chart to see the values.', '👆 Mueve el ratón o el dedo sobre el gráfico para ver los valores.'),
+('data-stop="😵 Stop it! I can\'t take it anymore!"', 'data-stop="😵 ¡Para ya! ¡No puedo más!"'),
 ]
 
 

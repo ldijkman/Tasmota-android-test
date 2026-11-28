@@ -416,6 +416,8 @@ T = [
 ('<span class="lt">Room temperature</span><span class="lg">Target</span><span class="lh">Heating on 🔥</span>', '<span class="lt">Raumtemperatur</span><span class="lg">Ziel</span><span class="lh">Heizung an 🔥</span>'),
 ('data-h="168">7 days</button><button type="button" data-h="0" class="on">All</button>', 'data-h="168">7 Tage</button><button type="button" data-h="0" class="on">Alles</button>'),
 ('Live from my LivingRoom Shelly, through my own Google Sheet (CSV): {n} readings, the last one at {t}. Updates every 10 minutes.', 'Live von meinem LivingRoom Shelly, über meine eigene Google Tabelle (CSV): {n} Messungen, die letzte um {t}. Aktualisiert alle 10 Minuten.'),
+('👆 Move your mouse or finger over the chart to see the values.', '👆 Fahre mit der Maus oder dem Finger über das Diagramm, um die Werte zu sehen.'),
+('data-stop="😵 Stop it! I can\'t take it anymore!"', 'data-stop="😵 Hör auf! Ich halt\'s nicht mehr aus!"'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
