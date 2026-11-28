@@ -575,11 +575,17 @@ T = [
 ('The first graph from my own Google Sheet: room temperature (blue), target (green) and heating on/off (red, 1 = on). Normally the two lines follow each other: the heating brings the room up to the target. But I have a woodstove so nothing here makes sense: 29.7 °C while the target is 10.', 'De eerste grafiek uit mijn eigen Google Spreadsheet: kamertemperatuur (blauw), doel (groen) en verwarming aan/uit (rood, 1 = aan). Normaal volgen de twee lijnen elkaar: de verwarming brengt de kamer naar het doel. Maar ik heb een houtkachel dus hier klopt niets van: 29,7 °C terwijl het doel 10 is.'),
 ('📈 Temperature history, drawn right here on the page', '📈 Temperatuurgeschiedenis, hier op de pagina getekend'),
 ('The page reads the Google Sheet as comma-separated values (CSV) and draws the chart itself. For now: the evening of 28 November.', 'De pagina leest de Google Spreadsheet als kommagescheiden waarden (CSV) en tekent de grafiek zelf. Voor nu: de avond van 28 november.'),
-('<span class="lt">Room temperature</span><span class="lg">Target</span><span class="lh">Heating on 🔥</span>', '<span class="lt">Kamertemperatuur</span><span class="lg">Doel</span><span class="lh">Verwarming aan 🔥</span>'),
 ('data-h="168">7 days</button><button type="button" data-h="0" class="on">All</button>', 'data-h="168">7 dagen</button><button type="button" data-h="0" class="on">Alles</button>'),
 ('Live from my LivingRoom Shelly, through my own Google Sheet (CSV): {n} readings, the last one at {t}. Updates every 10 minutes.', 'Live van mijn LivingRoom Shelly, via mijn eigen Google Spreadsheet (CSV): {n} metingen, de laatste om {t}. Ververst elke 10 minuten.'),
 ('👆 Move your mouse or finger over the chart to see the values.', '👆 Beweeg je muis of vinger over de grafiek om de waarden te zien.'),
 ('data-stop="😵 Stop it! I can\'t take it anymore!"', 'data-stop="😵 Hou op! Ik kan er niet meer tegen!"'),
+(' hidden>Room temperature</button>', ' hidden>Kamertemperatuur</button>'),
+(' hidden>Target</button>', ' hidden>Doel</button>'),
+(' hidden>Heating on 🔥</button>', ' hidden>Verwarming aan 🔥</button>'),
+(' hidden>Humidity %</button>', ' hidden>Vochtigheid %</button>'),
+(' hidden>Input on</button>', ' hidden>Ingang aan</button>'),
+(' hidden>Analog %</button>', ' hidden>Analoog %</button>'),
+('aria-label="Show or hide lines"', 'aria-label="Lijnen tonen of verbergen"'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

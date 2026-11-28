@@ -409,11 +409,21 @@ T = [
 ('The first graph from my own Google Sheet: room temperature (blue), target (green) and heating on/off (red, 1 = on). Normally the two lines follow each other: the heating brings the room up to the target. But I have a woodstove so nothing here makes sense: 29.7 °C while the target is 10.', 'Le premier graphique de mon propre Google Sheet : température de la pièce (bleu), consigne (vert) et chauffage marche/arrêt (rouge, 1 = marche). Normalement les deux lignes se suivent : le chauffage amène la pièce à la consigne. Mais j’ai un poêle à bois donc rien n’a de sens ici : 29,7 °C alors que la consigne est 10.'),
 ('📈 Temperature history, drawn right here on the page', '📈 Historique des températures, dessiné ici sur la page'),
 ('The page reads the Google Sheet as comma-separated values (CSV) and draws the chart itself. For now: the evening of 28 November.', 'La page lit le Google Sheet en valeurs séparées par des virgules (CSV) et dessine le graphique elle-même. Pour l’instant : la soirée du 28 novembre.'),
-('<span class="lt">Room temperature</span><span class="lg">Target</span><span class="lh">Heating on 🔥</span>', '<span class="lt">Température de la pièce</span><span class="lg">Consigne</span><span class="lh">Chauffage en marche 🔥</span>'),
 ('data-h="168">7 days</button><button type="button" data-h="0" class="on">All</button>', 'data-h="168">7 jours</button><button type="button" data-h="0" class="on">Tout</button>'),
 ('Live from my LivingRoom Shelly, through my own Google Sheet (CSV): {n} readings, the last one at {t}. Updates every 10 minutes.', 'En direct de mon Shelly LivingRoom, via mon propre Google Sheet (CSV) : {n} mesures, la dernière à {t}. Mise à jour toutes les 10 minutes.'),
 ('👆 Move your mouse or finger over the chart to see the values.', '👆 Passez la souris ou le doigt sur le graphique pour voir les valeurs.'),
 ('data-stop="😵 Stop it! I can\'t take it anymore!"', 'data-stop="😵 Arrête ! Je n’en peux plus !"'),
+(' hidden>Room temperature</button>', ' hidden>Température de la pièce</button>'),
+(' hidden>Target</button>', ' hidden>Consigne</button>'),
+(' hidden>Heating on 🔥</button>', ' hidden>Chauffage en marche 🔥</button>'),
+(' hidden>Sensor 2</button>', ' hidden>Capteur 2</button>'),
+(' hidden>Sensor 3</button>', ' hidden>Capteur 3</button>'),
+(' hidden>Sensor 4</button>', ' hidden>Capteur 4</button>'),
+(' hidden>Sensor 5</button>', ' hidden>Capteur 5</button>'),
+(' hidden>Humidity %</button>', ' hidden>Humidité %</button>'),
+(' hidden>Input on</button>', ' hidden>Entrée active</button>'),
+(' hidden>Analog %</button>', ' hidden>Analogique %</button>'),
+('aria-label="Show or hide lines"', 'aria-label="Afficher ou masquer les lignes"'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

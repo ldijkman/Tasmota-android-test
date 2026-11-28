@@ -206,8 +206,9 @@ dialog button{background:none;border:1.5px solid #3a4a70;color:#fff;border-radiu
 .tlog-tip{position:absolute;top:4px;pointer-events:none;background:#0b1120;border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:.85rem;color:var(--ink);white-space:nowrap;transform:translateX(-50%)}
 .tlog-hint{margin:6px 0 0;text-align:center;color:var(--muted);font-size:.85rem;transition:color .2s}.tlog-hint.dizzy{color:var(--amber);font-weight:700;animation:tlogShake .4s 2}
 @keyframes tlogShake{25%{transform:translateX(-4px) rotate(-1deg)}75%{transform:translateX(4px) rotate(1deg)}}@media (prefers-reduced-motion:reduce){.tlog-hint.dizzy{animation:none}}
-.tlog-leg{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 0;font-size:.85rem;color:var(--muted)}.tlog-leg span::before{content:"";display:inline-block;width:18px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
-.tlog-leg .lt::before{background:#5b9bff}.tlog-leg .lg::before{background:#6cc36c}.tlog-leg .lh::before{height:10px;background:#f0a630}
+.tlog-leg{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0 0}.tlog-leg button{font:inherit;font-size:.85rem;color:var(--ink);background:none;border:1.5px solid var(--line);border-radius:999px;padding:4px 12px 4px 10px;cursor:pointer}
+.tlog-leg button::before{content:"";display:inline-block;width:16px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle;background:var(--c)}.tlog-leg button[data-kind=bar]::before{height:10px}
+.tlog-leg button[aria-pressed=false]{color:var(--muted);opacity:.55;text-decoration:line-through}
 .nerd-shot{margin:18px auto 0;max-width:620px}.nerd-shot img{width:100%;height:auto;border-radius:14px;border:1.5px solid var(--line)}.nerd-shot figcaption{text-align:center;margin-top:8px;font-size:.9rem;color:var(--muted,#aab)}
 .strip img{border-radius:22px;border:1.5px solid var(--line)}
 .strip-wrap{position:relative}
@@ -1137,7 +1138,7 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
       <div class="tlog-rng" role="group" aria-label="Time range"><button type="button" data-h="6">6 h</button><button type="button" data-h="24">24 h</button><button type="button" data-h="168">7 jours</button><button type="button" data-h="0" class="on">Tout</button></div>
       <div class="tlog-box"><svg id="tlogSvg" role="img" aria-label="Room temperature, target and heating over time"></svg><div class="tlog-tip" id="tlogTip" hidden></div></div>
       <p class="tlog-hint" id="tlogHint" data-stop="😵 Arrête ! Je n’en peux plus !">👆 Passez la souris ou le doigt sur le graphique pour voir les valeurs.</p>
-      <p class="tlog-leg"><span class="lt">Température de la pièce</span><span class="lg">Consigne</span><span class="lh">Chauffage en marche 🔥</span></p>
+      <p class="tlog-leg" id="tlogLeg" role="group" aria-label="Afficher ou masquer les lignes"><button type="button" data-k="temp" data-kind="line" style="--c:#5b9bff" aria-pressed="true" hidden>Température de la pièce</button><button type="button" data-k="target" data-kind="line" style="--c:#6cc36c" aria-pressed="true" hidden>Consigne</button><button type="button" data-k="heating" data-kind="bar" style="--c:#f0a630" aria-pressed="true" hidden>Chauffage en marche 🔥</button><button type="button" data-k="t2" data-kind="line" style="--c:#e46fd0" aria-pressed="true" hidden>Capteur 2</button><button type="button" data-k="t3" data-kind="line" style="--c:#39c5c8" aria-pressed="true" hidden>Capteur 3</button><button type="button" data-k="t4" data-kind="line" style="--c:#ff8a65" aria-pressed="true" hidden>Capteur 4</button><button type="button" data-k="t5" data-kind="line" style="--c:#b39ddb" aria-pressed="true" hidden>Capteur 5</button><button type="button" data-k="humidity" data-kind="line" style="--c:#7fd3ff" aria-pressed="true" hidden>Humidité %</button><button type="button" data-k="input" data-kind="bar" style="--c:#ffe066" aria-pressed="true" hidden>Entrée active</button><button type="button" data-k="analog" data-kind="line" style="--c:#c5e1a5" aria-pressed="true" hidden>Analogique %</button><button type="button" data-k="volt" data-kind="line" style="--c:#ef9a9a" aria-pressed="true" hidden>Volt</button><button type="button" data-k="shelly_c" data-kind="line" style="--c:#9aa3b5" aria-pressed="true" hidden>Shelly °C</button></p>
       <script type="text/csv" id="tlogSample">Timestamp,device,temp,target,heating,level
 11/28/2026 18:06:16,Living room,29.7,21,0,comfort
 11/28/2026 18:11:14,Living room,29.1,10,0,eco
@@ -1558,7 +1559,12 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
   const box = document.getElementById('temp-history'); if (!box) return;
   const svg = document.getElementById('tlogSvg'), tip = document.getElementById('tlogTip'), NS = 'http://www.w3.org/2000/svg';
   let rows = [], hours = 0;
-  const num = v => { v = String(v).trim().replace(',', '.'); return v === '' ? NaN : Number(v); };
+  const num = v => { v = String(v == null ? '' : v).trim().replace(',', '.'); return v === '' ? NaN : Number(v); };
+  // every column the Shelly can send; a chip under the chart shows only for columns that hold data
+  const KEYS = ['temp', 'target', 't2', 't3', 't4', 't5', 'humidity', 'analog', 'volt', 'shelly_c', 'heating', 'input'];
+  const OFF_FIRST = {humidity: 1, analog: 1, volt: 1, shelly_c: 1};      // other scales: off until tapped
+  const leg = document.getElementById('tlogLeg'), chip = k => leg.querySelector(`[data-k="${k}"]`);
+  const on = {}; let chipsDone = false;
   function parseTime(t){   // Google gives the Sheet's own date format: M/D/YYYY H:MM:SS (US) or D-M-YYYY H:MM:SS
     let m = t.match(/^(\d{1,4})[\/.-](\d{1,2})[\/.-](\d{1,4})[ T]+(\d{1,2}):(\d{2})(?::(\d{2}))?/);
     if (m){ let a = +m[1], b = +m[2], c = +m[3], y, mo, d;
@@ -1567,39 +1573,61 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
     const n = Date.parse(t); return isNaN(n) ? null : n;
   }
   function parse(text){
-    const lines = text.trim().split(/\r?\n/), head = lines.shift().split(',').map(h => h.trim().toLowerCase());
-    const col = n => head.indexOf(n), cT = col('timestamp'), cTe = col('temp'), cG = col('target'), cH = col('heating'), cD = col('device');
+    const lines = text.trim().split(/\r?\n/), head = lines.shift().split(',').map(h => h.trim().replace(/^"|"$/g, '').toLowerCase());
+    const cT = head.indexOf('timestamp'), cD = head.indexOf('device');
     return lines.map(l => { const f = l.match(/("([^"]|"")*"|[^,]*)(,|$)/g).map(x => x.replace(/,$/, '').replace(/^"|"$/g, '').replace(/""/g, '"'));
-      return { t: parseTime(f[cT] || ''), temp: num(f[cTe]), target: num(f[cG]), heat: num(f[cH]) === 1, dev: f[cD] || '' }; })
+      const r = { t: parseTime(f[cT] || ''), dev: f[cD] || '' };
+      KEYS.forEach(k => { const c = head.indexOf(k); r[k] = c < 0 ? NaN : num(f[c]); });
+      r.heat = r.heating === 1; r.inp = r.input === 1; return r; })
       .filter(r => r.t && !isNaN(r.temp) && r.dev !== 'test').sort((a, b) => a.t - b.t);
   }
+  function setupChips(){   // show a chip for every column that has data; the first time only
+    KEYS.forEach(k => { const b = chip(k); if (!b) return; const has = rows.some(r => !isNaN(r[k]));
+      b.hidden = !has; if (!chipsDone){ on[k] = has && !OFF_FIRST[k]; b.setAttribute('aria-pressed', on[k]); } });
+    chipsDone = true;
+  }
+  leg.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+    const k = b.dataset.k; on[k] = !on[k]; b.setAttribute('aria-pressed', on[k]); draw(); }));
   const el = (n, a, p) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); (p || svg).appendChild(e); return e; };
   const hm = t => new Date(t).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', hour12: false});
   const dm = t => new Date(t).toLocaleDateString([], {day: 'numeric', month: 'short'});
+  const color = k => chip(k).style.getPropertyValue('--c');
+  const UNIT = {humidity: '%', analog: '%', volt: ' V'};
   function draw(){
     svg.innerHTML = ''; tip.hidden = true;
     const W = svg.clientWidth || 600, H = 260, L = 34, R = 10, T = 12, B = 28; svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
     let d = rows; if (hours && d.length){ const from = d[d.length - 1].t - hours * 3600e3; d = d.filter(r => r.t >= from); }
     if (d.length < 2){ el('text', {x: W / 2, y: H / 2, 'text-anchor': 'middle', fill: '#a3abbd', 'font-size': 14}).textContent = 'Not enough data yet'; return; }
-    const t0 = d[0].t, t1 = d[d.length - 1].t, vals = d.flatMap(r => [r.temp, r.target].filter(v => !isNaN(v)));
-    let lo = 0, hi = Math.ceil((Math.max(...vals) + 1) / 5) * 5; if (hi - lo < 10) hi = lo + 10;
+    const lines = KEYS.filter(k => on[k] && k !== 'heating' && k !== 'input');
+    const t0 = d[0].t, t1 = d[d.length - 1].t, vals = d.flatMap(r => lines.map(k => r[k]).filter(v => !isNaN(v)));
+    let lo = Math.min(0, ...vals.map(v => Math.floor(v / 5) * 5)), hi = Math.ceil(((vals.length ? Math.max(...vals) : 20) + 1) / 5) * 5; if (hi - lo < 10) hi = lo + 10;
     const X = t => L + (t - t0) / (t1 - t0) * (W - L - R), Y = v => T + (hi - v) / (hi - lo) * (H - T - B);
-    for (let v = lo; v <= hi; v += 5){ el('line', {x1: L, x2: W - R, y1: Y(v), y2: Y(v), stroke: '#243150'}); el('text', {x: L - 6, y: Y(v) + 4, 'text-anchor': 'end', fill: '#a3abbd', 'font-size': 11}).textContent = v; }
-    for (let i = 0; i < d.length; i++) if (d[i].heat){   // heating: amber bar, 5 = on, 0 = off (one bar per run, no seams)
-      let j = i; while (j + 1 < d.length && d[j + 1].heat) j++;
+    const stepV = (hi - lo) > 60 ? 10 : 5;
+    for (let v = lo; v <= hi; v += stepV){ el('line', {x1: L, x2: W - R, y1: Y(v), y2: Y(v), stroke: '#243150'}); el('text', {x: L - 6, y: Y(v) + 4, 'text-anchor': 'end', fill: '#a3abbd', 'font-size': 11}).textContent = v; }
+    const bar = (key, from, to, fill) => { for (let i = 0; i < d.length; i++) if (d[i][key]){   // a bar per run of "on", no seams
+      let j = i; while (j + 1 < d.length && d[j + 1][key]) j++;
       const x0 = X(d[i].t), x1 = j < d.length - 1 ? X(d[j + 1].t) : W - R;
-      el('rect', {x: x0, y: Y(5), width: Math.max(2, Math.min(x1, W - R) - x0), height: Y(0) - Y(5), fill: '#f0a630'}); i = j; }
+      el('rect', {x: x0, y: Y(to), width: Math.max(2, Math.min(x1, W - R) - x0), height: Y(from) - Y(to), fill}); i = j; } };
+    if (on.heating) bar('heat', 0, 5, color('heating'));              // heating: amber bar, 5 = on, 0 = off
+    if (on.input) bar('inp', 5, 10, color('input'));                  // digital input: bar from 5 to 10
     const span = t1 - t0, n = Math.min(6, Math.max(2, Math.floor((W - L - R) / 90)));
     for (let i = 0; i <= n; i++){ const t = t0 + span * i / n; el('text', {x: X(t), y: H - 8, 'text-anchor': i === 0 ? 'start' : i === n ? 'end' : 'middle', fill: '#a3abbd', 'font-size': 11}).textContent = span > 36 * 3600e3 ? dm(t) : hm(t); }
-    let g = '', first = true; d.forEach((r, i) => { if (isNaN(r.target)) return; g += (first ? 'M' : 'L' + X(r.t) + ' ' + Y(d[i - 1] && !isNaN(d[i - 1].target) ? d[i - 1].target : r.target) + ' L') + X(r.t) + ' ' + Y(r.target) + ' '; first = false; });
-    el('path', {d: g, fill: 'none', stroke: '#6cc36c', 'stroke-width': 2});
-    el('path', {d: d.map((r, i) => (i ? 'L' : 'M') + X(r.t) + ' ' + Y(r.temp)).join(' '), fill: 'none', stroke: '#5b9bff', 'stroke-width': 2.6, 'stroke-linejoin': 'round'});
+    lines.slice().reverse().forEach(k => {   // temp last, so it lies on top
+      let g = '', prev = NaN;
+      d.forEach(r => { const v = r[k]; if (isNaN(v)){ prev = NaN; return; }
+        g += isNaN(prev) ? `M${X(r.t)} ${Y(v)} ` : (k === 'target' ? `L${X(r.t)} ${Y(prev)} ` : '') + `L${X(r.t)} ${Y(v)} `; prev = v; });
+      if (g) el('path', {d: g, fill: 'none', stroke: color(k), 'stroke-width': k === 'temp' ? 2.6 : 2, 'stroke-linejoin': 'round',
+        'stroke-dasharray': OFF_FIRST[k] ? '5 4' : 'none'});
+    });
     const cur = el('line', {y1: T, y2: H - B, stroke: '#e8e4da', 'stroke-dasharray': '3 3', visibility: 'hidden'}), dot = el('circle', {r: 4.5, fill: '#5b9bff', stroke: '#0e1525', 'stroke-width': 2, visibility: 'hidden'});
     const show = ev => { const b = svg.getBoundingClientRect(), x = (ev.clientX - b.left) * W / b.width; let k = 0, best = 1e9;
       d.forEach((r, i) => { const dd = Math.abs(X(r.t) - x); if (dd < best){ best = dd; k = i; } }); const r = d[k];
       cur.setAttribute('x1', X(r.t)); cur.setAttribute('x2', X(r.t)); cur.setAttribute('visibility', 'visible');
-      dot.setAttribute('cx', X(r.t)); dot.setAttribute('cy', Y(r.temp)); dot.setAttribute('visibility', 'visible');
-      tip.hidden = false; tip.innerHTML = `${hm(r.t)} · <b>${r.temp.toFixed(1)} °C</b> · 🎯 ${isNaN(r.target) ? '–' : r.target} · ${r.heat ? '🔥' : 'off'}`;
+      dot.setAttribute('cx', X(r.t)); dot.setAttribute('cy', Y(r.temp)); dot.setAttribute('visibility', on.temp ? 'visible' : 'hidden');
+      let h = `${hm(r.t)} · <b>${r.temp.toFixed(1)} °C</b> · 🎯 ${isNaN(r.target) ? '–' : r.target} · ${r.heat ? '🔥' : 'off'}`;
+      lines.filter(q => q !== 'temp' && q !== 'target' && !isNaN(r[q])).forEach(q => { h += `<br><span style="color:${color(q)}">●</span> ${chip(q).textContent}: ${r[q]}${UNIT[q] || (q === 'volt' ? '' : ' °C')}`.replace(' %:', ':').replace(' °C:', ':'); });
+      if (on.input && !isNaN(r.input)) h += `<br><span style="color:${color('input')}">●</span> ${chip('input').textContent}: ${r.inp ? '1' : '0'}`;
+      tip.hidden = false; tip.innerHTML = h;
       const hw = tip.offsetWidth / 2 + 2; tip.style.left = Math.min(Math.max(X(r.t) * b.width / W, hw), b.width - hw) + 'px'; };
     svg.onpointermove = ev => { show(ev); tickle(); }; svg.onpointerdown = show;
     svg.onpointerleave = () => { cur.setAttribute('visibility', 'hidden'); dot.setAttribute('visibility', 'hidden'); tip.hidden = true; };
@@ -1612,8 +1640,8 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
   box.querySelectorAll('.tlog-rng button').forEach(b => b.addEventListener('click', () => {
     box.querySelectorAll('.tlog-rng button').forEach(x => x.classList.toggle('on', x === b)); hours = +b.dataset.h; draw(); }));
   async function load(){
-    if (CSV_URL){ try { const r = await fetch(CSV_URL, {cache: 'no-store'}); if (r.ok){ const x = parse(await r.text()); if (x.length > 1){ rows = x; const src = document.getElementById('tlogSrc'); src.textContent = src.dataset.live.replace('{n}', x.length).replace('{t}', new Date(x[x.length - 1].t).toLocaleString([], {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false})); draw(); return; } } } catch(e){} }
-    rows = parse(document.getElementById('tlogSample').textContent); draw();
+    if (CSV_URL){ try { const r = await fetch(CSV_URL, {cache: 'no-store'}); if (r.ok){ const x = parse(await r.text()); if (x.length > 1){ rows = x; setupChips(); const src = document.getElementById('tlogSrc'); src.textContent = src.dataset.live.replace('{n}', x.length).replace('{t}', new Date(x[x.length - 1].t).toLocaleString([], {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false})); draw(); return; } } } catch(e){} }
+    rows = parse(document.getElementById('tlogSample').textContent); setupChips(); draw();
   }
   load(); if (CSV_URL) setInterval(load, 10 * 60e3);
   let rw; addEventListener('resize', () => { clearTimeout(rw); rw = setTimeout(draw, 150); });
