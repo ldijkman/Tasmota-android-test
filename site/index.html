@@ -1563,7 +1563,7 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
   const KEYS = ['temp', 'target', 't2', 't3', 't4', 't5', 'humidity', 'analog', 'volt', 'shelly_c', 'heating', 'input'];
   const OFF_FIRST = {humidity: 1, analog: 1, volt: 1, shelly_c: 1};      // other scales: off until tapped
   const leg = document.getElementById('tlogLeg'), chip = k => leg.querySelector(`[data-k="${k}"]`);
-  const on = {}; let chipsDone = false;
+  const on = {}; let chipsDone = false, NAMES = {};
   function parseTime(t){   // Google gives the Sheet's own date format: M/D/YYYY H:MM:SS (US) or D-M-YYYY H:MM:SS
     let m = t.match(/^(\d{1,4})[\/.-](\d{1,2})[\/.-](\d{1,4})[ T]+(\d{1,2}):(\d{2})(?::(\d{2}))?/);
     if (m){ let a = +m[1], b = +m[2], c = +m[3], y, mo, d;
@@ -1572,17 +1572,21 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
     const n = Date.parse(t); return isNaN(n) ? null : n;
   }
   function parse(text){
-    const lines = text.trim().split(/\r?\n/), head = lines.shift().split(',').map(h => h.trim().replace(/^"|"$/g, '').toLowerCase());
+    const lines = text.trim().split(/\r?\n/), raw = lines.shift().split(',').map(h => h.trim().replace(/^"|"$/g, '')), head = raw.map(h => h.toLowerCase());
     const cT = head.indexOf('timestamp'), cD = head.indexOf('device');
+    // a column may carry its own name after the key: "t2 Woodstove pipe" → key t2, name "Woodstove pipe"
+    const colOf = {}; NAMES = {};
+    KEYS.forEach(k => { const c = head.findIndex(h => h === k || h.startsWith(k + ' ')); colOf[k] = c;
+      if (c >= 0 && raw[c].length > k.length) NAMES[k] = raw[c].slice(k.length).trim(); });
     return lines.map(l => { const f = l.match(/("([^"]|"")*"|[^,]*)(,|$)/g).map(x => x.replace(/,$/, '').replace(/^"|"$/g, '').replace(/""/g, '"'));
       const r = { t: parseTime(f[cT] || ''), dev: f[cD] || '' };
-      KEYS.forEach(k => { const c = head.indexOf(k); r[k] = c < 0 ? NaN : num(f[c]); });
+      KEYS.forEach(k => { const c = colOf[k]; r[k] = c < 0 ? NaN : num(f[c]); });
       r.heat = r.heating === 1; r.inp = r.input === 1; return r; })
       .filter(r => r.t && !isNaN(r.temp) && r.dev !== 'test').sort((a, b) => a.t - b.t);
   }
   function setupChips(){   // show a chip for every column that has data; the first time only
     KEYS.forEach(k => { const b = chip(k); if (!b) return; const has = rows.some(r => !isNaN(r[k]));
-      b.hidden = !has; if (!chipsDone){ on[k] = has && !OFF_FIRST[k]; b.setAttribute('aria-pressed', on[k]); } });
+      b.hidden = !has; if (!b.dataset.def) b.dataset.def = b.textContent; b.textContent = NAMES[k] || b.dataset.def; if (!chipsDone){ on[k] = has && !OFF_FIRST[k]; b.setAttribute('aria-pressed', on[k]); } });
     chipsDone = true;
   }
   leg.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
