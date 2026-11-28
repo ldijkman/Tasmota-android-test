@@ -446,8 +446,8 @@ section[id],#shelly-shots{scroll-margin-top:56px}
 .jsbox{margin-top:18px}.jsin{position:relative}.jswrap{width:min(100%,640px);max-width:100%}.jsbox-h{margin:0 0 8px}.jsbox-h b{color:var(--amber);font:700 1.02rem var(--display)}.jsbox-h span{color:var(--muted);font-size:.88rem}
 .jscode{margin:0;height:260px;min-height:120px;overflow:auto;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:12.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#d6deeb;tab-size:2;overscroll-behavior:contain}
 .jscode .jc{color:#7f8ea8;font-style:italic}.jscode .js{color:#ecc48d}.jscode .jn{color:#f78c6c}.jscode .jk{color:#c792ea}.jscode .jf{color:#82aaff}
-.jsgrip{position:absolute;right:3px;bottom:3px;width:30px;height:30px;display:grid;place-items:center;cursor:nwse-resize;touch-action:none;color:#56617d;user-select:none;border-radius:8px}.jsgrip svg{width:18px;height:18px}.jsgrip:hover,.jsgrip.on{color:var(--amber)}
-.jslog{margin:0;max-height:240px;overflow:auto;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#c3cee3;overscroll-behavior:contain;max-width:640px}.jslog .lu{color:#5d6a85}.jslog .lh{color:#c792ea}.jslog .lt{color:var(--amber)}.jslog .ll{color:#82aaff;text-decoration:underline;text-underline-offset:2px}
+.jsgrip{position:absolute;right:3px;bottom:3px;width:30px;height:30px;display:grid;place-items:center;cursor:ns-resize;touch-action:none;color:#56617d;user-select:none;border-radius:8px}.jsgrip svg{width:18px;height:18px}.jsgrip:hover,.jsgrip.on{color:var(--amber)}
+.jslog{margin:0;height:240px;min-height:120px;overflow:auto;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:12px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#c3cee3;overscroll-behavior:contain;max-width:640px}.jslog .lu{color:#5d6a85}.jslog .lh{color:#c792ea}.jslog .lt{color:var(--amber)}.jslog .ll{color:#82aaff;text-decoration:underline;text-underline-offset:2px}
 .jsfrost{margin:0 0 10px;font-size:.88rem;color:#9fd3ff;max-width:640px}
 .wiring{margin:0 0 14px;max-width:640px}.wiring svg{width:100%;height:auto;display:block;background:#0a0f1c;border:1.5px solid var(--line);border-radius:12px;font-family:var(--text)}
 .jsrun{margin:0 0 10px;font-size:.9rem;color:var(--ink);max-width:640px}.jsrun b{color:var(--amber)}
@@ -976,7 +976,7 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
     </div>
     <div class="jsbox jslogbox">
       <p class="jsbox-h"><b>Exemple de journal (simulé) du script avec une DS18B20</b><br><span>Script version 4, mode test désactivé : Confort 20,5 °C chauffe avec le watchdog, s’arrête au-dessus de 20,8 °C, puis un programme passe en Éco.</span></p>
-      <pre class="jslog" lang="en" translate="no"><code>Thermostat log (simulated, newest at the bottom)
+      <div class="jswrap"><div class="jsin"><pre class="jslog" lang="en" translate="no"><code>Thermostat log (simulated, newest at the bottom)
 
 <span class="lu">06:30:00</span> <span>log page: <span class="ll">http://192.168.1.50/script/1/log</span></span>
 <span class="lu">06:30:00</span> <span>script started · TEST MODE on (relay is never switched) · Comfort 20.5 °C · Eco 16.0 °C · margin 0.3 · no frost guard (use a mechanical one)</span>
@@ -1022,7 +1022,7 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
 <span class="lu">06:33:10</span> <span class="lh">---- check 7 · eco 16.0 °C · mode on · heating OFF ----</span>
 <span class="lu">06:33:10</span> <span>sensor 100: 20.9 °C</span>
 <span class="lu">06:33:10</span> <span>heat below 15.7 °C, stop above 16.3 °C</span>
-<span class="lu">06:33:10</span> <span>heating stays OFF (20.9 &gt; 16.3)</span></code></pre>
+<span class="lu">06:33:10</span> <span>heating stays OFF (20.9 &gt; 16.3)</span></code></pre><div class="jsgrip" title="Drag to resize" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M21 9L9 21M21 15l-6 6M21 3L3 21" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg></div></div></div>
     </div>
     <p class="nerd-die">Félicitations, vous êtes un pur et dur : vous êtes allé jusqu’au bout ! 👍</p>
     <p class="nerd-honey">Well, honey, what do you think of it!?</p>
@@ -1655,13 +1655,14 @@ document.getElementById('fmWhy').addEventListener('click', e => { e.preventDefau
 })();
 </script>
 <script>
-(() => { // codevenster groter/kleiner slepen (muis en vinger)
-  const g = document.querySelector('.jsgrip'), pre = document.querySelector('.jscode'), w = pre.parentNode; let x0 = 0, y0 = 0, w0 = 0, h0 = 0;
-  g.addEventListener('pointerdown', e => { x0 = e.clientX; y0 = e.clientY; w0 = w.getBoundingClientRect().width; h0 = pre.getBoundingClientRect().height; g.setPointerCapture(e.pointerId); g.classList.add('on'); e.preventDefault(); });
-  g.addEventListener('pointermove', e => { if (!g.classList.contains('on')) return;
-    pre.style.height = Math.max(120, Math.min(pre.scrollHeight + 4, h0 + e.clientY - y0)) + 'px';
-    w.style.width = Math.max(220, Math.min(w.parentNode.getBoundingClientRect().width, w0 + e.clientX - x0)) + 'px'; });
-  const end = () => g.classList.remove('on'); g.addEventListener('pointerup', end); g.addEventListener('pointercancel', end);
+(() => { // code- en logvenster hoger/lager slepen (muis en vinger), zoals een tekstvak
+  document.querySelectorAll('.jsgrip').forEach(g => {
+    const pre = g.parentNode.querySelector('pre'); let y0 = 0, h0 = 0, raf = 0, y = 0;
+    g.addEventListener('pointerdown', e => { y0 = y = e.clientY; h0 = pre.getBoundingClientRect().height; g.setPointerCapture(e.pointerId); g.classList.add('on'); e.preventDefault(); });
+    g.addEventListener('pointermove', e => { if (!g.classList.contains('on')) return; y = e.clientY;
+      if (!raf) raf = requestAnimationFrame(() => { raf = 0; pre.style.height = Math.max(120, Math.min(pre.scrollHeight + 4, h0 + y - y0)) + 'px'; }); });
+    const end = () => g.classList.remove('on'); g.addEventListener('pointerup', end); g.addEventListener('pointercancel', end);
+  });
 })();
 document.getElementById('jsCopy').addEventListener('click', () => {
   const t = document.querySelector('.jscode').innerText, ok = document.getElementById('jsOk');
