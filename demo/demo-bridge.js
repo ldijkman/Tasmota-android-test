@@ -408,14 +408,13 @@
     const ok = () => { if (typeof showToast === 'function') showToast('Link copied'); };
     (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(ok, () => { window.prompt('Copy this link:', url); });
   };
-  document.addEventListener('DOMContentLoaded', () => {
-    const body = document.getElementById('thermoBody'); if (!body || document.getElementById('demoShareTh')) return;
-    const w = document.createElement('div'); w.id = 'demoShareTh';
-    w.style.cssText = 'text-align:center;padding:10px 16px 18px';
-    w.innerHTML = '<button type="button" onclick="demoShareThermo()" style="display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 22px;border-radius:14px;border:1.5px solid #f0a630;background:transparent;color:#f0a630;font:inherit;font-weight:700">' +
-      '<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18 16.1c-.8 0-1.5.3-2 .8l-7.1-4.2c.1-.2.1-.5.1-.7s0-.5-.1-.7L16 7.2c.5.5 1.2.8 2 .8 1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3c0 .2 0 .5.1.7L8 9.8C7.5 9.3 6.8 9 6 9c-1.7 0-3 1.3-3 3s1.3 3 3 3c.8 0 1.5-.3 2-.8l7.1 4.2c-.1.2-.1.4-.1.6 0 1.6 1.3 2.9 2.9 2.9s2.9-1.3 2.9-2.9-1.2-2.9-2.8-2.9z"/></svg>' +
-      'Share this demo</button>';
-    body.insertAdjacentElement('afterend', w);
+  document.addEventListener('DOMContentLoaded', () => {   // in the top bar of the Heating screen: always in view
+    const head = document.querySelector('#thermoView .sv-head'); if (!head || document.getElementById('demoShareTh')) return;
+    const b = document.createElement('button'); b.type = 'button'; b.id = 'demoShareTh'; b.onclick = () => demoShareThermo();
+    b.setAttribute('aria-label', 'Share this demo');
+    b.style.cssText = 'margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 14px;border-radius:12px;border:1.5px solid #f0a630;background:transparent;color:#f0a630;font:inherit;font-weight:700';
+    b.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18 16.1c-.8 0-1.5.3-2 .8l-7.1-4.2c.1-.2.1-.5.1-.7s0-.5-.1-.7L16 7.2c.5.5 1.2.8 2 .8 1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3c0 .2 0 .5.1.7L8 9.8C7.5 9.3 6.8 9 6 9c-1.7 0-3 1.3-3 3s1.3 3 3 3c.8 0 1.5-.3 2-.8l7.1 4.2c-.1.2-.1.4-.1.6 0 1.6 1.3 2.9 2.9 2.9s2.9-1.3 2.9-2.9-1.2-2.9-2.8-2.9z"/></svg>Share';
+    head.appendChild(b);
   });
 
   // "Why free?" (same text as on the website)
