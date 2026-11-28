@@ -311,7 +311,6 @@ T = [
 ('<a href="#cmt">Comments</a>', '<a href="#cmt">Commentaires</a>'),
 ('<a href="#dl">Download</a>', '<a href="#dl">Télécharger</a>'),
 ('<span>Source code</span>', '<span>Code source</span>'),
-('Shelly Plus Add-on: on their way', 'Shelly Plus Add-on : en route'),
 ('Sensor inputs: temperature, humidity, digital and analog.', 'Entrées capteurs : température, humidité, numérique et analogique.'),
 ('Please let me sleep 😴<br>Ideas we are thinking about.<br><span class="lead-hl">The Thermostat is now in the app, tested a little bit.</span>', 'Laissez-moi dormir 😴<br>Des idées auxquelles nous réfléchissons.<br><span class="lead-hl">Le thermostat est maintenant dans l’app, un peu testé.</span>'),
 ('<b>Idea: a thermostat for central heating</b>', '<b>Idée : un thermostat pour le chauffage central</b>'),
@@ -402,6 +401,7 @@ T = [
 ('Version 27.8: beep beep every 30 seconds while the app is open and a thermostat warns. 🔕 Silence 1 h or 🔕 Until fixed.', 'Version 27.8 : bip bip toutes les 30 secondes tant que l’app est ouverte et qu’un thermostat signale un problème. 🔕 Silence 1 h ou 🔕 Jusqu’à réparation.'),
 ('DS18B20 temperature sensor in a stainless steel tube on a 1 metre cable', 'Sonde de température DS18B20 dans un tube inox sur un câble de 1 mètre'),
 ('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Sonde de température étanche, câble de 1 m. Se branche sur l’Add-on.'),
+('This makes a thermostat', 'Cela fait un thermostat'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

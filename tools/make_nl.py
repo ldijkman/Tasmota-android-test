@@ -477,7 +477,6 @@ T = [
 ('<a href="#cmt">Comments</a>', '<a href="#cmt">Reacties</a>'),
 ('<a href="#dl">Download</a>', '<a href="#dl">Downloaden</a>'),
 ('<span>Source code</span>', '<span>Broncode</span>'),
-('Shelly Plus Add-on: on their way', 'Shelly Plus Add-on: onderweg'),
 ('Sensor inputs: temperature, humidity, digital and analog.', 'Sensoringangen: temperatuur, luchtvochtigheid, digitaal en analoog.'),
 ('Please let me sleep 😴<br>Ideas we are thinking about.<br><span class="lead-hl">The Thermostat is now in the app, tested a little bit.</span>', 'Laat me alsjeblieft slapen 😴<br>Ideeën waar we over nadenken.<br><span class="lead-hl">De thermostaat zit nu in de app, een beetje getest.</span>'),
 ('<b>Idea: a thermostat for central heating</b>', '<b>Idee: een thermostaat voor de cv</b>'),
@@ -568,6 +567,7 @@ T = [
 ('Version 27.8: beep beep every 30 seconds while the app is open and a thermostat warns. 🔕 Silence 1 h or 🔕 Until fixed.', 'Versie 27.8: piep piep elke 30 seconden zolang de app open is en een thermostaat waarschuwt. 🔕 Stil 1 uur of 🔕 Tot het opgelost is.'),
 ('DS18B20 temperature sensor in a stainless steel tube on a 1 metre cable', 'DS18B20-temperatuursensor in een rvs-buisje aan een kabel van 1 meter'),
 ('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Waterdichte temperatuursensor, kabel van 1 m. Gaat in de Add-on.'),
+('This makes a thermostat', 'Dit maakt een thermostaat'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

@@ -451,7 +451,6 @@ T = [
 ('<a href="#cmt">Comments</a>', '<a href="#cmt">Komentarze</a>'),
 ('<a href="#dl">Download</a>', '<a href="#dl">Pobierz</a>'),
 ('<span>Source code</span>', '<span>Kod źródłowy</span>'),
-('Shelly Plus Add-on: on their way', 'Shelly Plus Add-on: w drodze'),
 ('Sensor inputs: temperature, humidity, digital and analog.', 'Wejścia czujników: temperatura, wilgotność, cyfrowe i analogowe.'),
 ('Please let me sleep 😴<br>Ideas we are thinking about.<br><span class="lead-hl">The Thermostat is now in the app, tested a little bit.</span>', 'Pozwól mi spać 😴<br>Pomysły, nad którymi myślimy.<br><span class="lead-hl">Termostat jest już w aplikacji, trochę przetestowany.</span>'),
 ('<b>Idea: a thermostat for central heating</b>', '<b>Pomysł: termostat do centralnego ogrzewania</b>'),
@@ -542,6 +541,7 @@ T = [
 ('Version 27.8: beep beep every 30 seconds while the app is open and a thermostat warns. 🔕 Silence 1 h or 🔕 Until fixed.', 'Wersja 27.8: pip pip co 30 sekund, gdy aplikacja jest otwarta, a termostat ostrzega. 🔕 Wycisz na 1 h lub 🔕 Do naprawy.'),
 ('DS18B20 temperature sensor in a stainless steel tube on a 1 metre cable', 'Czujnik temperatury DS18B20 w rurce ze stali nierdzewnej na kablu 1 m'),
 ('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Wodoodporny czujnik temperatury, kabel 1 m. Podłącza się do Add-on.'),
+('This makes a thermostat', 'To tworzy termostat'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
