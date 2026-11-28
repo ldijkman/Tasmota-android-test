@@ -1364,6 +1364,14 @@ const setLit = on => {
   lamp.setAttribute('aria-pressed', on);
   st.textContent = on ? 'Allumé' : 'Éteint. Touchez pour allumer';
 };
+// vaste hoogte: "On" (1 regel) en "Off. Tap to switch on" (soms 2 regels) mogen de pagina niet laten verspringen
+const lockLamp = () => {   // beide teksten even meten (in de taal van de pagina), dan de hoogste vasthouden
+  const was = lamp.getAttribute('aria-pressed') === 'true'; lamp.style.minHeight = '';
+  setLit(false); const h1 = lamp.offsetHeight; setLit(true); const h2 = lamp.offsetHeight;
+  setLit(was); lamp.style.minHeight = Math.max(h1, h2) + 'px';
+};
+lockLamp(); addEventListener('resize', lockLamp);
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(lockLamp);
 let demoTimers = [], touched = false;
 lamp.addEventListener('click', () => {
   touched = true; demoTimers.forEach(clearTimeout); demoTimers = [];
