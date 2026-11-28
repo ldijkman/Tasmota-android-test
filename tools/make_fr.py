@@ -401,7 +401,7 @@ T = [
 ('Version 27.8: beep beep every 30 seconds while the app is open and a thermostat warns. 🔕 Silence 1 h or 🔕 Until fixed.', 'Version 27.8 : bip bip toutes les 30 secondes tant que l’app est ouverte et qu’un thermostat signale un problème. 🔕 Silence 1 h ou 🔕 Jusqu’à réparation.'),
 ('DS18B20 temperature sensor in a stainless steel tube on a 1 metre cable', 'Sonde de température DS18B20 dans un tube inox sur un câble de 1 mètre'),
 ('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Sonde de température étanche, câble de 1 m. Se branche sur l’Add-on.'),
-("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun 🔥❄️", "Cela fait un thermostat intelligent Wi&#8209;Fi à +/- 30 euros<br>Let's Have Fun 🔥❄️"),
+("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️", "Cela fait un thermostat intelligent Wi&#8209;Fi à +/- 30 euros<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️"),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

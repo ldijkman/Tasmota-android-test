@@ -541,7 +541,7 @@ T = [
 ('Version 27.8: beep beep every 30 seconds while the app is open and a thermostat warns. 🔕 Silence 1 h or 🔕 Until fixed.', 'Wersja 27.8: pip pip co 30 sekund, gdy aplikacja jest otwarta, a termostat ostrzega. 🔕 Wycisz na 1 h lub 🔕 Do naprawy.'),
 ('DS18B20 temperature sensor in a stainless steel tube on a 1 metre cable', 'Czujnik temperatury DS18B20 w rurce ze stali nierdzewnej na kablu 1 m'),
 ('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Wodoodporny czujnik temperatury, kabel 1 m. Podłącza się do Add-on.'),
-("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun 🔥❄️", "To tworzy inteligentny termostat Wi&#8209;Fi za +/- 30 euro<br>Let's Have Fun 🔥❄️"),
+("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️", "To tworzy inteligentny termostat Wi&#8209;Fi za +/- 30 euro<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️"),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

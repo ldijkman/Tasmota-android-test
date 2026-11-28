@@ -544,7 +544,7 @@ T = [
 ('Version 27.8: beep beep every 30 seconds while the app is open and a thermostat warns. 🔕 Silence 1 h or 🔕 Until fixed.', 'Versión 27.8: bip bip cada 30 segundos mientras la app está abierta y un termostato avisa. 🔕 Silenciar 1 h o 🔕 Hasta que se arregle.'),
 ('DS18B20 temperature sensor in a stainless steel tube on a 1 metre cable', 'Sensor de temperatura DS18B20 en un tubo de acero inoxidable con cable de 1 metro'),
 ('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Sensor de temperatura resistente al agua, cable de 1 m. Se conecta al Add-on.'),
-("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun 🔥❄️", "Esto hace un termostato inteligente Wi&#8209;Fi de +/- 30 euros<br>Let's Have Fun 🔥❄️"),
+("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️", "Esto hace un termostato inteligente Wi&#8209;Fi de +/- 30 euros<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️"),
 ]
 
 
