@@ -184,7 +184,17 @@
   function ensureThermo(sh) {
     if (!sh.thermo || sh.thInstalled || !window.SH_THERMO_CODE) return;
     sh.thInstalled = true;
-    Object.assign(sh.kvs, { th_comfort: 21, th_eco: 17, th_level: 'comfort', th_mode: 'on', th_test: 'off', th_sensor: 100 });
+    // two ready-made schedules (every day): morning Comfort 06:30–08:30, evening Comfort 17:00–22:30, Eco in between
+    const SCH = [['06:30', 1], ['08:30', 0], ['17:00', 1], ['22:30', 0]];
+    SCH.forEach(([t, A], k) => {
+      const [hh, mm] = t.split(':').map(Number), id = sh.nextJob++;
+      sh.jobs.push({ id, enable: true, timespec: `0 ${mm} ${hh} * * *`, calls: [{ method: 'KVS.Set', params: { key: 'th_level', value: A ? 'comfort' : 'eco' } }] });
+      sh.kvs['tsc_t' + (k + 1)] = ['1', '0', t, '1111111', String(A), String(id)].join('|');
+    });
+    const d = new Date(), now = d.getHours() * 60 + d.getMinutes(), inC = (a, b) => now >= a && now < b;
+    const comfort = inC(390, 510) || inC(1020, 1350);
+    if (!comfort) sh.room = 16.4;   // Eco now: start a bit below 17 °C, so the flame still shows
+    Object.assign(sh.kvs, { th_comfort: 21, th_eco: 17, th_level: comfort ? 'comfort' : 'eco', th_mode: 'on', th_test: 'off', th_sensor: 100 });
     const sc = sh.scripts[1] = { id: 1, name: 'Thermostat (Scan & Control)', code: window.SH_THERMO_CODE, enable: true, running: false };
     sh.nextScript = 2; startScript(sh, sc);
   }
@@ -202,6 +212,17 @@
       window.__openLink();
     }, 300);
   });
+  // the Shelly's own schedules: run a job when its minute comes (simple "0 m h * * *" timespecs)
+  setInterval(() => {
+    const d = new Date(), key = d.getHours() * 60 + d.getMinutes();
+    Object.values(shellies).forEach(sh => (sh.jobs || []).forEach(j => {
+      const m = j.enable && String(j.timespec || '').match(/^0 (\d+) (\d+) \* \* \*$/);
+      if (!m || +m[2] * 60 + +m[1] !== key || j.ran === key) return;
+      j.ran = key;
+      (j.calls || []).forEach(c => { const u = new URL('http://' + ipOf(sh) + '/rpc/' + c.method);
+        Object.keys(c.params || {}).forEach(k => u.searchParams.set(k, JSON.stringify(c.params[k]))); shellyApi(sh, u); });
+    }));
+  }, 20000);
   // the room: warms up while the heating is on, cools down slowly when it is off; the sensor reports every 0.1 °C
   setInterval(() => {
     Object.values(shellies).forEach(sh => {
