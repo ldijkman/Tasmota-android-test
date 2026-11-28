@@ -1638,8 +1638,22 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
     clearTimeout(rest); rest = setTimeout(() => { busy = 0; hint.textContent = calm; hint.classList.remove('dizzy'); }, 2500); }
   box.querySelectorAll('.tlog-rng button').forEach(b => b.addEventListener('click', () => {
     box.querySelectorAll('.tlog-rng button').forEach(x => x.classList.toggle('on', x === b)); hours = +b.dataset.h; draw(); }));
+  // Google's gviz answer as a script (JSONP): needs no CORS, works for any Sheet shared "anyone with the link"
+  function gviz(url){ return new Promise((ok, no) => {
+    const cb = 'tlogCb' + Date.now(), sc = document.createElement('script'), tm = setTimeout(() => { done(); no('timeout'); }, 15000);
+    const done = () => { clearTimeout(tm); delete window[cb]; sc.remove(); };
+    window[cb] = j => { done(); try {
+      const cols = j.table.cols.map(c => (c.label || c.id || '').trim()), q = v => '"' + String(v).replace(/"/g, '""') + '"';
+      const lines = [cols.map(q).join(',')].concat(j.table.rows.map(r => cols.map((_, i) => { const c = r.c[i]; if (!c || c.v == null) return '';
+        const m = typeof c.v === 'string' && c.v.match(/^Date\((\d+),(\d+),(\d+)(?:,(\d+),(\d+),(\d+))?\)$/);   // Date(2026,10,28,21,30,3): month from 0
+        if (m) return q(`${+m[2] + 1}/${m[3]}/${m[1]} ${m[4] || 0}:${(m[5] || '0').padStart(2, '0')}:${(m[6] || '0').padStart(2, '0')}`);
+        return q(c.v); }).join(',')));
+      ok(lines.join('\n')); } catch(e){ no(e); } };
+    sc.onerror = () => { done(); no('load'); };
+    sc.src = url.replace(/([?&])tqx=out:csv/, '$1tqx=responseHandler:' + cb) + '&t=' + Date.now(); document.head.appendChild(sc);
+  }); }
   async function load(){
-    if (CSV_URL){ try { const r = await fetch(CSV_URL, {cache: 'no-store'}); if (r.ok){ const x = parse(await r.text()); if (x.length > 1){ rows = x; setupChips(); const src = document.getElementById('tlogSrc'); src.textContent = src.dataset.live.replace('{n}', x.length).replace('{t}', new Date(x[x.length - 1].t).toLocaleString([], {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false})); draw(); return; } } } catch(e){} }
+    if (CSV_URL){ try { const txt = CSV_URL.includes('/gviz/') ? await gviz(CSV_URL) : await (await fetch(CSV_URL, {cache: 'no-store'})).text(); { const x = parse(txt); if (x.length > 1){ rows = x; setupChips(); const src = document.getElementById('tlogSrc'); src.textContent = src.dataset.live.replace('{n}', x.length).replace('{t}', new Date(x[x.length - 1].t).toLocaleString([], {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false})); draw(); return; } } } catch(e){} }
     rows = parse(document.getElementById('tlogSample').textContent); setupChips(); draw();
   }
   load(); if (CSV_URL) setInterval(load, 10 * 60e3);
