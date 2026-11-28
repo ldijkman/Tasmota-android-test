@@ -542,6 +542,7 @@ T = [
 ('DS18B20 temperature sensor in a stainless steel tube on a 1 metre cable', 'Czujnik temperatury DS18B20 w rurce ze stali nierdzewnej na kablu 1 m'),
 ('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Wodoodporny czujnik temperatury, kabel 1 m. Podłącza się do Add-on.'),
 ("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️", "To tworzy inteligentny termostat Wi&#8209;Fi za +/- 30 euro<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️"),
+('Share this thermostat</button>', 'Udostępnij ten termostat</button>'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

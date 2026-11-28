@@ -545,6 +545,7 @@ T = [
 ('DS18B20 temperature sensor in a stainless steel tube on a 1 metre cable', 'Sensor de temperatura DS18B20 en un tubo de acero inoxidable con cable de 1 metro'),
 ('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Sensor de temperatura resistente al agua, cable de 1 m. Se conecta al Add-on.'),
 ("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️", "Esto hace un termostato inteligente Wi&#8209;Fi de +/- 30 euros<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️"),
+('Share this thermostat</button>', 'Compartir este termostato</button>'),
 ]
 
 

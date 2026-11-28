@@ -568,6 +568,7 @@ T = [
 ('DS18B20 temperature sensor in a stainless steel tube on a 1 metre cable', 'DS18B20-temperatuursensor in een rvs-buisje aan een kabel van 1 meter'),
 ('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Waterdichte temperatuursensor, kabel van 1 m. Gaat in de Add-on.'),
 ("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️", "Dit maakt een Wi&#8209;Fi Slimme Thermostaat van +/- 30 euro<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️"),
+('Share this thermostat</button>', 'Deel deze thermostaat</button>'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

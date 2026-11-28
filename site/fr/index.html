@@ -302,6 +302,8 @@ footer a{color:var(--muted)}
 .sh-row .pl img{padding:0;object-fit:cover}
 .sh-grp{margin:26px 0 -6px;color:var(--amber);font-weight:700;font-size:.95rem}
 .sh-grp + .sh-row{margin-top:14px}
+.kit-sh-row{margin:-6px 0 26px}.kit-sh{display:inline-flex;align-items:center;gap:10px;color:var(--amber);border-color:var(--amber);background:none;cursor:pointer;font:inherit;font-weight:700}.kit-sh svg{width:20px;height:20px}
+#thermostat-kit{scroll-margin-top:40px}
 .sh-grp.sh-big{font:700 1.6rem/1.2 var(--display);margin-top:40px}
 .sh-btns{display:flex;flex-direction:column;align-items:flex-start;gap:12px;margin-bottom:30px}.sh-btn{margin:0}.rb-btn{color:var(--amber);border-color:var(--amber)}.rb-logo{height:30px;width:auto;border-radius:5px}
 .pl img.pl-robb,.sh-row .pl img.pl-robb{height:28px;width:67px;aspect-ratio:auto;object-fit:contain;padding:0;border:0;border-radius:4px;background:none;align-self:flex-start;margin-top:4px}
@@ -1203,12 +1205,13 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
     <div class="pl-row sh-row">
       <a class="pl" href="https://www.shelly.com/fr/products/shelly-plug-m-gen3-white" rel="noopener"><img src="../img/shelly-plug-m-gen3.jpg" alt="Two white Shelly Plug M Gen3 EU wall plugs" width="360" height="360" loading="lazy"><b>Plug M Gen3</b><span>Prise murale EU, 13 A, avec mesure de consommation.</span></a>
     </div>
-    <p class="sh-grp sh-big">Cela fait un thermostat intelligent Wi&#8209;Fi à +/- 30 euros<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️</p>
+    <p class="sh-grp sh-big" id="thermostat-kit">Cela fait un thermostat intelligent Wi&#8209;Fi à +/- 30 euros<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️</p>
     <div class="pl-row sh-row">
       <a class="pl" href="https://www.robbshop.nl/shelly-1-gen3-wifi-bluetooth-relais-schakelaar" rel="noopener"><img src="../img/shelly-1-gen3.jpg" alt="Module relais Shelly 1 Gen3" width="360" height="360" loading="lazy"><b>Shelly 1 Gen3</b><span>Module derrière un interrupteur mural ou dans une lampe. Marche/arrêt et arrêt automatique.</span><img class="pl-robb" src="../img/robb-small.jpg" alt="Robbshop" width="240" height="101" loading="lazy"></a>
       <a class="pl" href="https://www.robbshop.nl/shelly-plus-addon-voor-inputs" rel="noopener"><img src="../img/shelly-plus-add-on.jpg" alt="Shelly Plus Add-on sensor module with green screw terminals" width="360" height="360" loading="lazy"><b>Plus Add-on</b><span>Entrées capteurs : température, humidité, numérique et analogique.</span><img class="pl-robb" src="../img/robb-small.jpg" alt="Robbshop" width="240" height="101" loading="lazy"></a>
       <a class="pl" href="https://www.robbshop.nl/temperatuursensor-1-meter-ds18b20" rel="noopener"><img src="../img/ds18b20-1m.jpg" alt="Sonde de température DS18B20 dans un tube inox sur un câble de 1 mètre" width="360" height="360" loading="lazy"><b>DS18B20, 1 m</b><span>Sonde de température étanche, câble de 1 m. Se branche sur l’Add-on.</span><img class="pl-robb" src="../img/robb-small.jpg" alt="Robbshop" width="240" height="101" loading="lazy"></a>
     </div>
+    <p class="kit-sh-row"><button type="button" class="btn kit-sh" id="kitShare" data-img="https://ldijkman.github.io/Tasmota-android-test/img/og-thermostat-kit.jpg" data-title="This makes a +/- 30 Euro Wi-Fi Smart Thermostat" data-text="Shelly 1 Gen3 + Plus Add-on + DS18B20. Let's Have Fun, Hot 🔥 &amp; Cool ❄️"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="currentColor"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/></g><path d="M8.6 10.5l6.8-4M8.6 13.5l6.8 4" stroke="currentColor" stroke-width="2"/></svg>Partager ce thermostat</button></p>
     <div class="sh-btns">
       <a class="btn sh-btn" href="https://www.shelly.com/fr/" rel="noopener">Visiter la boutique Shelly</a>
       <a class="btn sh-btn rb-btn" href="https://www.robbshop.nl/smart-home-hubs/homey/alle-homey-producten#twn|?tn_q=shelly" rel="noopener"><img class="rb-logo" src="../img/robbshop-logo.jpg" alt="Robb" width="910" height="254">Shelly chez Robbshop (NL)</a>
@@ -1489,6 +1492,23 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
   x.addEventListener('click', go); x.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') go(e); });
   fig.appendChild(x);
 });
+// Deel de thermostaat-set: plaatje met de 3 onderdelen + tekst + link (kit.html geeft een mooi voorbeeld in WhatsApp e.d.)
+(() => { const b = document.getElementById('kitShare'); if (!b) return;
+  b.addEventListener('click', async () => {
+    const link = 'https://ldijkman.github.io/Tasmota-android-test/kit.html', title = b.dataset.title, text = b.dataset.text;
+    try {
+      if (navigator.canShare){
+        const blob = await (await fetch(b.dataset.img)).blob();
+        const f = new File([blob], 'thermostat-30-euro.jpg', {type: 'image/jpeg'});
+        if (navigator.canShare({files: [f]})){ await navigator.share({files: [f], title, text: title + '\n' + text + '\n' + link}); return; }
+      }
+      if (navigator.share){ await navigator.share({title, text: title + '\n' + text, url: link}); return; }
+    } catch(e){ if (e && e.name === 'AbortError') return; }
+    try { await navigator.clipboard.writeText(link); } catch(e){}
+    toast(pSh.dataset.ok);
+  });
+  if (location.hash === '#thermostat-kit') setTimeout(() => document.getElementById('thermostat-kit').scrollIntoView({block: 'start'}), 400);
+})();
 // geopend met #shot-naam: naar dat plaatje in de strip schuiven
 (() => { const h = location.hash.slice(1); if (!h.startsWith('shot-')) return; const f = document.getElementById(h); if (!f) return;
   setTimeout(() => { f.scrollIntoView({block: 'center', inline: 'center'}); f.classList.add('fsh-hit'); setTimeout(() => f.classList.remove('fsh-hit'), 2500); }, 400); })();

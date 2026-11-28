@@ -402,6 +402,7 @@ T = [
 ('DS18B20 temperature sensor in a stainless steel tube on a 1 metre cable', 'Sonde de température DS18B20 dans un tube inox sur un câble de 1 mètre'),
 ('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Sonde de température étanche, câble de 1 m. Se branche sur l’Add-on.'),
 ("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️", "Cela fait un thermostat intelligent Wi&#8209;Fi à +/- 30 euros<br>Let's Have Fun<br>Hot 🔥 &amp; Cool ❄️"),
+('Share this thermostat</button>', 'Partager ce thermostat</button>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
