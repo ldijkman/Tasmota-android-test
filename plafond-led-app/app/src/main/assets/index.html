@@ -4168,8 +4168,15 @@ function hvSetup(kv, script){
   const fm = document.getElementById('hvFormM'), cm = document.getElementById('hvCsvM');
   const msg = (el, t, err) => { el.innerHTML = err ? `<span style="color:var(--err)">${esc(t)}</span>` : esc(t); };
   document.getElementById('hvFormB').onclick = async () => {
-    const f = hvForm(document.getElementById('hvForm').value);
-    if (!f) return msg(fm, 'That is not a form link. It starts with https://docs.google.com/forms/d/e/…', true);
+    const t = document.getElementById('hvForm').value.trim();
+    if (!t) return msg(fm, 'Paste the form link in the box first.', true);
+    let f = hvForm(t);
+    if (!f && /forms\.gle\/|docs\.google\.com\/forms\//.test(t)){   // short link or edit link: ask Google for the form page
+      msg(fm, 'Looking up the form…');
+      const u = (t.match(/https?:\/\/\S+/) || [t])[0].replace(/\/(edit|prefill)\b.*$/, '/viewform');
+      try { f = hvForm(await appGetText(u, 20000)); } catch(e){}
+    }
+    if (!f) return msg(fm, 'That is not the form link. In your copy: Tools → Manage form → Go to live form, then copy the address of that page.', true);
     msg(fm, 'Installing the log script on the Shelly…');
     try { await logInstall(HV.h, f); msg(fm, '✓ Logging is on. The first row arrives in your Sheet within a minute, then every 10 minutes.'); }
     catch(e){ msg(fm, 'Could not install: ' + e.message, true); }
