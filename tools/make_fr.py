@@ -397,6 +397,7 @@ T = [
 ('37.7 °C in the living room: too hot, we’ve got a wood stove! 🔥 It’s either sitting in your insulated overalls or in a rubber thong 😄', '37,7 °C dans le salon : trop chaud, on a un poêle à bois ! 🔥 C’est soit la combinaison de travail doublée, soit le string en caoutchouc 😄'),
 ('Climate change, extreme summers: version 27.7 adds an airco mode. Edit → Mode → ❄️ Cooling (airco): the relay switches on when it is too warm.', 'Changement climatique, étés extrêmes : la version 27.7 ajoute un mode clim. Modifier → Mode → ❄️ Cooling (airco) : le relais s’allume quand il fait trop chaud.'),
 ('Airco mode on the Heating screen: a ❄️ instead of the 🔥, “cooling to 21.0”, cools above 21.2 and stops below 20.8.', 'Mode clim sur l’écran Chauffage : un ❄️ au lieu du 🔥, « cooling to 21.0 », refroidit au-dessus de 21,2 et s’arrête sous 20,8.'),
+('<b>Heat or cool: airco mode</b>', '<b>Chauffer ou refroidir : mode clim</b>'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

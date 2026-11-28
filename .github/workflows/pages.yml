@@ -39,7 +39,7 @@ jobs:
           cp demo/demo-bridge.js _site/demo/
           cp demo/thermostat.html _site/demo/
           cp plafond-led-app/app/src/main/assets/thermostat-script.js _site/demo/
-          cp demo/tasmota-demo.mp4 demo/tasmota-demo-poster.jpg demo/tasmota-add-device.mp4 demo/tasmota-timers.mp4 demo/tasmota-icons.mp4 demo/tasmota-tailscale.mp4 demo/tasmota-scenes.mp4 demo/tasmota-wall-panel.mp4 demo/tasmota-groups.mp4 demo/tasmota-install.mp4 demo/tasmota-arrange-scenes.mp4 demo/tasmota-auto-off.mp4 demo/shelly-how-to.mp4 demo/shelly-device-card.mp4 demo/shelly-toilet-fan.mp4 demo/shelly-1-gen3-button.mp4 demo/shelly-christmas-tree.mp4 demo/shelly-thermostat-idea.mp4 demo/shelly-addon-ds18b20.mp4 demo/shelly-thermostat-26-7.mp4 _site/   # demo video, plays straight from the site
+          cp demo/tasmota-demo.mp4 demo/tasmota-demo-poster.jpg demo/tasmota-add-device.mp4 demo/tasmota-timers.mp4 demo/tasmota-icons.mp4 demo/tasmota-tailscale.mp4 demo/tasmota-scenes.mp4 demo/tasmota-wall-panel.mp4 demo/tasmota-groups.mp4 demo/tasmota-install.mp4 demo/tasmota-arrange-scenes.mp4 demo/tasmota-auto-off.mp4 demo/shelly-how-to.mp4 demo/shelly-device-card.mp4 demo/shelly-toilet-fan.mp4 demo/shelly-1-gen3-button.mp4 demo/shelly-christmas-tree.mp4 demo/shelly-thermostat-idea.mp4 demo/shelly-addon-ds18b20.mp4 demo/shelly-thermostat-26-7.mp4 demo/shelly-thermostat-heat-cool.mp4 _site/   # demo video, plays straight from the site
           # Load the fake bridge before the page's own script.
           # The ?v=<commit> tag makes browsers fetch the new script after every update (no stale cache).
           sed "0,/<script>/s//<script src=\"demo-bridge.js?v=${GITHUB_SHA::7}\"><\/script>\n<script>/" \

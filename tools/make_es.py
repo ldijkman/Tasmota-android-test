@@ -540,6 +540,7 @@ T = [
 ('37.7 °C in the living room: too hot, we’ve got a wood stove! 🔥 It’s either sitting in your insulated overalls or in a rubber thong 😄', '37,7 °C en el salón: ¡demasiado calor, tenemos una estufa de leña! 🔥 O estás con el mono de trabajo forrado, o con un tanga de goma 😄'),
 ('Climate change, extreme summers: version 27.7 adds an airco mode. Edit → Mode → ❄️ Cooling (airco): the relay switches on when it is too warm.', 'Cambio climático, veranos extremos: la versión 27.7 añade un modo aire acondicionado. Editar → Mode → ❄️ Cooling (airco): el relé se enciende cuando hace demasiado calor.'),
 ('Airco mode on the Heating screen: a ❄️ instead of the 🔥, “cooling to 21.0”, cools above 21.2 and stops below 20.8.', 'Modo aire acondicionado en la pantalla de calefacción: un ❄️ en vez del 🔥, «cooling to 21.0», enfría por encima de 21,2 y para por debajo de 20,8.'),
+('<b>Heat or cool: airco mode</b>', '<b>Calentar o enfriar: modo aire acondicionado</b>'),
 ]
 
 

@@ -537,6 +537,7 @@ T = [
 ('37.7 °C in the living room: too hot, we’ve got a wood stove! 🔥 It’s either sitting in your insulated overalls or in a rubber thong 😄', '37,7 °C w salonie: za gorąco, mamy kominek na drewno! 🔥 Albo siedzisz w ocieplanym kombinezonie, albo w gumowych stringach 😄'),
 ('Climate change, extreme summers: version 27.7 adds an airco mode. Edit → Mode → ❄️ Cooling (airco): the relay switches on when it is too warm.', 'Zmiany klimatu, ekstremalne lata: wersja 27.7 ma tryb klimatyzacji. Edycja → Mode → ❄️ Cooling (airco): przekaźnik włącza się, gdy jest za ciepło.'),
 ('Airco mode on the Heating screen: a ❄️ instead of the 🔥, “cooling to 21.0”, cools above 21.2 and stops below 20.8.', 'Tryb klimatyzacji na ekranie ogrzewania: ❄️ zamiast 🔥, „cooling to 21.0”, chłodzi powyżej 21,2 i przestaje poniżej 20,8.'),
+('<b>Heat or cool: airco mode</b>', '<b>Grzanie albo chłodzenie: tryb klimatyzacji</b>'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

@@ -563,6 +563,7 @@ T = [
 ('37.7 °C in the living room: too hot, we’ve got a wood stove! 🔥 It’s either sitting in your insulated overalls or in a rubber thong 😄', '37,7 °C in de woonkamer: te warm, we hebben een houtkachel! 🔥 Het is óf je zit in een doorwerkpak, óf in een rubberen string 😄'),
 ('Climate change, extreme summers: version 27.7 adds an airco mode. Edit → Mode → ❄️ Cooling (airco): the relay switches on when it is too warm.', 'Klimaatverandering, extreme zomers: versie 27.7 heeft een airco-modus. Bewerken → Mode → ❄️ Cooling (airco): het relais schakelt aan als het te warm is.'),
 ('Airco mode on the Heating screen: a ❄️ instead of the 🔥, “cooling to 21.0”, cools above 21.2 and stops below 20.8.', 'Airco-modus op het verwarmingsscherm: een ❄️ in plaats van de 🔥, “cooling to 21.0”, koelt boven 21,2 en stopt onder 20,8.'),
+('<b>Heat or cool: airco mode</b>', '<b>Verwarmen of koelen: airco-modus</b>'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

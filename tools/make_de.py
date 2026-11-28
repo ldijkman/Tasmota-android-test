@@ -401,6 +401,7 @@ T = [
 ('37.7 °C in the living room: too hot, we’ve got a wood stove! 🔥 It’s either sitting in your insulated overalls or in a rubber thong 😄', '37,7 °C im Wohnzimmer: zu warm, wir haben einen Holzofen! 🔥 Entweder sitzt du im Thermo-Overall oder im Gummi-String 😄'),
 ('Climate change, extreme summers: version 27.7 adds an airco mode. Edit → Mode → ❄️ Cooling (airco): the relay switches on when it is too warm.', 'Klimawandel, extreme Sommer: Version 27.7 hat einen Klimaanlagen-Modus. Bearbeiten → Mode → ❄️ Cooling (airco): das Relais schaltet ein, wenn es zu warm ist.'),
 ('Airco mode on the Heating screen: a ❄️ instead of the 🔥, “cooling to 21.0”, cools above 21.2 and stops below 20.8.', 'Klimaanlagen-Modus auf dem Heizungsbildschirm: ein ❄️ statt der 🔥, „cooling to 21.0“, kühlt über 21,2 und stoppt unter 20,8.'),
+('<b>Heat or cool: airco mode</b>', '<b>Heizen oder kühlen: Klimaanlagen-Modus</b>'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
