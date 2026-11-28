@@ -427,7 +427,7 @@ T = [
 ('<b>Shelly 1 Gen3: the tiny button</b>', '<b>Shelly 1 Gen3: mały przycisk</b>'),
 ('Tasmota and Shelly side by side: a Shelly Christmas tree between Tasmota lamps, in one room.', 'Tasmota i Shelly obok siebie: choinka na Shelly między lampami Tasmota, w jednym pokoju.'),
 ('Well, 1 million+ Shelly app users<br>waste more time on hard-to-set schedules.', 'No cóż, ponad milion użytkowników aplikacji Shelly<br>traci więcej czasu na trudne do ustawienia harmonogramy.'),
-('<p class="lead copynote"><b>Copy schedules between devices:</b> set them once, then copy them to another switch. Even from a Tasmota to a Shelly, and back.</p>', '<p class="lead copynote"><b>Kopiowanie harmonogramów między urządzeniami:</b> ustaw je raz, potem skopiuj na inny przełącznik. Nawet z Tasmoty na Shelly i z powrotem.</p>'),
+('<p class="lead copynote"><b>Copy schedules between devices:</b> set them once, then copy them to another switch. Even from a Tasmota to a Shelly, and back. <b class="wow">Wow, that’s easy!</b></p>', '<p class="lead copynote"><b>Kopiowanie harmonogramów między urządzeniami:</b> ustaw je raz, potem skopiuj na inny przełącznik. Nawet z Tasmoty na Shelly i z powrotem. <b class="wow">Wow, ale to proste!</b></p>'),
 ('Open on CodePen', 'Otwórz na CodePen'),
 ('>Close</button></div>\n    <iframe id="cpf"', '>Zamknij</button></div>\n    <iframe id="cpf"'),
 ('<small>Free, for Android 7 and newer</small>', '<small>Za darmo, dla Androida 7 i nowszych</small>'),
