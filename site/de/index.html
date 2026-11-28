@@ -199,7 +199,7 @@ dialog button{background:none;border:1.5px solid #3a4a70;color:#fff;border-radiu
 .shots{padding:100px 0 90px}
 .strip{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:24px;padding:40px 24px 18px;margin-top:4px;scrollbar-color:#2b3653 transparent}
 .strip figure{flex:none;width:230px;margin:0;scroll-snap-align:start}
-.strip figure.strip-wide,.strip.brain-strip figure.strip-wide{width:min(560px,86vw)}.strip figure.strip-wide img{border-radius:14px}
+.nerd-shot{margin:18px auto 0;max-width:620px}.nerd-shot img{width:100%;height:auto;border-radius:14px;border:1.5px solid var(--line)}.nerd-shot figcaption{text-align:center;margin-top:8px;font-size:.9rem;color:var(--muted,#aab)}
 .strip img{border-radius:22px;border:1.5px solid var(--line)}
 .strip-wrap{position:relative}
 .snav{display:none}
@@ -688,7 +688,6 @@ body:has(#dlbar:not([hidden])){padding-bottom:72px}
       <figure><img src="../img/thermostat-log-26-7.jpg" alt="Die Protokollseite auf dem Shelly: jede Prüfung, jeder Sensorwert und jede Entscheidung, mit Uhrzeit." loading="lazy" width="540" height="1170"><figcaption>Die Protokollseite auf dem Shelly: jede Prüfung, jeder Sensorwert und jede Entscheidung, mit Uhrzeit.</figcaption></figure>
       <figure><img src="../img/thermostat-script-26-7.jpg" alt="Die Skriptseite auf dem Shelly selbst: die App hat „Thermostat (Scan & Control)“ installiert." loading="lazy" width="540" height="1170"><figcaption>Die Skriptseite auf dem Shelly selbst: die App hat „Thermostat (Scan & Control)“ installiert.</figcaption></figure>
       <figure><img src="../img/thermostat-woodstove.jpg" alt="37,7 °C im Wohnzimmer: zu warm, wir haben einen Holzofen! 🔥 Entweder sitzt du im Thermo-Overall oder im Gummi-String 😄" loading="lazy" width="540" height="1170"><figcaption>37,7 °C im Wohnzimmer: zu warm, wir haben einen Holzofen! 🔥 Entweder sitzt du im Thermo-Overall oder im Gummi-String 😄</figcaption></figure>
-      <figure class="strip-wide"><img src="../img/thermostat-google-sheet-log.jpg" alt="Nerd-Kram, Teil 1 fertig: Der Shelly schickt alle 5 Minuten seine Temperatur an ein Google Formular, und jede Sendung wird eine Zeile in meiner eigenen Google Tabelle. Als Nächstes: Diagramme." loading="lazy" width="1035" height="351"><figcaption>Nerd-Kram, Teil 1 fertig: Der Shelly schickt alle 5 Minuten seine Temperatur an ein Google Formular, und jede Sendung wird eine Zeile in meiner eigenen Google Tabelle. Als Nächstes: Diagramme.</figcaption></figure>
     </div>
     <p class="brain-demo"><a class="btn" href="../demo/#thermostat">🔥 Jetzt ausprobieren: Live-Demo Thermostat</a></p>
     <div class="brain-note brain-tech"><b>Wie die Zeitpläne Komfort und Eco schalten</b><p>Jeder Zeitplan ist ein Shelly-<code>Schedule</code>-Job, gespeichert im Shelly selbst. Zur Einschaltzeit führt er <code>KVS.Set th_level = "comfort"</code> aus, zur Ausschaltzeit <code>KVS.Set th_level = "eco"</code>.</p><p>Das Thermostat-Skript liest <code>th_level</code> vor jeder Prüfung aus dem KVS (alle 30 s und bei jeder neuen Sensortemperatur), nimmt <code>th_comfort</code> oder <code>th_eco</code> als Ziel und schaltet das Relais mit 0,3 °C Spielraum. Die Tasten Komfort / Eco in der App schreiben dasselbe <code>th_level</code> von Hand, bis der nächste Job es überschreibt.</p><p class="brain-am">Jobs, KVS und Skript liegen alle auf dem Shelly: kein Handy, keine App, keine Cloud, kein Internet nötig. Das Handy braucht man nur zum Ändern der Einstellungen.</p></div>
@@ -1121,6 +1120,7 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
     <p class="nerd-honey">Well, honey, what do you think of it!?</p>
     <p class="nerd-end">Heilige Sch…, das ist Nerd-Zeug auf höchstem Niveau 🤓</p>
     <p class="nerd-next"><b>Mehr Nerd-Zeug kommt noch:</b><br>Die Temperaturdaten des Sensors in Google Forms speichern<br>und Diagramme aus dem Temperaturverlauf erstellen 📈</p>
+    <figure class="nerd-shot"><img src="../img/thermostat-google-sheet-log.jpg" alt="Nerd-Kram, Teil 1 fertig: Der Shelly schickt alle 5 Minuten seine Temperatur an ein Google Formular, und jede Sendung wird eine Zeile in meiner eigenen Google Tabelle. Als Nächstes: Diagramme." loading="lazy" width="1035" height="351"><figcaption>Nerd-Kram, Teil 1 fertig: Der Shelly schickt alle 5 Minuten seine Temperatur an ein Google Formular, und jede Sendung wird eine Zeile in meiner eigenen Google Tabelle. Als Nächstes: Diagramme.</figcaption></figure>
   </div>
 </section>
 <dialog id="player" aria-label="Video">
