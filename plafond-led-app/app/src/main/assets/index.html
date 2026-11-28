@@ -215,6 +215,7 @@
   .h-sensors .dev .sn{display:none}
   .dev .th-line{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-top:6px;padding:6px 8px 6px 10px;border-radius:12px;border:1px solid var(--line);font-variant-numeric:tabular-nums}
   .dev .th-line.heat{border-color:var(--on)}
+  .dev .th-line.cool,.thv.cool{border-color:#5ab4ff}
   .th-t{font-size:.95rem}.th-t b{font-size:1.05rem}.th-sub{display:block;font-size:.72rem;color:var(--muted)}
   .th-test{font-style:normal;font-size:.7rem;padding:1px 6px;border-radius:6px;background:var(--line);margin-left:4px}
   .th-btns{display:flex;gap:6px}
@@ -3828,7 +3829,7 @@ function startDrag(e, grip){
 // ---- Thermostaat: een script in de Shelly zelf (Gen2+, met temperatuursensor op de Add-on) ----
 // De app installeert het script (assets/thermostat-script.js) en zet instellingen in KVS:
 // th_set (temperatuur), th_mode (on/off), th_sensor (nummer), th_test (on/off). Het script heeft /state en /reload.
-const TH_NAME = 'Thermostat (Scan & Control)', TH_VERSION = 5;   // TH_VERSION = VERSION in het script
+const TH_NAME = 'Thermostat (Scan & Control)', TH_VERSION = 6;   // TH_VERSION = VERSION in het script
 const thRpc = (h, m, p) => appCall('get', [`${h}/rpc/${m}${p ? '?' + Object.keys(p).map(k => k + '=' + encodeURIComponent(JSON.stringify(p[k]))).join('&') : ''}`], 9000);
 const thPost = (h, m, body) => appCall('post', [`${h}/rpc/${m}`, JSON.stringify(body)], 15000);
 async function thFind(h){ const r = await thRpc(h, 'Script.List'); return ((r && r.scripts) || []).find(x => x.name === TH_NAME) || null; }
@@ -3972,7 +3973,7 @@ function thMode(ip, sure){
   const T = devThermo[ip]; if (!T || T.err) return;
   if (T.mode !== 'off' && !sure){   // uitzetten: eerst vragen (de verwarming blijft dan uit)
     const d = loadDevs().find(x => x.ip === ip), nm = esc((d && (d.friendly || d.name)) || hostOf(ip));
-    return askConfirm(`<b>Turn off the thermostat?</b><br>${nm}: the heating stays off until you turn it on again.`,
+    return askConfirm(`<b>Turn off the thermostat?</b><br>${nm}: the ${T.kind === 'cool' ? 'airco' : 'heating'} stays off until you turn it on again.`,
       () => thMode(ip, true), 'Yes, turn off', true, 'No');
   }
   T.mode = T.mode === 'off' ? 'on' : 'off'; if (T.mode === 'off') T.heating = false; thRedraw();
@@ -3985,11 +3986,21 @@ function thermoDevs(){ return loadDevs().filter(d => d.thermo); }
 // waarschuwing van het script (versie 5): sensor geeft niets, of het verwarmt lang zonder dat het warmer wordt
 function thAlarm(T){
   if (!T || T.err) return '';
-  if (T.alarm === 'sensor') return '⚠️ Sensor not working – heating off';
-  if (T.alarm === 'stuck') return `⚠️ Heating ${+T.heatMin || +T.stuck || ''} min, temperature does not rise: check sensor / boiler`;
+  if (T.alarm === 'sensor') return `⚠️ Sensor not working – ${thW(T)} off`;
+  if (T.alarm === 'stuck') return thCool(T) ? `⚠️ Cooling ${+T.heatMin || +T.stuck || ''} min, temperature does not drop: check sensor / airco`
+    : `⚠️ Heating ${+T.heatMin || +T.stuck || ''} min, temperature does not rise: check sensor / boiler`;
   return '';
 }
 const thMargin = T => (T && +T.margin) || 0.3;
+// airco (script versie 6, th_kind = cool): zelfde thermostaat, maar het relais gaat aan als het te warm is
+const thCool = T => !!T && T.kind === 'cool';
+const thFx = T => thCool(T) ? '❄️' : '🔥';
+const thW = T => thCool(T) ? 'cooling' : 'heating';
+function thSt(T, heat, cap){
+  const w = thW(T), v = thCool(T) ? 'cool' : 'heat';
+  const s = heat ? (T.test ? `would ${v} (test mode)` : w) : (T.test ? `not ${w} (test mode)` : `not ${w}`);
+  return cap ? s[0].toUpperCase() + s.slice(1) : s;
+}
 function thNavShow(){ const b = document.getElementById('fnTh'); if (b) b.hidden = !thermoDevs().length; }
 function renderThermo(){
   const body = document.getElementById('thermoBody'); if (!body) return;
@@ -4000,16 +4011,16 @@ function renderThermo(){
     if (!T) return `<div class="thv"><div class="thv-n">${name}</div><div class="thv-s">Reading…</div></div>`;
     if (T.err) return `<div class="thv"><div class="thv-n">${name}</div><div class="thv-s" style="color:var(--err)">⚠ Thermostat script is not answering</div></div>`;
     const off = T.mode === 'off', heat = T.heating && !off, eco = T.level === 'eco', nx = nextLabel(ip);
-    return `<div class="thv${heat && !T.test ? ' heat' : ''}${off ? ' off' : ''}">
+    return `<div class="thv${heat && !T.test ? (thCool(T) ? ' cool' : ' heat') : ''}${off ? ' off' : ''}">
       <div class="thv-n">${name}${T.test ? ' <i class="th-test">test</i>' : ''}</div>
-      <div class="thv-s">${off ? 'Thermostat off – no heating' : heat ? (T.test ? 'Would heat (test mode)' : 'Heating') : 'Not heating'}${nx && !off ? ' · ' + esc(nx) : ''}</div>
+      <div class="thv-s">${off ? 'Thermostat off – no ' + thW(T) : thSt(T, heat, true)}${nx && !off ? ' · ' + esc(nx) : ''}</div>
       ${thAlarm(T) ? `<div class="th-alarm">${thAlarm(T)}</div>` : ''}
-      <div class="thv-big thv-dim"><div class="thv-tw"><div class="thv-lbl">Actual Temp.</div><b>${T.temp != null ? (+T.temp).toFixed(1) : '–'}</b><span>°C</span></div>${heat ? `<span class="thv-fl${T.test ? ' test' : ''}" aria-label="${T.test ? 'would heat' : 'heating'}">🔥</span>` : '<span class="thv-fl thv-nofl" aria-hidden="true">🔥</span>'}</div>
-      <div class="thv-tl thv-dim">${eco ? '🌙 Eco' : '☀️ Comfort'} – heating to</div>
+      <div class="thv-big thv-dim"><div class="thv-tw"><div class="thv-lbl">Actual Temp.</div><b>${T.temp != null ? (+T.temp).toFixed(1) : '–'}</b><span>°C</span></div>${heat ? `<span class="thv-fl${T.test ? ' test' : ''}" aria-label="${thSt(T, true)}">${thFx(T)}</span>` : `<span class="thv-fl thv-nofl" aria-hidden="true">${thFx(T)}</span>`}</div>
+      <div class="thv-tl thv-dim">${eco ? '🌙 Eco' : '☀️ Comfort'} – ${thW(T)} to</div>
       <div class="thv-adj thv-dim"><button class="pm" aria-label="Lower" data-hold="${ip}|-" onclick="thAdj('${ip}',-0.1)">−</button>
         <button class="thv-chip" aria-label="Set the temperature with a wheel" onclick="thWheel('${ip}')">${eco ? '🌙' : '☀️'} <b>${(+T.set).toFixed(1)}</b> °C</button>
         <button class="pm" aria-label="Higher" data-hold="${ip}|+" onclick="thAdj('${ip}',0.1)">+</button></div>
-      <div class="thv-hint">heats below ${(+T.set - thMargin(T)).toFixed(1)} · stops above ${(+T.set + thMargin(T)).toFixed(1)} · tap the number for the wheel</div>
+      <div class="thv-hint">${thCool(T) ? `cools above ${(+T.set + thMargin(T)).toFixed(1)} · stops below ${(+T.set - thMargin(T)).toFixed(1)}` : `heats below ${(+T.set - thMargin(T)).toFixed(1)} · stops above ${(+T.set + thMargin(T)).toFixed(1)}`} · tap the number for the wheel</div>
       <div class="thv-row thv-dim"><button class="lvb${!eco ? ' on' : ''}" onclick="thLevel('${ip}','comfort')">☀️ Comfort${T.comfort != null ? ' ' + (+T.comfort).toFixed(1) + '°' : ''}</button>
         <button class="lvb${eco ? ' on' : ''}" onclick="thLevel('${ip}','eco')">🌙 Eco${T.eco != null ? ' ' + (+T.eco).toFixed(1) + '°' : ''}</button></div>
       <button class="thv-sw" role="switch" aria-checked="${!off}" onclick="thMode('${ip}')"><span>Thermostat</span><span class="tgl${off ? '' : ' on'}"><span></span></span></button>
@@ -4040,10 +4051,10 @@ function thermoLine(ip){
   if (T.err) return `<div class="th-err">⚠ Thermostat script is not answering</div>`;
   const off = T.mode === 'off', heat = T.heating && !off;
   const old = (+T.version || 1) < TH_VERSION;
-  const sub = thAlarm(T) ? thAlarm(T) : old ? 'update the script in Edit' : off ? 'thermostat off – no heating' : heat ? (T.test ? 'would heat (test mode)' : 'heating · watchdog OK') : (T.test ? 'not heating (test mode)' : 'not heating');
+  const sub = thAlarm(T) ? thAlarm(T) : old ? 'update the script in Edit' : off ? 'thermostat off – no ' + thW(T) : heat && !T.test ? thSt(T, heat) + ' · watchdog OK' : thSt(T, heat);
   const eco = T.level === 'eco';
-  return `<div class="th-line${heat && !T.test ? ' heat' : ''}${off ? ' off' : ''}" onclick="event.stopPropagation()">
-    <span class="th-t th-dim">${heat ? '🔥' : '🌡️'} ${T.temp != null ? (+T.temp).toFixed(1) : '–'} °C → <b>${(+T.set).toFixed(1)} °C</b>${T.test ? '<i class="th-test">test</i>' : ''}</span>
+  return `<div class="th-line${heat && !T.test ? (thCool(T) ? ' cool' : ' heat') : ''}${off ? ' off' : ''}" onclick="event.stopPropagation()">
+    <span class="th-t th-dim">${heat ? thFx(T) : '🌡️'} ${T.temp != null ? (+T.temp).toFixed(1) : '–'} °C → <b>${(+T.set).toFixed(1)} °C</b>${T.test ? '<i class="th-test">test</i>' : ''}</span>
     <span class="th-sub">${sub}</span>
     ${T.level ? `<span class="th-btns th-dim"><button class="th-m${!eco ? ' on' : ''}" onclick="event.stopPropagation();thLevel('${ip}','comfort')">☀️ Comfort</button><button class="th-m${eco ? ' on' : ''}" onclick="event.stopPropagation();thLevel('${ip}','eco')">🌙 Eco</button></span>` : ''}
     <span class="th-btns th-dim th-pm"><button class="th-b" aria-label="Lower" data-hold="${ip}|c-" onclick="event.stopPropagation();thAdj('${ip}',-0.1)">−</button><button class="th-b" aria-label="Higher" data-hold="${ip}|c+" onclick="event.stopPropagation();thAdj('${ip}',0.1)">+</button></span>
@@ -4053,8 +4064,8 @@ function thermoLine(ip){
 const thWideOk = d => { const T = devThermo[d.ip]; return !!(thermoOf(d.ip) && T && !T.err); };
 function thWide(ip){
   const T = devThermo[ip], off = T.mode === 'off', heat = T.heating && !off, eco = T.level === 'eco';
-  const sub = thAlarm(T) ? thAlarm(T) : off ? 'Thermostat off – no heating' : (eco ? 'Eco' : 'Comfort') + ' · ' + (heat ? (T.test ? 'would heat (test mode)' : 'heating · watchdog OK') : (T.test ? 'not heating (test mode)' : 'not heating'));
-  return `<span class="w-big w-dim"><b>${T.temp != null ? (+T.temp).toFixed(1) : '–'}</b><span class="u">°C</span><span class="ar">→</span><span class="tg">${off ? 'off' : (eco ? '🌙 ' : '☀️ ') + (+T.set).toFixed(1) + ' °C'}</span>${heat ? `<span class="w-fl${T.test ? ' test' : ''}">🔥</span>` : ''}</span>
+  const sub = thAlarm(T) ? thAlarm(T) : off ? 'Thermostat off – no ' + thW(T) : (eco ? 'Eco' : 'Comfort') + ' · ' + (heat && !T.test ? thSt(T, heat) + ' · watchdog OK' : thSt(T, heat));
+  return `<span class="w-big w-dim"><b>${T.temp != null ? (+T.temp).toFixed(1) : '–'}</b><span class="u">°C</span><span class="ar">→</span><span class="tg">${off ? 'off' : (eco ? '🌙 ' : '☀️ ') + (+T.set).toFixed(1) + ' °C'}</span>${heat ? `<span class="w-fl${T.test ? ' test' : ''}">${thFx(T)}</span>` : ''}</span>
     <span class="w-sub${thAlarm(T) ? ' w-alarm' : ''}">${sub}</span>
     ${T.level ? `<span class="w-row w-dim"><span class="wb${!eco ? ' on' : ''}" data-thl="comfort" role="button">☀️ Comfort</span><span class="wb${eco ? ' on' : ''}" data-thl="eco" role="button">🌙 Eco</span></span>` : ''}
     <span class="w-row3 w-dim"><span class="wb pm" data-th="-0.1" data-hold="${ip}|t-" role="button" aria-label="Lower">−</span><span class="wb val" data-thw="1" role="button" aria-label="Set the temperature with a wheel">${(+T.set).toFixed(1)} °C</span><span class="wb pm" data-th="0.1" data-hold="${ip}|t+" role="button" aria-label="Higher">+</span></span>
@@ -4063,7 +4074,7 @@ function thWide(ip){
 function thTile(ip){
   const T = devThermo[ip]; if (!thermoOf(ip) || !T || T.err) return '';
   const heat = T.heating && T.mode !== 'off';
-  return `<span class="t-th"><span style="white-space:nowrap">${heat ? '🔥' : '🌡️'} ${T.temp != null ? (+T.temp).toFixed(1) : '–'}→<b>${T.mode === 'off' ? 'off' : (T.level === 'eco' ? '🌙' : T.level ? '☀️' : '') + (+T.set).toFixed(1) + '°'}</b></span>
+  return `<span class="t-th"><span style="white-space:nowrap">${heat ? thFx(T) : '🌡️'} ${T.temp != null ? (+T.temp).toFixed(1) : '–'}→<b>${T.mode === 'off' ? 'off' : (T.level === 'eco' ? '🌙' : T.level ? '☀️' : '') + (+T.set).toFixed(1) + '°'}</b></span>
     <span class="t-thb" data-th="-0.1" data-hold="${ip}|t-" role="button" aria-label="Lower">−</span><span class="t-thb" data-th="0.1" data-hold="${ip}|t+" role="button" aria-label="Higher">+</span></span>`;
 }
 function thEdit(ip, sh){
@@ -4077,13 +4088,24 @@ function thEdit(ip, sh){
   let mgV = 0.3, mgT = null;
   const mgEl = document.getElementById('edThMg'), mgHint = document.getElementById('edThMgHint'), stuckEl = document.getElementById('edThStuck');
   const mgShow = () => { mgEl.textContent = '± ' + mgV.toFixed(1) + ' °C';
-    mgHint.textContent = `Heats below target − ${mgV.toFixed(1)}, stops above target + ${mgV.toFixed(1)}. Smaller = steadier, but the boiler switches more often.`; };
+    mgHint.textContent = document.getElementById('edThKind').value === 'cool'
+      ? `Cools above target + ${mgV.toFixed(1)}, stops below target − ${mgV.toFixed(1)}. Smaller = steadier, but the airco switches more often.`
+      : `Heats below target − ${mgV.toFixed(1)}, stops above target + ${mgV.toFixed(1)}. Smaller = steadier, but the boiler switches more often.`; };
   more.querySelectorAll('[data-mg]').forEach(b => b.onclick = () => {
     if (!script) return; mgV = Math.min(1, Math.max(0.1, Math.round((mgV + +b.dataset.mg) * 10) / 10)); mgShow();
     clearTimeout(mgT); mgT = setTimeout(() => thSetting(h, script.id, {th_margin: mgV})
       .then(() => { say('Switch margin set to ± ' + mgV.toFixed(1) + ' °C.'); fetchThermo(ip).then(renderDevs); })
       .catch(() => say('Could not set the margin.', true)), 1200);
   });
+  const kindEl = document.getElementById('edThKind'), kindHint = document.getElementById('edThKindHint');
+  const kindShow = k => { kindEl.value = k;
+    kindHint.textContent = k === 'cool' ? 'Cooling (airco): the relay switches on when it is too warm, and waits at least 3 minutes between switching. Works with an airco that starts by itself when it gets power.'
+      : 'Heating: the relay switches on when it is too cold.';
+    document.getElementById('edThStuckL').innerHTML = k === 'cool' ? 'Warn if not getting cooler <span style="opacity:.7">(cooling, but the room does not drop 0.2 °C)</span>'
+      : 'Warn if not getting warmer <span style="opacity:.7">(heating, but the room does not rise 0.2 °C)</span>'; mgShow(); };
+  kindEl.onchange = () => { if (!script) return; const k = kindEl.value; kindShow(k);
+    thSetting(h, script.id, {th_kind: k}).then(() => { say(k === 'cool' ? 'Now cooling (airco): on when too warm.' : 'Now heating: on when too cold.'); fetchThermo(ip).then(renderDevs); showState(); })
+      .catch(() => say('Could not set the mode.', true)); };
   stuckEl.onchange = () => { if (!script) return; const n = +stuckEl.value;
     thSetting(h, script.id, {th_stuck: n}).then(() => say(n ? `Warns when it heats ${n} min without getting warmer.` : 'Not-getting-warmer warning off.'))
       .catch(() => say('Could not set the warning.', true)); };
@@ -4102,12 +4124,13 @@ function thEdit(ip, sh){
   const showState = async () => {
     if (!script || !script.running){ stEl.textContent = script ? 'Script stopped' : ''; return; }
     try { const st = await appCall('get', [`${h}/script/${script.id}/state`], 6000);
-      stEl.textContent = `${st.temp != null ? st.temp.toFixed(1) + ' °C' : 'no temperature'} → ${(+st.set).toFixed(1)} °C${st.level ? ' ' + (st.level === 'eco' ? 'Eco' : 'Comfort') : ''} · ${st.mode === 'off' ? 'off' : st.heating ? (st.test ? 'would heat' : 'heating 🔥') : 'not heating'}`;
+      stEl.textContent = `${st.temp != null ? st.temp.toFixed(1) + ' °C' : 'no temperature'} → ${(+st.set).toFixed(1)} °C${st.level ? ' ' + (st.level === 'eco' ? 'Eco' : 'Comfort') : ''} · ${st.mode === 'off' ? 'off' : st.heating ? (st.test ? (st.kind === 'cool' ? 'would cool' : 'would heat') : (st.kind === 'cool' ? 'cooling ❄️' : 'heating 🔥')) : (st.kind === 'cool' ? 'not cooling' : 'not heating')}`;
       tg(test, !!st.test); if (st.sensor) sen.value = String(st.sensor);
       if (st.comfort != null){ lvV.comfort = +st.comfort; lvV.eco = +st.eco; lvShow(); }
       if (st.margin != null){ mgV = +st.margin; mgShow(); }
       if (st.stuck != null){ const v = String(+st.stuck); if (![...stuckEl.options].some(o => o.value === v)) stuckEl.add(new Option(v + ' min', v)); stuckEl.value = v; }
       stuckEl.disabled = (+st.version || 1) < 5;
+      kindEl.disabled = (+st.version || 1) < 6; kindShow(st.kind === 'cool' ? 'cool' : 'heat');
       document.getElementById('edThUpdRow').hidden = (+st.version || 1) >= TH_VERSION;
     } catch(e){ stEl.textContent = 'Script running'; }
   };
@@ -4218,16 +4241,18 @@ function editDev(ip){
       <div class="hint" id="edInNote">Reading…</div>
     </div>
     <div id="edThRow" hidden style="margin-top:14px">
-      <label class="t">Thermostat <span style="opacity:.7">(heating on/off with the Add-on temperature sensor)</span></label>
+      <label class="t">Thermostat <span style="opacity:.7">(heating or airco on/off with the Add-on temperature sensor)</span></label>
       <div class="detrow"><span>Use as thermostat</span><button type="button" class="tgl" id="edThOn" role="switch" aria-checked="false" aria-label="Use as thermostat"><span></span></button></div>
       <div id="edThMore" hidden>
+        <div class="detrow"><span>Mode</span><select class="sel" id="edThKind" style="max-width:62%"><option value="heat">🔥 Heating</option><option value="cool">❄️ Cooling (airco)</option></select></div>
+        <div class="hint" id="edThKindHint" style="margin:2px 2px 6px">Heating: the relay switches on when it is too cold.</div>
         <div class="detrow"><span>☀️ Comfort</span><span class="th-btns"><button type="button" class="th-b" data-lv="comfort" data-d="-0.1" data-hold="ed|comfort-" aria-label="Comfort lower">−</button><button type="button" class="edth-v" id="edThC" data-wh="comfort" aria-label="Comfort: set with a wheel">20.5 °C</button><button type="button" class="th-b" data-lv="comfort" data-d="0.1" data-hold="ed|comfort+" aria-label="Comfort higher">+</button></span></div>
         <div class="detrow"><span>🌙 Eco</span><span class="th-btns"><button type="button" class="th-b" data-lv="eco" data-d="-0.1" data-hold="ed|eco-" aria-label="Eco lower">−</button><button type="button" class="edth-v" id="edThE" data-wh="eco" aria-label="Eco: set with a wheel">16.0 °C</button><button type="button" class="th-b" data-lv="eco" data-d="0.1" data-hold="ed|eco+" aria-label="Eco higher">+</button></span></div>
         <div class="hint" style="margin:2px 2px 6px">Schedules switch between Comfort (on-time) and Eco (off-time).</div>
         <div class="detrow"><span>Switch margin <span style="opacity:.7">(± around the target)</span></span><span class="th-btns"><button type="button" class="th-b" data-mg="-0.1" aria-label="Smaller margin">−</button><b id="edThMg" style="min-width:64px;text-align:center;align-self:center">± 0.3 °C</b><button type="button" class="th-b" data-mg="0.1" aria-label="Bigger margin">+</button></span></div>
         <div class="hint" id="edThMgHint" style="margin:2px 2px 6px">Heats below target − 0.3, stops above target + 0.3. Smaller = steadier, but the boiler switches more often.</div>
         <div class="detrow"><span>Sensor</span><select class="sel" id="edThSen" style="max-width:62%"></select></div>
-        <div class="detrow"><span>Warn if not getting warmer <span style="opacity:.7">(heating, but the room does not rise 0.2 °C)</span></span><select class="sel" id="edThStuck" style="max-width:38%"><option value="0">Off</option><option value="30">30 min</option><option value="45">45 min</option><option value="60">60 min</option><option value="90">90 min</option><option value="120">2 h</option></select></div>
+        <div class="detrow"><span id="edThStuckL">Warn if not getting warmer <span style="opacity:.7">(heating, but the room does not rise 0.2 °C)</span></span><select class="sel" id="edThStuck" style="max-width:38%"><option value="0">Off</option><option value="30">30 min</option><option value="45">45 min</option><option value="60">60 min</option><option value="90">90 min</option><option value="120">2 h</option></select></div>
         <div class="detrow"><span>Test mode <span style="opacity:.7">(only the log, the relay never switches)</span></span><button type="button" class="tgl" id="edThTest" role="switch" aria-checked="false" aria-label="Test mode"><span></span></button></div>
         <div class="detrow"><span id="edThState"></span><button type="button" class="b-tog edbtn" id="edThLog" style="flex:none;width:auto;padding:8px 16px">Open log</button></div>
         <div class="detrow" id="edThUpdRow" hidden><span>A newer thermostat script is in the app.</span><button type="button" class="b-tog edbtn" id="edThUpd" style="flex:none;width:auto;padding:8px 16px">Update script</button></div>
@@ -5274,7 +5299,7 @@ function showPulseNote(ip){
     const ao = P && P.set && !P.wd;
     el.hidden = false;
     el.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${HOURGLASS}"/></svg>
-      <span><b>Thermostat.</b> The on-time switches to ☀️ Comfort, the off-time to 🌙 Eco. The watchdog switches the heating off by itself if the script stops.
+      <span><b>Thermostat.</b> The on-time switches to ☀️ Comfort, the off-time to 🌙 Eco. The watchdog switches the relay off by itself if the script stops.
       ${ao ? `<br>Auto-off (${fmtPulse(P.set)}) is also on in the Shelly: not needed, the watchdog does this.
       <button type="button" class="b-tog pnote-btn" onclick="editAutoOff('${ip}')"><svg width="15" height="15" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="${HOURGLASS}"/></svg>Change auto-off</button>` : ''}</span>`;
     return;
