@@ -533,6 +533,7 @@ T = [
 ('>🔥 Live thermostat demo<', '>🔥 Demo termostatu na żywo<'),
 ('>Thermostat screenshots</a></li>', '>Zrzuty ekranu termostatu</a></li>'),
 ('Version 27.5: set the hysteresis (switch margin) yourself, and a warning when the sensor fails or the room does not get warmer. Edit → Update script puts version 5 on the Shelly.', 'Wersja 27.5: sam ustaw histerezę (margines przełączania), oraz ostrzeżenie, gdy czujnik zawiedzie lub nie robi się cieplej. Edycja → Update script wgrywa wersję 5 na Shelly.'),
+('Version 27.6: on the Today screen the thermostat has a small thermometer, and its schedule says ☀️ Comfort / 🌙 Eco instead of on / off.', 'Wersja 27.6: na ekranie Dziś termostat ma mały termometr, a jego harmonogram pokazuje ☀️ Komfort / 🌙 Eko zamiast wł. / wył.'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

@@ -397,6 +397,7 @@ T = [
 ('>🔥 Live thermostat demo<', '>🔥 Live-Demo Thermostat<'),
 ('>Thermostat screenshots</a></li>', '>Thermostat-Screenshots</a></li>'),
 ('Version 27.5: set the hysteresis (switch margin) yourself, and a warning when the sensor fails or the room does not get warmer. Edit → Update script puts version 5 on the Shelly.', 'Version 27.5: Hysterese (Schaltspanne) selbst einstellen, und eine Warnung, wenn der Sensor ausfällt oder es nicht wärmer wird. Bearbeiten → Update script bringt Version 5 auf den Shelly.'),
+('Version 27.6: on the Today screen the thermostat has a small thermometer, and its schedule says ☀️ Comfort / 🌙 Eco instead of on / off.', 'Version 27.6: im Heute-Bildschirm hat der Thermostat ein kleines Thermometer, und sein Zeitplan zeigt ☀️ Komfort / 🌙 Eco statt an / aus.'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

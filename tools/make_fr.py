@@ -393,6 +393,7 @@ T = [
 ('>🔥 Live thermostat demo<', '>🔥 Démo en direct du thermostat<'),
 ('>Thermostat screenshots</a></li>', '>Captures du thermostat</a></li>'),
 ('Version 27.5: set the hysteresis (switch margin) yourself, and a warning when the sensor fails or the room does not get warmer. Edit → Update script puts version 5 on the Shelly.', 'Version 27.5 : réglez vous-même l’hystérésis (marge de commutation), et une alerte si la sonde tombe en panne ou si la pièce ne chauffe pas. Modifier → Update script installe la version 5 sur le Shelly.'),
+('Version 27.6: on the Today screen the thermostat has a small thermometer, and its schedule says ☀️ Comfort / 🌙 Eco instead of on / off.', 'Version 27.6 : dans l’écran Aujourd’hui, le thermostat a un petit thermomètre, et son planning indique ☀️ Confort / 🌙 Éco au lieu de marche / arrêt.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
