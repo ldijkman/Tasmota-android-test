@@ -184,7 +184,7 @@ dialog.wide{max-width:min(94vw,1100px)}
 dialog form.pbar{display:flex;align-items:center;gap:6px;margin-bottom:8px}
 dialog form.pbar button{padding:8px 11px;white-space:nowrap}
 #pShare{width:40px;height:40px;padding:0;border-radius:50%;background:var(--amber);border-color:var(--amber);display:grid;place-items:center;flex:none}
-.vcard .vsh{position:absolute;right:7px;top:7px;width:24px;height:24px;border-radius:50%;background:var(--amber);display:grid;place-items:center;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.4)}
+.vcard #thermo-shots figure{position:relative}.vsh.fsh{width:34px;height:34px;right:8px;top:8px}.vsh.fsh svg{width:18px;height:18px}#thermo-shots figure.fsh-hit img{outline:3px solid var(--amber);outline-offset:2px}.vsh{position:absolute;right:7px;top:7px;width:24px;height:24px;border-radius:50%;background:var(--amber);display:grid;place-items:center;z-index:2;box-shadow:0 2px 8px rgba(0,0,0,.4)}
 .vcard .vsh:active{transform:scale(.92)}
 .vcard .vsh svg{width:12px!important;height:12px!important}
 .vtoast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%);background:#121b2e;border:1.5px solid #3ddc84;color:#3ddc84;font-weight:700;padding:9px 16px;border-radius:12px;z-index:100}
@@ -1419,6 +1419,32 @@ async function shareVideo(b){
   toast(pSh.dataset.ok);
 }
 pSh.addEventListener('click', () => shareVideo(vcards[vi]));
+// Brainstorm-strip: deelknop op elke schermafdruk (het plaatje zelf + de uitleg + een link naar precies dit plaatje)
+document.querySelectorAll('#thermo-shots figure').forEach(fig => {
+  const img = fig.querySelector('img'); if (!img) return;
+  fig.id = 'shot-' + img.getAttribute('src').replace(/^.*\//, '').replace(/\.\w+$/, '');
+  const cap = ((fig.querySelector('figcaption') || {}).textContent || '').trim();
+  const x = document.createElement('span'); x.className = 'vsh fsh'; x.setAttribute('role', 'button'); x.tabIndex = 0;
+  x.setAttribute('aria-label', pSh.getAttribute('aria-label') + ': ' + cap.slice(0, 60)); x.innerHTML = pSh.innerHTML;
+  const go = async e => { e.stopPropagation(); e.preventDefault();
+    const link = location.origin + location.pathname + '#' + fig.id, title = 'Shelly & Tasmota Scan & Control';
+    try {
+      if (navigator.canShare){
+        const blob = await (await fetch(img.src)).blob();
+        const f = new File([blob], img.src.replace(/^.*\//, '').replace(/\?.*$/, ''), {type: blob.type || 'image/jpeg'});
+        if (navigator.canShare({files: [f]})){ await navigator.share({files: [f], title, text: cap + '\n' + link}); return; }
+      }
+      if (navigator.share){ await navigator.share({title, text: cap, url: link}); return; }
+    } catch(e){ if (e && e.name === 'AbortError') return; }
+    try { await navigator.clipboard.writeText(link); } catch(e){}
+    toast(pSh.dataset.ok);
+  };
+  x.addEventListener('click', go); x.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') go(e); });
+  fig.appendChild(x);
+});
+// geopend met #shot-naam: naar dat plaatje in de strip schuiven
+(() => { const h = location.hash.slice(1); if (!h.startsWith('shot-')) return; const f = document.getElementById(h); if (!f) return;
+  setTimeout(() => { f.scrollIntoView({block: 'center', inline: 'center'}); f.classList.add('fsh-hit'); setTimeout(() => f.classList.remove('fsh-hit'), 2500); }, 400); })();
 vcards.forEach(b => { const f = b.querySelector('.fr'); if (!f) return;
   const x = document.createElement('span'); x.className = 'vsh'; x.setAttribute('role', 'button'); x.tabIndex = 0;
   x.setAttribute('aria-label', pSh.getAttribute('aria-label') + ': ' + vName(b)); x.innerHTML = pSh.innerHTML;
