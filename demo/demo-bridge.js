@@ -189,6 +189,19 @@
     sh.nextScript = 2; startScript(sh, sc);
   }
   document.addEventListener('DOMContentLoaded', () => Object.values(shellies).forEach(ensureThermo));
+  // a link to a screen: wait until the app (and for the Heating screen the thermostat) is ready, then open it
+  if (/^#(thermostat|tiles|scenes)$/i.test(location.hash || '')) window.addEventListener('load', () => {
+    const want = location.hash.slice(1).toLowerCase(); let n = 0;
+    const t = setInterval(() => {
+      n++;
+      const ready = typeof window.__openLink === 'function' && (want !== 'thermostat' ||
+        (typeof devThermo === 'object' && Object.values(devThermo).some(x => x && !x.err)));
+      if (!ready && n < 40) return;
+      clearInterval(t);
+      try { if (typeof closeSheet === 'function') closeSheet(true); } catch (e) {}
+      window.__openLink();
+    }, 300);
+  });
   // the room: warms up while the heating is on, cools down slowly when it is off; the sensor reports every 0.1 °C
   setInterval(() => {
     Object.values(shellies).forEach(sh => {
@@ -302,6 +315,12 @@
       if (d.protected && u.searchParams.get('password') !== 'demo')
         return reply(id, false, 'HTTP 401 {"WARNING":"Need user=<username>&password=<password>"}');
       reply(id, true, JSON.stringify(command(d, u.searchParams.get('cmnd') || '')));
+    },
+    pendingLink() {   // demo/#thermostat, #tiles, #scenes: open that screen (like tasmotascan:// in the app)
+      const h = (location.hash || '').slice(1).toLowerCase();
+      if (!['thermostat', 'tiles', 'scenes'].includes(h)) return '';
+      try { history.replaceState(null, '', location.pathname); } catch (e) {}
+      return h;
     },
     post(url, body, id) {   // Shelly RPC with a JSON body (the app uploads the thermostat script this way)
       let u; try { u = new URL(url); } catch (e) { return reply(id, false, 'java.net.MalformedURLException'); }

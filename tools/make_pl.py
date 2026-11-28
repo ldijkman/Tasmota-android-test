@@ -527,6 +527,7 @@ T = [
 ('More nerd stuff to come:', 'Więcej nerdowskich rzeczy w drodze:'),
 ('Store the temperature sensor data in Google Forms', 'Zapisywanie danych z czujnika temperatury w Google Forms'),
 ('and create graphs from the temperature history 📈', 'i wykresy z historii temperatur 📈'),
+('Try it now: live demo thermostat', 'Wypróbuj teraz: demo termostatu na żywo'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

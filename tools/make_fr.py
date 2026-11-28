@@ -387,6 +387,7 @@ T = [
 ('More nerd stuff to come:', 'Encore plus de trucs de nerd à venir :'),
 ('Store the temperature sensor data in Google Forms', 'Enregistrer les données du capteur de température dans Google Forms'),
 ('and create graphs from the temperature history 📈', 'et créer des graphiques à partir de l’historique des températures 📈'),
+('Try it now: live demo thermostat', 'Essayez maintenant : démo en direct du thermostat'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re
