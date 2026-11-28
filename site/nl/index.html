@@ -199,6 +199,13 @@ dialog button{background:none;border:1.5px solid #3a4a70;color:#fff;border-radiu
 .shots{padding:100px 0 90px}
 .strip{display:flex;gap:22px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:24px;padding:40px 24px 18px;margin-top:4px;scrollbar-color:#2b3653 transparent}
 .strip figure{flex:none;width:230px;margin:0;scroll-snap-align:start}
+.tlog{max-width:680px;margin:30px auto 0;padding:18px 16px 14px;border:1.5px solid var(--line);border-radius:18px;background:var(--night2);text-align:left}
+.tlog-h{margin:0 0 4px;font:700 1.25rem/1.25 var(--display);color:var(--ink)}.tlog-sub{margin:0 0 12px;color:var(--muted);font-size:.92rem}
+.tlog-rng{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}.tlog-rng button{font:inherit;font-size:.9rem;padding:6px 14px;border-radius:999px;border:1.5px solid var(--line);background:none;color:var(--ink);cursor:pointer}.tlog-rng button.on{border-color:var(--amber);color:var(--amber);font-weight:700}
+.tlog-box{position:relative}.tlog-box svg{display:block;width:100%;height:260px;touch-action:pan-y}
+.tlog-tip{position:absolute;top:4px;pointer-events:none;background:#0b1120;border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:.85rem;color:var(--ink);white-space:nowrap;transform:translateX(-50%)}
+.tlog-leg{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 0;font-size:.85rem;color:var(--muted)}.tlog-leg span::before{content:"";display:inline-block;width:18px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
+.tlog-leg .lt::before{background:#5b9bff}.tlog-leg .lg::before{background:#6cc36c}.tlog-leg .lh::before{height:10px;background:rgba(240,166,48,.35)}
 .nerd-shot{margin:18px auto 0;max-width:620px}.nerd-shot img{width:100%;height:auto;border-radius:14px;border:1.5px solid var(--line)}.nerd-shot figcaption{text-align:center;margin-top:8px;font-size:.9rem;color:var(--muted,#aab)}
 .strip img{border-radius:22px;border:1.5px solid var(--line)}
 .strip-wrap{position:relative}
@@ -1122,6 +1129,36 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
     <p class="nerd-next"><b>Meer nerdwerk op komst:</b><br>De temperatuur van de sensor opslaan in Google Forms<br>en grafieken maken van de temperatuurgeschiedenis 📈</p>
     <figure class="nerd-shot"><img src="../img/thermostat-google-sheet-log.jpg" alt="Nerd-werk, deel 1 klaar: een nieuw Shelly-script stuurt elke 5 minuten zijn temperatuur naar een Google Formulier, en elke keer wordt dat een regel in mijn eigen Google Spreadsheet. Volgende stap: grafieken. Update: het Shelly-script stuurt nu op ronde tijden, elke 5 minuten (:00, :05, :10 …)." loading="lazy" width="1035" height="351"><figcaption>Nerd-werk, deel 1 klaar: een nieuw Shelly-script<br>stuurt elke 5 minuten zijn temperatuur naar een Google Formulier,<br>en elke keer wordt dat een regel in mijn eigen Google Spreadsheet.<br>Volgende stap: grafieken.<br>Update: het Shelly-script stuurt nu op ronde tijden, elke 5 minuten (:00, :05, :10 …).</figcaption></figure>
     <figure class="nerd-shot"><img src="../img/thermostat-google-sheet-graph.jpg?v=5" alt="De eerste grafiek uit mijn eigen Google Spreadsheet: kamertemperatuur (blauw), doel (groen) en verwarming aan/uit (rood, 1 = aan). Normaal volgen de twee lijnen elkaar: de verwarming brengt de kamer naar het doel. Maar ik heb een houtkachel dus hier klopt niets van: 29,7 °C terwijl het doel 10 is." loading="lazy" width="967" height="514"><figcaption>De eerste grafiek uit mijn eigen Google&nbsp;Spreadsheet:<br>kamertemperatuur (blauw), doel (groen) en verwarming aan/uit (rood, 1 = aan).<br>Normaal volgen de twee lijnen elkaar: de verwarming brengt de kamer naar het doel.<br>Maar ik heb een houtkachel 🔥 dus hier klopt niets van: 29,7 °C terwijl het doel 10 is.</figcaption></figure>
+    <div class="tlog" id="temp-history">
+      <h3 class="tlog-h">📈 Temperatuurgeschiedenis, hier op de pagina getekend</h3>
+      <p class="tlog-sub" id="tlogSrc">De pagina leest de Google Spreadsheet als kommagescheiden waarden (CSV) en tekent de grafiek zelf. Voor nu: de avond van 28 november.</p>
+      <div class="tlog-rng" role="group" aria-label="Time range"><button type="button" data-h="6">6 h</button><button type="button" data-h="24">24 h</button><button type="button" data-h="168">7 dagen</button><button type="button" data-h="0" class="on">Alles</button></div>
+      <div class="tlog-box"><svg id="tlogSvg" role="img" aria-label="Room temperature, target and heating over time"></svg><div class="tlog-tip" id="tlogTip" hidden></div></div>
+      <p class="tlog-leg"><span class="lt">Kamertemperatuur</span><span class="lg">Doel</span><span class="lh">Verwarming aan</span></p>
+      <script type="text/csv" id="tlogSample">Timestamp,device,temp,target,heating,level
+11/28/2026 18:06:16,Living room,29.7,21,0,comfort
+11/28/2026 18:11:14,Living room,29.1,10,0,eco
+11/28/2026 18:16:14,Living room,28.7,10,0,eco
+11/28/2026 18:21:14,Living room,28.2,10,0,eco
+11/28/2026 18:26:15,Living room,27.8,10,0,eco
+11/28/2026 18:31:15,Living room,27.2,10,0,eco
+11/28/2026 18:36:14,Living room,27,10,0,eco
+11/28/2026 18:41:15,Living room,26.8,10,0,eco
+11/28/2026 18:46:14,Living room,26.8,10,0,eco
+11/28/2026 18:51:15,Living room,26.8,10,0,eco
+11/28/2026 18:56:14,Living room,26.9,20,0,comfort
+11/28/2026 19:01:15,Living room,26.8,20,0,comfort
+11/28/2026 19:06:14,Living room,26.7,20,0,comfort
+11/28/2026 19:11:14,Living room,26.4,20,0,comfort
+11/28/2026 19:16:15,Living room,26.2,20,0,comfort
+11/28/2026 19:21:14,Living room,26,20,0,comfort
+11/28/2026 19:26:14,Living room,25.9,30,1,comfort
+11/28/2026 19:31:14,Living room,26,30,1,comfort
+11/28/2026 19:35:32,Living room,26.1,30,1,comfort
+11/28/2026 19:40:03,Living room,26.2,30,1,comfort
+11/28/2026 19:45:04,Living room,26.6,30,1,comfort
+11/28/2026 19:50:03,Living room,26.8,30,1,comfort</script>
+    </div>
   </div>
 </section>
 <dialog id="player" aria-label="Video">
@@ -1511,6 +1548,64 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
     toast(pSh.dataset.ok);
   });
   if (location.hash === '#thermostat-kit') setTimeout(() => document.getElementById('thermostat-kit').scrollIntoView({block: 'start'}), 400);
+})();
+// Temperature history: read the Google Sheet as CSV and draw the chart here (no library)
+(() => {
+  const CSV_URL = '';   // published CSV link of the Google Sheet; empty = the sample below
+  const box = document.getElementById('temp-history'); if (!box) return;
+  const svg = document.getElementById('tlogSvg'), tip = document.getElementById('tlogTip'), NS = 'http://www.w3.org/2000/svg';
+  let rows = [], hours = 0;
+  const num = v => { v = String(v).trim().replace(',', '.'); return v === '' ? NaN : Number(v); };
+  function parseTime(t){   // Google gives the Sheet's own date format: M/D/YYYY H:MM:SS (US) or D-M-YYYY H:MM:SS
+    let m = t.match(/^(\d{1,4})[\/.-](\d{1,2})[\/.-](\d{1,4})[ T]+(\d{1,2}):(\d{2})(?::(\d{2}))?/);
+    if (m){ let a = +m[1], b = +m[2], c = +m[3], y, mo, d;
+      if (a > 999){ y = a; mo = b; d = c; } else { y = c; if (t.includes('/') && a <= 12){ mo = a; d = b; } else { d = a; mo = b; } }
+      return new Date(y, mo - 1, d, +m[4], +m[5], +(m[6] || 0)).getTime(); }
+    const n = Date.parse(t); return isNaN(n) ? null : n;
+  }
+  function parse(text){
+    const lines = text.trim().split(/\r?\n/), head = lines.shift().split(',').map(h => h.trim().toLowerCase());
+    const col = n => head.indexOf(n), cT = col('timestamp'), cTe = col('temp'), cG = col('target'), cH = col('heating'), cD = col('device');
+    return lines.map(l => { const f = l.match(/("([^"]|"")*"|[^,]*)(,|$)/g).map(x => x.replace(/,$/, '').replace(/^"|"$/g, '').replace(/""/g, '"'));
+      return { t: parseTime(f[cT] || ''), temp: num(f[cTe]), target: num(f[cG]), heat: num(f[cH]) === 1, dev: f[cD] || '' }; })
+      .filter(r => r.t && !isNaN(r.temp) && r.dev !== 'test').sort((a, b) => a.t - b.t);
+  }
+  const el = (n, a, p) => { const e = document.createElementNS(NS, n); for (const k in a) e.setAttribute(k, a[k]); (p || svg).appendChild(e); return e; };
+  const hm = t => new Date(t).toLocaleTimeString([], {hour: '2-digit', minute: '2-digit', hour12: false});
+  const dm = t => new Date(t).toLocaleDateString([], {day: 'numeric', month: 'short'});
+  function draw(){
+    svg.innerHTML = ''; tip.hidden = true;
+    const W = svg.clientWidth || 600, H = 260, L = 34, R = 10, T = 12, B = 28; svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+    let d = rows; if (hours && d.length){ const from = d[d.length - 1].t - hours * 3600e3; d = d.filter(r => r.t >= from); }
+    if (d.length < 2){ el('text', {x: W / 2, y: H / 2, 'text-anchor': 'middle', fill: '#a3abbd', 'font-size': 14}).textContent = 'Not enough data yet'; return; }
+    const t0 = d[0].t, t1 = d[d.length - 1].t, vals = d.flatMap(r => [r.temp, r.target].filter(v => !isNaN(v)));
+    let lo = Math.floor(Math.min(...vals) / 5) * 5, hi = Math.ceil((Math.max(...vals) + 1) / 5) * 5; if (hi - lo < 10) hi = lo + 10;
+    const X = t => L + (t - t0) / (t1 - t0) * (W - L - R), Y = v => T + (hi - v) / (hi - lo) * (H - T - B);
+    for (let v = lo; v <= hi; v += 5){ el('line', {x1: L, x2: W - R, y1: Y(v), y2: Y(v), stroke: '#243150'}); el('text', {x: L - 6, y: Y(v) + 4, 'text-anchor': 'end', fill: '#a3abbd', 'font-size': 11}).textContent = v; }
+    for (let i = 0; i < d.length - 1; i++) if (d[i].heat) el('rect', {x: X(d[i].t), y: T, width: Math.max(1, X(d[i + 1].t) - X(d[i].t)), height: H - T - B, fill: 'rgba(240,166,48,.22)'});
+    const span = t1 - t0, n = Math.min(6, Math.max(2, Math.floor((W - L - R) / 90)));
+    for (let i = 0; i <= n; i++){ const t = t0 + span * i / n; el('text', {x: X(t), y: H - 8, 'text-anchor': i === 0 ? 'start' : i === n ? 'end' : 'middle', fill: '#a3abbd', 'font-size': 11}).textContent = span > 36 * 3600e3 ? dm(t) : hm(t); }
+    let g = '', first = true; d.forEach((r, i) => { if (isNaN(r.target)) return; g += (first ? 'M' : 'L' + X(r.t) + ' ' + Y(d[i - 1] && !isNaN(d[i - 1].target) ? d[i - 1].target : r.target) + ' L') + X(r.t) + ' ' + Y(r.target) + ' '; first = false; });
+    el('path', {d: g, fill: 'none', stroke: '#6cc36c', 'stroke-width': 2});
+    el('path', {d: d.map((r, i) => (i ? 'L' : 'M') + X(r.t) + ' ' + Y(r.temp)).join(' '), fill: 'none', stroke: '#5b9bff', 'stroke-width': 2.6, 'stroke-linejoin': 'round'});
+    const cur = el('line', {y1: T, y2: H - B, stroke: '#e8e4da', 'stroke-dasharray': '3 3', visibility: 'hidden'}), dot = el('circle', {r: 4.5, fill: '#5b9bff', stroke: '#0e1525', 'stroke-width': 2, visibility: 'hidden'});
+    const show = ev => { const b = svg.getBoundingClientRect(), x = (ev.clientX - b.left) * W / b.width; let k = 0, best = 1e9;
+      d.forEach((r, i) => { const dd = Math.abs(X(r.t) - x); if (dd < best){ best = dd; k = i; } }); const r = d[k];
+      cur.setAttribute('x1', X(r.t)); cur.setAttribute('x2', X(r.t)); cur.setAttribute('visibility', 'visible');
+      dot.setAttribute('cx', X(r.t)); dot.setAttribute('cy', Y(r.temp)); dot.setAttribute('visibility', 'visible');
+      tip.hidden = false; tip.innerHTML = `${hm(r.t)} · <b>${r.temp.toFixed(1)} °C</b> · 🎯 ${isNaN(r.target) ? '–' : r.target} · ${r.heat ? '🔥' : 'off'}`;
+      const hw = tip.offsetWidth / 2 + 2; tip.style.left = Math.min(Math.max(X(r.t) * b.width / W, hw), b.width - hw) + 'px'; };
+    svg.onpointermove = show; svg.onpointerdown = show;
+    svg.onpointerleave = () => { cur.setAttribute('visibility', 'hidden'); dot.setAttribute('visibility', 'hidden'); tip.hidden = true; };
+  }
+  box.querySelectorAll('.tlog-rng button').forEach(b => b.addEventListener('click', () => {
+    box.querySelectorAll('.tlog-rng button').forEach(x => x.classList.toggle('on', x === b)); hours = +b.dataset.h; draw(); }));
+  async function load(){
+    if (CSV_URL){ try { const r = await fetch(CSV_URL, {cache: 'no-store'}); if (r.ok){ rows = parse(await r.text()); draw(); return; } } catch(e){} }
+    rows = parse(document.getElementById('tlogSample').textContent); draw();
+  }
+  load(); if (CSV_URL) setInterval(load, 5 * 60e3);
+  let rw; addEventListener('resize', () => { clearTimeout(rw); rw = setTimeout(draw, 150); });
 })();
 // geopend met #shot-naam: naar dat plaatje in de strip schuiven
 (() => { const h = location.hash.slice(1); if (!h.startsWith('shot-')) return; const f = document.getElementById(h); if (!f) return;
