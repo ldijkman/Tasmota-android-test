@@ -528,7 +528,7 @@ T = [
 ('Store the temperature sensor data in Google Forms', 'Zapisywanie danych z czujnika temperatury w Google Forms'),
 ('and create graphs from the temperature history 📈', 'i wykresy z historii temperatur 📈'),
 ('Try it now: live demo thermostat', 'Wypróbuj teraz: demo termostatu na żywo'),
-('Congratulations, you’re a die-hard: you made it all the way through! 👍', 'Gratulacje, jesteś twardzielem: dotarłeś do samego końca! 👍'),
+('Congratulations, you’re a die-hard: you made it all the way through the Storm! 👍', 'Gratulacje, jesteś twardzielem: przetrwałeś cały Storm! 👍'),
 ('Update the app', 'Zaktualizuj aplikację'),
 ('>🔥 Live thermostat demo<', '>🔥 Demo termostatu na żywo<'),
 ('>Thermostat screenshots</a></li>', '>Zrzuty ekranu termostatu</a></li>'),
