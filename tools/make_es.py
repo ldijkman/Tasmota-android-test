@@ -533,6 +533,7 @@ T = [
 ('Try it now: live demo thermostat', 'Pruébalo ahora: demo en vivo del termostato'),
 ('Congratulations, you’re a die-hard: you made it all the way through! 👍', '¡Enhorabuena, eres un incondicional: has llegado hasta el final! 👍'),
 ('Update the app', 'Actualizar la app'),
+('>🔥 Live thermostat demo<', '>🔥 Demo en vivo del termostato<'),
 ]
 
 

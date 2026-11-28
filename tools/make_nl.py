@@ -556,6 +556,7 @@ T = [
 ('Try it now: live demo thermostat', 'Probeer het nu: live demo thermostaat'),
 ('Congratulations, you’re a die-hard: you made it all the way through! 👍', 'Gefeliciteerd, je bent een die-hard: je hebt het helemaal uitgelezen! 👍'),
 ('Update the app', 'Werk de app bij'),
+('>🔥 Live thermostat demo<', '>🔥 Live demo thermostaat<'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
