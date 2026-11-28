@@ -567,7 +567,7 @@ T = [
 ('Version 27.8: beep beep every 30 seconds while the app is open and a thermostat warns. 🔕 Silence 1 h or 🔕 Until fixed.', 'Versie 27.8: piep piep elke 30 seconden zolang de app open is en een thermostaat waarschuwt. 🔕 Stil 1 uur of 🔕 Tot het opgelost is.'),
 ('DS18B20 temperature sensor in a stainless steel tube on a 1 metre cable', 'DS18B20-temperatuursensor in een rvs-buisje aan een kabel van 1 meter'),
 ('Waterproof temperature sensor, 1 m cable. Plugs into the Add-on.', 'Waterdichte temperatuursensor, kabel van 1 m. Gaat in de Add-on.'),
-("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun", "Dit maakt een Wi&#8209;Fi Slimme Thermostaat van +/- 30 euro<br>Let's Have Fun"),
+("This makes a +/- 30 Euro Wi&#8209;Fi Smart Thermostat<br>Let's Have Fun 🔥❄️", "Dit maakt een Wi&#8209;Fi Slimme Thermostaat van +/- 30 euro<br>Let's Have Fun 🔥❄️"),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')
