@@ -545,6 +545,8 @@ T = [
 ('Share this thermostat</button>', 'Udostępnij ten termostat</button>'),
 ('Nerd stuff, part 1 done: a new Shelly script<br>sends its temperature every 5 minutes to a Google&nbsp;Form,<br>and every send becomes a row in my own Google&nbsp;Sheet.<br>Next: graphs.', 'Nerdowskie sprawy, część 1 gotowa: nowy skrypt Shelly<br>co 5 minut wysyła temperaturę do Formularza Google,<br>a każda wysyłka staje się wierszem w moim własnym Arkuszu Google.<br>Dalej: wykresy.'),
 ('Nerd stuff, part 1 done: a new Shelly script sends its temperature every 5 minutes to a Google Form, and every send becomes a row in my own Google Sheet. Next: graphs.', 'Nerdowskie sprawy, część 1 gotowa: nowy skrypt Shelly co 5 minut wysyła temperaturę do Formularza Google, a każda wysyłka staje się wierszem w moim własnym Arkuszu Google. Dalej: wykresy.'),
+('The first graph from my own Google&nbsp;Sheet:<br>room temperature (blue) and target (red), Comfort 21 → Eco 10.<br>A better one tomorrow, after a full day with the woodstove 🔥', 'Pierwszy wykres z mojego własnego Arkusza&nbsp;Google:<br>temperatura w pokoju (niebieska) i cel (czerwony), Komfort 21 → Eko 10.<br>Jutro lepszy, po całym dniu z piecem na drewno 🔥'),
+('The first graph from my own Google Sheet: room temperature (blue) and target (red), Comfort 21 to Eco 10. A better one tomorrow, after a full day with the woodstove.', 'Pierwszy wykres z mojego własnego Arkusza Google: temperatura w pokoju (niebieska) i cel (czerwony), Komfort 21 to Eko 10. Jutro lepszy, po całym dniu z piecem na drewno'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

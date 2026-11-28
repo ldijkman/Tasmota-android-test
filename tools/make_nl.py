@@ -571,6 +571,8 @@ T = [
 ('Share this thermostat</button>', 'Deel deze thermostaat</button>'),
 ('Nerd stuff, part 1 done: a new Shelly script<br>sends its temperature every 5 minutes to a Google&nbsp;Form,<br>and every send becomes a row in my own Google&nbsp;Sheet.<br>Next: graphs.', 'Nerd-werk, deel 1 klaar: een nieuw Shelly-script<br>stuurt elke 5 minuten zijn temperatuur naar een Google Formulier,<br>en elke keer wordt dat een regel in mijn eigen Google Spreadsheet.<br>Volgende stap: grafieken.'),
 ('Nerd stuff, part 1 done: a new Shelly script sends its temperature every 5 minutes to a Google Form, and every send becomes a row in my own Google Sheet. Next: graphs.', 'Nerd-werk, deel 1 klaar: een nieuw Shelly-script stuurt elke 5 minuten zijn temperatuur naar een Google Formulier, en elke keer wordt dat een regel in mijn eigen Google Spreadsheet. Volgende stap: grafieken.'),
+('The first graph from my own Google&nbsp;Sheet:<br>room temperature (blue) and target (red), Comfort 21 → Eco 10.<br>A better one tomorrow, after a full day with the woodstove 🔥', 'De eerste grafiek uit mijn eigen Google&nbsp;Spreadsheet:<br>kamertemperatuur (blauw) en doel (rood), Comfort 21 → Eco 10.<br>Morgen een betere, na een hele dag met de houtkachel 🔥'),
+('The first graph from my own Google Sheet: room temperature (blue) and target (red), Comfort 21 to Eco 10. A better one tomorrow, after a full day with the woodstove.', 'De eerste grafiek uit mijn eigen Google Spreadsheet: kamertemperatuur (blauw) en doel (rood), Comfort 21 to Eco 10. Morgen een betere, na een hele dag met de houtkachel'),
 ]
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels
 _i = s.index('<figure class="bar"'); _j = s.index('</figure>', _i) + len('</figure>')

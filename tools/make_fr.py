@@ -405,6 +405,8 @@ T = [
 ('Share this thermostat</button>', 'Partager ce thermostat</button>'),
 ('Nerd stuff, part 1 done: a new Shelly script<br>sends its temperature every 5 minutes to a Google&nbsp;Form,<br>and every send becomes a row in my own Google&nbsp;Sheet.<br>Next: graphs.', 'Trucs de geek, partie 1 terminée : un nouveau script Shelly<br>envoie sa température toutes les 5 minutes à un Google Form,<br>et chaque envoi devient une ligne dans mon propre Google Sheet.<br>Prochaine étape : des graphiques.'),
 ('Nerd stuff, part 1 done: a new Shelly script sends its temperature every 5 minutes to a Google Form, and every send becomes a row in my own Google Sheet. Next: graphs.', 'Trucs de geek, partie 1 terminée : un nouveau script Shelly envoie sa température toutes les 5 minutes à un Google Form, et chaque envoi devient une ligne dans mon propre Google Sheet. Prochaine étape : des graphiques.'),
+('The first graph from my own Google&nbsp;Sheet:<br>room temperature (blue) and target (red), Comfort 21 → Eco 10.<br>A better one tomorrow, after a full day with the woodstove 🔥', 'Le premier graphique de mon propre Google&nbsp;Sheet :<br>température de la pièce (bleu) et consigne (rouge), Confort 21 → Éco 10.<br>Un meilleur demain, après une journée entière avec le poêle à bois 🔥'),
+('The first graph from my own Google Sheet: room temperature (blue) and target (red), Comfort 21 to Eco 10. A better one tomorrow, after a full day with the woodstove.', 'Le premier graphique de mon propre Google Sheet : température de la pièce (bleu) et consigne (rouge), Confort 21 to Éco 10. Un meilleur demain, après une journée entière avec le poêle à bois'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

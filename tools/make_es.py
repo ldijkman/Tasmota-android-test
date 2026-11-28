@@ -548,6 +548,8 @@ T = [
 ('Share this thermostat</button>', 'Compartir este termostato</button>'),
 ('Nerd stuff, part 1 done: a new Shelly script<br>sends its temperature every 5 minutes to a Google&nbsp;Form,<br>and every send becomes a row in my own Google&nbsp;Sheet.<br>Next: graphs.', 'Cosas de nerd, parte 1 hecha: un nuevo script de Shelly<br>envía su temperatura cada 5 minutos a un Formulario de Google,<br>y cada envío se convierte en una fila de mi propia Hoja de Google.<br>Siguiente: gráficos.'),
 ('Nerd stuff, part 1 done: a new Shelly script sends its temperature every 5 minutes to a Google Form, and every send becomes a row in my own Google Sheet. Next: graphs.', 'Cosas de nerd, parte 1 hecha: un nuevo script de Shelly envía su temperatura cada 5 minutos a un Formulario de Google, y cada envío se convierte en una fila de mi propia Hoja de Google. Siguiente: gráficos.'),
+('The first graph from my own Google&nbsp;Sheet:<br>room temperature (blue) and target (red), Comfort 21 → Eco 10.<br>A better one tomorrow, after a full day with the woodstove 🔥', 'El primer gráfico de mi propia Hoja&nbsp;de&nbsp;Google:<br>temperatura de la sala (azul) y objetivo (rojo), Confort 21 → Eco 10.<br>Mañana uno mejor, tras un día entero con la estufa de leña 🔥'),
+('The first graph from my own Google Sheet: room temperature (blue) and target (red), Comfort 21 to Eco 10. A better one tomorrow, after a full day with the woodstove.', 'El primer gráfico de mi propia Hoja de Google: temperatura de la sala (azul) y objetivo (rojo), Confort 21 to Eco 10. Mañana uno mejor, tras un día entero con la estufa de leña'),
 ]
 
 
