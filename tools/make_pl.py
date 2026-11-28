@@ -551,7 +551,7 @@ T = [
 ('The page reads the Google Sheet as comma-separated values (CSV) and draws the chart itself. For now: the evening of 28 November.', 'Strona czyta Arkusz Google jako wartości rozdzielone przecinkami (CSV) i sama rysuje wykres. Na razie: wieczór 28 listopada.'),
 ('<span class="lt">Room temperature</span><span class="lg">Target</span><span class="lh">Heating on 🔥</span>', '<span class="lt">Temperatura w pokoju</span><span class="lg">Cel</span><span class="lh">Ogrzewanie wł. 🔥</span>'),
 ('data-h="168">7 days</button><button type="button" data-h="0" class="on">All</button>', 'data-h="168">7 dni</button><button type="button" data-h="0" class="on">Wszystko</button>'),
-('Live from my Shelly, through my own Google Sheet (CSV): {n} readings, the last one at {t}. Updates every 5 minutes.', 'Na żywo z mojego Shelly, przez mój własny Arkusz Google (CSV): {n} pomiarów, ostatni o {t}. Odświeża się co 5 minut.'),
+('Live from my LivingRoom Shelly, through my own Google Sheet (CSV): {n} readings, the last one at {t}. Updates every 10 minutes.', 'Na żywo z mojego Shelly LivingRoom, przez mój własny Arkusz Google (CSV): {n} pomiarów, ostatni o {t}. Odświeża się co 10 minut.'),
 ]
 
 # het schema-voorbeeld (Garden lights) blijft op elke taalpagina Engels

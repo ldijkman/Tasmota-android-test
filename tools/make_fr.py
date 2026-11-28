@@ -411,7 +411,7 @@ T = [
 ('The page reads the Google Sheet as comma-separated values (CSV) and draws the chart itself. For now: the evening of 28 November.', 'La page lit le Google Sheet en valeurs séparées par des virgules (CSV) et dessine le graphique elle-même. Pour l’instant : la soirée du 28 novembre.'),
 ('<span class="lt">Room temperature</span><span class="lg">Target</span><span class="lh">Heating on 🔥</span>', '<span class="lt">Température de la pièce</span><span class="lg">Consigne</span><span class="lh">Chauffage en marche 🔥</span>'),
 ('data-h="168">7 days</button><button type="button" data-h="0" class="on">All</button>', 'data-h="168">7 jours</button><button type="button" data-h="0" class="on">Tout</button>'),
-('Live from my Shelly, through my own Google Sheet (CSV): {n} readings, the last one at {t}. Updates every 5 minutes.', 'En direct de mon Shelly, via mon propre Google Sheet (CSV) : {n} mesures, la dernière à {t}. Mise à jour toutes les 5 minutes.'),
+('Live from my LivingRoom Shelly, through my own Google Sheet (CSV): {n} readings, the last one at {t}. Updates every 10 minutes.', 'En direct de mon Shelly LivingRoom, via mon propre Google Sheet (CSV) : {n} mesures, la dernière à {t}. Mise à jour toutes les 10 minutes.'),
 ]
 # French typography: non-breaking space before ? ! : ; and inside « »
 import re as _re

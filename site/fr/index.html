@@ -1131,7 +1131,7 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
     <figure class="nerd-shot"><img src="../img/thermostat-google-sheet-graph.jpg?v=5" alt="Le premier graphique de mon propre Google Sheet : température de la pièce (bleu), consigne (vert) et chauffage marche/arrêt (rouge, 1 = marche). Normalement les deux lignes se suivent : le chauffage amène la pièce à la consigne. Mais j’ai un poêle à bois donc rien n’a de sens ici : 29,7 °C alors que la consigne est 10." loading="lazy" width="967" height="514"><figcaption>Le premier graphique de mon propre Google&nbsp;Sheet :<br>température de la pièce (bleu), consigne (vert) et chauffage marche/arrêt (rouge, 1 = marche).<br>Normalement les deux lignes se suivent : le chauffage amène la pièce à la consigne.<br>Mais j’ai un poêle à bois 🔥 donc rien n’a de sens ici : 29,7 °C alors que la consigne est 10.</figcaption></figure>
     <div class="tlog" id="temp-history">
       <h3 class="tlog-h">📈 Historique des températures, dessiné ici sur la page</h3>
-      <p class="tlog-sub" id="tlogSrc" data-live="En direct de mon Shelly, via mon propre Google Sheet (CSV) : {n} mesures, la dernière à {t}. Mise à jour toutes les 5 minutes.">La page lit le Google Sheet en valeurs séparées par des virgules (CSV) et dessine le graphique elle-même. Pour l’instant : la soirée du 28 novembre.</p>
+      <p class="tlog-sub" id="tlogSrc" data-live="En direct de mon Shelly LivingRoom, via mon propre Google Sheet (CSV) : {n} mesures, la dernière à {t}. Mise à jour toutes les 10 minutes.">La page lit le Google Sheet en valeurs séparées par des virgules (CSV) et dessine le graphique elle-même. Pour l’instant : la soirée du 28 novembre.</p>
       <div class="tlog-rng" role="group" aria-label="Time range"><button type="button" data-h="6">6 h</button><button type="button" data-h="24">24 h</button><button type="button" data-h="168">7 jours</button><button type="button" data-h="0" class="on">Tout</button></div>
       <div class="tlog-box"><svg id="tlogSvg" role="img" aria-label="Room temperature, target and heating over time"></svg><div class="tlog-tip" id="tlogTip" hidden></div></div>
       <p class="tlog-leg"><span class="lt">Température de la pièce</span><span class="lg">Consigne</span><span class="lh">Chauffage en marche 🔥</span></p>
@@ -1605,7 +1605,7 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
     if (CSV_URL){ try { const r = await fetch(CSV_URL, {cache: 'no-store'}); if (r.ok){ const x = parse(await r.text()); if (x.length > 1){ rows = x; const src = document.getElementById('tlogSrc'); src.textContent = src.dataset.live.replace('{n}', x.length).replace('{t}', new Date(x[x.length - 1].t).toLocaleString([], {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false})); draw(); return; } } } catch(e){} }
     rows = parse(document.getElementById('tlogSample').textContent); draw();
   }
-  load(); if (CSV_URL) setInterval(load, 5 * 60e3);
+  load(); if (CSV_URL) setInterval(load, 10 * 60e3);
   let rw; addEventListener('resize', () => { clearTimeout(rw); rw = setTimeout(draw, 150); });
 })();
 // geopend met #shot-naam: naar dat plaatje in de strip schuiven

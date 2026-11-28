@@ -554,7 +554,7 @@ T = [
 ('The page reads the Google Sheet as comma-separated values (CSV) and draws the chart itself. For now: the evening of 28 November.', 'La página lee la Hoja de Google como valores separados por comas (CSV) y dibuja el gráfico ella misma. Por ahora: la tarde del 28 de noviembre.'),
 ('<span class="lt">Room temperature</span><span class="lg">Target</span><span class="lh">Heating on 🔥</span>', '<span class="lt">Temperatura de la sala</span><span class="lg">Objetivo</span><span class="lh">Calefacción encendida 🔥</span>'),
 ('data-h="168">7 days</button><button type="button" data-h="0" class="on">All</button>', 'data-h="168">7 días</button><button type="button" data-h="0" class="on">Todo</button>'),
-('Live from my Shelly, through my own Google Sheet (CSV): {n} readings, the last one at {t}. Updates every 5 minutes.', 'En directo desde mi Shelly, a través de mi propia Hoja de Google (CSV): {n} mediciones, la última a las {t}. Se actualiza cada 5 minutos.'),
+('Live from my LivingRoom Shelly, through my own Google Sheet (CSV): {n} readings, the last one at {t}. Updates every 10 minutes.', 'En directo desde mi Shelly LivingRoom, a través de mi propia Hoja de Google (CSV): {n} mediciones, la última a las {t}. Se actualiza cada 10 minutos.'),
 ]
 
 

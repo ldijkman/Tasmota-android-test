@@ -1130,7 +1130,7 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
     <figure class="nerd-shot"><img src="img/thermostat-google-sheet-graph.jpg?v=5" alt="The first graph from my own Google Sheet: room temperature (blue), target (green) and heating on/off (red, 1 = on). Normally the two lines follow each other: the heating brings the room up to the target. But I have a woodstove so nothing here makes sense: 29.7 °C while the target is 10." loading="lazy" width="967" height="514"><figcaption>The first graph from my own Google&nbsp;Sheet:<br>room temperature (blue), target (green) and heating on/off (red, 1 = on).<br>Normally the two lines follow each other: the heating brings the room up to the target.<br>But I have a woodstove 🔥 so nothing here makes sense: 29.7 °C while the target is 10.</figcaption></figure>
     <div class="tlog" id="temp-history">
       <h3 class="tlog-h">📈 Temperature history, drawn right here on the page</h3>
-      <p class="tlog-sub" id="tlogSrc" data-live="Live from my Shelly, through my own Google Sheet (CSV): {n} readings, the last one at {t}. Updates every 5 minutes.">The page reads the Google Sheet as comma-separated values (CSV) and draws the chart itself. For now: the evening of 28 November.</p>
+      <p class="tlog-sub" id="tlogSrc" data-live="Live from my LivingRoom Shelly, through my own Google Sheet (CSV): {n} readings, the last one at {t}. Updates every 10 minutes.">The page reads the Google Sheet as comma-separated values (CSV) and draws the chart itself. For now: the evening of 28 November.</p>
       <div class="tlog-rng" role="group" aria-label="Time range"><button type="button" data-h="6">6 h</button><button type="button" data-h="24">24 h</button><button type="button" data-h="168">7 days</button><button type="button" data-h="0" class="on">All</button></div>
       <div class="tlog-box"><svg id="tlogSvg" role="img" aria-label="Room temperature, target and heating over time"></svg><div class="tlog-tip" id="tlogTip" hidden></div></div>
       <p class="tlog-leg"><span class="lt">Room temperature</span><span class="lg">Target</span><span class="lh">Heating on 🔥</span></p>
@@ -1604,7 +1604,7 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
     if (CSV_URL){ try { const r = await fetch(CSV_URL, {cache: 'no-store'}); if (r.ok){ const x = parse(await r.text()); if (x.length > 1){ rows = x; const src = document.getElementById('tlogSrc'); src.textContent = src.dataset.live.replace('{n}', x.length).replace('{t}', new Date(x[x.length - 1].t).toLocaleString([], {day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', hour12: false})); draw(); return; } } } catch(e){} }
     rows = parse(document.getElementById('tlogSample').textContent); draw();
   }
-  load(); if (CSV_URL) setInterval(load, 5 * 60e3);
+  load(); if (CSV_URL) setInterval(load, 10 * 60e3);
   let rw; addEventListener('resize', () => { clearTimeout(rw); rw = setTimeout(draw, 150); });
 })();
 // geopend met #shot-naam: naar dat plaatje in de strip schuiven
