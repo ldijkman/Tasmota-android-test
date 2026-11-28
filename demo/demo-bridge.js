@@ -395,10 +395,16 @@
   });
 
   // Share button at the bottom of the Heating screen (demo only)
-  window.demoShareThermo = function () {
-    const url = 'https://ldijkman.github.io/Tasmota-android-test/demo/#thermostat';
-    const text = 'Try this thermostat in your browser: a Shelly 1 Gen3 with a DS18B20, free Android app, no cloud.';
-    if (navigator.share) { navigator.share({ title: 'Live demo thermostat', text, url }).catch(() => {}); return; }
+  window.demoShareThermo = async function () {
+    const url = 'https://ldijkman.github.io/Tasmota-android-test/demo/thermostat.html';   // has a preview picture
+    const text = 'Try this thermostat in your browser: a Shelly 1 Gen3 with a DS18B20, free Android app, no cloud. ' + url;
+    if (navigator.share) {
+      try {   // with the picture of the big thermostat, if the phone can share files
+        const r = await fetch('../img/og-thermostat-demo.jpg'); const f = new File([await r.blob()], 'live-demo-thermostat.jpg', { type: 'image/jpeg' });
+        if (navigator.canShare && navigator.canShare({ files: [f] })) { await navigator.share({ title: 'Live demo thermostat', text, files: [f] }); return; }
+      } catch (e) { if (e && e.name === 'AbortError') return; }
+      navigator.share({ title: 'Live demo thermostat', text: text.replace(' ' + url, ''), url }).catch(() => {}); return;
+    }
     const ok = () => { if (typeof showToast === 'function') showToast('Link copied'); };
     (navigator.clipboard ? navigator.clipboard.writeText(url) : Promise.reject()).then(ok, () => { window.prompt('Copy this link:', url); });
   };
