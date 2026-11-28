@@ -530,6 +530,7 @@ T = [
 ('More nerd stuff to come:', 'Más cosas de nerd en camino:'),
 ('Store the temperature sensor data in Google Forms', 'Guardar los datos del sensor de temperatura en Google Forms'),
 ('and create graphs from the temperature history 📈', 'y crear gráficos con el historial de temperaturas 📈'),
+('Well, honey, what do you think of it!?', 'Bueno, cariño, ¿qué te parece!?'),
 ]
 
 
