@@ -205,7 +205,7 @@ dialog button{background:none;border:1.5px solid #3a4a70;color:#fff;border-radiu
 .tlog-box{position:relative}.tlog-box svg{display:block;width:100%;height:260px;touch-action:pan-y}
 .tlog-tip{position:absolute;top:4px;pointer-events:none;background:#0b1120;border:1px solid var(--line);border-radius:10px;padding:6px 10px;font-size:.85rem;color:var(--ink);white-space:nowrap;transform:translateX(-50%)}
 .tlog-leg{display:flex;gap:16px;flex-wrap:wrap;margin:8px 0 0;font-size:.85rem;color:var(--muted)}.tlog-leg span::before{content:"";display:inline-block;width:18px;height:4px;border-radius:2px;margin-right:6px;vertical-align:middle}
-.tlog-leg .lt::before{background:#5b9bff}.tlog-leg .lg::before{background:#6cc36c}.tlog-leg .lh::before{height:10px;background:rgba(240,166,48,.35)}
+.tlog-leg .lt::before{background:#5b9bff}.tlog-leg .lg::before{background:#6cc36c}.tlog-leg .lh::before{height:12px;background:linear-gradient(rgba(255,122,26,.35) 60%,#ff7a1a 60%)}
 .nerd-shot{margin:18px auto 0;max-width:620px}.nerd-shot img{width:100%;height:auto;border-radius:14px;border:1.5px solid var(--line)}.nerd-shot figcaption{text-align:center;margin-top:8px;font-size:.9rem;color:var(--muted,#aab)}
 .strip img{border-radius:22px;border:1.5px solid var(--line)}
 .strip-wrap{position:relative}
@@ -1134,7 +1134,7 @@ loadSettings(<span class="jk">function</span> () {   <span class="jc">// first t
       <p class="tlog-sub" id="tlogSrc" data-live="En direct de mon Shelly, via mon propre Google Sheet (CSV) : {n} mesures, la dernière à {t}. Mise à jour toutes les 5 minutes.">La page lit le Google Sheet en valeurs séparées par des virgules (CSV) et dessine le graphique elle-même. Pour l’instant : la soirée du 28 novembre.</p>
       <div class="tlog-rng" role="group" aria-label="Time range"><button type="button" data-h="6">6 h</button><button type="button" data-h="24">24 h</button><button type="button" data-h="168">7 jours</button><button type="button" data-h="0" class="on">Tout</button></div>
       <div class="tlog-box"><svg id="tlogSvg" role="img" aria-label="Room temperature, target and heating over time"></svg><div class="tlog-tip" id="tlogTip" hidden></div></div>
-      <p class="tlog-leg"><span class="lt">Température de la pièce</span><span class="lg">Consigne</span><span class="lh">Chauffage en marche</span></p>
+      <p class="tlog-leg"><span class="lt">Température de la pièce</span><span class="lg">Consigne</span><span class="lh">Chauffage en marche 🔥</span></p>
       <script type="text/csv" id="tlogSample">Timestamp,device,temp,target,heating,level
 11/28/2026 18:06:16,Living room,29.7,21,0,comfort
 11/28/2026 18:11:14,Living room,29.1,10,0,eco
@@ -1582,7 +1582,8 @@ document.querySelectorAll('#thermo-shots figure, #shots .strip figure, .sh-strip
     let lo = Math.floor(Math.min(...vals) / 5) * 5, hi = Math.ceil((Math.max(...vals) + 1) / 5) * 5; if (hi - lo < 10) hi = lo + 10;
     const X = t => L + (t - t0) / (t1 - t0) * (W - L - R), Y = v => T + (hi - v) / (hi - lo) * (H - T - B);
     for (let v = lo; v <= hi; v += 5){ el('line', {x1: L, x2: W - R, y1: Y(v), y2: Y(v), stroke: '#243150'}); el('text', {x: L - 6, y: Y(v) + 4, 'text-anchor': 'end', fill: '#a3abbd', 'font-size': 11}).textContent = v; }
-    for (let i = 0; i < d.length - 1; i++) if (d[i].heat) el('rect', {x: X(d[i].t), y: T, width: Math.max(1, X(d[i + 1].t) - X(d[i].t)), height: H - T - B, fill: 'rgba(240,166,48,.22)'});
+    for (let i = 0; i < d.length; i++) if (d[i].heat){ const x0 = X(d[i].t), x1 = i < d.length - 1 ? X(d[i + 1].t) : W - R, w = Math.max(2, Math.min(x1, W - R) - x0);
+      el('rect', {x: x0, y: T, width: w, height: H - T - B, fill: 'rgba(255,122,26,.28)'}); el('rect', {x: x0, y: H - B - 7, width: w, height: 7, fill: '#ff7a1a'}); }
     const span = t1 - t0, n = Math.min(6, Math.max(2, Math.floor((W - L - R) / 90)));
     for (let i = 0; i <= n; i++){ const t = t0 + span * i / n; el('text', {x: X(t), y: H - 8, 'text-anchor': i === 0 ? 'start' : i === n ? 'end' : 'middle', fill: '#a3abbd', 'font-size': 11}).textContent = span > 36 * 3600e3 ? dm(t) : hm(t); }
     let g = '', first = true; d.forEach((r, i) => { if (isNaN(r.target)) return; g += (first ? 'M' : 'L' + X(r.t) + ' ' + Y(d[i - 1] && !isNaN(d[i - 1].target) ? d[i - 1].target : r.target) + ' L') + X(r.t) + ' ' + Y(r.target) + ' '; first = false; });
