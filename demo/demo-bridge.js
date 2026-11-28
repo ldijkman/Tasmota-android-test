@@ -415,6 +415,13 @@
     b.style.cssText = 'margin-left:auto;flex:none;display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 14px;border-radius:12px;border:1.5px solid #f0a630;background:transparent;color:#f0a630;font:inherit;font-weight:700';
     b.innerHTML = '<svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M18 16.1c-.8 0-1.5.3-2 .8l-7.1-4.2c.1-.2.1-.5.1-.7s0-.5-.1-.7L16 7.2c.5.5 1.2.8 2 .8 1.7 0 3-1.3 3-3s-1.3-3-3-3-3 1.3-3 3c0 .2 0 .5.1.7L8 9.8C7.5 9.3 6.8 9 6 9c-1.7 0-3 1.3-3 3s1.3 3 3 3c.8 0 1.5-.3 2-.8l7.1 4.2c-.1.2-.1.4-.1.6 0 1.6 1.3 2.9 2.9 2.9s2.9-1.3 2.9-2.9-1.2-2.9-2.8-2.9z"/></svg>Share';
     head.appendChild(b);
+    // at the bottom: back to the website
+    const body = document.getElementById('thermoBody');
+    if (body && !document.getElementById('demoSiteTh')) {
+      const w = document.createElement('p'); w.id = 'demoSiteTh'; w.style.cssText = 'text-align:center;margin:6px 16px 24px';
+      w.innerHTML = '<a href="https://ldijkman.github.io/Tasmota-android-test/" style="color:#f0a630;font-weight:700">Shelly &amp; Tasmota Scan &amp; Control: website, videos and download</a>';
+      body.insertAdjacentElement('afterend', w);
+    }
   });
 
   // "Why free?" (same text as on the website)
