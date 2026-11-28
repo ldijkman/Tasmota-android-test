@@ -243,6 +243,7 @@
   .thv.off .thv-dim{opacity:.35}
   .thv-links button{font-size:.88rem;height:44px;color:var(--muted)}
   .thv-tl{text-align:center;margin-top:12px;font-size:.92rem;color:var(--muted)}
+  .td-thi{vertical-align:-2px;color:#ff6a1f;flex:none}
   .th-alarm{margin:8px 0 0;padding:8px 10px;border-radius:10px;background:rgba(229,72,77,.14);color:var(--err);font-weight:700;font-size:.9rem}
   .thw .w-sub.w-alarm{color:var(--err);font-weight:700}
   .thv-adj{display:flex;align-items:center;justify-content:center;gap:12px;margin-top:6px}
@@ -2703,12 +2704,14 @@ function dayEvents(k){
         how = (+t.Mode === 1 ? 'Sunrise' : 'Sunset') + (off ? ` ${neg ? '−' : '+'} ${off >= 60 ? Math.floor(off/60) + ' h ' : ''}${off % 60 ? off % 60 + ' min' : ''}`.replace(/ $/, '') : '') + (+t.Mode === 1 ? ' ☀↑' : ' ☀↓');
       }
       if (m < 0 || m >= 1440) return;
-      out.push({min: m, ip: d.ip, name: d.friendly || d.name || d.ip, act: +t.Action, sched: Math.floor(i / 2) + 1, how, water: isWater(d.icon), oc: okColor(d.oncolor) ? d.oncolor : ''});
+      out.push({min: m, ip: d.ip, name: d.friendly || d.name || d.ip, act: +t.Action, sched: Math.floor(i / 2) + 1, how, water: isWater(d.icon), oc: okColor(d.oncolor) ? d.oncolor : '', th: !!thermoOf(d.ip)});
     });
   });
   return out.sort((a, b) => a.min - b.min || a.name.localeCompare(b.name));
 }
-const actWord = a => a === 1 ? 'on' : a === 0 ? 'off' : 'toggle';
+const actWord = (a, th) => th ? (a === 1 ? '☀️ Comfort' : '🌙 Eco') : a === 1 ? 'on' : a === 0 ? 'off' : 'toggle';   // thermostaat: Comfort/Eco
+const thIco = () => `<svg class="td-thi" width="14" height="14" viewBox="0 0 24 24" aria-label="thermostat"><path fill="currentColor" d="${SENS_ICON.temp}"/></svg>`;
+const evName = (n, th) => esc(n) + (th ? ' ' + thIco() : '');
 const evDot = e => `<span class="td-dot${e.act === 1 ? ' on' : e.act === 2 ? ' tg' : ''}${e.water ? ' w' : ''}"${e.oc ? (e.act === 1 ? ` style="background:${e.oc};box-shadow:0 0 6px ${e.oc}"` : e.act === 2 ? ` style="border-color:${e.oc}"` : '') : ''}></span>`;
 const nowMin = () => { const n = new Date(); return n.getHours() * 60 + n.getMinutes(); };
 // kaart op het hoofdscherm: de volgende 2 tijdstippen (zelfde tijd + actie samengevoegd)
@@ -2718,13 +2721,13 @@ function renderUpcoming(){
   if (!has){ el.style.display = 'none'; return; }
   el.style.display = '';
   const now = nowMin(), next = dayEvents(0).filter(e => e.min > now), groups = [];
-  next.forEach(e => { const g = groups.find(x => x.min === e.min && x.act === e.act);
-    if (g) g.names.push(e.name); else if (groups.length < 2) groups.push({min: e.min, act: e.act, water: e.water, oc: e.oc, names: [e.name]}); });
+  next.forEach(e => { const g = groups.find(x => x.min === e.min && x.act === e.act && !!x.th === !!e.th);
+    if (g) g.names.push(e.name); else if (groups.length < 2) groups.push({min: e.min, act: e.act, water: e.water, oc: e.oc, th: e.th, names: [e.name]}); });
   let body;
-  if (groups.length) body = groups.map(g => `<div class="up-e"><span class="t">${hhmm(g.min)}</span>${evDot(g)}<span>${esc(g.names.join(' + '))} ${actWord(g.act)}</span></div>`).join('');
+  if (groups.length) body = groups.map(g => `<div class="up-e"><span class="t">${hhmm(g.min)}</span>${evDot(g)}<span>${evName(g.names.join(' + '), g.th)} ${actWord(g.act, g.th)}</span></div>`).join('');
   else {
     const t = dayEvents(1)[0];
-    body = `<div class="up-none">Nothing more today${t ? ` · tomorrow ${hhmm(t.min)} ${esc(t.name)} ${actWord(t.act)}` : ''}</div>`;
+    body = `<div class="up-none">Nothing more today${t ? ` · tomorrow ${hhmm(t.min)} ${evName(t.name, t.th)} ${actWord(t.act, t.th)}` : ''}</div>`;
   }
   // in-/uitklappen (wordt onthouden); ingeklapt toont de kop het eerstvolgende tijdstip
   const folded = (() => { try { return localStorage.getItem('tas_up_fold') === '1'; } catch(e){ return false; } })();
@@ -2778,11 +2781,11 @@ function renderToday(){
   let strip = '';
   if (S0 && S0.rise < S0.set) strip = `<div class="td-strip" style="background:linear-gradient(90deg,#22355f ${P(S0.rise - 30)},#f2cf5b ${P(S0.rise + 20)},#f2cf5b ${P(S0.set - 20)},#22355f ${P(S0.set + 30)})"></div>`;
   const bars = rows.length ? `<div class="card"><div class="td-bars">${strip}
-    ${rows.map(r => `<div class="td-row" data-ip="${r.d.ip}"><span class="n">${esc(r.d.friendly || r.d.name || r.d.ip)}</span><div class="td-bar">${
+    ${rows.map(r => `<div class="td-row" data-ip="${r.d.ip}"><span class="n">${evName(r.d.friendly || r.d.name || r.d.ip, !!thermoOf(r.d.ip))}</span><div class="td-bar">${
       r.paused ? '<span class="ps">schedules paused</span>' : r.segs.map(g => `<div class="td-seg${isWater(r.d.icon) ? ' w' : ''}" style="left:${P(g[0])};width:${P(g[1] - g[0])}${okColor(r.d.oncolor) ? ';background:' + r.d.oncolor : ''}"></div>`).join('')}</div></div>`).join('')}
     <div class="td-hours">${[0,6,12,18,24].map(h => `<span style="left:${P(h*60)}">${h}</span>`).join('')}</div>
     ${now != null ? `<div class="td-now" style="left:calc(118px + (100% - 118px) * ${(now / 1440).toFixed(4)})"></div>` : ''}</div></div>` : '';
-  const line = (e, past) => `<div class="td-ev${past ? ' past' : ''}" data-ip="${e.ip}"><span class="t">${hhmm(e.min)}</span>${evDot(e)}<span>${esc(e.name)} ${actWord(e.act)}<small>${esc(e.how)}</small></span></div>`;
+  const line = (e, past) => `<div class="td-ev${past ? ' past' : ''}" data-ip="${e.ip}"><span class="t">${hhmm(e.min)}</span>${evDot(e)}<span>${evName(e.name, e.th)} ${actWord(e.act, e.th)}<small>${esc(e.how)}</small></span></div>`;
   let list = '';
   if (!ev.length) list = `<div class="card"><div class="hint">No schedules ${k === 0 ? 'today' : 'on this day'}.</div></div>`;
   else if (now == null) list = `<div class="td-sec">${ev.length} action${ev.length > 1 ? 's' : ''}</div>` + ev.map(e => line(e, false)).join('');
